@@ -1,0 +1,6 @@
+framework module Pods_CarSharingAppTests {
+  umbrella header "Pods-CarSharingAppTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
