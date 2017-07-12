@@ -18,6 +18,7 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var collegeTextField: UITextField!
     var emptyFieldAlert: UIAlertController!
     var passwordAlert: UIAlertController!
+    var emailAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,11 @@ class SignupViewController: UIViewController {
         // Set up the passwordAlert
         passwordAlert = UIAlertController(title: "Password mismatch", message: "Make sure your passwords match", preferredStyle: .alert)
         passwordAlert.addAction(cancelAction) // add the cancel action to the alertController
+        
+        // Set up the emailAlert
+        emailAlert = UIAlertController(title: "Invalid email", message: "Make sure your email is valid", preferredStyle: .alert)
+        emailAlert.addAction(cancelAction) // add the cancel action to the alertController
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -45,16 +51,26 @@ class SignupViewController: UIViewController {
     
     @IBAction func didTapSubmit(_ sender: Any) {
     
-        //check to display error message if one of the field is empty
+        //display error message if one of the field is empty
         if allFieldsFilled() == false {
             present(emptyFieldAlert, animated: true) { }
+            print(self.getDomain(s: emailTextField.text!))
             return
         }
         
+        //display error message if passwords don't match
         if passwordTextField.text != confirmPasswordTextField.text {
             present(passwordAlert, animated: true) { }
             return
         }
+        
+        //display error message if email isn't valid
+        if self.isValidEmail(testStr: emailTextField.text!) == false {
+            present(emailAlert, animated: true) { }
+            return
+        }
+        
+        // TODO: check if school's domain matches user's email domain
         
         User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: collegeTextField.text) { (success: Bool, error: Error?) in
             if let error = error {
@@ -76,6 +92,27 @@ class SignupViewController: UIViewController {
             return false
         }
         return true
+    }
+    
+    /*
+     * Check that email is valid
+     */
+    func isValidEmail(testStr:String) -> Bool {
+        // print("validate calendar: \(testStr)")
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.edu"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    /*
+     * Gets the domain of the inputted email address
+     */
+    func getDomain(s: String) -> String {
+        var v = s.components(separatedBy: "@").last?.components(separatedBy: ".")
+        v?.removeLast()
+        
+        return (v!.last)!
     }
     
     
