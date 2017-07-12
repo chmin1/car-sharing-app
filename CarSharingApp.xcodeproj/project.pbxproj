@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		704F1834760ECB595969B2EF /* Pods_CarSharingAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9D96581882B572DFB0FEACB /* Pods_CarSharingAppTests.framework */; };
 		90605D90183293FD3DA70360 /* Pods_CarSharingAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */; };
+		93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BF81F169D9A003BB533 /* HomeViewController.swift */; };
+		93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFC1F16A27F003BB533 /* TripCell.swift */; };
+		93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */; };
 		C836520811D9B5E8E930B68E /* Pods_CarSharingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F02EC0DB2C4343792D1AF /* Pods_CarSharingApp.framework */; };
 		E18E2C9B1F15995800930CE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9A1F15995800930CE0 /* User.swift */; };
 		F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */; };
@@ -43,6 +46,9 @@
 		6487F068729211FD94C52901 /* Pods-CarSharingAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingAppTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingAppTests/Pods-CarSharingAppTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7E1823B6102FE0F859805A27 /* Pods-CarSharingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingApp/Pods-CarSharingApp.release.xcconfig"; sourceTree = "<group>"; };
 		8B0B4F420113F2156970989B /* Pods-CarSharingAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingAppUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingAppUITests/Pods-CarSharingAppUITests.release.xcconfig"; sourceTree = "<group>"; };
+		93202BF81F169D9A003BB533 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		93202BFC1F16A27F003BB533 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
+		93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderCell.swift; sourceTree = "<group>"; };
 		A802CA4CAB13ABB4DE15BB92 /* Pods-CarSharingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingAppTests/Pods-CarSharingAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9D96581882B572DFB0FEACB /* Pods_CarSharingAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18E2C9A1F15995800930CE0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -143,6 +149,9 @@
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
 				E18E2C9A1F15995800930CE0 /* User.swift */,
+				93202BF81F169D9A003BB533 /* HomeViewController.swift */,
+				93202BFC1F16A27F003BB533 /* TripCell.swift */,
+				93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */,
 			);
 			path = CarSharingApp;
 			sourceTree = "<group>";
@@ -448,6 +457,9 @@
 			files = (
 				E18E2C9B1F15995800930CE0 /* User.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
+				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
+				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
+				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
