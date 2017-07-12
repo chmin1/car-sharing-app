@@ -11,6 +11,7 @@
 		90605D90183293FD3DA70360 /* Pods_CarSharingAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */; };
 		C836520811D9B5E8E930B68E /* Pods_CarSharingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F02EC0DB2C4343792D1AF /* Pods_CarSharingApp.framework */; };
 		E18E2C9B1F15995800930CE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9A1F15995800930CE0 /* User.swift */; };
+		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */; };
 		F9EFA0D11F15856A00866E6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0CF1F15856A00866E6E /* Main.storyboard */; };
 		F9EFA0D31F15856A00866E6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0D21F15856A00866E6E /* Assets.xcassets */; };
@@ -47,6 +48,7 @@
 		C9D96581882B572DFB0FEACB /* Pods_CarSharingAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E18E2C9A1F15995800930CE0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F9EFA0C81F15856A00866E6E /* CarSharingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSharingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EFA0D01F15856A00866E6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -112,6 +114,15 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F942120E1F1692110051D1A9 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				E18E2C9A1F15995800930CE0 /* User.swift */,
+				F942120F1F16924F0051D1A9 /* Trip.swift */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		F9EFA0BF1F15856A00866E6E = {
 			isa = PBXGroup;
 			children = (
@@ -137,12 +148,12 @@
 		F9EFA0CA1F15856A00866E6E /* CarSharingApp */ = {
 			isa = PBXGroup;
 			children = (
+				F942120E1F1692110051D1A9 /* Classes */,
 				F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */,
 				F9EFA0CF1F15856A00866E6E /* Main.storyboard */,
 				F9EFA0D21F15856A00866E6E /* Assets.xcassets */,
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
-				E18E2C9A1F15995800930CE0 /* User.swift */,
 			);
 			path = CarSharingApp;
 			sourceTree = "<group>";
@@ -446,6 +457,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F94212101F16924F0051D1A9 /* Trip.swift in Sources */,
 				E18E2C9B1F15995800930CE0 /* User.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
 			);
