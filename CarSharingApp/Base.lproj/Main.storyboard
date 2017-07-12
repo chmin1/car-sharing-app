@@ -156,10 +156,10 @@
             </objects>
             <point key="canvasLocation" x="856.79999999999995" y="136.28185907046478"/>
         </scene>
-        <!--View Controller-->
+        <!--Dummy View Controller-->
         <scene sceneID="Bqn-RX-iNJ">
             <objects>
-                <viewController storyboardIdentifier="Dummy" id="YDa-xn-MoB" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Dummy" id="YDa-xn-MoB" customClass="DummyViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="VLy-Pm-5gq"/>
                         <viewControllerLayoutGuide type="bottom" id="QwI-fZ-CnX"/>
@@ -175,6 +175,14 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="crF-eL-IGY">
+                                <rect key="frame" x="161" y="391" width="52" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log out"/>
+                                <connections>
+                                    <action selector="didTapLogout:" destination="YDa-xn-MoB" eventType="touchUpInside" id="56e-rz-8bg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

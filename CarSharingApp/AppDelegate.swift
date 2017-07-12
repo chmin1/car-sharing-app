@@ -37,6 +37,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.rootViewController = dummyViewController
         }
         
+        //log user out
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("logoutNotification"), object: nil, queue: OperationQueue.main) { (Notification) in
+            // Take user to logout screen
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+            self.window?.rootViewController = loginViewController
+        }
+        
         
         return true
     }
@@ -62,7 +70,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
