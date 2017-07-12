@@ -78,5 +78,19 @@ class SignupViewController: UIViewController {
         return true
     }
     
+    /*
+     * Find the domain of the college that the User entered
+     */
+    func findDomain(college: String?) {
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     
 }//close class
