@@ -11,13 +11,15 @@ import Parse
 
 class User: NSObject {
 
-    class func registerUser(image: UIImage?, withEmail email: String?, withName name: String?, withPassword password: String?, withSchool school: String?, withCompletion completion: PFBooleanResultBlock?) {
+    class func registerUser(image: UIImage?, withEmail email: String?, withFirstName firstname: String?, withLastName lastname: String?, withPassword password: String?, withSchool school: String?, withCompletion completion: PFBooleanResultBlock?) {
         
         //create User PFUser
         let newUser = PFUser()
         newUser.password = password
+        newUser.username = email
         newUser.email = email
-        newUser["name"] = name
+        newUser["firstname"] = firstname
+        newUser["lastname"] = lastname
         newUser["school"] = school
         newUser["profPic"] = User.getPFFileFromImage(image: #imageLiteral(resourceName: "profile"))
         
