@@ -133,6 +133,7 @@
 			children = (
 				F942120F1F16924F0051D1A9 /* Trip.swift */,
 				F94212141F16D0130051D1A9 /* College.swift */,
+				E18E2C9A1F15995800930CE0 /* User.swift */,
 				E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */,
 			);
 			name = Classes;
@@ -178,7 +179,6 @@
 				F9EFA0D21F15856A00866E6E /* Assets.xcassets */,
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
-				E18E2C9A1F15995800930CE0 /* User.swift */,
 				E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */,
 				E18E2C9E1F16933400930CE0 /* SignupViewController.swift */,
 				E18E2CA01F16D62500930CE0 /* DummyViewController.swift */,
