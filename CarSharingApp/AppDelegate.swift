@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -26,6 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 configuration.applicationId = "Merge"
                 configuration.clientKey = "mergeMasterKey"  // set to nil assuming you have not set clientKey
                 configuration.server = "https://merge-carsharingapp.herokuapp.com/parse"
+                GMSPlacesClient.provideAPIKey("AIzaSyA-r4oJqMruKADvTGOAThTtH22P8MMx-Qg")
             })
         )
         
