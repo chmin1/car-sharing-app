@@ -3,7 +3,7 @@ PODS:
   - GoogleMaps/Base (2.3.1)
   - GooglePlaces (2.3.1):
     - GoogleMaps/Base (= 2.3.1)
-  - Parse (1.14.4):
+  - Parse (1.15.0):
     - Bolts/Tasks (~> 1.8)
 
 DEPENDENCIES:
@@ -14,7 +14,7 @@ SPEC CHECKSUMS:
   Bolts: 8a7995239dbe724f9cba2248b766d48b7ebdd322
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
-  Parse: b0aa91d2c435e53d4a9af26e741e014c9b35c42e
+  Parse: c0519f8fbf57bd0334f75cd22ac032d86ee55464
 
 PODFILE CHECKSUM: ece2fcad7b3f77b6a45c9000cd0a9945d7282ff6
 
