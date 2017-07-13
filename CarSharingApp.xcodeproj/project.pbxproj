@@ -150,6 +150,7 @@
 				F94212141F16D0130051D1A9 /* College.swift */,
 				93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */,
 				93202BFC1F16A27F003BB533 /* TripCell.swift */,
+				E18E2C9A1F15995800930CE0 /* User.swift */,
 				E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */,
 			);
 			name = Classes;
