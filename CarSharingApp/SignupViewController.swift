@@ -54,7 +54,16 @@ class SignupViewController: UIViewController {
         //display error message if one of the field is empty
         if allFieldsFilled() == false {
             present(emptyFieldAlert, animated: true) { }
-            print(self.getDomain(s: emailTextField.text!))
+            
+            CollegeAPIManager.init().getDomainFromApi(school: collegeTextField.text, completion: { (domain, error) in
+                if let domain = domain{
+                    print(domain)
+                } else if let error = error {
+                    print("Error getting home timeline: " + error.localizedDescription)
+                }
+            })
+        
+            
             return
         }
         
@@ -71,6 +80,9 @@ class SignupViewController: UIViewController {
         }
         
         // TODO: check if school's domain matches user's email domain
+        let userDomain = self.getDomain(s: emailTextField.text!)
+        
+        
         
         User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: collegeTextField.text) { (success: Bool, error: Error?) in
             if let error = error {
