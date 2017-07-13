@@ -19,6 +19,10 @@
 		E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */; };
 		E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA41F17EABE00930CE0 /* backupInfoSafety.swift */; };
 		E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */; };
+		E18E2CAB1F18378000930CE0 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAA1F18378000930CE0 /* CreateViewController.swift */; };
+		E18E2CAD1F18378D00930CE0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */; };
+		E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */; };
+		E18E2CB11F1837A400930CE0 /* YourTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -65,6 +69,10 @@
 		E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegesDict.swift; sourceTree = "<group>"; };
 		E18E2CA41F17EABE00930CE0 /* backupInfoSafety.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backupInfoSafety.swift; sourceTree = "<group>"; };
 		E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickCollegeViewController.swift; sourceTree = "<group>"; };
+		E18E2CAA1F18378000930CE0 /* CreateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
+		E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourTripsViewController.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -141,6 +149,10 @@
 				E18E2C9E1F16933400930CE0 /* SignupViewController.swift */,
 				E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */,
 				E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */,
+				E18E2CAA1F18378000930CE0 /* CreateViewController.swift */,
+				E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */,
+				E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */,
+				E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -503,8 +515,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E18E2CB11F1837A400930CE0 /* YourTripsViewController.swift in Sources */,
+				E18E2CAD1F18378D00930CE0 /* NotificationsViewController.swift in Sources */,
 				F94212101F16924F0051D1A9 /* Trip.swift in Sources */,
 				E18E2C9D1F16926B00930CE0 /* LoginViewController.swift in Sources */,
+				E18E2CAB1F18378000930CE0 /* CreateViewController.swift in Sources */,
 				E18E2C9B1F15995800930CE0 /* User.swift in Sources */,
 				E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */,
 				E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */,
@@ -515,6 +530,7 @@
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
+				E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */,
 				E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
