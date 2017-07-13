@@ -13,47 +13,47 @@ class CollegeAPIManager {
     // URL that holds info on all colleges
     //static let collegeUrl = "https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json"
     
-    var session: URLSession
-    var domain: String
-    
-    init() {
-        session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
-        domain = ""
-    }
-    
-    func getDomainFromApi(school: String?, completion: @escaping (String?, Error?) -> ()) {
-        
-        guard let school = school else {
-            // handle case when school is nil
-            return
-        }
-        
-        let collegeUrl = URL(string: "http://universities.hipolabs.com/search?name=\(school)")
-        let request = URLRequest(url: collegeUrl!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
-        let task = session.dataTask(with: request) { (data, response, error) in
-            
-            if let data = data {
-                
-                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
-                //let collegeDictionaries = dataDictionary[""] as! [[String: Any]]
-                
-                let colleges = College.colleges(dictionaries: dataDictionary)
-                
-                let college = colleges[0]
-                //self.domain = college.domain
-                //print(domain)
-                
-                completion(college.domain, nil)
-                
-            } else {
-                completion(nil, error)
-            }
-            
-        }
-        
-        task.resume()
-        
-    }
+//    var session: URLSession
+//    var domain: String
+//    
+//    init() {
+//        session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
+//        domain = ""
+//    }
+//    
+//    func getDomainFromApi(school: String?, completion: @escaping (String?, Error?) -> ()) {
+//        
+//        guard let school = school else {
+//            // handle case when school is nil
+//            return
+//        }
+//        
+//        let collegeUrl = URL(string: "http://universities.hipolabs.com/search?name=\(school)")
+//        let request = URLRequest(url: collegeUrl!, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
+//        let task = session.dataTask(with: request) { (data, response, error) in
+//            
+//            if let data = data {
+//                
+//                let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [[String: Any]]
+//                //let collegeDictionaries = dataDictionary[""] as! [[String: Any]]
+//                
+//                let colleges = College.colleges(dictionaries: dataDictionary)
+//                
+//                let college = colleges[0]
+//                //self.domain = college.domain
+//                //print(domain)
+//                
+//                completion(college.domain, nil)
+//                
+//            } else {
+//                completion(nil, error)
+//            }
+//            
+//        }
+//        
+//        task.resume()
+//        
+//    }
     
 //    // MARK: TODO: Get User Timeline (profile page)
 //    func getSchool(_ school: String, completion: @escaping ([College]?, Error?) -> ()) {

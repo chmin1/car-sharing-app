@@ -8,18 +8,20 @@
 
 import UIKit
 
-class PickCollegeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class PickCollegeViewController: UITableViewController {
 
     
-    @IBOutlet weak var tableView: UITableView!
-    var schools = [String: String]()
-    var filteredSchools = [String: String]()
+    var schools: [String]!
+    var filteredSchools: [String]!
     let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
-        schools = CollegesDict.collegeDict
+        schools = Array(CollegesDict.collegeDict.keys)
         
         setupSearchController()
     }
@@ -32,20 +34,19 @@ class PickCollegeViewController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: - Search Controller Setup
     func setupSearchController () {
-        searchController.searchResultsUpdater = self as! UISearchResultsUpdating
+        searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         tableView.tableHeaderView = searchController.searchBar
-        //searchController.searchBar.scopeButtonTitles = ["All", "Chocolate", "Hard", "Other"]
-        searchController.searchBar.delegate = self as! UISearchBarDelegate
+        searchController.searchBar.delegate = self
     }
     
-    func filterContentForSearchText(_ searchText: String, scope: String = "All") {
-        filteredSchools = schools.filter { school in
-            
-            return school.name.lowercased().contains(searchText.lowercased()) || searchText == ""
-        }
+    
+    func filterContentForSearchText(_ searchText: String) {
         
+        filteredSchools = schools.filter { school in
+            return school.lowercased().contains(searchText.lowercased()) || searchText == ""
+        }
         tableView.reloadData()
     }
     
@@ -59,20 +60,28 @@ class PickCollegeViewController: UIViewController, UITableViewDelegate, UITableV
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let candy: Candy
+        let school: String
         if searchController.isActive {
-            candy = filteredCandies[(indexPath as NSIndexPath).row]
+            school = filteredSchools[(indexPath as NSIndexPath).row]
         } else {
-            candy = candies[(indexPath as NSIndexPath).row]
+            school = schools[(indexPath as NSIndexPath).row]
         }
-        cell.textLabel!.text = candy.name
-        cell.detailTextLabel!.text = candy.category
+        cell.textLabel!.text = school
         return cell
     }
 
-
-    
-    
-    
     
 }//close class
+
+extension PickCollegeViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchController.searchBar.text!)
+    }
+}
+
+extension PickCollegeViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar) {
+        filterContentForSearchText(searchBar.text!)
+    }
+}
