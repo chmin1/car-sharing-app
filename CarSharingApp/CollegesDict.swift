@@ -13,6 +13,7 @@ class CollegesDict {
     static var collegeDict = ["Brown University": "brown",
                               "Stanford University": "stanford",
                               "Morgan State University": "morgan",
+                              //Candy(name:"Brown University", domain:"brown"),
                               "Harvard University": "harvard",
                               "Yale University": "yale",
                               "Columbia University": "columbia",
@@ -27,5 +28,5 @@ class CollegesDict {
                               "Swarthmore College": "swarthmore",
                               "Dummy": "dummy"]
     
-    
 }
+

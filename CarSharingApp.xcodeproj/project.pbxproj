@@ -18,6 +18,7 @@
 		E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9E1F16933400930CE0 /* SignupViewController.swift */; };
 		E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */; };
 		E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA41F17EABE00930CE0 /* backupInfoSafety.swift */; };
+		E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -63,6 +64,7 @@
 		E18E2C9E1F16933400930CE0 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegesDict.swift; sourceTree = "<group>"; };
 		E18E2CA41F17EABE00930CE0 /* backupInfoSafety.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = backupInfoSafety.swift; sourceTree = "<group>"; };
+		E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickCollegeViewController.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				93202BF81F169D9A003BB533 /* HomeViewController.swift */,
 				E18E2C9E1F16933400930CE0 /* SignupViewController.swift */,
 				E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */,
+				E18E2CA81F18177F00930CE0 /* PickCollegeViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -146,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				F942120F1F16924F0051D1A9 /* Trip.swift */,
-				E18E2C9A1F15995800930CE0 /* User.swift */,
 				F94212141F16D0130051D1A9 /* College.swift */,
 				93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */,
 				93202BFC1F16A27F003BB533 /* TripCell.swift */,
@@ -513,6 +515,7 @@
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
+				E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
