@@ -7,6 +7,7 @@ target 'CarSharingApp' do
 
   # Pods for CarSharingApp
     pod 'Parse'
+    pod 'GooglePlaces'
 
   target 'CarSharingAppTests' do
     inherit! :search_paths
