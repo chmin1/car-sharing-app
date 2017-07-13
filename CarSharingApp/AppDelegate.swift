@@ -31,6 +31,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             })
         )
         
+        //this enables user to be persisted across app restarts
+        if let currentUser = PFUser.current() {
+            print("Welcome back \(currentUser.username!) 😍")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let tabBarViewController = storyboard.instantiateViewController(withIdentifier: "tabBar")
+            window?.rootViewController = tabBarViewController
+        }
+        
+        //log user out
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("logoutNotification"), object: nil, queue: OperationQueue.main) { (Notification) in
+            // Take user to logout screen
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let loginViewController = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+            self.window?.rootViewController = loginViewController
+        }
+        
         
         return true
     }
@@ -56,7 +72,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
