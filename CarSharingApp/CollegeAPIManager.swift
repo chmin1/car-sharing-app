@@ -40,10 +40,10 @@ class CollegeAPIManager {
                 let colleges = College.colleges(dictionaries: dataDictionary)
                 
                 let college = colleges[0]
-                self.domain = college.domain
+                //self.domain = college.domain
                 //print(domain)
                 
-                completion(self.domain, nil)
+                completion(college.domain, nil)
                 
             } else {
                 completion(nil, error)

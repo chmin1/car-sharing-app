@@ -19,6 +19,7 @@ class SignupViewController: UIViewController {
     var emptyFieldAlert: UIAlertController!
     var passwordAlert: UIAlertController!
     var emailAlert: UIAlertController!
+    var emailDoesNotMatchSchoolAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,12 @@ class SignupViewController: UIViewController {
         passwordAlert.addAction(cancelAction) // add the cancel action to the alertController
         
         // Set up the emailAlert
-        emailAlert = UIAlertController(title: "Invalid email", message: "Make sure your email is valid", preferredStyle: .alert)
+        emailAlert = UIAlertController(title: "Invalid email", message: "Make sure your email is valid and that you are using a .edu email address", preferredStyle: .alert)
         emailAlert.addAction(cancelAction) // add the cancel action to the alertController
+        
+        // Set up the emailDoesNotMatchSchoolAlert
+        emailDoesNotMatchSchoolAlert = UIAlertController(title: "Email/School mismatch", message: "Your email does not match your school's email", preferredStyle: .alert)
+        emailDoesNotMatchSchoolAlert.addAction(cancelAction) // add the cancel action to the alertController
 
     }
     
@@ -54,16 +59,6 @@ class SignupViewController: UIViewController {
         //display error message if one of the field is empty
         if allFieldsFilled() == false {
             present(emptyFieldAlert, animated: true) { }
-            
-            CollegeAPIManager.init().getDomainFromApi(school: collegeTextField.text, completion: { (domain, error) in
-                if let domain = domain{
-                    print(domain)
-                } else if let error = error {
-                    print("Error getting home timeline: " + error.localizedDescription)
-                }
-            })
-        
-            
             return
         }
         
@@ -73,17 +68,18 @@ class SignupViewController: UIViewController {
             return
         }
         
-        //display error message if email isn't valid
+        //display error message if email isn't valid (needs something@something.edu)
         if self.isValidEmail(testStr: emailTextField.text!) == false {
             present(emailAlert, animated: true) { }
             return
         }
         
-        // TODO: check if school's domain matches user's email domain
-        let userDomain = self.getDomain(s: emailTextField.text!)
-        
-        
-        
+        //display error message if email and school don't match up properly
+        if self.checkEmailMatchesSchool() == false {
+            present(emailDoesNotMatchSchoolAlert, animated: true) { }
+            return
+        }
+    
         User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: collegeTextField.text) { (success: Bool, error: Error?) in
             if let error = error {
                 print("😢 User sign up failed: \(error.localizedDescription)")
@@ -126,6 +122,26 @@ class SignupViewController: UIViewController {
         
         return (v!.last)!
     }
+    
+    /*
+     * Checks that the uesr's email address matches the user's schools domain
+     */
+    func checkEmailMatchesSchool() -> Bool{
+        let userDomain = self.getDomain(s: emailTextField.text!)
+        print("User domain: \(userDomain)")
+        let libraryDomain = CollegesDict.collegeDict[collegeTextField.text!]
+        if userDomain == libraryDomain{
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    
+    
+    
+    
     
     
 }//close class
