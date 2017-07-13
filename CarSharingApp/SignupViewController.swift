@@ -127,7 +127,7 @@ class SignupViewController: UIViewController {
      * Checks that the uesr's email address matches the user's schools domain
      */
     func checkEmailMatchesSchool() -> Bool{
-        let userDomain = self.getDomain(s: emailTextField.text!)
+        let userDomain = self.getDomain(s: emailTextField.text!).lowercased()
         print("User domain: \(userDomain)")
         let libraryDomain = CollegesDict.collegeDict[collegeTextField.text!]
         if userDomain == libraryDomain{
