@@ -71,10 +71,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.present(autoCompleteViewController, animated: true, completion: nil)
         if(label == HomeHeaderCell.startTextLabel) {
             locationSource = HomeHeaderCell.startTextLabel
+        } else if(label == HomeHeaderCell.endTextLabel) {
+            locationSource = HomeHeaderCell.endTextLabel
         }
-//        } else if(label == HomeHeaderCell.endTextLabel) {
-//            locationSource = HomeHeaderCell.endTextLabel
-//        }
         
     }
     

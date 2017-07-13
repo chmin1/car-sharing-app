@@ -26,11 +26,17 @@ class HomeHeaderCell: UITableViewCell {
         super.awakeFromNib()
         let startLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
         )
+        let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
+        )
         startTextLabel.layer.borderColor = UIColor.gray.cgColor
         startTextLabel.layer.borderWidth = 0.5
         startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
-        //TODO: Repeat for the endf label
+        
+        endTextLabel.layer.borderColor = UIColor.gray.cgColor
+        endTextLabel.layer.borderWidth = 0.5
+        endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
+        endTextLabel.isUserInteractionEnabled = true
     
     }
 
@@ -39,7 +45,6 @@ class HomeHeaderCell: UITableViewCell {
         delegate?.HomeHeaderCell(self, didTap: startTextLabel)
         print("Tapped start label")
     }
-    
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
