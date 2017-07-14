@@ -16,6 +16,8 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var collegeTextField: UITextField!
+    @IBOutlet weak var addSchoolLabel: UILabel!
+    
     var emptyFieldAlert: UIAlertController!
     var passwordAlert: UIAlertController!
     var emailAlert: UIAlertController!

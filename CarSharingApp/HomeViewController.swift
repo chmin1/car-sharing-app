@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 import Parse
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate, HomeHeaderCellDelegate {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate { //, HomeHeaderCellDelegate {
 
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "HomeHeaderCell") as! HomeHeaderCell
-        headerCell.delegate = self
+        //headerCell.delegate = self
         HomeHeaderCell = headerCell
         return headerCell
         
@@ -67,15 +67,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
+//    func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
+//        self.present(autoCompleteViewController, animated: true, completion: nil)
+//        if(label == HomeHeaderCell.startTextLabel) {
+//            locationSource = HomeHeaderCell.startTextLabel
+//            print("Location source is start")
+//        } else if(label == HomeHeaderCell.endTextLabel) {
+//            locationSource = HomeHeaderCell.endTextLabel
+//            print("location source is end")
+//        }
+//        
+//    }
+    
+    @IBAction func onTapStartLabel(_ sender: Any) {
         self.present(autoCompleteViewController, animated: true, completion: nil)
-        if(label == HomeHeaderCell.startTextLabel) {
-            locationSource = HomeHeaderCell.startTextLabel
-        } else if(label == HomeHeaderCell.endTextLabel) {
-            locationSource = HomeHeaderCell.endTextLabel
-        }
-        
     }
+    
     
 
     

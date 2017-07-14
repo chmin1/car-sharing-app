@@ -41,9 +41,16 @@ class HomeHeaderCell: UITableViewCell {
     }
 
     
+    
+    
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
         delegate?.HomeHeaderCell(self, didTap: startTextLabel)
         print("Tapped start label")
+    }
+    
+    func didTapEndLabel(_sender: UITapGestureRecognizer) {
+        delegate?.HomeHeaderCell(self, didTap: endTextLabel)
+        print("Tapped End label")
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
