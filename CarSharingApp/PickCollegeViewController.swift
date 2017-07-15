@@ -8,12 +8,18 @@
 
 import UIKit
 
+protocol PickCollegeViewControllerDelegate {
+    func selectCollege(_ selectCollege: PickCollegeViewController, didSelectCollege college: String?)
+}
+
 class PickCollegeViewController: UITableViewController {
 
     
     var schools: [String]!
     var filteredSchools: [String]!
     let searchController = UISearchController(searchResultsController: nil)
+    
+    var delegate: PickCollegeViewControllerDelegate? //this is the protocol (not the vc)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +30,7 @@ class PickCollegeViewController: UITableViewController {
         schools = Array(CollegesDict.collegeDict.keys)
         
         setupSearchController()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +76,30 @@ class PickCollegeViewController: UITableViewController {
         cell.textLabel!.text = school
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(indexPath)")
+        
+
+        
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let school: String
+            if searchController.isActive {
+                school = filteredSchools[(indexPath as NSIndexPath).row]
+            } else {
+                school = schools[(indexPath as NSIndexPath).row]
+            }
+            print("😆school is: \(school)")
+            
+            // Alert the delegate
+            delegate?.selectCollege(self, didSelectCollege: school) //sending the school string to the delegate
+            self.dismiss(animated: true, completion: nil) //dismiss the vc modally
+        }
+        
+    }
+    
+   
+    
 
     
 }//close class

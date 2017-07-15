@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -512,7 +512,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83u-tB-iNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="pnl-mh-2bt" userLabel="Add School Tap Gesture Recognizer">
                     <connections>
-                        <segue destination="SHj-R4-8eW" kind="presentation" id="axU-ik-nzr"/>
+                        <segue destination="SHj-R4-8eW" kind="presentation" identifier="SegueToSchoolList" id="axU-ik-nzr"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -543,6 +543,7 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <gestureRecognizers/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -551,9 +552,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="Kut-7d-YnP"/>
-                    <connections>
-                        <segue destination="MFX-uB-tZm" kind="show" identifier="ReturnToSignup" id="BxS-ww-1UZ"/>
-                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2kq-9s-Yq0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -621,6 +619,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Z4c-L7-4JS">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Trl-ca-TEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SHj-R4-8eW" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uYf-dL-lrY">
@@ -632,7 +631,6 @@
                         <segue destination="lth-pa-qeL" kind="relationship" relationship="rootViewController" id="RZk-ZV-yYQ"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Trl-ca-TEz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1094" y="-1102"/>
         </scene>
@@ -718,6 +716,5 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="MHe-X0-G1S"/>
-        <segue reference="BxS-ww-1UZ"/>
     </inferredMetricsTieBreakers>
 </document>

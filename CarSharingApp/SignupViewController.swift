@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SignupViewController: UIViewController {
+class SignupViewController: UIViewController, PickCollegeViewControllerDelegate {
     
     @IBOutlet weak var firstnameTextField: UITextField!
     @IBOutlet weak var lastnameTextField: UITextField!
@@ -16,12 +16,13 @@ class SignupViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var collegeTextField: UITextField!
-    @IBOutlet weak var addSchoolLabel: UILabel!
+    @IBOutlet weak var addSchoolLabel: UILabel?
     
     var emptyFieldAlert: UIAlertController!
     var passwordAlert: UIAlertController!
     var emailAlert: UIAlertController!
     var emailDoesNotMatchSchoolAlert: UIAlertController!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,18 @@ class SignupViewController: UIViewController {
         emailDoesNotMatchSchoolAlert = UIAlertController(title: "Email/School mismatch", message: "Your email does not match your school's email", preferredStyle: .alert)
         emailDoesNotMatchSchoolAlert.addAction(cancelAction) // add the cancel action to the alertController
 
+    }
+    
+    /*
+     * Tells the PickCollegeViewController that it's coming, and sets the delegate!!!! 
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "SegueToSchoolList") {
+            
+            let nav = segue.destination as! UINavigationController
+            let vc = nav.topViewController as! PickCollegeViewController   
+            vc.delegate = self
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,7 +152,13 @@ class SignupViewController: UIViewController {
         }
     }
     
-    
+    /*
+     * When we clicked the cell in the other class, the delegate told THIS to run
+     * This gets the school from the PickCollegeViewController and sets the label in this class
+     */
+    func selectCollege(_ selectCollege: PickCollegeViewController, didSelectCollege college: String?) {
+        addSchoolLabel?.text = college
+    }
     
     
     
