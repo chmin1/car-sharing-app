@@ -12,6 +12,26 @@ protocol HomeHeaderCellDelegate: class {
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel)
 }
 
+extension UIToolbar {
+    
+    func ToolbarPiker(mySelect : Selector) -> UIToolbar {
+        print("in here")
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: mySelect)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
+}
 
 class HomeHeaderCell: UITableViewCell {
     
@@ -38,11 +58,42 @@ class HomeHeaderCell: UITableViewCell {
         endTextLabel.layer.borderWidth = 0.5
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
+        
+        //create the date picker and make it appear / be functional
+        var DatePickerView  : UIDatePicker = UIDatePicker()
+        DatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        latestTextField.inputView = DatePickerView
+        DatePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), for: UIControlEvents.valueChanged)
+        
+        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
+        latestTextField.inputAccessoryView = toolBar
+
+//        let doneButton = UIButton()
+//        doneButton.setTitle("Done", for: UIControlState.normal)
+//        doneButton.setTitle("Done", for: UIControlState.highlighted)
+//        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
+//        doneButton.setTitleColor(UIColor.gray, for: UIControlState.highlighted)
+//        inputView?.addSubview(doneButton) // add Button to UIView
+    }
     
+    func dismissPicker() {
+        print("HI")
+        inputView?.endEditing(true)
+        
     }
 
-    
-    
+    func handleDatePicker(_ sender: UIDatePicker)
+    {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        latestTextField.text =  selectedDate
+    }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
         delegate?.HomeHeaderCell(self, didTap: startTextLabel)
