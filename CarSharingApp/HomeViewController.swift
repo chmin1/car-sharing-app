@@ -85,7 +85,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         print("hi")
         var datePickerView  : UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
-        //datePickerView.frame = CGRect(x: 10, y: 50, width: self.view.frame.width, height: 200)
+        datePickerView.frame = CGRect(x: 0, y: self.view.frame.height-200, width: self.view.frame.width, height: 200)
         
         // Add an event to call onDidChangeDate function when value is changed.
         datePickerView.addTarget(self, action: #selector(HomeViewController.datePickerValueChanged(_:)), for: .valueChanged)
