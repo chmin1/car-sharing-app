@@ -18,7 +18,7 @@ class HomeHeaderCell: UITableViewCell {
     @IBOutlet weak var startTextLabel: UILabel!
     @IBOutlet weak var endTextLabel: UILabel!
     @IBOutlet weak var earliestLabel: UILabel!
-    @IBOutlet weak var latestLabel: UILabel!
+    @IBOutlet weak var latestTextField: UITextField!
     
     weak var delegate: HomeHeaderCellDelegate?
 
