@@ -110,6 +110,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //TODO: Set this to be filteredtrips.count
         return tripsFeed.count
+        //return 20
     }
 
     
