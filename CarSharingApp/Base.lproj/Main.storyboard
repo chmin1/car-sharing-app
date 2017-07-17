@@ -164,6 +164,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="latestTextField" destination="C99-KH-5Ce" id="9S4-6s-NoR"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
                     </connections>
                 </viewController>
