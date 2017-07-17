@@ -17,8 +17,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
     
-    //@IBOutlet weak var earliestTextField: UITextField!
-    //@IBOutlet weak var latestTextField: UITextField!
+    @IBOutlet weak var earliestTextField: UITextField!
+    @IBOutlet weak var latestTextField: UITextField!
     
     @IBOutlet weak var tripsTableView: UITableView!
     
@@ -39,6 +39,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
 
+        earliestTextField.addTarget(self, action: "didTapEarliestTextField", for: UIControlEvents.touchDown)
         
     }
     
@@ -83,13 +84,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func didTapEarliestTextField(_ sender: UITextField) {
+        print("hi")
         //code for what to do when date field is tapped
         var datePickerView  : UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
         //datePickerView.addTarget(self, action: Selector("handleDatePicker:"), for: UIControlEvents.valueChanged)
-        datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
+        datePickerView.addTarget(self, action: #selector(self.handleDatePicker(sender:)), for: .valueChanged)
     }
+    
 
     
     @IBAction func didTapLatestTextField(_ sender: UITextField) {

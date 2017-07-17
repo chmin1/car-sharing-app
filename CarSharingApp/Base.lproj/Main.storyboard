@@ -94,9 +94,6 @@
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
-                                                            <connections>
-                                                                <action selector="didTapLatestTextField:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="yvb-rq-iAZ"/>
-                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -118,9 +115,6 @@
                                                             <nil key="textColor"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits"/>
-                                                            <connections>
-                                                                <action selector="didTapEarliestTextField:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="1Jj-xY-7Yk"/>
-                                                            </connections>
                                                         </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -164,6 +158,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="earliestTextField" destination="ob0-p9-wYt" id="Hwu-ll-83c"/>
+                        <outlet property="latestTextField" destination="C99-KH-5Ce" id="3o4-ED-xKP"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
                     </connections>
                 </viewController>
