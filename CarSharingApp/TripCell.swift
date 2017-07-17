@@ -10,10 +10,15 @@ import UIKit
 
 class TripCell: UITableViewCell {
 
+    @IBOutlet weak var tripName: UILabel!
     
+    @IBOutlet weak var departLabel: UILabel!
     
+    @IBOutlet weak var earlyTimeLabel: UILabel!
     
+    @IBOutlet weak var destinationLabel: UILabel!
     
+    @IBOutlet weak var lateDepartLabel: UILabel!
     
 
     override func awakeFromNib() {

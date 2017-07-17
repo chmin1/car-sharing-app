@@ -35,6 +35,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Set Up Table View
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
+        refresh()
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -43,6 +44,27 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
 
+    }
+    
+    //TODO: Edit so that it changes what appears depending on the search parameters
+    func refresh() {
+        let query = PFQuery(className: "Trip")
+        //query.order(byDescending: "_created_at")
+        query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
+            if let trips = trips {
+                // do something with the array of object returned by the call
+                self.tripsFeed.removeAll()
+                for trip in trips {
+                    self.tripsFeed.append(trip)
+                }
+                
+                self.tripsTableView.reloadData()
+                //self.refreshControl.endRefreshing()
+            } else {
+                print(error?.localizedDescription)
+            }
+            
+        }
     }
     
     //Method for custom header cell in table view
@@ -55,6 +77,30 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
+        let trip = tripsFeed[indexPath.row]
+        let tripName = trip["Name"] as! String
+        let tripPlanner = trip["Planner"] as! PFUser
+        let departureLocation = trip["DepartureLoc"] as! String
+        let arrivalLocation = trip["ArrivalLoc"] as! String
+        let earliestDepart = trip["EarliestTime"] as! NSDate
+        let latestDepart = trip["LatestTime"] as! NSDate
+        
+        cell.tripName.text = tripName
+        cell.departLabel.text = departureLocation
+        cell.destinationLabel.text = arrivalLocation
+        //Might not be possible to do lol
+        cell.earlyTimeLabel.text = String(describing: earliestDepart)
+        cell.lateDepartLabel.text = String(describing: latestDepart)
+        
+        return cell
+    }
+    
+
+    
+    
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         //Hardcoded height
         return 170
@@ -65,12 +111,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //TODO: Set this to be filteredtrips.count
         return tripsFeed.count
     }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
-        
-        return cell
-    }
+
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
