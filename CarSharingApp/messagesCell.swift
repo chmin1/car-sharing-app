@@ -10,4 +10,10 @@ import UIKit
 
 class messagesCell: UICollectionViewCell {
     
+    @IBOutlet weak var recipientImage: UIImageView!
+    
+    @IBOutlet weak var messageTitleLabel: UILabel!
+    
+    @IBOutlet weak var messagePreviewLabel: UILabel!
+    
 }
