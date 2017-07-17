@@ -77,21 +77,13 @@ class HomeHeaderCell: UITableViewCell {
         toolBar.setItems([ spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
 
-//        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
         latestTextField.inputAccessoryView = toolBar
 
-//        let doneButton = UIButton()
-//        doneButton.setTitle("Done", for: UIControlState.normal)
-//        doneButton.setTitle("Done", for: UIControlState.highlighted)
-//        doneButton.setTitleColor(UIColor.black, for: UIControlState.normal)
-//        doneButton.setTitleColor(UIColor.gray, for: UIControlState.highlighted)
-//        inputView?.addSubview(doneButton) // add Button to UIView
     }
     
     func dismissPicker() {
         print("HI")
         latestTextField.resignFirstResponder()
-        
     }
 
 
