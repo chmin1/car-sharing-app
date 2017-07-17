@@ -65,7 +65,19 @@ class HomeHeaderCell: UITableViewCell {
         latestTextField.inputView = DatePickerView
         DatePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), for: UIControlEvents.valueChanged)
         
-        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+
+//        let toolBar = UIToolbar().ToolbarPiker(mySelect: #selector(self.dismissPicker))
         latestTextField.inputAccessoryView = toolBar
 
 //        let doneButton = UIButton()
@@ -78,9 +90,10 @@ class HomeHeaderCell: UITableViewCell {
     
     func dismissPicker() {
         print("HI")
-        inputView?.endEditing(true)
+        latestTextField.resignFirstResponder()
         
     }
+
 
     func handleDatePicker(_ sender: UIDatePicker)
     {
