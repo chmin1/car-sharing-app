@@ -12,11 +12,7 @@ import Parse
 
 class Trip: NSObject {
     
-    var tripPlanner: User!
-    var departureLocation: String!
-    var arrivalLocation: String!
-    var earliestDepart: NSDate!
-    var latestDepart: NSDate!
+
     
     // Method to upload user trip to Parse
     
@@ -29,7 +25,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: NSDate?, withLatest lateDepart: NSDate?, withCompletion completion: PFBooleanResultBlock?) {
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: NSDate?, withLatest lateDepart: NSDate?, withCompletion completion: PFBooleanResultBlock?) {
         
         
         
@@ -37,6 +33,7 @@ class Trip: NSObject {
         let trip = PFObject(className: "Trip")
         
         //Add relevant fields to the object
+        trip["Name"] = tripName
         trip["Planner"] = PFUser.current()
         trip["DepartureLoc"] = departureLoc // Location where you will leave from
         trip["ArrivalLoc"] = arrivalLoc // Location you will arrive to
