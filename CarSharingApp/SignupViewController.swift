@@ -15,7 +15,6 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var confirmPasswordTextField: UITextField!
-    @IBOutlet weak var collegeTextField: UITextField!
     @IBOutlet weak var addSchoolLabel: UILabel?
     
     var emptyFieldAlert: UIAlertController!
@@ -95,11 +94,12 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
             return
         }
     
-        User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: collegeTextField.text) { (success: Bool, error: Error?) in
+        User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: addSchoolLabel?.text) { (success: Bool, error: Error?) in
             if let error = error {
                 print("😢 User sign up failed: \(error.localizedDescription)")
             } else {
                 print("😃 User was created!")
+                print(self.addSchoolLabel?.text ?? "default")
                 // display view controller that needs to shown after successful signup
                 self.performSegue(withIdentifier: "finishedSignup", sender: nil)
             }
@@ -111,7 +111,7 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
     * Check that all text fields are filled out
     */
     func allFieldsFilled() -> Bool {
-        if (firstnameTextField.text?.isEmpty)! || (lastnameTextField.text?.isEmpty)! || (emailTextField.text?.isEmpty)! || (passwordTextField.text?.isEmpty)! || (confirmPasswordTextField.text?.isEmpty)! || (collegeTextField.text?.isEmpty)! {
+        if (firstnameTextField.text?.isEmpty)! || (lastnameTextField.text?.isEmpty)! || (emailTextField.text?.isEmpty)! || (passwordTextField.text?.isEmpty)! || (confirmPasswordTextField.text?.isEmpty)! {
             return false
         }
         return true
@@ -144,7 +144,7 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
     func checkEmailMatchesSchool() -> Bool{
         let userDomain = self.getDomain(s: emailTextField.text!).lowercased()
         print("User domain: \(userDomain)")
-        let libraryDomain = CollegesDict.collegeDict[collegeTextField.text!]
+        let libraryDomain = CollegesDict.collegeDict[(addSchoolLabel?.text!)!]
         if userDomain == libraryDomain{
             return true
         } else {

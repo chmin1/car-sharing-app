@@ -27,7 +27,6 @@
 #import "PFUser.h"
 #import "PFURLSessionCommandRunner.h"
 #import "PFPersistenceController.h"
-#import "ParseManagerPrivate.h"
 
 #if !TARGET_OS_WATCH && !TARGET_OS_TV
 #import "PFPushManager.h"
@@ -304,11 +303,6 @@ static NSString *const _ParseApplicationIdFileName = @"applicationId";
 }
 
 #pragma mark CommandRunner
-
-// Set Command Runner. Used for testing.
-- (void)setCommandRunner:(id<PFCommandRunning>)commandRunner {
-    _commandRunner = commandRunner;
-}
 
 - (id<PFCommandRunning>)commandRunner {
     __block id<PFCommandRunning> runner = nil;

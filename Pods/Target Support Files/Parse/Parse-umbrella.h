@@ -22,8 +22,6 @@
 #import "PFConfig+Synchronous.h"
 #import "PFConfig.h"
 #import "PFConstants.h"
-#import "PFDecoder.h"
-#import "PFEncoder.h"
 #import "PFFile+Deprecated.h"
 #import "PFFile+Synchronous.h"
 #import "PFFile.h"

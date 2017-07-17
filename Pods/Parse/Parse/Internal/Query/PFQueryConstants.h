@@ -21,7 +21,6 @@ extern NSString *const PFQueryKeyNotContainedIn;
 extern NSString *const PFQueryKeyContainsAll;
 extern NSString *const PFQueryKeyNearSphere;
 extern NSString *const PFQueryKeyWithin;
-extern NSString *const PFQueryKeyGeoWithin;
 extern NSString *const PFQueryKeyRegex;
 extern NSString *const PFQueryKeyExists;
 extern NSString *const PFQueryKeyInQuery;
@@ -36,7 +35,6 @@ extern NSString *const PFQueryKeyObject;
 
 extern NSString *const PFQueryOptionKeyMaxDistance;
 extern NSString *const PFQueryOptionKeyBox;
-extern NSString *const PFQueryOptionKeyPolygon;
 extern NSString *const PFQueryOptionKeyRegexOptions;
 
 NS_ASSUME_NONNULL_END

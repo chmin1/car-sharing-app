@@ -15,7 +15,6 @@
 #import "PFMutableObjectState.h"
 #import "PFObjectConstants.h"
 #import "PFObjectUtilities.h"
-#import "PFFieldOperation.h"
 
 @implementation PFObjectState
 
@@ -130,11 +129,7 @@
 #pragma mark Accessors
 
 - (void)setServerDataObject:(id)object forKey:(NSString *)key {
-    if (!object || [object isKindOfClass:[PFDeleteOperation class]]) {
-        [self removeServerDataObjectForKey:key];
-    } else {
-        _serverData[key] = object;
-    }
+    _serverData[key] = object;
 }
 
 - (void)removeServerDataObjectForKey:(NSString *)key {

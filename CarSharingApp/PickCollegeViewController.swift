@@ -80,8 +80,6 @@ class PickCollegeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("\(indexPath)")
         
-
-        
         if let indexPath = tableView.indexPathForSelectedRow {
             let school: String
             if searchController.isActive {
@@ -93,7 +91,10 @@ class PickCollegeViewController: UITableViewController {
             
             // Alert the delegate
             delegate?.selectCollege(self, didSelectCollege: school) //sending the school string to the delegate
-            self.dismiss(animated: true, completion: nil) //dismiss the vc modally
+            self.dismiss(animated: true, completion: { //dismisses first vc
+                self.dismiss(animated: true, completion: nil) //dismisses second vc (for when in search mode)
+            })
+            
         }
         
     }

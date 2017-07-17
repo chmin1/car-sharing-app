@@ -19,7 +19,6 @@
 #import "PFObjectPrivate.h"
 #import "PFOfflineStore.h"
 #import "PFRelationPrivate.h"
-#import "PFMacros.h"
 
 @implementation PFEncoder
 
