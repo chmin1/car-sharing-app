@@ -21,9 +21,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
     
-    @IBOutlet weak var earliestTextField: UITextField!
-    @IBOutlet weak var latestTextField: UITextField!
-    
     @IBOutlet weak var tripsTableView: UITableView!
     
  
@@ -159,26 +156,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         HomeHeaderCell.earliestLabel.text = selectedDate //changes the label's text to display date/time
     }
     
-    @IBAction func didTapLatest(_ sender: Any) {
-        
-    }
 
     
-    
-    
-//    @IBAction func onTapStartLabel(_ sender: Any) {
-//        self.present(autoCompleteViewController, animated: true, completion: nil)
-//        locationSource = HomeHeaderCell.startTextLabel
-//    }
-//    
-//    cd
-//    @IBAction func onTapEndLabel(_ sender: Any) {
-//         self.present(autoCompleteViewController, animated: true, completion: nil)
-//        locationSource = HomeHeaderCell.endTextLabel
-//    }
-//    
-    
-
     
     /**
      * Called when a place has been selected from the available autocomplete predictions.
