@@ -79,6 +79,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    @IBAction func didTapEarliestTextField(_ sender: Any) {
+    }
+    
+    @IBAction func didTapLatestTextField(_ sender: Any) {
+    }
+    
+    
 //    @IBAction func onTapStartLabel(_ sender: Any) {
 //        self.present(autoCompleteViewController, animated: true, completion: nil)
 //        locationSource = HomeHeaderCell.startTextLabel
