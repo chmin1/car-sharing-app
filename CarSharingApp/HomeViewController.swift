@@ -17,6 +17,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
     
+    var tripsFeed: [PFObject] = []
+    //for when the user searches
+    var filteredTripsFeed: [PFObject] = []
+    
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var latestTextField: UITextField!
     
@@ -52,16 +56,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        //Hardcoded height
         return 170
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        //TODO: Set this to be filteredtrips.count
+        return tripsFeed.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
+        
         return cell
     }
     
