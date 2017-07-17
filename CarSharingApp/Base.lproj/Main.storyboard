@@ -88,13 +88,17 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="C99-KH-5Ce">
-                                                            <rect key="frame" x="101" y="0.0" width="155" height="30"/>
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="latest label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n8g-HW-xnV">
+                                                            <rect key="frame" x="101" y="4" width="208" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <gestureRecognizers/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
+                                                            <nil key="highlightedColor"/>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="Yjx-ev-jtQ" appends="YES" id="lwn-Zz-n3o"/>
+                                                            </connections>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -109,13 +113,17 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ob0-p9-wYt">
-                                                            <rect key="frame" x="99" y="-1" width="159" height="30"/>
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="earliest label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-eJ-ezt">
+                                                            <rect key="frame" x="101" y="4" width="208" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                            <gestureRecognizers/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                            <textInputTraits key="textInputTraits"/>
-                                                        </textField>
+                                                            <nil key="highlightedColor"/>
+                                                            <connections>
+                                                                <outletCollection property="gestureRecognizers" destination="OUf-Ud-KoA" appends="YES" id="J9d-FF-Bbc"/>
+                                                            </connections>
+                                                        </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -123,7 +131,9 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="earliestLabel" destination="She-eJ-ezt" id="RHx-cy-CaP"/>
                                             <outlet property="endTextLabel" destination="fpN-47-gZK" id="0KP-bb-zD1"/>
+                                            <outlet property="latestLabel" destination="n8g-HW-xnV" id="P0D-Ab-cC7"/>
                                             <outlet property="startTextLabel" destination="Qyd-xN-Nb6" id="Tep-a7-p7l"/>
                                         </connections>
                                     </tableViewCell>
@@ -158,12 +168,20 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="earliestTextField" destination="ob0-p9-wYt" id="Hwu-ll-83c"/>
-                        <outlet property="latestTextField" destination="C99-KH-5Ce" id="3o4-ED-xKP"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="OUf-Ud-KoA" userLabel="Earliest Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapEarliest:" destination="BYZ-38-t0r" id="oJ7-6x-Ayy"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Yjx-ev-jtQ" userLabel="Latest Tap Gesture Recognizer">
+                    <connections>
+                        <action selector="didTapLatest:" destination="BYZ-38-t0r" id="jbY-FF-Rd1"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-3442.4000000000001" y="1143.7781109445277"/>
         </scene>

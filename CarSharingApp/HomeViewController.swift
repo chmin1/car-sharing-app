@@ -39,8 +39,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
 
-        earliestTextField.addTarget(self, action: "didTapEarliestTextField", for: UIControlEvents.touchDown)
-        
     }
     
     //Method for custom header cell in table view
@@ -83,26 +81,40 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    @IBAction func didTapEarliestTextField(_ sender: UITextField) {
+    @IBAction func didTapEarliest(_ sender: Any) {
         print("hi")
-        //code for what to do when date field is tapped
         var datePickerView  : UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.date
-        sender.inputView = datePickerView
-        //datePickerView.addTarget(self, action: Selector("handleDatePicker:"), for: UIControlEvents.valueChanged)
-        datePickerView.addTarget(self, action: #selector(self.handleDatePicker(sender:)), for: .valueChanged)
+        datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        //datePickerView.frame = CGRect(x: 10, y: 50, width: self.view.frame.width, height: 200)
+        
+        // Add an event to call onDidChangeDate function when value is changed.
+        datePickerView.addTarget(self, action: #selector(HomeViewController.datePickerValueChanged(_:)), for: .valueChanged)
+        
+        // Add DataPicker to the view
+        self.view.addSubview(datePickerView)
+        
     }
     
+    func datePickerValueChanged(_ sender: UIDatePicker){
+        
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        
+        print("Selected value \(selectedDate)")
+        HomeHeaderCell.earliestLabel.text = selectedDate //changes the label's text to display date/time
+    }
+    
+    @IBAction func didTapLatest(_ sender: Any) {
+        
+    }
 
     
-    @IBAction func didTapLatestTextField(_ sender: UITextField) {
-    }
-    
-    func handleDatePicker(sender: UIDatePicker) {
-        var dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd MMM yyyy"
-        locationSource.text = dateFormatter.string(from: sender.date)
-    }
     
     
 //    @IBAction func onTapStartLabel(_ sender: Any) {

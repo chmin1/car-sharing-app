@@ -16,8 +16,9 @@ protocol HomeHeaderCellDelegate: class {
 class HomeHeaderCell: UITableViewCell {
     
     @IBOutlet weak var startTextLabel: UILabel!
-    
     @IBOutlet weak var endTextLabel: UILabel!
+    @IBOutlet weak var earliestLabel: UILabel!
+    @IBOutlet weak var latestLabel: UILabel!
     
     weak var delegate: HomeHeaderCellDelegate?
 
@@ -58,5 +59,7 @@ class HomeHeaderCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
 
 }
