@@ -87,7 +87,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         var datePickerView  : UIDatePicker = UIDatePicker()
         datePickerView.datePickerMode = UIDatePickerMode.date
         sender.inputView = datePickerView
-        datePickerView.addTarget(self, action: Selector("handleDatePicker:"), for: UIControlEvents.valueChanged)
+        //datePickerView.addTarget(self, action: Selector("handleDatePicker:"), for: UIControlEvents.valueChanged)
+        datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
     }
 
     
@@ -97,7 +98,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func handleDatePicker(sender: UIDatePicker) {
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd MMM yyyy"
-        sender.text = dateFormatter.string(from: sender.date)
+        locationSource.text = dateFormatter.string(from: sender.date)
     }
     
     

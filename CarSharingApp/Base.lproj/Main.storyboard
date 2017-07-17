@@ -691,7 +691,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="9qw-KU-JsO" id="KO3-bB-yxI"/>
                         <outlet property="usernameTextField" destination="Nci-4J-yds" id="vIT-v8-2df"/>
-                        <segue destination="YMv-qk-Z4W" kind="presentation" id="fkk-zX-pMM"/>
+                        <segue destination="YMv-qk-Z4W" kind="presentation" identifier="finishedLogin" id="fkk-zX-pMM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCn-LC-s9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -797,6 +797,6 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MHe-X0-G1S"/>
+        <segue reference="fkk-zX-pMM"/>
     </inferredMetricsTieBreakers>
 </document>
