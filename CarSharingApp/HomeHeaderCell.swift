@@ -26,7 +26,7 @@ class HomeHeaderCell: UITableViewCell {
         super.awakeFromNib()
         let startLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
         )
-        let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
+        let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapEndLabel(_sender:))
         )
         startTextLabel.layer.borderColor = UIColor.gray.cgColor
         startTextLabel.layer.borderWidth = 0.5
