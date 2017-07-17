@@ -18,6 +18,10 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         messagesView.delegate = self
         messagesView.dataSource = self
         
+        let layout = messagesView.collectionViewLayout as! UICollectionViewFlowLayout
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = layout.minimumInteritemSpacing
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
