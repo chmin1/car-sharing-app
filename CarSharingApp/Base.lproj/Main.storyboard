@@ -44,16 +44,13 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-xN-Nb6">
+                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="lorem" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyd-xN-Nb6">
                                                             <rect key="frame" x="58" y="5" width="293" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <gestureRecognizers/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
-                                                            <connections>
-                                                                <outletCollection property="gestureRecognizers" destination="sRg-1A-Wwl" appends="YES" id="mYo-Jo-I5y"/>
-                                                            </connections>
                                                         </label>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,10 +66,11 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0j-nD-jOP">
-                                                            <rect key="frame" x="58" y="5" width="293" height="21"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CCx-w0-ZRz">
+                                                            <rect key="frame" x="46" y="5" width="305" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <gestureRecognizers/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -125,7 +123,7 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="endTextLabel" destination="Q0j-nD-jOP" id="PcR-wc-XKT"/>
+                                            <outlet property="endTextLabel" destination="CCx-w0-ZRz" id="qIO-5y-D0h"/>
                                             <outlet property="startTextLabel" destination="Qyd-xN-Nb6" id="Tep-a7-p7l"/>
                                         </connections>
                                     </tableViewCell>
@@ -164,13 +162,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="sRg-1A-Wwl">
-                    <connections>
-                        <action selector="onTapStartLabel:" destination="BYZ-38-t0r" id="W9h-Sq-YMc"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-3442" y="1144"/>
+            <point key="canvasLocation" x="-3442.4000000000001" y="1143.7781109445277"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="pIg-ea-elN">
@@ -585,7 +578,6 @@
                                 </state>
                                 <connections>
                                     <action selector="didTapLogin:" destination="HmW-CZ-Cdp" eventType="touchUpInside" id="aVK-QZ-wbl"/>
-                                    <segue destination="YMv-qk-Z4W" kind="presentation" identifier="finishedLogin" id="eyv-sa-nSj"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhl-Wf-Cnk">
@@ -602,6 +594,7 @@
                     <connections>
                         <outlet property="passwordTextField" destination="9qw-KU-JsO" id="KO3-bB-yxI"/>
                         <outlet property="usernameTextField" destination="Nci-4J-yds" id="vIT-v8-2df"/>
+                        <segue destination="YMv-qk-Z4W" kind="presentation" id="fkk-zX-pMM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SCn-LC-s9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -707,6 +700,6 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MHe-X0-G1S"/>
+        <segue reference="fkk-zX-pMM"/>
     </inferredMetricsTieBreakers>
 </document>

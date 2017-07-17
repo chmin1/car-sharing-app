@@ -24,35 +24,35 @@ class HomeHeaderCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        let startLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
-//        )
-//        let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
-//        )
+        let startLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
+        )
+        let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
+        )
         startTextLabel.layer.borderColor = UIColor.gray.cgColor
         startTextLabel.layer.borderWidth = 0.5
-        //startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
+        startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
         
         endTextLabel.layer.borderColor = UIColor.gray.cgColor
         endTextLabel.layer.borderWidth = 0.5
-        //endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
+        endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
     
     }
 
     
     
-//    
-//    func didTapStartLabel(_sender: UITapGestureRecognizer) {
-//        delegate?.HomeHeaderCell(self, didTap: startTextLabel)
-//        print("Tapped start label")
-//    }
-//    
-//    func didTapEndLabel(_sender: UITapGestureRecognizer) {
-//        delegate?.HomeHeaderCell(self, didTap: endTextLabel)
-//        print("Tapped End label")
-//    }
-//    
+    
+    func didTapStartLabel(_sender: UITapGestureRecognizer) {
+        delegate?.HomeHeaderCell(self, didTap: startTextLabel)
+        print("Tapped start label")
+    }
+    
+    func didTapEndLabel(_sender: UITapGestureRecognizer) {
+        delegate?.HomeHeaderCell(self, didTap: endTextLabel)
+        print("Tapped End label")
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
