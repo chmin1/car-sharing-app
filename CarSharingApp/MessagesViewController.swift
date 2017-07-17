@@ -8,14 +8,35 @@
 
 import UIKit
 
-class MessagesViewController: UIViewController {
+class MessagesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
+    @IBOutlet weak var messagesView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        //idk
+        messagesView.delegate = self
+        messagesView.dataSource = self
+        
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
+        
+        item.messageTitleLabel.text = "Test"
+        item.messagePreviewLabel.text = "This is a test that to check if this label works!"
+        item.recipientImage.image = UIImage(named: "profile")
+        
+        return item
+        
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
