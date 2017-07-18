@@ -28,6 +28,9 @@
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
+		F942121B1F1D46AB0051D1A9 /* messagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942121A1F1D46AB0051D1A9 /* messagesCell.swift */; };
+		F942121F1F1E834B0051D1A9 /* Coversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942121E1F1E834B0051D1A9 /* Coversations.swift */; };
+		F9E2C6A11F1EBD6C0016D6E2 /* message.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E2C6A01F1EBD6C0016D6E2 /* message.swift */; };
 		F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */; };
 		F9EFA0D11F15856A00866E6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0CF1F15856A00866E6E /* Main.storyboard */; };
 		F9EFA0D31F15856A00866E6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0D21F15856A00866E6E /* Assets.xcassets */; };
@@ -81,6 +84,9 @@
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
 		F94212141F16D0130051D1A9 /* College.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = College.swift; sourceTree = "<group>"; };
+		F942121A1F1D46AB0051D1A9 /* messagesCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = messagesCell.swift; sourceTree = "<group>"; };
+		F942121E1F1E834B0051D1A9 /* Coversations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coversations.swift; sourceTree = "<group>"; };
+		F9E2C6A01F1EBD6C0016D6E2 /* message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = message.swift; sourceTree = "<group>"; };
 		F9EFA0C81F15856A00866E6E /* CarSharingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSharingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EFA0D01F15856A00866E6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -172,6 +178,9 @@
 				93202BFC1F16A27F003BB533 /* TripCell.swift */,
 				E18E2C9A1F15995800930CE0 /* User.swift */,
 				E18E2CA21F17E93F00930CE0 /* CollegesDict.swift */,
+				F942121A1F1D46AB0051D1A9 /* messagesCell.swift */,
+				F942121E1F1E834B0051D1A9 /* Coversations.swift */,
+				F9E2C6A01F1EBD6C0016D6E2 /* message.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -534,11 +543,14 @@
 				E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */,
 				F94212151F16D0130051D1A9 /* College.swift in Sources */,
 				F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */,
+				F9E2C6A11F1EBD6C0016D6E2 /* message.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
 				E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */,
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
+				F942121F1F1E834B0051D1A9 /* Coversations.swift in Sources */,
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
+				F942121B1F1D46AB0051D1A9 /* messagesCell.swift in Sources */,
 				E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */,
 				E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */,
 			);

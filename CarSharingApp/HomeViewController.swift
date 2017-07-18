@@ -98,7 +98,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let arrivalLocation = trip["ArrivalLoc"] as! String
             let earliestDepart = trip["EarliestTime"] as! String
             let latestDepart = trip["LatestTime"] as! String
-            
             if let tripMembers = trip["Members"] as? [PFUser] {
                 for member in tripMembers {
                     if let memberName = member["fullname"] as? String {
@@ -107,8 +106,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
             }
-            
-            
             
             cell.tripName.text = tripName
             cell.departLabel.text = departureLocation
