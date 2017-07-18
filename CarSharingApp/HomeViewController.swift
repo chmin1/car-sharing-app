@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 import Parse
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate, HomeHeaderCellDelegate {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate, HomeHeaderCellDelegate, CreateViewControllerDelegate {
 
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
@@ -28,7 +28,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         //Set Up Table View
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
@@ -41,11 +40,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
 
+        var secondTab = self.tabBarController?.viewControllers?[1] as? CreateViewController
+        secondTab?.delegate = self
+        
     }
     
     //TODO: Edit so that it changes what appears depending on the search parameters
     func refresh() {
         let query = PFQuery(className: "Trip")
+        query.includeKey("Planner")
+        //query.whereKey("Planner", equalTo: PFUser.current())
         //query.order(byDescending: "_created_at")
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
@@ -80,9 +84,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
-            let tripPlanner = trip["Planner"] as! PFUser
-            let firstname = tripPlanner["firstname"] as! String
-            let lastname = tripPlanner["lastname"] as! String
+            let organizer = trip["Planner"] as! PFUser
+            let firstname = organizer["firstname"] as! String
+            let lastname = organizer["lastname"] as! String
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
             let earliestDepart = trip["EarliestTime"] as! String
@@ -229,6 +233,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         })
     }
     
+    func didPostTrip(trip: PFObject) {
+        print("did post trip")
+        tripsFeed.insert(trip, at: 0)
+        tripsTableView.reloadData()
+    }
     
 
     override func didReceiveMemoryWarning() {
@@ -236,15 +245,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "createSegue" {
+            let createViewController = segue.destination as! CreateViewController
+            createViewController.delegate = self
+        }
     }
-    */
 
 }
