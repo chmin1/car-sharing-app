@@ -240,7 +240,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             } else if let trip = trip {
                 self.delegate?.didPostTrip(trip: trip)
                 print("trip was created! 😃")
-                self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
                 self.activityIndicator.stopAnimating() //stop activity indicator
             }
         }

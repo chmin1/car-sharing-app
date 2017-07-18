@@ -14,6 +14,7 @@
 		93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */; };
 		93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */; };
 		C836520811D9B5E8E930B68E /* Pods_CarSharingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F02EC0DB2C4343792D1AF /* Pods_CarSharingApp.framework */; };
+		E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E109611B1F1E9AF90053762B /* MainTabBarController.swift */; };
 		E18E2C9B1F15995800930CE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9A1F15995800930CE0 /* User.swift */; };
 		E18E2C9D1F16926B00930CE0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */; };
 		E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9E1F16933400930CE0 /* SignupViewController.swift */; };
@@ -65,6 +66,7 @@
 		93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
 		A802CA4CAB13ABB4DE15BB92 /* Pods-CarSharingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingAppTests/Pods-CarSharingAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9D96581882B572DFB0FEACB /* Pods_CarSharingAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E109611B1F1E9AF90053762B /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E18E2C9A1F15995800930CE0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E18E2C9E1F16933400930CE0 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */,
 				E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */,
 				93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */,
+				E109611B1F1E9AF90053762B /* MainTabBarController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -531,6 +534,7 @@
 				F94212151F16D0130051D1A9 /* College.swift in Sources */,
 				F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
+				E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */,
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
