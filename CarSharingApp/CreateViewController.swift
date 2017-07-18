@@ -10,11 +10,37 @@ import UIKit
 import GooglePlaces
 import Parse
 
+extension UIToolbar {
+    
+    func ToolbarPiker(select : Selector) -> UIToolbar {
+        print("in here")
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: select)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        return toolBar
+    }
+    
+}
+
 class CreateViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
     @IBOutlet weak var startTextLabel: UILabel!
     
     @IBOutlet weak var endTextLabel: UILabel!
+    
+    @IBOutlet weak var latestTextField: UITextField!
+    
+    @IBOutlet weak var earliestTextField: UITextField!
+    
     
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
@@ -33,6 +59,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         autoCompleteViewController.autocompleteFilter = filter
         
         setUpTapGesture()
+        setUpDatePicker()
 
         // Do any additional setup after loading the view.
     }
@@ -82,6 +109,69 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         }
         self.dismiss(animated: true)
         
+    }
+    
+    func setUpDatePicker() {
+        //create the date picker FOR LATEST and make it appear / be functional
+        var LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        latestTextField.inputView = LatestDatePickerView
+        LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
+        
+        //create the date picker FOR EARLIEST and make it appear / be functional
+        var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
+        EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        earliestTextField.inputView = EarliestDatePickerView
+        EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
+        
+        //create the toolbar so there's a Done button in the datepicker
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = UIColor.black
+        toolBar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolBar.setItems([ spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        latestTextField.inputAccessoryView = toolBar
+        earliestTextField.inputAccessoryView = toolBar
+    }
+    
+    /*
+     * Dismiss datepicker when Done button pressed
+     */
+    func dismissPicker() {
+        print("HI")
+        latestTextField.resignFirstResponder()
+        earliestTextField.resignFirstResponder()
+    }
+    
+    
+    func handleDatePickerForLatest(_ sender: UIDatePicker)
+    {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        latestTextField.text =  selectedDate
+    }
+    
+    func handleDatePickerForEarliest(_ sender: UIDatePicker)
+    {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        earliestTextField.text =  selectedDate
     }
     
     
