@@ -13,7 +13,7 @@ class message: NSObject {
     
     let text = "This is my first msg"
     
-    var author = PFUser!()
+    //var author = PFUser!()
     
     
 

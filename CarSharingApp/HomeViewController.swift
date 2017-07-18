@@ -102,8 +102,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
             }
             
-            
-            
             cell.tripName.text = tripName
             cell.departLabel.text = departureLocation
             cell.destinationLabel.text = arrivalLocation
