@@ -109,7 +109,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.destinationLabel.text = arrivalLocation
             cell.earlyTimeLabel.text = earliestDepart
             cell.lateDepartLabel.text = latestDepart
-            cell.organizerLabel.text = firstname + " " + lastname
+            //cell.organizerLabel.text = firstname + " " + lastname
             return cell
         }
         
