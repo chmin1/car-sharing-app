@@ -483,15 +483,15 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kfv-zW-qbN">
-                                <rect key="frame" x="170" y="166" width="189" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q6L-Mo-c3y">
+                                <rect key="frame" x="162" y="166" width="197" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nkE-cp-JrX">
-                                <rect key="frame" x="173" y="203" width="189" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P72-Ze-ZdV">
+                                <rect key="frame" x="162" y="206" width="197" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -502,10 +502,8 @@
                     </view>
                     <navigationItem key="navigationItem" title="Create Trip" id="PdA-5c-C8k"/>
                     <connections>
-                        <outlet property="endLabel" destination="nkE-cp-JrX" id="bIN-kj-ubA"/>
-                        <outlet property="endTextLabel" destination="nkE-cp-JrX" id="8Ta-m8-3dc"/>
-                        <outlet property="startLabel" destination="Kfv-zW-qbN" id="ZXY-MG-62e"/>
-                        <outlet property="startTextLabel" destination="Kfv-zW-qbN" id="R6S-2C-FBM"/>
+                        <outlet property="endTextLabel" destination="P72-Ze-ZdV" id="pPU-As-hL7"/>
+                        <outlet property="startTextLabel" destination="q6L-Mo-c3y" id="iAb-Lj-rUC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GpY-6c-bH1" userLabel="First Responder" sceneMemberID="firstResponder"/>

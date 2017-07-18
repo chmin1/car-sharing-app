@@ -54,10 +54,14 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
+        locationSource = startTextLabel
+        self.present(autoCompleteViewController, animated: true, completion: nil)
         print("Tapped start label")
     }
     
     func didTapEndLabel(_sender: UITapGestureRecognizer) {
+        locationSource = endTextLabel
+        self.present(autoCompleteViewController, animated: true, completion: nil)
         print("Tapped End label")
     }
     
