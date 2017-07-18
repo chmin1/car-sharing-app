@@ -12,7 +12,7 @@ import Parse
 
 //========== THIS IS THE DELEGATE PROTOCOL ==========
 protocol CreateViewControllerDelegate: class {
-    func didPostTrip(trip: Trip)
+    func didPostTrip(trip: PFObject)
 }
 
 //========== THIS IS TO GET A DONE BUTTON ON THE DATEPICKER ==========
@@ -234,13 +234,12 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         let earlyDepart = earliestTextField.text
         let lateDepart = latestTextField.text
         
-        Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (success: Bool, error: Error?) in
+        Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (trip: PFObject?, error: Error?) in
             if let error = error {
                 print("Error creating Trip: \(error.localizedDescription)")
-            } else {
+            } else if let trip = trip {
+                self.delegate?.didPostTrip(trip: trip)
                 print("trip was created! 😃")
-                print(success)
-                //self.delegate?.didPostTrip(trip: <#T##Trip#>)
                 self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
                 self.activityIndicator.stopAnimating() //stop activity indicator
             }

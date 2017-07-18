@@ -25,9 +25,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withCompletion completion: PFBooleanResultBlock?) {
-        
-        
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Trip Object: PFObject
         let trip = PFObject(className: "Trip")
@@ -40,11 +38,9 @@ class Trip: NSObject {
         trip["EarliestTime"] = earlyDepart // Earliest time you can leave
         trip["LatestTime"] = lateDepart // Latest timne you can leave
         
-        
-        
         // Save object (following function will save the object in Parse asynchronously)
         trip.saveInBackground { (success: Bool, error: Error?) in
-            completion?(success, error)
+            completion(trip, error)
         }
         
         
