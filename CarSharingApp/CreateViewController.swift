@@ -10,6 +10,12 @@ import UIKit
 import GooglePlaces
 import Parse
 
+//========== THIS IS THE DELEGATE PROTOCOL ==========
+protocol CreateViewControllerDelegate: class {
+    func didPostTrip(trip: Trip)
+}
+
+//========== THIS IS TO GET A DONE BUTTON ON THE DATEPICKER ==========
 extension UIToolbar {
     
     func ToolbarPiker(select : Selector) -> UIToolbar {
@@ -34,15 +40,13 @@ extension UIToolbar {
 class CreateViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
     @IBOutlet weak var startTextLabel: UILabel!
-    
     @IBOutlet weak var endTextLabel: UILabel!
-    
     @IBOutlet weak var latestTextField: UITextField!
-    
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var tripNameTextField: UITextField!
-    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    weak var delegate: CreateViewControllerDelegate?
     
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
@@ -236,6 +240,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             } else {
                 print("trip was created! 😃")
                 print(success)
+                //self.delegate?.didPostTrip(trip: <#T##Trip#>)
                 self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
                 self.activityIndicator.stopAnimating() //stop activity indicator
             }
