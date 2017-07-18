@@ -91,7 +91,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let arrivalLocation = trip["ArrivalLoc"] as! String
             let earliestDepart = trip["EarliestTime"] as! String
             let latestDepart = trip["LatestTime"] as! String
-            
+            let tripMembers = trip["Members"] as! [PFUser] 
+//            let tripMembers = trip["Members"] as! [PFUser]
+//            
+//            for member in tripMembers {
+//                print(member.username)
+//            }
+//            
             
             cell.tripName.text = tripName
             cell.departLabel.text = departureLocation

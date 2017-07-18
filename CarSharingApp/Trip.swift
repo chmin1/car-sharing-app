@@ -12,7 +12,9 @@ import Parse
 
 class Trip: NSObject {
     
-
+    //TODO: add array of users and conversation property
+    //var tripMembers: [PFUser]!
+    
     
     // Method to upload user trip to Parse
     
@@ -37,7 +39,11 @@ class Trip: NSObject {
         trip["ArrivalLoc"] = arrivalLoc // Location you will arrive to
         trip["EarliestTime"] = earlyDepart // Earliest time you can leave
         trip["LatestTime"] = lateDepart // Latest timne you can leave
-        //TODO: add array of users and conversation property 
+        
+        var tripMembers = [PFUser]()
+        tripMembers.append(PFUser.current()!)
+        
+        trip["Members"] = tripMembers
         
         // Save object (following function will save the object in Parse asynchronously)
         trip.saveInBackground { (success: Bool, error: Error?) in
