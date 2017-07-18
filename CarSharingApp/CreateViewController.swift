@@ -220,9 +220,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     * Create a new Trip object and send it to parse when user taps the submit button
     */
     @IBAction func didTapSubmit(_ sender: Any) {
+        
         // Start the activity indicator
         activityIndicator.startAnimating()
-        
         
         let tripName = tripNameTextField.text
         let departureLoc = startTextLabel.text
@@ -231,22 +231,20 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         let lateDepart = latestTextField.text
         
         Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (success: Bool, error: Error?) in
-            print("trip was created! 😃")
-            print(success)
-            self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
-            self.activityIndicator.stopAnimating() //stop activity indicator
+            if let error = error {
+                print("Error creating Trip: \(error.localizedDescription)")
+            } else {
+                print("trip was created! 😃")
+                print(success)
+                self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
+                self.activityIndicator.stopAnimating() //stop activity indicator
+            }
         }
         
-        Post.postUserImage(image: image, withCaption: caption, withTimestamp: Date()) { (success: Bool, error: Error?) in
-            print("post was created!")
-            print(success)
-            self.tabBarController?.selectedIndex = 0 //move to Home once post is created
-            self.activityIndicator.stopAnimating() //stop activity indicator
-        }
-        //sets the photo and caption back to default (aka nothing)
-        photoImageView.image = #imageLiteral(resourceName: "plusButton")
-        captionTextView.text = nil
-    }
+        //TODO: set the text fields and labels back to default state
+        
+    
+    }//close didTapSubmit
 
     
 
