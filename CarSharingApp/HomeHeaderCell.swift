@@ -95,7 +95,6 @@ class HomeHeaderCell: UITableViewCell {
      * Dismiss datepicker when Done button pressed
      */
     func dismissPicker() {
-        print("HI")
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
     }
