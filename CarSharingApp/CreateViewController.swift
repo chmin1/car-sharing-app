@@ -107,9 +107,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == startTextLabel {
-            startTextLabel.text = place.name
+            startTextLabel.text = place.formattedAddress
         } else if locationSource == endTextLabel {
-            endTextLabel.text = place.name
+            endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)
         
@@ -121,12 +121,14 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
+        latestTextField.text = dateToString(date: LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
+        earliestTextField.text = dateToString(date: EarliestDatePickerView.date as NSDate)
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -148,6 +150,18 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func dismissPicker() {
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
+    }
+    
+    func dateToString(date: NSDate) -> String {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: date as Date)
+        return selectedDate
     }
     
     

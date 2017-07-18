@@ -53,8 +53,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func refresh() {
         let query = PFQuery(className: "Trip")
         query.includeKey("Planner")
-        //query.whereKey("Planner", equalTo: PFUser.current())
-        //query.order(byDescending: "_created_at")
+        query.includeKey("Members")
+        query.order(byDescending: "_created_at")
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 // do something with the array of object returned by the call
@@ -88,20 +88,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
-            let organizer = trip["Planner"] as! PFUser
-            let firstname = organizer["firstname"] as! String
-            let lastname = organizer["lastname"] as! String
+            //let organizer = trip["Planner"] as! PFUser
+            //let firstname = organizer["firstname"] as! String
+            //let lastname = organizer["lastname"] as! String
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
             let earliestDepart = trip["EarliestTime"] as! String
             let latestDepart = trip["LatestTime"] as! String
-            let tripMembers = trip["Members"] as! [PFUser] 
-//            let tripMembers = trip["Members"] as! [PFUser]
-//            
-//            for member in tripMembers {
-//                print(member.username)
-//            }
-//            
+            
+            if let tripMembers = trip["Members"] as? [PFUser] {
+                for member in tripMembers {
+                    print(member.email)
+                }
+            }
+            
+            
             
             cell.tripName.text = tripName
             cell.departLabel.text = departureLocation
@@ -135,6 +136,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return 2;
     }
     
+    
+    
     /*
      * Tells the tableview how many rows should be in each section
      */
@@ -160,10 +163,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.present(autoCompleteViewController, animated: true, completion: nil)
         if(label == HomeHeaderCell.startTextLabel) {
             locationSource = HomeHeaderCell.startTextLabel
-            print("Location source is start")
         } else if(label == HomeHeaderCell.endTextLabel) {
             locationSource = HomeHeaderCell.endTextLabel
-            print("location source is end")
         }
         
     }
@@ -179,15 +180,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == HomeHeaderCell.startTextLabel {
-            print(place.name)
-            //HomeHeaderCell.startTextLabel.text = place.name
-            HomeHeaderCell.startTextLabel.text = place.name
+            HomeHeaderCell.startTextLabel.text = place.formattedAddress
             print(HomeHeaderCell.startTextLabel.text!)
         } else if locationSource == HomeHeaderCell.endTextLabel {
-            print(place.name)
-            HomeHeaderCell.endTextLabel.text = place.name
+            HomeHeaderCell.endTextLabel.text = place.formattedAddress
         }
-//        self.tripsTableView.reloadData()
         self.dismiss(animated: true)
  
     }
