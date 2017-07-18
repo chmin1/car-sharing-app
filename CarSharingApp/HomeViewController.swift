@@ -281,15 +281,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func addUserToTrip() {
-        let theTrip = currentTrip
-        if var membersArray = theTrip?["Members"] as? [PFUser] {
+        if var membersArray = currentTrip?["Members"] as? [PFUser] {
             membersArray.append(PFUser.current()!)
             
-            theTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
+            currentTrip?["Members"] = membersArray
+            currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else if success{
                     print("😆success! updated trip to add new member")
+                    self.tripsTableView.reloadData()
                 }
             })
             

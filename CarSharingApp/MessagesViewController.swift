@@ -13,7 +13,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     @IBOutlet weak var messagesView: UICollectionView!
     
-    var tripData: [Trip?] = []
+    var tripData: [PFObject?] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,15 +50,15 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         query.includeKey("Planner")
         //query.whereKey("Planner", equalTo: PFUser.current())
         //query.order(byDescending: "_created_at")
-        query.findObjectsInBackground { (tripData: [PFObject]?, error: Error?) in
+        query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 // do something with the array of object returned by the call
-                self.tripsFeed.removeAll()
+                self.tripData.removeAll()
                 for trip in trips {
-                    self.tripsFeed.append(trip)
+                    self.tripData.append(trip)
                 }
                 
-                self.tripsTableView.reloadData()
+                self.messagesView.reloadData()
                 //self.refreshControl.endRefreshing()
             } else {
                 print(error?.localizedDescription)
