@@ -16,10 +16,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
-    
+    var requestToJoinAlert: UIAlertController!
+
     var tripsFeed: [PFObject] = []
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
+    var currentTrip: PFObject?
     
     @IBOutlet weak var tripsTableView: UITableView!
     
@@ -27,6 +29,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //set up request to join alert
+        setUpRequestToJoinAlert()
         
         //Set Up Table View
         tripsTableView.delegate = self
@@ -83,7 +88,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-            //sets up all the other cells (the trip feed)
+        //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
@@ -252,11 +257,50 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createSegue" {
-            let createViewController = segue.destination as! CreateViewController
-            createViewController.delegate = self
+    @IBAction func didTapRequestToJoin(_ sender: AnyObject) {
+        print("requested!")
+        if let cell = sender.superview??.superview as? TripCell {
+            let indexPath = tripsTableView.indexPath(for: cell)
+            currentTrip = tripsFeed[(indexPath?.row)!]
         }
+        
+        present(requestToJoinAlert, animated: true, completion: nil)
     }
+    
+    func setUpRequestToJoinAlert(){
+        // Set up the requestToJoinAlert
+        requestToJoinAlert = UIAlertController(title: "Requesting To Join Trip", message: "Are you sure you want to join this trip?", preferredStyle: .alert)
+        
+        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            self.addUserToTrip()
+        }
+        
+        requestToJoinAlert.addAction(noAction) // add the no action to the alertController
+        requestToJoinAlert.addAction(yesAction) // add the yes action to the alertController
+    }
+    
+    func addUserToTrip() {
+        let theTrip = currentTrip
+        if var membersArray = theTrip?["Members"] as? [PFUser] {
+            membersArray.append(PFUser.current()!)
+            
+            theTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if success{
+                    print("😆success! updated trip to add new member")
+                }
+            })
+            
+        }
+        
+    
+    }//close addUserToTrip()
+    
+    
     
 }

@@ -234,7 +234,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Request To Join"/>
                                                     <connections>
-                                                        <action selector="didTapRequestToJoin:" destination="aSA-kF-nIy" eventType="touchUpInside" id="kmR-kB-Law"/>
+                                                        <action selector="didTapRequestToJoin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="onK-u6-VNm"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

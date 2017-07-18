@@ -44,15 +44,7 @@ class Trip: NSObject {
         var tripMembers = [PFUser]()
         tripMembers.append(trip["Planner"] as! PFUser)
         trip["Members"] = tripMembers
-        
-//        for member in tripMembers {
-//            print(member)
-//        }
-//        
-        
-//
-//        
-        
+             
         
         // Save object (following function will save the object in Parse asynchronously)
         trip.saveInBackground { (success: Bool, error: Error?) in
