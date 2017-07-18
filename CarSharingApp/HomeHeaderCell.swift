@@ -63,12 +63,17 @@ class HomeHeaderCell: UITableViewCell {
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
         
-        //create the date picker and make it appear / be functional
-        var DatePickerView  : UIDatePicker = UIDatePicker()
-        DatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
-        latestTextField.inputView = DatePickerView
-        earliestTextField.inputView = DatePickerView
-        DatePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), for: UIControlEvents.valueChanged)
+        //create the date picker FOR LATEST and make it appear / be functional
+        var LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        latestTextField.inputView = LatestDatePickerView
+        LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
+        
+        //create the date picker FOR EARLIEST and make it appear / be functional
+        var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
+        EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        earliestTextField.inputView = EarliestDatePickerView
+        EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -83,6 +88,7 @@ class HomeHeaderCell: UITableViewCell {
         latestTextField.inputAccessoryView = toolBar
         earliestTextField.inputAccessoryView = toolBar
 
+        
     }
     
     /*
@@ -95,17 +101,30 @@ class HomeHeaderCell: UITableViewCell {
     }
 
 
-    func handleDatePicker(_ sender: UIDatePicker)
+    func handleDatePickerForLatest(_ sender: UIDatePicker)
     {
         // Create date formatter
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
+        dateFormatter.dateFormat = "MMM d, h:mm a"
         
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: sender.date)
         latestTextField.text =  selectedDate
+    }
+    
+    func handleDatePickerForEarliest(_ sender: UIDatePicker)
+    {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        earliestTextField.text =  selectedDate
     }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
