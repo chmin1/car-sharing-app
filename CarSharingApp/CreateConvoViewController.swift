@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class CreateConvoViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class CreateConvoViewController: UIViewController {
     @IBOutlet weak var Rider3Field: UITextField!
     
     @IBOutlet weak var Rider4Field: UITextField!
+    
+    var riders: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +36,26 @@ class CreateConvoViewController: UIViewController {
     }
     
     @IBAction func onSubmitConvo(_ sender: Any) {
+        
+        if Rider1Field.text != "" {
+            riders.append(Rider1Field.text!)
+        }
+        
+        if Rider2Field.text != "" {
+            riders.append(Rider2Field.text!)
+        }
+        
+        if Rider3Field.text != "" {
+            riders.append(Rider3Field.text!)
+        }
+        
+        if Rider4Field.text != "" {
+            riders.append(Rider4Field.text!)
+        }
+        
+        for rider in riders {
+            print(rider)
+        }
         
     }
     
