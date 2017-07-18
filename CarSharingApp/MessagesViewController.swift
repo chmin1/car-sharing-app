@@ -35,6 +35,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         item.messageTitleLabel.text = "Test"
         item.messagePreviewLabel.text = "This is a test that to check if this label works!"
         item.recipientImage.image = UIImage(named: "profile")
+        item.hasReadImage.image = UIImage(named: "profile")
         
         return item
         
