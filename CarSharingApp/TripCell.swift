@@ -20,6 +20,7 @@ class TripCell: UITableViewCell {
     
     @IBOutlet weak var lateDepartLabel: UILabel!
     
+    @IBOutlet weak var organizerLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

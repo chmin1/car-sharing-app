@@ -81,18 +81,20 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let trip = tripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
             let tripPlanner = trip["Planner"] as! PFUser
+            let firstname = tripPlanner["firstname"] as! String
+            let lastname = tripPlanner["lastname"] as! String
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earliestDepart = trip["EarliestTime"] as! NSDate
-            let latestDepart = trip["LatestTime"] as! NSDate
+            let earliestDepart = trip["EarliestTime"] as! String
+            let latestDepart = trip["LatestTime"] as! String
+            
             
             cell.tripName.text = tripName
             cell.departLabel.text = departureLocation
             cell.destinationLabel.text = arrivalLocation
-            //Might not be possible to do lol
-            cell.earlyTimeLabel.text = String(describing: earliestDepart)
-            cell.lateDepartLabel.text = String(describing: latestDepart)
-            
+            cell.earlyTimeLabel.text = earliestDepart
+            cell.lateDepartLabel.text = latestDepart
+            cell.organizerLabel.text = firstname + " " + lastname
             return cell
         }
         
