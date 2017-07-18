@@ -39,7 +39,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
-
+        
+    }
+    
+    func tabBarController(tabbar: UITabBarController, didSelect: UIViewController) {
+        print("HI")
         var secondTab = self.tabBarController?.viewControllers?[1] as? CreateViewController
         secondTab?.delegate = self
         
