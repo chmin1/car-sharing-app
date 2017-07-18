@@ -12,6 +12,10 @@ protocol HomeHeaderCellDelegate: class {
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel)
 }
 
+/*
+ * This is the toolbar that puts a Done button in the date picker 
+ * https://stackoverflow.com/questions/28048469/add-a-done-button-within-a-pop-up-datepickerview-in-swift
+ */
 extension UIToolbar {
     
     func ToolbarPiker(mySelect : Selector) -> UIToolbar {
@@ -37,7 +41,7 @@ class HomeHeaderCell: UITableViewCell {
     
     @IBOutlet weak var startTextLabel: UILabel!
     @IBOutlet weak var endTextLabel: UILabel!
-    @IBOutlet weak var earliestLabel: UILabel!
+    @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var latestTextField: UITextField!
     
     weak var delegate: HomeHeaderCellDelegate?
@@ -63,27 +67,31 @@ class HomeHeaderCell: UITableViewCell {
         var DatePickerView  : UIDatePicker = UIDatePicker()
         DatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = DatePickerView
+        earliestTextField.inputView = DatePickerView
         DatePickerView.addTarget(self, action: #selector(self.handleDatePicker(_:)), for: UIControlEvents.valueChanged)
         
+        //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
         toolBar.barStyle = UIBarStyle.default
         toolBar.isTranslucent = true
         toolBar.tintColor = UIColor.black
         toolBar.sizeToFit()
-        
         let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(self.dismissPicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        
         toolBar.setItems([ spaceButton, doneButton], animated: false)
         toolBar.isUserInteractionEnabled = true
-
         latestTextField.inputAccessoryView = toolBar
+        earliestTextField.inputAccessoryView = toolBar
 
     }
     
+    /*
+     * Dismiss datepicker when Done button pressed
+     */
     func dismissPicker() {
         print("HI")
         latestTextField.resignFirstResponder()
+        earliestTextField.resignFirstResponder()
     }
 
 

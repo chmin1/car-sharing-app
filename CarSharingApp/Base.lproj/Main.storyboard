@@ -109,17 +109,13 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="earliest label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="She-eJ-ezt">
-                                                            <rect key="frame" x="101" y="4" width="208" height="21"/>
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F7s-pL-TgB">
+                                                            <rect key="frame" x="94" y="-1" width="215" height="30"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                            <gestureRecognizers/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
-                                                            <nil key="highlightedColor"/>
-                                                            <connections>
-                                                                <outletCollection property="gestureRecognizers" destination="OUf-Ud-KoA" appends="YES" id="J9d-FF-Bbc"/>
-                                                            </connections>
-                                                        </label>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
@@ -132,19 +128,14 @@
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="earliestLabel" destination="She-eJ-ezt" id="RHx-cy-CaP"/>
+                                            <outlet property="earliestTextField" destination="F7s-pL-TgB" id="PlT-hV-EyC"/>
                                             <outlet property="endTextLabel" destination="fpN-47-gZK" id="0KP-bb-zD1"/>
                                             <outlet property="latestTextField" destination="Id5-LI-dzY" id="9Ii-77-uGc"/>
                                             <outlet property="startTextLabel" destination="Qyd-xN-Nb6" id="Tep-a7-p7l"/>
                                         </connections>
                                     </tableViewCell>
-<<<<<<< HEAD
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="143" id="aSA-kF-nIy" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="243.5" width="375" height="143"/>
-=======
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="148" id="aSA-kF-nIy" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="243.5" width="375" height="148"/>
->>>>>>> 6e598f39011a6eba3258fb63207afdfe8f60ce7e
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aSA-kF-nIy" id="xfg-Xm-dMJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="142.5"/>
@@ -264,16 +255,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="OUf-Ud-KoA" userLabel="Earliest Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="didTapEarliest:" destination="BYZ-38-t0r" id="oJ7-6x-Ayy"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="Yjx-ev-jtQ" userLabel="Latest Tap Gesture Recognizer">
-                    <connections>
-                        <action selector="didTapLatest:" destination="BYZ-38-t0r" id="jbY-FF-Rd1"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-3442.4000000000001" y="1143.7781109445277"/>
         </scene>

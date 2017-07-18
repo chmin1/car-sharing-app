@@ -64,50 +64,75 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    //Method for custom header cell in table view
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        let headerCell = tableView.dequeueReusableCell(withIdentifier: "HomeHeaderCell") as! HomeHeaderCell
-        headerCell.delegate = self
-        HomeHeaderCell = headerCell
-        return headerCell
-        
-    }
-    
+    /*
+     * Sets up the cells
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
-        let trip = tripsFeed[indexPath.row]
-        let tripName = trip["Name"] as! String
-        let tripPlanner = trip["Planner"] as! PFUser
-        let departureLocation = trip["DepartureLoc"] as! String
-        let arrivalLocation = trip["ArrivalLoc"] as! String
-        let earliestDepart = trip["EarliestTime"] as! NSDate
-        let latestDepart = trip["LatestTime"] as! NSDate
+        //sets up the headercell
+        if indexPath.section == 0 {
+            let headerCell = tableView.dequeueReusableCell(withIdentifier: "HomeHeaderCell") as! HomeHeaderCell
+            headerCell.delegate = self
+            HomeHeaderCell = headerCell
+            return headerCell
+        }
+        //sets up all the other cells (the trip feed)
+        else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
+            let trip = tripsFeed[indexPath.row]
+            let tripName = trip["Name"] as! String
+            let tripPlanner = trip["Planner"] as! PFUser
+            let departureLocation = trip["DepartureLoc"] as! String
+            let arrivalLocation = trip["ArrivalLoc"] as! String
+            let earliestDepart = trip["EarliestTime"] as! NSDate
+            let latestDepart = trip["LatestTime"] as! NSDate
+            
+            cell.tripName.text = tripName
+            cell.departLabel.text = departureLocation
+            cell.destinationLabel.text = arrivalLocation
+            //Might not be possible to do lol
+            cell.earlyTimeLabel.text = String(describing: earliestDepart)
+            cell.lateDepartLabel.text = String(describing: latestDepart)
+            
+            return cell
+        }
         
-        cell.tripName.text = tripName
-        cell.departLabel.text = departureLocation
-        cell.destinationLabel.text = arrivalLocation
-        //Might not be possible to do lol
-        cell.earlyTimeLabel.text = String(describing: earliestDepart)
-        cell.lateDepartLabel.text = String(describing: latestDepart)
-        
-        return cell
+        return UITableViewCell()
     }
     
 
-    
-    
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        //Hardcoded height
-        return 170
+    /*
+     * Determines the height of the sections
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0) {
+            return 170
+        } else if (indexPath.section == 1) {
+            return 160
+        }
+        return 0
     }
     
+    /*
+    * We have 2 sections becasue one is the "header" and one is the list of trips
+    */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2;
+    }
     
+    /*
+     * Tells the tableview how many rows should be in each section
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //TODO: Set this to be filteredtrips.count
-        return tripsFeed.count
-        //return 20
+        //secion 0 has 1 row (header)
+        if (section == 0) {
+            return 1
+        }
+        //section 1 has tripsFeed.count rows
+        else if (section == 1) {
+            //TODO: Set this to be filteredtrips.count
+            return tripsFeed.count
+        }
+        return 0
     }
 
     
@@ -126,38 +151,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
-    
-    @IBAction func didTapEarliest(_ sender: Any) {
-        print("hi")
-        var datePickerView  : UIDatePicker = UIDatePicker()
-        datePickerView.datePickerMode = UIDatePickerMode.dateAndTime
-        datePickerView.frame = CGRect(x: 0, y: self.view.frame.height-200, width: self.view.frame.width, height: 200)
-        
-        // Add an event to call onDidChangeDate function when value is changed.
-        datePickerView.addTarget(self, action: #selector(HomeViewController.datePickerValueChanged(_:)), for: .valueChanged)
-        
-        // Add DataPicker to the view
-        self.view.addSubview(datePickerView)
-        
-    }
-    
-    func datePickerValueChanged(_ sender: UIDatePicker){
-        
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm a"
-        
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: sender.date)
-        
-        print("Selected value \(selectedDate)")
-        HomeHeaderCell.earliestLabel.text = selectedDate //changes the label's text to display date/time
-    }
-    
-
-    
     
     /**
      * Called when a place has been selected from the available autocomplete predictions.
