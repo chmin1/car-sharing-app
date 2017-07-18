@@ -25,7 +25,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: NSDate?, withLatest lateDepart: NSDate?, withCompletion completion: PFBooleanResultBlock?) {
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withCompletion completion: PFBooleanResultBlock?) {
         
         
         

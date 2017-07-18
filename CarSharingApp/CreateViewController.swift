@@ -40,7 +40,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     @IBOutlet weak var latestTextField: UITextField!
     
     @IBOutlet weak var earliestTextField: UITextField!
+    @IBOutlet weak var tripNameTextField: UITextField!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
@@ -48,8 +50,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -142,7 +142,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
      * Dismiss datepicker when Done button pressed
      */
     func dismissPicker() {
-        print("HI")
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
     }
@@ -217,15 +216,38 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+    * Create a new Trip object and send it to parse when user taps the submit button
     */
+    @IBAction func didTapSubmit(_ sender: Any) {
+        // Start the activity indicator
+        activityIndicator.startAnimating()
+        
+        
+        let tripName = tripNameTextField.text
+        let departureLoc = startTextLabel.text
+        let arrivalLoc = endTextLabel.text
+        let earlyDepart = earliestTextField.text
+        let lateDepart = latestTextField.text
+        
+        Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (success: Bool, error: Error?) in
+            print("trip was created! 😃")
+            print(success)
+            self.tabBarController?.selectedIndex = 0 //move to Home once trip is created
+            self.activityIndicator.stopAnimating() //stop activity indicator
+        }
+        
+        Post.postUserImage(image: image, withCaption: caption, withTimestamp: Date()) { (success: Bool, error: Error?) in
+            print("post was created!")
+            print(success)
+            self.tabBarController?.selectedIndex = 0 //move to Home once post is created
+            self.activityIndicator.stopAnimating() //stop activity indicator
+        }
+        //sets the photo and caption back to default (aka nothing)
+        photoImageView.image = #imageLiteral(resourceName: "plusButton")
+        captionTextView.text = nil
+    }
+
+    
 
 }
