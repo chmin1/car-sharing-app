@@ -317,6 +317,7 @@
 				TargetAttributes = {
 					F9EFA0C71F15856A00866E6E = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 2B5B8V98QF;
 						ProvisioningStyle = Automatic;
 					};
 					F9EFA0DB1F15856A00866E6E = {
@@ -692,6 +693,7 @@
 			baseConfigurationReference = 4B59829207219E9A58317A93 /* Pods-CarSharingApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2B5B8V98QF;
 				INFOPLIST_FILE = CarSharingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.CarSharingApp;
@@ -705,6 +707,7 @@
 			baseConfigurationReference = 7E1823B6102FE0F859805A27 /* Pods-CarSharingApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 2B5B8V98QF;
 				INFOPLIST_FILE = CarSharingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.FBU.CarSharingApp;

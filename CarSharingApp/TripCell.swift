@@ -15,8 +15,9 @@ class TripCell: UITableViewCell {
     @IBOutlet weak var earlyTimeLabel: UILabel!
     @IBOutlet weak var destinationLabel: UILabel!
     @IBOutlet weak var lateDepartLabel: UILabel!
-    @IBOutlet weak var organizerLabel: UILabel!
     var requestToJoinAlert: UIAlertController!
+
+    @IBOutlet weak var tripMembersLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

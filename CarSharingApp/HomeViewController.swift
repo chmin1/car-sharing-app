@@ -11,7 +11,7 @@ import GooglePlaces
 import Parse
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate, HomeHeaderCellDelegate, CreateViewControllerDelegate {
-
+    
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tripsTableView: UITableView!
     
- 
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,14 +83,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-        //sets up all the other cells (the trip feed)
+            //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
-            //let organizer = trip["Planner"] as! PFUser
-            //let firstname = organizer["firstname"] as! String
-            //let lastname = organizer["lastname"] as! String
+            
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
             let earliestDepart = trip["EarliestTime"] as! String
@@ -98,7 +96,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             if let tripMembers = trip["Members"] as? [PFUser] {
                 for member in tripMembers {
-                    print(member.email)
+                    if let memberName = member["fullname"] as? String {
+                        cell.tripMembersLabel.text = cell.tripMembersLabel.text! + memberName + " "
+                        
+                    }
                 }
             }
             
@@ -109,14 +110,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.destinationLabel.text = arrivalLocation
             cell.earlyTimeLabel.text = earliestDepart
             cell.lateDepartLabel.text = latestDepart
-            //cell.organizerLabel.text = firstname + " " + lastname
             return cell
         }
         
         return UITableViewCell()
     }
     
-
+    
     /*
      * Determines the height of the sections
      */
@@ -130,8 +130,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     /*
-    * We have 2 sections becasue one is the "header" and one is the list of trips
-    */
+     * We have 2 sections becasue one is the "header" and one is the list of trips
+     */
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2;
     }
@@ -146,14 +146,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (section == 0) {
             return 1
         }
-        //section 1 has tripsFeed.count rows
+            //section 1 has tripsFeed.count rows
         else if (section == 1) {
             //TODO: Set this to be filteredtrips.count
             return tripsFeed.count
         }
         return 0
     }
-
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -186,7 +186,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell.endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)
- 
+        
     }
     
     
@@ -226,7 +226,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tripsTableView.reloadData()
         dismiss(animated: true)
     }
-
+    
     
     @IBAction func didTapLogout(_ sender: Any) {
         //logs user out
@@ -246,7 +246,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tripsTableView.reloadData()
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -258,5 +258,5 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             createViewController.delegate = self
         }
     }
-
+    
 }
