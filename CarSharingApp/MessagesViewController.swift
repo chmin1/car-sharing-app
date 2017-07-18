@@ -7,16 +7,20 @@
 //
 
 import UIKit
+import Parse
 
 class MessagesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
 
     @IBOutlet weak var messagesView: UICollectionView!
+    
+    var tripData: [Trip?] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         messagesView.delegate = self
         messagesView.dataSource = self
+        refresh()
         
         let layout = messagesView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 0
@@ -40,6 +44,29 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         return item
         
     }
+    
+    func refresh() {
+        let query = PFQuery(className: "Trip")
+        query.includeKey("Planner")
+        //query.whereKey("Planner", equalTo: PFUser.current())
+        //query.order(byDescending: "_created_at")
+        query.findObjectsInBackground { (tripData: [PFObject]?, error: Error?) in
+            if let trips = trips {
+                // do something with the array of object returned by the call
+                self.tripsFeed.removeAll()
+                for trip in trips {
+                    self.tripsFeed.append(trip)
+                }
+                
+                self.tripsTableView.reloadData()
+                //self.refreshControl.endRefreshing()
+            } else {
+                print(error?.localizedDescription)
+            }
+            
+        }
+    }
+
     
     
 
