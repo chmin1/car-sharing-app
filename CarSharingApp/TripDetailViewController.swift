@@ -27,6 +27,7 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var member2Prof: UIImageView!
     @IBOutlet weak var member3Prof: UIImageView!
     @IBOutlet weak var member4Prof: UIImageView!
+    @IBOutlet weak var requestButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -55,6 +56,12 @@ class TripDetailViewController: UIViewController {
             let memberNames = returnMemberNames(tripMembers: members) as [String?]
             print(memberNames)
             self.fillInNames(members: memberNames)
+            
+            //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
+            let currentMemberName = PFUser.current()?["fullname"] as! String
+            if memberNames.contains(currentMemberName) || memberNames.count == 4 {
+                requestButton.isHidden = true
+            }
         }
         
         
