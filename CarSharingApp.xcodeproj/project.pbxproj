@@ -13,6 +13,7 @@
 		93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFC1F16A27F003BB533 /* TripCell.swift */; };
 		93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */; };
 		93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */; };
+		93EB998F1F201CB80078A072 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB998E1F201CB80078A072 /* ProfileViewController.swift */; };
 		C836520811D9B5E8E930B68E /* Pods_CarSharingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 594F02EC0DB2C4343792D1AF /* Pods_CarSharingApp.framework */; };
 		E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E109611B1F1E9AF90053762B /* MainTabBarController.swift */; };
 		E18E2C9B1F15995800930CE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9A1F15995800930CE0 /* User.swift */; };
@@ -69,6 +70,7 @@
 		93202BFC1F16A27F003BB533 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderCell.swift; sourceTree = "<group>"; };
 		93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		93EB998E1F201CB80078A072 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A802CA4CAB13ABB4DE15BB92 /* Pods-CarSharingAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarSharingAppTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-CarSharingAppTests/Pods-CarSharingAppTests.release.xcconfig"; sourceTree = "<group>"; };
 		C9D96581882B572DFB0FEACB /* Pods_CarSharingAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E109611B1F1E9AF90053762B /* MainTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */,
 				E109611B1F1E9AF90053762B /* MainTabBarController.swift */,
 				F9E2C6A21F1EDEE00016D6E2 /* ConvoViewController.swift */,
+				93EB998E1F201CB80078A072 /* ProfileViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
 				F942121B1F1D46AB0051D1A9 /* messagesCell.swift in Sources */,
+				93EB998F1F201CB80078A072 /* ProfileViewController.swift in Sources */,
 				E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */,
 				E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */,
 			);
