@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -245,6 +245,7 @@
                                             <outlet property="destinationLabel" destination="q43-EM-0Kw" id="z3f-9i-SMm"/>
                                             <outlet property="earlyTimeLabel" destination="hvP-gq-CB0" id="Gya-qC-Bc4"/>
                                             <outlet property="lateDepartLabel" destination="nwq-b6-cEC" id="7Zz-b3-YMr"/>
+                                            <outlet property="requestButton" destination="9m9-0P-Ecn" id="TGC-EJ-P3H"/>
                                             <outlet property="tripMembersLabel" destination="cF3-3M-qhn" id="9fA-8L-9F6"/>
                                             <outlet property="tripName" destination="34E-g2-vxq" id="36u-KW-iJv"/>
                                             <segue destination="JgV-Vw-IJt" kind="show" id="vyv-0s-BnT"/>

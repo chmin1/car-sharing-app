@@ -254,10 +254,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             } else if let trip = trip {
                 //add this trip to the user's list of trips
                 if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
-                    print("i have a my trips key!🤠")
-                    print(usersTrips)
                     usersTrips.append(trip)
-                    print(usersTrips)
                     PFUser.current()?["myTrips"] = usersTrips
                     PFUser.current()?.saveInBackground()
                 }

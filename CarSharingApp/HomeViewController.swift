@@ -316,6 +316,16 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if memberNames.contains(fullname as! String) == false {
                     membersArray.append(PFUser.current()!)
                     currentTrip?["Members"] = membersArray
+                    
+                    //add this trip to the user's list of trips and SAVE
+                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject] {
+                        print(currentTrip!)
+                        usersTrips.append(currentTrip!)
+                        PFUser.current()?["myTrips"] = usersTrips
+                        PFUser.current()?.saveInBackground()
+                    }
+                    
+                    //SAVE this updated trip into to the trip
                     currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
                         if let error = error {
                             print(error.localizedDescription)

@@ -142,6 +142,22 @@ class TripDetailViewController: UIViewController {
                 if memberNames.contains(fullname as! String) == false {
                     membersArray.append(PFUser.current()!)
                     trip?["Members"] = membersArray
+                    
+                    //add this trip to the user's list of trips and SAVE
+                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject] {
+                        print(trip!)
+                        usersTrips.append(trip!)
+                        PFUser.current()?["myTrips"] = usersTrips
+                        PFUser.current()?.saveInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else if success {
+                                print("😆success! updated user to add trip")
+                            }
+                        })
+                    }
+                    
+                    //SAVE this updated trip into to the trip
                     trip?.saveInBackground(block: { (success: Bool, error: Error?) in
                         if let error = error {
                             print(error.localizedDescription)
