@@ -17,7 +17,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
     var requestToJoinAlert: UIAlertController!
-
+    
     var tripsFeed: [PFObject] = []
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
@@ -88,7 +88,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-        //sets up all the other cells (the trip feed)
+            //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
@@ -99,12 +99,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let earliestDepart = trip["EarliestTime"] as! String
             let latestDepart = trip["LatestTime"] as! String
             if let tripMembers = trip["Members"] as? [PFUser] {
-                for member in tripMembers {
-                    if let memberName = member["fullname"] as? String {
-                        cell.tripMembersLabel.text = cell.tripMembersLabel.text! + memberName + " "
-                        
+                print(tripName)
+                let memberNames = returnMemberNames(tripMembers: tripMembers)
+                print(memberNames)
+                var memberString = ""
+            
+                for memberName in memberNames {
+                    memberString += memberName
+                    if memberName != memberNames.last {
+                        memberString += ", "
                     }
                 }
+                cell.tripMembersLabel.text = memberString
             }
             
             cell.tripName.text = tripName
@@ -118,6 +124,15 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableViewCell()
     }
     
+    func returnMemberNames(tripMembers: [PFUser]) -> [String] {
+        var memberNames: [String] = []
+        for member in tripMembers {
+            if let memberName = member["fullname"] as? String {
+                memberNames.append(memberName)
+            }
+        }
+        return memberNames
+    }
     
     /*
      * Determines the height of the sections
@@ -255,7 +270,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @IBAction func didTapRequestToJoin(_ sender: AnyObject) {
-        print("requested!")
         if let cell = sender.superview??.superview as? TripCell {
             let indexPath = tripsTableView.indexPath(for: cell)
             currentTrip = tripsFeed[(indexPath?.row)!]
@@ -282,21 +296,32 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func addUserToTrip() {
         if var membersArray = currentTrip?["Members"] as? [PFUser] {
-            membersArray.append(PFUser.current()!)
-            
-            currentTrip?["Members"] = membersArray
-            currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else if success{
-                    print("😆success! updated trip to add new member")
-                    self.tripsTableView.reloadData()
+            let memberNames = returnMemberNames(tripMembers: membersArray)
+            if let fullname = PFUser.current()?["fullname"] {
+                if memberNames.contains(fullname as! String) == false {
+                    membersArray.append(PFUser.current()!)
+                    currentTrip?["Members"] = membersArray
+                    currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                        } else if success{
+                            print("😆success! updated trip to add new member")
+                            self.tripsTableView.reloadData()
+                        }
+                    })
+                    currentTrip = nil
+                } else if memberNames.contains(fullname as! String) == true{
+                    print("You are already in this trip")
                 }
-            })
+            }
+           
+            
+            
+            
             
         }
         
-    
+        
     }//close addUserToTrip()
     
     
