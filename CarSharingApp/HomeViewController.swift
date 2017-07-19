@@ -123,6 +123,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 cell.tripMembersLabel.text = memberString
+            
+                //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
+                let currentMemberName = PFUser.current()?["fullname"] as! String
+                if memberNames.contains(currentMemberName) || memberNames.count == 4 {
+                    cell.requestButton.isHidden = true
+                }
+            
             }
             
             cell.tripName.text = tripName

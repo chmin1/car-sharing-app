@@ -947,7 +947,6 @@
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="didTapSubmit:" destination="MFX-uB-tZm" eventType="touchUpInside" id="tDg-1I-y2X"/>
-                                    <segue destination="YMv-qk-Z4W" kind="presentation" identifier="finishedSignup" id="MHe-X0-G1S"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3r9-zs-go9">
@@ -983,6 +982,7 @@
                         <outlet property="firstnameTextField" destination="FX1-Qj-4rL" id="Hc0-Lj-DDO"/>
                         <outlet property="lastnameTextField" destination="faR-hw-qjL" id="47T-zE-dzV"/>
                         <outlet property="passwordTextField" destination="rfr-ia-Byi" id="QId-EL-oXY"/>
+                        <segue destination="YMv-qk-Z4W" kind="presentation" identifier="finishedSignup" id="nDs-Zk-OKT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="83u-tB-iNO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1196,6 +1196,6 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="MHe-X0-G1S"/>
+        <segue reference="nDs-Zk-OKT"/>
     </inferredMetricsTieBreakers>
 </document>

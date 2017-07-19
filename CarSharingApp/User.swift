@@ -28,7 +28,8 @@ class User: NSObject {
         newUser.signUpInBackground { (success: Bool, error: Error?) in
             if success {
                 print("Yay, created a user!")
-                //self.performSegue(withIdentifier: "loginSegue", sender: nil)
+                completion!(success, error)
+                //self.performSegue(withIdentifier: "finishedSignup", sender: nil)
             } else {
                 print(error?.localizedDescription)
             }

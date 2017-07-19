@@ -102,7 +102,7 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
         User.registerUser(image: #imageLiteral(resourceName: "profile"), withEmail: emailTextField.text, withFirstName: firstnameTextField.text, withLastName: lastnameTextField.text, withPassword: passwordTextField.text, withSchool: addSchoolLabel?.text) { (success: Bool, error: Error?) in
             if let error = error {
                 print("😢 User sign up failed: \(error.localizedDescription)")
-            } else {
+            } else if success {
                 print("😃 User was created!")
                 print(self.addSchoolLabel?.text ?? "default")
                 // display view controller that needs to shown after successful signup
