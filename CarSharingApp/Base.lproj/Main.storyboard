@@ -695,6 +695,7 @@
                                                 </imageView>
                                             </subviews>
                                         </view>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="ASG-hf-DcE" firstAttribute="leading" secondItem="kkU-f6-cAF" secondAttribute="trailing" constant="8" id="4HQ-uy-qZD"/>
                                             <constraint firstItem="NRO-aj-R3S" firstAttribute="bottom" secondItem="gks-Mz-fAK" secondAttribute="bottom" id="4It-zj-Vcx"/>
@@ -723,6 +724,7 @@
                                             <outlet property="messagePreviewLabel" destination="ASG-hf-DcE" id="LDx-mV-hjt"/>
                                             <outlet property="messageTitleLabel" destination="gks-Mz-fAK" id="bMR-uc-eDH"/>
                                             <outlet property="recipientImage" destination="kkU-f6-cAF" id="NvJ-Vz-vvF"/>
+                                            <segue destination="Kyd-KR-sHy" kind="show" id="r2g-hS-z8Z"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -736,16 +738,7 @@
                             <constraint firstAttribute="bottom" secondItem="kof-TL-IsU" secondAttribute="bottom" id="cU3-h5-SVN"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Messages" id="Z8h-cR-Ivx">
-                        <barButtonItem key="rightBarButtonItem" image="powered-by-google-light.png" style="plain" id="nEH-r0-6QP">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="59g-Yx-Yrv">
-                                <rect key="frame" x="329" y="5" width="30" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <state key="normal" title="+"/>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Messages" id="Z8h-cR-Ivx"/>
                     <connections>
                         <outlet property="messagesView" destination="kof-TL-IsU" id="ZVZ-pG-Huq"/>
                     </connections>
@@ -753,6 +746,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dmc-uc-J7S" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="400.80000000000001" y="1141.9790104947526"/>
+        </scene>
+        <!--Convo View Controller-->
+        <scene sceneID="MZd-WX-32I">
+            <objects>
+                <viewController id="Kyd-KR-sHy" customClass="ConvoViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Cn-HO-yk8"/>
+                        <viewControllerLayoutGuide type="bottom" id="4Ev-Wn-WM3"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sbX-yS-SPD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qwq-H7-4XG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="401" y="2063"/>
         </scene>
         <!--Your Trips-->
         <scene sceneID="mWu-k1-obP">
@@ -1115,7 +1126,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="powered-by-google-light.png" width="120" height="14"/>
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
