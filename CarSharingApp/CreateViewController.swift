@@ -252,6 +252,16 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             if let error = error {
                 print("Error creating Trip: \(error.localizedDescription)")
             } else if let trip = trip {
+                //add this trip to the user's list of trips
+                if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
+                    print("i have a my trips key!🤠")
+                    print(usersTrips)
+                    usersTrips.append(trip)
+                    print(usersTrips)
+                    PFUser.current()?["myTrips"] = usersTrips
+                    PFUser.current()?.saveInBackground()
+                }
+                //send the trip to the delegate (home vc)
                 self.delegate?.didPostTrip(trip: trip)
                 print("trip was created! 😃")
                 self.activityIndicator.stopAnimating() //stop activity indicator
