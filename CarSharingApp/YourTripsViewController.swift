@@ -28,16 +28,19 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func refresh() {
+        //HOW TO QUERY AN ARRAY
+        
+        let currentUser = PFUser.current()
+        let myTrips = currentUser?["myTrips"] as! [PFObject]
+        let firstTrip = myTrips[0]
         let query = PFQuery(className: "Trip")
-        query.whereKey("Planner", equalTo: PFUser.current())
-        query.includeKey("Planner")
+        query.includeKey("Name")
         query.includeKey("Members")
-        query.order(byDescending: "_created_at")
+        query.whereKey("Members", equalTo: currentUser)
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.yourTrips.removeAll()
                 for trip in trips {
-                    print(trip)
                     self.yourTrips.append(trip)
                 }
                 self.yourTripsTableView.reloadData()
@@ -45,8 +48,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             } else {
                 print(error?.localizedDescription)
             }
-            
         }
+        
     }
     
     /*
@@ -61,6 +64,10 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         let arrivalLocation = trip["ArrivalLoc"] as! String
         let earliestDepart = trip["EarliestTime"] as! String
         let latestDepart = trip["LatestTime"] as! String
+        print("depart: \(departureLocation)")
+        print("arriv: \(arrivalLocation)")
+        print("earliestdep: \(earliestDepart)")
+        print("latestdep: \(latestDepart)")
         if let tripMembers = trip["Members"] as? [PFUser] {
             print(tripName)
             let memberNames = returnMemberNames(tripMembers: tripMembers)
@@ -73,14 +80,14 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                     memberString += ", "
                 }
             }
-            cell.tripMembersLabel.text = memberString
+            //cell.tripMembersLabel.text = memberString
         }
         
-        cell.tripName.text = tripName
-        cell.departLabel.text = departureLocation
-        cell.destinationLabel.text = arrivalLocation
-        cell.earlyTimeLabel.text = earliestDepart
-        cell.lateDepartLabel.text = latestDepart
+//        cell.tripName.text = tripName
+//        cell.departLabel.text = departureLocation
+//        cell.destinationLabel.text = arrivalLocation
+//        cell.earlyTimeLabel.text = earliestDepart
+//        cell.lateDepartLabel.text = latestDepart
         return cell
     }
     
@@ -89,16 +96,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
      * Tells the tableview how many rows should be in each section
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //secion 0 has 1 row (header)
-        if (section == 0) {
-            return 1
-        }
-            //section 1 has tripsFeed.count rows
-        else if (section == 1) {
-            //TODO: Set this to be filteredtrips.count
-            return yourTrips.count
-        }
-        return 0
+        return yourTrips.count
     }
     
     //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
