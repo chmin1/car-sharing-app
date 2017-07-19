@@ -99,6 +99,10 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         return yourTrips.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
@@ -117,14 +121,14 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+    //====== SEGUE TO DETAIL VIEW =======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = yourTripsTableView.indexPath(for: cell) {//get this to find the actual trip
+            let trip = yourTrips[indexPath.row] //get the trip
+            let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+            detailViewController.trip = trip
+        }
+    }
     
 }

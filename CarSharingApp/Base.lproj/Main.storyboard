@@ -944,6 +944,7 @@
                                             <outlet property="lateDepartLabel" destination="CP1-cY-2PY" id="3pu-oP-5MN"/>
                                             <outlet property="tripMembersLabel" destination="gJ7-QY-q86" id="fAo-f1-8zx"/>
                                             <outlet property="tripName" destination="M9p-Mr-jlw" id="ecX-b7-jyD"/>
+                                            <segue destination="JgV-Vw-IJt" kind="show" id="WcS-r4-J1G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1286,5 +1287,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nDs-Zk-OKT"/>
+        <segue reference="vyv-0s-BnT"/>
     </inferredMetricsTieBreakers>
 </document>
