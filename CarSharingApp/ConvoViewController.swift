@@ -9,14 +9,52 @@
 import UIKit
 import Parse
 
-class ConvoViewController: UIViewController {
+class ConvoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    @IBOutlet weak var convoView: UICollectionView!
+    
+    @IBOutlet weak var messageField: UITextView!
     
     var Trip: PFObject!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        convoView.delegate = self
+        convoView.dataSource = self
 
-        // Do any additional setup after loading the view.
+        if let title = Trip["Name"] as? String {
+            print(title)
+            navigationItem.title = title
+        }
+        
+        let id = Trip.objectId!
+        print(id)
+        
+        let amountOfLinesShown: CGFloat = 6
+        let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
+        messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 10
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let item = convoView.dequeueReusableCell(withReuseIdentifier: "convoCell", for: indexPath) as! ConvoCell
+        
+        item.textImage.image = UIImage(named: "profile")
+        item.testMessage.text = "I am a message!"
+        
+        return item
+    }
+    
+    @IBAction func onSendMessage(_ sender: Any) {
+        
+    }
+    
+    @IBAction func onScreenTap(_ sender: Any) {
+        view.endEditing(true)
     }
 
     override func didReceiveMemoryWarning() {

@@ -10,4 +10,8 @@ import UIKit
 
 class ConvoCell: UICollectionViewCell {
     
+    @IBOutlet weak var textImage: UIImageView!
+    
+    @IBOutlet weak var testMessage: UILabel!
+    
 }
