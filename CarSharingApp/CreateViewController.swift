@@ -51,6 +51,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
+    static let MIN_TIME_WINDOW = 10 //Min time window
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +113,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)
-        
     }
     
     func setUpDatePicker() {
@@ -121,6 +121,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
+        
         latestTextField.text = dateToString(date: LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
@@ -172,6 +173,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
+        
         
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: sender.date)
