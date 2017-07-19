@@ -34,12 +34,13 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
+        
+        
         let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
         let trip = tripData[indexPath.row]
         item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
         item.messagePreviewLabel.text = "This is a test that to check if this label works!"
         item.recipientImage.image = UIImage(named: "profile")
-        item.hasReadImage.image = UIImage(named: "profile")
         
         return item
         
@@ -82,6 +83,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
             let dest = segue.destination as! ConvoViewController
             
             //pass the info from the cell to the trip
+            print(trip!)
             dest.Trip = trip
             
         }
