@@ -68,6 +68,11 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func onKeyboardDismiss(_ sender: Any) {
+        view.endEditing(true)
+    }
+    
+    
     @IBAction func didTapSubmit(_ sender: Any) {
     
         //display error message if one of the field is empty
