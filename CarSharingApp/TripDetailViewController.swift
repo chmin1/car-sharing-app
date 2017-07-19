@@ -53,15 +53,16 @@ class TripDetailViewController: UIViewController {
             departureLocLabel.text = trip["DepartureLoc"] as! String
             arrivalLocLabel.text = trip["ArrivalLoc"] as! String
             let members = trip["Members"] as! [PFUser]
-            let memberNames = returnMemberNames(tripMembers: members) as [String?]
+            let memberNames = returnMemberNames(tripMembers: members) as [String]
             print(memberNames)
             self.fillInNames(members: memberNames)
             
             //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
-            let currentMemberName = PFUser.current()?["fullname"] as! String
-            if memberNames.contains(currentMemberName) || memberNames.count == 4 {
+            let currentMemberName = PFUser.current()?["fullname"] as! String?
+            if memberNames.contains(currentMemberName!) || memberNames.count == 4 {
                 requestButton.isHidden = true
             }
+            
         }
         
         
