@@ -103,7 +103,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let memberNames = returnMemberNames(tripMembers: tripMembers)
                 print(memberNames)
                 var memberString = ""
-            
+                
                 for memberName in memberNames {
                     memberString += memberName
                     if memberName != memberNames.last {
@@ -124,6 +124,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableViewCell()
     }
     
+    //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
         for member in tripMembers {
@@ -294,8 +295,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         requestToJoinAlert.addAction(yesAction) // add the yes action to the alertController
     }
     
+    //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" IS PRESSED =======
     func addUserToTrip() {
-        if var membersArray = currentTrip?["Members"] as? [PFUser] {
+        var membersArray = currentTrip?["Members"] as! [PFUser]
+        if membersArray.count < 4 {
             let memberNames = returnMemberNames(tripMembers: membersArray)
             if let fullname = PFUser.current()?["fullname"] {
                 if memberNames.contains(fullname as! String) == false {
@@ -314,15 +317,21 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     print("You are already in this trip")
                 }
             }
-           
-            
-            
-            
-            
         }
-        
-        
+        else {
+            print("Can't join - this trip is already full")
+        }
     }//close addUserToTrip()
+    
+    //====== SEGUE TO DETAIL VIEW =======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
+            let trip = tripsFeed[indexPath.row] //get the trip
+            let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+            detailViewController.trip = trip
+        }
+    }
     
     
     
