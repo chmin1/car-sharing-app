@@ -29,14 +29,14 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return tripData.count 
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
-        
-        item.messageTitleLabel.text = "Test"
+        let trip = tripData[indexPath.row]
+        item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
         item.messagePreviewLabel.text = "This is a test that to check if this label works!"
         item.recipientImage.image = UIImage(named: "profile")
         item.hasReadImage.image = UIImage(named: "profile")
@@ -66,10 +66,29 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
             
         }
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Segues current trip info to the convo view controller
+        
+        // Get the UICollectionViewCell
+        let item = sender as! UICollectionViewCell
+        
+        if let indexPath = messagesView.indexPath(for: item) {
+            
+            let trip = tripData[indexPath.row]
+            
+            //Get the segue destination
+            let dest = segue.destination as! ConvoViewController
+            
+            //pass the info from the cell to the trip
+            dest.Trip = trip
+            
+        }
+        
+    }
 
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -80,10 +99,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
+    
     */
 
 }
