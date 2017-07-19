@@ -17,6 +17,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
     var requestToJoinAlert: UIAlertController!
+    var refreshControl: UIRefreshControl!
     
     var tripsFeed: [PFObject] = []
     //for when the user searches
@@ -45,6 +46,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
         
+        //Initialize a Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        tripsTableView.insertSubview(refreshControl, at: 0)
+        
     }
     
     func tabBarController(tabbar: UITabBarController, didSelect: UIViewController) {
@@ -69,12 +76,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 
                 self.tripsTableView.reloadData()
-                //self.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing()
             } else {
                 print(error?.localizedDescription)
             }
             
         }
+    }
+    
+    //====== PULL TO REFRESH =======
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        refresh()
     }
     
     /*
@@ -88,7 +100,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-            //sets up all the other cells (the trip feed)
+        //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
@@ -332,6 +344,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             detailViewController.trip = trip
         }
     }
+    
+    
     
     
     

@@ -302,10 +302,6 @@
                                         <rect key="frame" x="8" y="8" width="52" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Kae-Ab-zjs">
-                                        <rect key="frame" x="99" y="8" width="52" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="F8N-E3-cgK">
                                         <rect key="frame" x="196" y="8" width="52" height="45"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -342,6 +338,10 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Kae-Ab-zjs">
+                                        <rect key="frame" x="99" y="8" width="52" height="45"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -429,6 +429,10 @@
                         <outlet property="departureLocLabel" destination="fBD-TS-JM1" id="AL7-MB-sO1"/>
                         <outlet property="earliestLabel" destination="dbd-cU-EJs" id="l27-sq-Z98"/>
                         <outlet property="latestLabel" destination="cTi-9R-FLy" id="Exd-sc-ZpL"/>
+                        <outlet property="member1Prof" destination="SNM-GX-FjU" id="15n-Wl-BLQ"/>
+                        <outlet property="member2Prof" destination="Kae-Ab-zjs" id="H23-fm-Dg0"/>
+                        <outlet property="member3Prof" destination="F8N-E3-cgK" id="96F-uT-Nhn"/>
+                        <outlet property="member4Prof" destination="ObU-3k-ZLP" id="jaT-Hk-drW"/>
                         <outlet property="name1Label" destination="R81-Ko-L7U" id="kMS-Wi-dXg"/>
                         <outlet property="name2Label" destination="84u-oN-wCc" id="9G3-ma-8jg"/>
                         <outlet property="name3Label" destination="ohu-dB-Bvi" id="REt-Kf-y1Q"/>

@@ -12,7 +12,8 @@ import Parse
 class TripDetailViewController: UIViewController {
     
     var trip: PFObject?
-
+    var requestToJoinAlert: UIAlertController!
+    
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var name1Label: UILabel!
     @IBOutlet weak var name2Label: UILabel!
@@ -22,10 +23,28 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var latestLabel: UILabel!
     @IBOutlet weak var departureLocLabel: UILabel!
     @IBOutlet weak var arrivalLocLabel: UILabel!
+    @IBOutlet weak var member1Prof: UIImageView!
+    @IBOutlet weak var member2Prof: UIImageView!
+    @IBOutlet weak var member3Prof: UIImageView!
+    @IBOutlet weak var member4Prof: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        //set up request to join alert
+        setUpRequestToJoinAlert()
+        
+        //hide all name labels (only make them appear if there's a name to put)
+        name2Label.isHidden = true
+        name3Label.isHidden = true
+        name4Label.isHidden = true
+        
+        //hide all prof pics (only make them appear if there's a member to put)
+        member2Prof.isHidden = true
+        member3Prof.isHidden = true
+        member4Prof.isHidden = true
+        
         if let trip = trip {
             tripNameLabel.text = trip["Name"] as! String
             earliestLabel.text = trip["EarliestTime"] as! String
@@ -33,13 +52,50 @@ class TripDetailViewController: UIViewController {
             departureLocLabel.text = trip["DepartureLoc"] as! String
             arrivalLocLabel.text = trip["ArrivalLoc"] as! String
             let members = trip["Members"] as! [PFUser]
-            let memberNames = returnMemberNames(tripMembers: members)
+            let memberNames = returnMemberNames(tripMembers: members) as [String?]
             print(memberNames)
+            self.fillInNames(members: memberNames)
         }
         
         
     }//close viewDidLoad()
-
+    
+    func fillInNames(members: [String?]) {
+        let count = members.count
+        
+        //fill in first naem if count > 0
+        if let member1 = members[0] {
+            name1Label.text = member1
+        }
+        
+        //fill in second name if count > 1
+        if count > 1 {
+            name2Label.isHidden = false
+            member2Prof.isHidden = false
+            if let member2 = members[1] {
+                name2Label.text = member2
+            }
+        }
+        
+        //fill in third name if count > 2
+        if count > 2 {
+            name3Label.isHidden = false
+            member3Prof.isHidden = false
+            if let member3 = members[2] {
+                name3Label.text = member3
+            }
+        }
+        
+        //fill in fourth name if count > 3
+        if count > 3 {
+            name4Label.isHidden = false
+            member4Prof.isHidden = false
+            if let member4 = members[3] {
+                name4Label.text = member4
+            }
+        }
+    }//close fillInNames()
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -57,7 +113,23 @@ class TripDetailViewController: UIViewController {
     }
     
     @IBAction func didTapRequestToJoinTrip(_ sender: Any) {
+        present(requestToJoinAlert, animated: true, completion: nil)
+    }
+    
+    func setUpRequestToJoinAlert(){
+        // Set up the requestToJoinAlert
+        requestToJoinAlert = UIAlertController(title: "Requesting To Join Trip", message: "Are you sure you want to join this trip?", preferredStyle: .alert)
         
+        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            self.addUserToTrip()
+        }
+        
+        requestToJoinAlert.addAction(noAction) // add the no action to the alertController
+        requestToJoinAlert.addAction(yesAction) // add the yes action to the alertController
     }
     
     
@@ -75,7 +147,7 @@ class TripDetailViewController: UIViewController {
                             print(error.localizedDescription)
                         } else if success{
                             print("😆success! updated trip to add new member")
-                            //self.tripsTableView.reloadData()
+                            self.addMemberLocally(members: membersArray, currentFullname: fullname as! String)
                         }
                     })
                     trip = nil
@@ -89,6 +161,25 @@ class TripDetailViewController: UIViewController {
         }
     }//close addUserToTrip()
     
-
-
+    //====== LOCALLY ADD MEMBER TO TRIP FOR DETAIL VIEW =======
+    func addMemberLocally(members: [PFUser], currentFullname: String) {
+        let newCount = members.count
+        if newCount == 2 {
+            name2Label.isHidden = false
+            member2Prof.isHidden = false
+            name2Label.text = currentFullname
+        }
+        if newCount == 3 {
+            name3Label.isHidden = false
+            member3Prof.isHidden = false
+            name3Label.text = currentFullname
+        }
+        if newCount == 4 {
+            name4Label.isHidden = false
+            member4Prof.isHidden = false
+            name4Label.text = currentFullname
+        }
+    }
+    
+    
 }
