@@ -100,7 +100,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-        //sets up all the other cells (the trip feed)
+            //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             let trip = tripsFeed[indexPath.row]
@@ -123,13 +123,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 cell.tripMembersLabel.text = memberString
-            
+                
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
                 let currentMemberName = PFUser.current()?["fullname"] as! String
                 if memberNames.contains(currentMemberName) || memberNames.count == 4 {
                     cell.requestButton.isHidden = true
                 }
-            
+                
             }
             
             cell.tripName.text = tripName
@@ -354,11 +354,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //====== SEGUE TO DETAIL VIEW =======
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let cell = sender as! UITableViewCell
-        if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
-            let trip = tripsFeed[indexPath.row] //get the trip
-            let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
-            detailViewController.trip = trip
+        if segue.identifier == "homeToDetail" {
+            let cell = sender as! UITableViewCell
+            if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
+                let trip = tripsFeed[indexPath.row] //get the trip
+                let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+                detailViewController.trip = trip
+            }
         }
     }
     
