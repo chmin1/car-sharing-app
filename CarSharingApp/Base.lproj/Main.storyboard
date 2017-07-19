@@ -662,7 +662,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="preview text" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ASG-hf-DcE">
-                                                    <rect key="frame" x="101" y="39" width="231" height="18"/>
+                                                    <rect key="frame" x="101" y="39" width="258" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -680,19 +680,6 @@
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bYz-lt-3aR">
-                                                    <rect key="frame" x="339" y="70" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="UlB-5p-UDw"/>
-                                                        <constraint firstAttribute="height" constant="20" id="cC6-s0-Wv3"/>
-                                                    </constraints>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </imageView>
                                             </subviews>
                                         </view>
                                         <gestureRecognizers/>
@@ -707,12 +694,10 @@
                                             <constraint firstItem="kkU-f6-cAF" firstAttribute="leading" secondItem="kNk-QU-1QQ" secondAttribute="leadingMargin" constant="5" id="HUU-cd-kRd"/>
                                             <constraint firstItem="gks-Mz-fAK" firstAttribute="top" secondItem="kkU-f6-cAF" secondAttribute="top" id="MJC-Ou-v2Y"/>
                                             <constraint firstItem="kkU-f6-cAF" firstAttribute="centerY" secondItem="kNk-QU-1QQ" secondAttribute="centerY" id="QPa-yl-Nac"/>
-                                            <constraint firstItem="bYz-lt-3aR" firstAttribute="bottom" secondItem="kkU-f6-cAF" secondAttribute="bottom" id="RFi-eN-tcH"/>
                                             <constraint firstItem="ASG-hf-DcE" firstAttribute="leading" secondItem="gks-Mz-fAK" secondAttribute="leading" id="VBM-FO-HFU"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="ASG-hf-DcE" secondAttribute="trailing" constant="35" id="XbH-s7-6F8"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="ASG-hf-DcE" secondAttribute="trailing" constant="8" id="XbH-s7-6F8"/>
                                             <constraint firstItem="ASG-hf-DcE" firstAttribute="top" secondItem="gks-Mz-fAK" secondAttribute="bottom" constant="8" id="blf-o7-o2W"/>
                                             <constraint firstItem="ML3-gI-xF4" firstAttribute="top" secondItem="kkU-f6-cAF" secondAttribute="bottom" constant="8" id="bwy-xH-QOd"/>
-                                            <constraint firstItem="bYz-lt-3aR" firstAttribute="trailing" secondItem="NRO-aj-R3S" secondAttribute="trailing" id="cjR-5T-0yW"/>
                                             <constraint firstItem="NRO-aj-R3S" firstAttribute="top" secondItem="gks-Mz-fAK" secondAttribute="top" id="edA-N0-Wyd"/>
                                             <constraint firstItem="NRO-aj-R3S" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gks-Mz-fAK" secondAttribute="trailing" constant="8" id="oCa-Wn-oeO"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="NRO-aj-R3S" secondAttribute="trailing" constant="8" id="qSN-De-gQp"/>
@@ -720,7 +705,6 @@
                                         </constraints>
                                         <connections>
                                             <outlet property="dateLabel" destination="NRO-aj-R3S" id="sVM-Ke-mA9"/>
-                                            <outlet property="hasReadImage" destination="bYz-lt-3aR" id="bwQ-nI-fTq"/>
                                             <outlet property="messagePreviewLabel" destination="ASG-hf-DcE" id="LDx-mV-hjt"/>
                                             <outlet property="messageTitleLabel" destination="gks-Mz-fAK" id="bMR-uc-eDH"/>
                                             <outlet property="recipientImage" destination="kkU-f6-cAF" id="NvJ-Vz-vvF"/>
@@ -758,12 +742,85 @@
                     <view key="view" contentMode="scaleToFill" id="sbX-yS-SPD">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5dA-YT-YgE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a92-Tz-baJ">
+                                    <size key="itemSize" width="375" height="72"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <view key="backgroundView" contentMode="scaleToFill" id="5z8-3E-7Pl">
+                                    <rect key="frame" x="0.0" y="-64" width="375" height="580"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <gestureRecognizers/>
+                                    <connections>
+                                        <outletCollection property="gestureRecognizers" destination="U46-aw-O22" appends="YES" id="4cQ-sA-KxF"/>
+                                    </connections>
+                                </view>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="convoCell" id="rMZ-GE-Ysw" customClass="ConvoCell" customModule="CarSharingApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M8t-R7-q1n">
+                                                    <rect key="frame" x="20" y="16" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="I am a message!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BoX-HC-mD2">
+                                                    <rect key="frame" x="69" y="16" width="286" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="testMessage" destination="BoX-HC-mD2" id="bvI-0I-VB5"/>
+                                            <outlet property="textImage" destination="M8t-R7-q1n" id="dBm-Ib-DNg"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4L-A7-Npn">
+                                <rect key="frame" x="315" y="588" width="60" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="send"/>
+                                <connections>
+                                    <action selector="onSendMessage:" destination="Kyd-KR-sHy" eventType="touchUpInside" id="yZm-Dl-Kpq"/>
+                                </connections>
+                            </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="D61-9w-df5">
+                                <rect key="frame" x="0.0" y="588" width="315" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.87350226683937826" green="0.87350226683937826" blue="0.87350226683937826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="convoView" destination="5dA-YT-YgE" id="fy0-Z2-tBS"/>
+                        <outlet property="messageField" destination="D61-9w-df5" id="hRr-Jp-0qT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwq-H7-4XG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="U46-aw-O22" userLabel="Keyboard Dismiss">
+                    <connections>
+                        <action selector="onScreenTap:" destination="Kyd-KR-sHy" id="otS-Ep-Hxe"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="401" y="2063"/>
+            <point key="canvasLocation" x="400.80000000000001" y="2062.2188905547227"/>
         </scene>
         <!--Your Trips-->
         <scene sceneID="mWu-k1-obP">
@@ -913,6 +970,10 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="5H9-99-1Rb" appends="YES" id="XVP-rO-pGY"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="addSchoolLabel" destination="4qA-iQ-yIr" id="3KU-hH-dhd"/>
@@ -927,6 +988,11 @@
                 <tapGestureRecognizer id="pnl-mh-2bt" userLabel="Add School Tap Gesture Recognizer">
                     <connections>
                         <segue destination="SHj-R4-8eW" kind="presentation" identifier="SegueToSchoolList" id="axU-ik-nzr"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="5H9-99-1Rb" userLabel="Keyboard Dismiss Recognizer">
+                    <connections>
+                        <action selector="onKeyboardDismiss:" destination="MFX-uB-tZm" id="qrR-UT-W5g"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
@@ -1129,6 +1195,6 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fkk-zX-pMM"/>
+        <segue reference="MHe-X0-G1S"/>
     </inferredMetricsTieBreakers>
 </document>

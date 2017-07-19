@@ -32,6 +32,7 @@
 		F942121F1F1E834B0051D1A9 /* Coversations.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942121E1F1E834B0051D1A9 /* Coversations.swift */; };
 		F9E2C6A11F1EBD6C0016D6E2 /* message.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E2C6A01F1EBD6C0016D6E2 /* message.swift */; };
 		F9E2C6A31F1EDEE00016D6E2 /* ConvoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E2C6A21F1EDEE00016D6E2 /* ConvoViewController.swift */; };
+		F9E2C6A51F1FE2490016D6E2 /* ConvoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */; };
 		F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */; };
 		F9EFA0D11F15856A00866E6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0CF1F15856A00866E6E /* Main.storyboard */; };
 		F9EFA0D31F15856A00866E6E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9EFA0D21F15856A00866E6E /* Assets.xcassets */; };
@@ -89,6 +90,7 @@
 		F942121E1F1E834B0051D1A9 /* Coversations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coversations.swift; sourceTree = "<group>"; };
 		F9E2C6A01F1EBD6C0016D6E2 /* message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = message.swift; sourceTree = "<group>"; };
 		F9E2C6A21F1EDEE00016D6E2 /* ConvoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvoViewController.swift; sourceTree = "<group>"; };
+		F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConvoCell.swift; sourceTree = "<group>"; };
 		F9EFA0C81F15856A00866E6E /* CarSharingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarSharingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9EFA0D01F15856A00866E6E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				F942121A1F1D46AB0051D1A9 /* messagesCell.swift */,
 				F942121E1F1E834B0051D1A9 /* Coversations.swift */,
 				F9E2C6A01F1EBD6C0016D6E2 /* message.swift */,
+				F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				E18E2CAB1F18378000930CE0 /* CreateViewController.swift in Sources */,
 				E18E2C9B1F15995800930CE0 /* User.swift in Sources */,
 				93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */,
+				F9E2C6A51F1FE2490016D6E2 /* ConvoCell.swift in Sources */,
 				F9E2C6A31F1EDEE00016D6E2 /* ConvoViewController.swift in Sources */,
 				E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */,
 				E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */,
