@@ -80,14 +80,14 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                     memberString += ", "
                 }
             }
-            //cell.tripMembersLabel.text = memberString
+            cell.tripMembersLabel.text = memberString
         }
         
-//        cell.tripName.text = tripName
-//        cell.departLabel.text = departureLocation
-//        cell.destinationLabel.text = arrivalLocation
-//        cell.earlyTimeLabel.text = earliestDepart
-//        cell.lateDepartLabel.text = latestDepart
+        cell.tripName.text = tripName
+        cell.departLabel.text = departureLocation
+        cell.destinationLabel.text = arrivalLocation
+        cell.earlyTimeLabel.text = earliestDepart
+        cell.lateDepartLabel.text = latestDepart
         return cell
     }
     
