@@ -7,18 +7,39 @@
 //
 
 import UIKit
+import Parse
 
 class MenuController: UITableViewController {
 
+    @IBOutlet weak var profilePicImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //make prof pic circular
+        profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
+        profilePicImageView.clipsToBounds = true
+        
+        //set name label
+        let nameText = PFUser.current()?["fullname"] as! String
+        nameLabel.text = nameText
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        //set prof pic
+        if let profPic = PFUser.current()?["profPic"] as? PFFile {
+            profPic.getDataInBackground { (imageData: Data!, error: Error?) in
+                self.profilePicImageView.image = UIImage(data: imageData)
+            }
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
 
     // MARK: - Table view data source
 

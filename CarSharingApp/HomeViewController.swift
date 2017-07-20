@@ -341,7 +341,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         PFUser.current()?.saveInBackground()
                     }
                     
-                    //SAVE this updated trip into to the trip
+                    //TODO: union operation on the times to change the trip time window
+                    
+                    //SAVE this updated trip info to the trip
                     currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
                         if let error = error {
                             print(error.localizedDescription)
@@ -402,10 +404,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func compareDates(earliestDate: NSDate, latestDate: NSDate, tripEarliestDate: NSDate, tripLatestDate: NSDate) -> Bool {
-        if (earliestDate.isLessThanDate(dateToCompare: tripLatestDate) || earliestDate.equalToDate(dateToCompare: tripLatestDate)) &&
-            (earliestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || earliestDate.equalToDate(dateToCompare: tripEarliestDate)) &&
-            (latestDate.isLessThanDate(dateToCompare: tripLatestDate) || latestDate.equalToDate(dateToCompare: tripLatestDate)) &&
-            (latestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || latestDate.equalToDate(dateToCompare: tripEarliestDate)) {
+        if ((earliestDate.isLessThanDate(dateToCompare: tripLatestDate) || earliestDate.equalToDate(dateToCompare: tripLatestDate)) &&
+            (earliestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || earliestDate.equalToDate(dateToCompare: tripEarliestDate))) ||
+            ((latestDate.isLessThanDate(dateToCompare: tripLatestDate) || latestDate.equalToDate(dateToCompare: tripLatestDate)) &&
+            (latestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || latestDate.equalToDate(dateToCompare: tripEarliestDate))) {
             return true
         } else {
             return false
