@@ -927,9 +927,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5dA-YT-YgE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="580"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5dA-YT-YgE">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="564"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="a92-Tz-baJ">
                                     <size key="itemSize" width="375" height="72"/>
@@ -937,15 +936,6 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <view key="backgroundView" contentMode="scaleToFill" id="5z8-3E-7Pl">
-                                    <rect key="frame" x="0.0" y="-64" width="375" height="580"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <gestureRecognizers/>
-                                    <connections>
-                                        <outletCollection property="gestureRecognizers" destination="U46-aw-O22" appends="YES" id="4cQ-sA-KxF"/>
-                                    </connections>
-                                </view>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="convoCell" id="rMZ-GE-Ysw" customClass="ConvoCell" customModule="CarSharingApp" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
@@ -974,33 +964,69 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4L-A7-Npn">
-                                <rect key="frame" x="315" y="588" width="60" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="send"/>
-                                <connections>
-                                    <action selector="onSendMessage:" destination="Kyd-KR-sHy" eventType="touchUpInside" id="yZm-Dl-Kpq"/>
-                                </connections>
-                            </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="D61-9w-df5">
-                                <rect key="frame" x="0.0" y="588" width="315" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.87350226683937826" green="0.87350226683937826" blue="0.87350226683937826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWT-AY-5Yw">
+                                <rect key="frame" x="0.0" y="564" width="375" height="54"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5rK-8O-CqP">
+                                        <rect key="frame" x="8" y="8" width="301" height="38"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="100" id="rfZ-O1-Jyg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDK-zk-yf8">
+                                        <rect key="frame" x="317" y="8" width="50" height="38"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="eSH-vA-BcR"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Send"/>
+                                        <connections>
+                                            <action selector="onSendMessage:" destination="Kyd-KR-sHy" eventType="touchUpInside" id="2Pv-tg-bYD"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.87694300518134716" green="0.87694300518134716" blue="0.87694300518134716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="5rK-8O-CqP" firstAttribute="top" secondItem="OWT-AY-5Yw" secondAttribute="top" constant="8" id="34U-vq-4I1"/>
+                                    <constraint firstAttribute="trailing" secondItem="BDK-zk-yf8" secondAttribute="trailing" constant="8" id="BEV-6V-qER"/>
+                                    <constraint firstItem="BDK-zk-yf8" firstAttribute="top" secondItem="OWT-AY-5Yw" secondAttribute="top" constant="8" id="Cvu-L1-ovh"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="54" id="GLk-yF-fmJ"/>
+                                    <constraint firstAttribute="bottom" secondItem="5rK-8O-CqP" secondAttribute="bottom" constant="8" id="RaZ-HP-a55"/>
+                                    <constraint firstAttribute="bottom" secondItem="BDK-zk-yf8" secondAttribute="bottom" constant="8" id="Ut2-xs-W3Z"/>
+                                    <constraint firstItem="BDK-zk-yf8" firstAttribute="leading" secondItem="5rK-8O-CqP" secondAttribute="trailing" constant="8" id="Z3O-2W-8yb"/>
+                                    <constraint firstItem="5rK-8O-CqP" firstAttribute="leading" secondItem="OWT-AY-5Yw" secondAttribute="leading" constant="8" id="dFt-c9-6Hj"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="OWT-AY-5Yw" secondAttribute="trailing" id="CeT-gM-fMc"/>
+                            <constraint firstItem="5dA-YT-YgE" firstAttribute="leading" secondItem="sbX-yS-SPD" secondAttribute="leading" id="J3y-rj-82Y"/>
+                            <constraint firstAttribute="trailing" secondItem="5dA-YT-YgE" secondAttribute="trailing" id="KtT-rn-Mcm"/>
+                            <constraint firstItem="5dA-YT-YgE" firstAttribute="top" secondItem="sbX-yS-SPD" secondAttribute="top" id="Lgl-eC-YSf"/>
+                            <constraint firstItem="OWT-AY-5Yw" firstAttribute="leading" secondItem="sbX-yS-SPD" secondAttribute="leading" id="QgY-am-aMl"/>
+                            <constraint firstItem="OWT-AY-5Yw" firstAttribute="top" secondItem="5dA-YT-YgE" secondAttribute="bottom" id="Xxr-qZ-fGB"/>
+                            <constraint firstItem="4Ev-Wn-WM3" firstAttribute="top" secondItem="OWT-AY-5Yw" secondAttribute="bottom" id="yge-dR-Lns"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="qr5-Eb-Vcs" appends="YES" id="BL9-PM-fjF"/>
+                        </connections>
                     </view>
                     <connections>
+                        <outlet property="Dock" destination="OWT-AY-5Yw" id="XUF-O8-2io"/>
                         <outlet property="convoView" destination="5dA-YT-YgE" id="fy0-Z2-tBS"/>
-                        <outlet property="messageField" destination="D61-9w-df5" id="hRr-Jp-0qT"/>
+                        <outlet property="messageField" destination="5rK-8O-CqP" id="kmG-J4-gGn"/>
+                        <outlet property="sendButton" destination="BDK-zk-yf8" id="gvi-RZ-DAx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwq-H7-4XG" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="U46-aw-O22" userLabel="Keyboard Dismiss">
+                <tapGestureRecognizer id="qr5-Eb-Vcs">
                     <connections>
-                        <action selector="onScreenTap:" destination="Kyd-KR-sHy" id="otS-Ep-Hxe"/>
+                        <action selector="onScreenTap:" destination="Kyd-KR-sHy" id="gnc-JY-qo1"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>
