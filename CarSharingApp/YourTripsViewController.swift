@@ -32,7 +32,6 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let currentUser = PFUser.current()
         let myTrips = currentUser?["myTrips"] as! [PFObject]
-        let firstTrip = myTrips[0]
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")

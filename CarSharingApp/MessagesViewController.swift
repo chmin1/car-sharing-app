@@ -15,6 +15,8 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     var tripData: [PFObject?] = []
     
+    var refreshControl: UIRefreshControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,10 +24,20 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         messagesView.dataSource = self
         refresh()
         
+        //Initialize a Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        messagesView.insertSubview(refreshControl, at: 0)
+        
         let layout = messagesView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
         
+    }
+    
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        refresh()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -47,25 +59,25 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func refresh() {
+        let currentUser = PFUser.current()
+        let myTrips = currentUser?["myTrips"] as! [PFObject]
         let query = PFQuery(className: "Trip")
-        query.includeKey("Planner")
-        //query.whereKey("Planner", equalTo: PFUser.current())
-        //query.order(byDescending: "_created_at")
+        query.includeKey("Name")
+        query.includeKey("Members")
+        query.whereKey("Members", equalTo: currentUser)
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
-                // do something with the array of object returned by the call
                 self.tripData.removeAll()
                 for trip in trips {
                     self.tripData.append(trip)
                 }
-                
                 self.messagesView.reloadData()
-                //self.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing()
             } else {
                 print(error?.localizedDescription)
             }
-            
         }
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
