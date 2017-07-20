@@ -631,7 +631,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFi-v0-f7w">
-                                <rect key="frame" x="117" y="530" width="140" height="30"/>
+                                <rect key="frame" x="117" y="507" width="140" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Request To Join Trip"/>
                                 <connections>
@@ -659,8 +659,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ulQ-9t-fdL">
+                                <rect key="frame" x="167" y="558" width="40" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Leave"/>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhT-nQ-zxf">
-                                <rect key="frame" x="172" y="568" width="30" height="30"/>
+                                <rect key="frame" x="172" y="533" width="30" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
@@ -674,7 +679,9 @@
                         <outlet property="arrivalLocLabel" destination="vWf-lT-eBO" id="cj4-PB-vXR"/>
                         <outlet property="departureLocLabel" destination="fBD-TS-JM1" id="AL7-MB-sO1"/>
                         <outlet property="earliestLabel" destination="dbd-cU-EJs" id="l27-sq-Z98"/>
+                        <outlet property="editButton" destination="xhT-nQ-zxf" id="N6s-nG-096"/>
                         <outlet property="latestLabel" destination="cTi-9R-FLy" id="Exd-sc-ZpL"/>
+                        <outlet property="leaveButton" destination="ulQ-9t-fdL" id="sy3-6p-Ofy"/>
                         <outlet property="member1Prof" destination="SNM-GX-FjU" id="15n-Wl-BLQ"/>
                         <outlet property="member2Prof" destination="Kae-Ab-zjs" id="H23-fm-Dg0"/>
                         <outlet property="member3Prof" destination="F8N-E3-cgK" id="96F-uT-Nhn"/>
@@ -689,7 +696,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mj2-wq-1qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3111" y="2819"/>
+            <point key="canvasLocation" x="-3111.1999999999998" y="2818.7406296851577"/>
         </scene>
         <!--Edit View Controller-->
         <scene sceneID="3Xu-gO-62M">

@@ -28,6 +28,8 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var member3Prof: UIImageView!
     @IBOutlet weak var member4Prof: UIImageView!
     @IBOutlet weak var requestButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var leaveButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -46,6 +48,10 @@ class TripDetailViewController: UIViewController {
         member3Prof.isHidden = true
         member4Prof.isHidden = true
         
+        //hide edit and leave buttons
+        editButton.isHidden = true
+        leaveButton.isHidden = true
+        
         if let trip = trip {
             tripNameLabel.text = trip["Name"] as! String
             earliestLabel.text = trip["EarliestTime"] as! String
@@ -61,6 +67,11 @@ class TripDetailViewController: UIViewController {
             let currentMemberName = PFUser.current()?["fullname"] as! String?
             if memberNames.contains(currentMemberName!) || memberNames.count == 4 {
                 requestButton.isHidden = true
+            }
+            //show the edit and leave buttons if the current user is in the trip
+            if memberNames.contains(currentMemberName!) {
+                editButton.isHidden = false
+                leaveButton.isHidden = false
             }
             
         }
