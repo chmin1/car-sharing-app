@@ -142,6 +142,41 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     @IBAction func onSendMessage(_ sender: Any) {
         
+        let author = PFUser.current()?.username
+        let textMessage = messageField.text
+        let tripID = Trip.objectId
+        
+        let date = Date()
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = NSTimeZone.local
+        
+        let localDate = dateFormatter.string(from: date)
+        
+        message.postMessage(withMessageText: textMessage, withAuthor: author, withDateSent: localDate, withTripID: tripID) { (message: PFObject?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let message = message {
+                if var tripMessages = self.Trip["Messages"] as? [PFObject] {
+                    tripMessages.append(message)
+                    self.Trip["Messages"] = tripMessages
+                    self.Trip.saveInBackground()
+                    
+                    print("Saved Successfully 📝")
+                    self.view.endEditing(true)
+                    let height: Int = self.returnPressed * 20
+                    UIView.animate(withDuration: 0.209, animations: { () -> Void in
+                        self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+                    })
+                    self.messageField.textColor = UIColor.lightGray
+                    self.messageField.text = "Compose a message..."
+                }
+            }
+        }
+        
+        
     }
     
     @IBAction func onScreenTap(_ sender: Any) {
