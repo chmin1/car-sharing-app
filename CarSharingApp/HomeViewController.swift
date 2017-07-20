@@ -18,18 +18,25 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var HomeHeaderCell: HomeHeaderCell!
     var requestToJoinAlert: UIAlertController!
     var refreshControl: UIRefreshControl!
-    
     var tripsFeed: [PFObject] = []
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
     var currentTrip: PFObject?
     
+    @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var tripsTableView: UITableView!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
+        //for hamburger menu
+        if self.revealViewController() != nil {
+            profileButton.target = self.revealViewController()
+            profileButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
         
         //set up request to join alert
         setUpRequestToJoinAlert()
