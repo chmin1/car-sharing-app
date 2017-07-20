@@ -78,8 +78,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let trips = trips {
                 // do something with the array of object returned by the call
                 self.tripsFeed.removeAll()
+                self.filteredTripsFeed.removeAll()
                 for trip in trips {
                     self.tripsFeed.append(trip)
+                    self.filteredTripsFeed.append(trip)
                 }
                 
                 self.tripsTableView.reloadData()
@@ -107,10 +109,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell = headerCell
             return headerCell
         }
-            //sets up all the other cells (the trip feed)
+        //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
-            let trip = tripsFeed[indexPath.row]
+            let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
             
             let departureLocation = trip["DepartureLoc"] as! String
@@ -166,7 +168,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0) {
-            return 170
+            return 200
         } else if (indexPath.section == 1) {
             return 160
         }
@@ -190,10 +192,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (section == 0) {
             return 1
         }
-            //section 1 has tripsFeed.count rows
+            //section 1 has filteredTripsFeed.count rows
         else if (section == 1) {
             //TODO: Set this to be filteredtrips.count
-            return tripsFeed.count
+            return filteredTripsFeed.count
         }
         return 0
     }
@@ -286,7 +288,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func didPostTrip(trip: PFObject) {
         print("did post trip")
-        tripsFeed.insert(trip, at: 0)
+        filteredTripsFeed.insert(trip, at: 0)
         tripsTableView.reloadData()
     }
     
@@ -299,7 +301,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func didTapRequestToJoin(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? TripCell {
             let indexPath = tripsTableView.indexPath(for: cell)
-            currentTrip = tripsFeed[(indexPath?.row)!]
+            currentTrip = filteredTripsFeed[(indexPath?.row)!]
         }
         
         present(requestToJoinAlert, animated: true, completion: nil)
@@ -364,14 +366,62 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if segue.identifier == "homeToDetail" {
             let cell = sender as! UITableViewCell
             if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
-                let trip = tripsFeed[indexPath.row] //get the trip
+                let trip = filteredTripsFeed[indexPath.row] //get the trip
                 let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
                 detailViewController.trip = trip
             }
         }
     }
     
+    @IBAction func didTapGo(_ sender: Any) {
+        let departure = HomeHeaderCell.startTextLabel.text!
+        let arrival = HomeHeaderCell.endTextLabel.text!
+        let earliest = HomeHeaderCell.earliestTextField.text!
+        let latest = HomeHeaderCell.latestTextField.text!
+        
+        let earliestDate = stringToDate(dateString: earliest)
+        let latestDate = stringToDate(dateString: latest)
+        
+        filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
+    }
     
+    func filterContent(withDepartureText departureText: String, withArrivalText arrivalText: String, withEarliestDate earliestDate: NSDate, withLatestDate latestDate: NSDate) {
+        
+        filteredTripsFeed = tripsFeed.filter { trip in
+            print(trip)
+            let tripDeparture = trip["DepartureLoc"] as! String
+            let tripArrival = trip["ArrivalLoc"] as! String
+            let tripEarliest = trip["EarliestTime"] as! String
+            let tripLatest = trip["LatestTime"] as! String
+            let tripEarliestDate = stringToDate(dateString: tripEarliest)
+            let tripLatestDate = stringToDate(dateString: tripLatest)
+            
+            return tripDeparture.lowercased() == departureText.lowercased() && tripArrival.lowercased() == arrivalText.lowercased() && compareDates(earliestDate: earliestDate, latestDate: latestDate, tripEarliestDate: tripEarliestDate, tripLatestDate: tripLatestDate)
+        }
+        tripsTableView.reloadData()
+    }
+    
+    func compareDates(earliestDate: NSDate, latestDate: NSDate, tripEarliestDate: NSDate, tripLatestDate: NSDate) -> Bool {
+        if (earliestDate.isLessThanDate(dateToCompare: tripLatestDate) || earliestDate.equalToDate(dateToCompare: tripLatestDate)) &&
+            (earliestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || earliestDate.equalToDate(dateToCompare: tripEarliestDate)) &&
+            (latestDate.isLessThanDate(dateToCompare: tripLatestDate) || latestDate.equalToDate(dateToCompare: tripLatestDate)) &&
+            (latestDate.isGreaterThanDate(dateToCompare: tripEarliestDate) || latestDate.equalToDate(dateToCompare: tripEarliestDate)) {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+
+    //====== TURNS A DATE STRING TO NSDATE =======
+    func stringToDate(dateString: String) -> NSDate {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        let dateObj = dateFormatter.date(from: dateString)
+        
+        return dateObj! as NSDate //sketchy
+    }
     
     
     

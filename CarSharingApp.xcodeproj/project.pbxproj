@@ -20,6 +20,7 @@
 		E10961231F2025B10053762B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E10961221F2025B10053762B /* SWRevealViewController.m */; };
 		E10961251F205D7A0053762B /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10961241F205D7A0053762B /* MenuController.swift */; };
 		E10961271F2067CC0053762B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10961261F2067CC0053762B /* SettingsViewController.swift */; };
+		E10961291F21347E0053762B /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10961281F21347E0053762B /* Utilities.swift */; };
 		E18E2C9B1F15995800930CE0 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9A1F15995800930CE0 /* User.swift */; };
 		E18E2C9D1F16926B00930CE0 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */; };
 		E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2C9E1F16933400930CE0 /* SignupViewController.swift */; };
@@ -84,6 +85,7 @@
 		E10961221F2025B10053762B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
 		E10961241F205D7A0053762B /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
 		E10961261F2067CC0053762B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		E10961281F21347E0053762B /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		E18E2C9A1F15995800930CE0 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E18E2C9C1F16926B00930CE0 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		E18E2C9E1F16933400930CE0 /* SignupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
 				F9EFA0D21F15856A00866E6E /* Assets.xcassets */,
+				E10961281F21347E0053762B /* Utilities.swift */,
 			);
 			path = CarSharingApp;
 			sourceTree = "<group>";
@@ -583,6 +586,7 @@
 				F94212151F16D0130051D1A9 /* College.swift in Sources */,
 				F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */,
 				F9E2C6A11F1EBD6C0016D6E2 /* message.swift in Sources */,
+				E10961291F21347E0053762B /* Utilities.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
 				E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */,
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
