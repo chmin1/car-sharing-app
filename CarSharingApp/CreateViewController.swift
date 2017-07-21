@@ -35,6 +35,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     var earlyDate: NSDate!
     var lateDate: NSDate!
     
+    var invalidLocationsAlert: UIAlertController!
+    var invalidTimeWindowAlert: UIAlertController!
+    var invalidTripNameAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +52,24 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         setUpTapGesture()
         setUpDatePicker()
         
-        // Do any additional setup after loading the view.
+        //Set up invalid trip alerts
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        //Invalid Location
+        invalidLocationsAlert = UIAlertController(title: "Invalid Trip", message: "The start and end locations cannot be the same", preferredStyle: .alert)
+        invalidLocationsAlert.addAction(cancelAction)
+        
+        //Invalid Time Window
+        invalidTimeWindowAlert = UIAlertController(title: "Invalid Trip", message: "There must be at least a 20 minute time window", preferredStyle: .alert)
+        invalidTimeWindowAlert.addAction(cancelAction)
+        
+        //Invalid Trip Name
+        invalidTripNameAlert = UIAlertController(title: "Invalid Trip", message: "You must create a trip name", preferredStyle: .alert)
+        invalidTripNameAlert.addAction(cancelAction)
+        
+        
+        
     }
     
     func setUpTapGesture() {
@@ -183,14 +203,26 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func isValidDateWindow(earlyDate: NSDate, lateDate: NSDate) -> Bool {
         
         if(earlyDate.addMinutes(minutesToAdd: 20).isGreaterThanDate(dateToCompare: lateDate)) {
-            print("You are under the minimum time window of 20 minutes")
+            present(invalidTimeWindowAlert, animated: true) { }
             return false
-        }
+        } 
         //TODO: Do other checks so you can have other print statements
         return true
     }
     
     func areValidLocations(depart: String, destination: String) -> Bool {
+        if(depart == destination) {
+            present(invalidLocationsAlert, animated: true) { }
+            return false
+        }
+        return true
+    }
+    
+    func isValidTripName(tripName: String) -> Bool {
+        if tripName == "" {
+            present(invalidTripNameAlert, animated:  true) { }
+            return false
+        }
         return true
     }
     
@@ -250,7 +282,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         let earlyDepart = earliestTextField.text
         let lateDepart = latestTextField.text
         
-        if(isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate)) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) {
+        if isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
+            
             Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
@@ -268,7 +301,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
                 }
             }
         } else {
-            print("invalid trip")
+            self.activityIndicator.stopAnimating()
+            print("Invalid trip, there must be a minimum time window of 20 minutes.")
         }
         
         
