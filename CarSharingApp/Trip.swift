@@ -27,7 +27,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withEditID editID: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Trip Object: PFObject
         let trip = PFObject(className: "Trip")
@@ -44,7 +44,7 @@ class Trip: NSObject {
         tripMembers.append(trip["Planner"] as! PFUser)
         trip["Members"] = tripMembers
         
-        trip["EditID"] = "" //this means there's no edit
+        trip["EditID"] = editID //this means there's no edit
         trip["Approvals"] = [PFUser]()
 
         trip["Messages"] = [PFObject]()

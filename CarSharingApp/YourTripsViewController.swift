@@ -28,8 +28,6 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func refresh() {
-        //HOW TO QUERY AN ARRAY
-        
         let currentUser = PFUser.current()
         let myTrips = currentUser?["myTrips"] as! [PFObject]
         let query = PFQuery(className: "Trip")
@@ -40,7 +38,10 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             if let trips = trips {
                 self.yourTrips.removeAll()
                 for trip in trips {
-                    self.yourTrips.append(trip)
+                    let tripEditId = trip["EditID"] as! String //get EditID so that the trip won't show if it's an edit
+                    if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
+                        self.yourTrips.append(trip)
+                    }
                 }
                 self.yourTripsTableView.reloadData()
                 //self.refreshControl.endRefreshing()

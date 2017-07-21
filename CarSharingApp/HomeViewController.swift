@@ -80,8 +80,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tripsFeed.removeAll()
                 self.filteredTripsFeed.removeAll()
                 for trip in trips {
-                    self.tripsFeed.append(trip)
-                    self.filteredTripsFeed.append(trip)
+                    if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
+                        if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
+                            self.tripsFeed.append(trip)
+                            self.filteredTripsFeed.append(trip)
+                        }
+                    }
                 }
                 
                 self.tripsTableView.reloadData()
