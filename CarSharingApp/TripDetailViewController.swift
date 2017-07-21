@@ -28,6 +28,8 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var member3Prof: UIImageView!
     @IBOutlet weak var member4Prof: UIImageView!
     @IBOutlet weak var requestButton: UIButton!
+    @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var leaveButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -46,6 +48,20 @@ class TripDetailViewController: UIViewController {
         member3Prof.isHidden = true
         member4Prof.isHidden = true
         
+        //hide edit and leave buttons
+        editButton.isHidden = true
+        leaveButton.isHidden = true
+        
+        //make all prof pics circular
+        member1Prof.layer.cornerRadius = member1Prof.frame.size.width / 2
+        member1Prof.clipsToBounds = true
+        member2Prof.layer.cornerRadius = member2Prof.frame.size.width / 2
+        member2Prof.clipsToBounds = true
+        member3Prof.layer.cornerRadius = member3Prof.frame.size.width / 2
+        member3Prof.clipsToBounds = true
+        member4Prof.layer.cornerRadius = member4Prof.frame.size.width / 2
+        member4Prof.clipsToBounds = true
+        
         if let trip = trip {
             tripNameLabel.text = trip["Name"] as! String
             earliestLabel.text = trip["EarliestTime"] as! String
@@ -55,12 +71,17 @@ class TripDetailViewController: UIViewController {
             let members = trip["Members"] as! [PFUser]
             let memberNames = returnMemberNames(tripMembers: members) as [String]
             print(memberNames)
-            self.fillInNames(members: memberNames)
+            self.fillInNamesAndProfPics(memberNames: memberNames, members: members)
             
             //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
             let currentMemberName = PFUser.current()?["fullname"] as! String?
             if memberNames.contains(currentMemberName!) || memberNames.count == 4 {
                 requestButton.isHidden = true
+            }
+            //show the edit and leave buttons if the current user is in the trip
+            if memberNames.contains(currentMemberName!) {
+                editButton.isHidden = false
+                leaveButton.isHidden = false
             }
             
         }
@@ -68,38 +89,62 @@ class TripDetailViewController: UIViewController {
         
     }//close viewDidLoad()
     
-    func fillInNames(members: [String?]) {
-        let count = members.count
+    func fillInNamesAndProfPics(memberNames: [String?], members: [PFUser]) {
+        let count = memberNames.count
         
-        //fill in first naem if count > 0
-        if let member1 = members[0] {
-            name1Label.text = member1
+        //fill in first person's info if count > 0
+        if let member1 = memberNames[0] {
+            name1Label.text = member1 //fill in their name
+            //fill in their prof pic
+            if let profPic = members[0]["profPic"] as? PFFile {
+                profPic.getDataInBackground { (imageData: Data!, error: Error?) in
+                    self.member1Prof.image = UIImage(data: imageData)
+                }
+            }
         }
         
-        //fill in second name if count > 1
+        //fill in second person's info if count > 1
         if count > 1 {
             name2Label.isHidden = false
             member2Prof.isHidden = false
-            if let member2 = members[1] {
-                name2Label.text = member2
+            if let member2 = memberNames[1] {
+                name2Label.text = member2 //fill in their name
+                //fill in their prof pic
+                if let profPic = members[1]["profPic"] as? PFFile {
+                    profPic.getDataInBackground { (imageData: Data!, error: Error?) in
+                        self.member2Prof.image = UIImage(data: imageData)
+                    }
+                }
             }
         }
         
-        //fill in third name if count > 2
+        //fill in third person's info if count > 2
         if count > 2 {
             name3Label.isHidden = false
             member3Prof.isHidden = false
-            if let member3 = members[2] {
-                name3Label.text = member3
+            if let member3 = memberNames[2] {
+                name3Label.text = member3 //fill in their name
+                //fill in their prof pic
+                if let profPic = members[2]["profPic"] as? PFFile {
+                    profPic.getDataInBackground { (imageData: Data!, error: Error?) in
+                        self.member3Prof.image = UIImage(data: imageData)
+                    }
+                }
             }
         }
         
-        //fill in fourth name if count > 3
+        //fill in fourth person's info if count > 3
         if count > 3 {
             name4Label.isHidden = false
             member4Prof.isHidden = false
-            if let member4 = members[3] {
-                name4Label.text = member4
+            if let member4 = memberNames[3] {
+                name4Label.text = member4 //fill in their name
+                //fill in their prof pic
+                if let profPic = members[3]["profPic"] as? PFFile {
+                    profPic.getDataInBackground { (imageData: Data!, error: Error?) in
+                        self.member4Prof.image = UIImage(data: imageData)
+                    }
+                }
             }
         }
     }//close fillInNames()

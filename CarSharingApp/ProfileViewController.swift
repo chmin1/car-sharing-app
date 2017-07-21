@@ -16,6 +16,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var tripsTableView: UITableView!
     var newProfPic: UIImage?
+    @IBOutlet weak var mySegmentedControl: UISegmentedControl!
+    let list1: [String] = ["hi", "yo"]
+    let list2: [String] = ["annbel", "strauss"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -108,5 +111,44 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }//close choosePhoto
     
 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var returnVal = 0
+        switch(mySegmentedControl.selectedSegmentIndex)
+        {
+        case 0:
+            returnVal = list1.count
+            break
+        case 1:
+            returnVal = list2.count
+            break
+        default:
+            break
+        }
+        
+        return returnVal
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let myCell = tripsTableView.dequeueReusableCell(withIdentifier: "profilePageCell", for: indexPath)
+        
+        switch(mySegmentedControl.selectedSegmentIndex)
+        {
+        case 0:
+            myCell.textLabel?.text = list1[indexPath.row]
+            break
+        case 1:
+            myCell.textLabel?.text = list2[indexPath.row]
+            break
+        default:
+            break
+        }
+        
+        return myCell
+    }
+    
+    @IBAction func segmentedControlActionChanged(_ sender: Any) {
+        tripsTableView.reloadData()
+    }
+    
 
 }
