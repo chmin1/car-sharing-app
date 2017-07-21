@@ -20,16 +20,31 @@ class EditViewController: UIViewController {
     @IBOutlet weak var latestTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var pendingEditAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set up invalid trip alerts
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        //Invalid Location
+        pendingEditAlert = UIAlertController(title: "Pending Edit", message: "There is already an edit in progress for this trip. You must wait until it is approved or denied before making another change.", preferredStyle: .alert)
+        pendingEditAlert.addAction(cancelAction)
+        
         if let originalTrip = originalTrip {
-            tripNameTextField.text = originalTrip["Name"] as? String
-            startTextLabel.text = originalTrip["DepartureLoc"] as? String
-            endTextLabel.text = originalTrip["ArrivalLoc"] as? String
-            earliestTextField.text = originalTrip["EarliestTime"] as? String
-            latestTextField.text = originalTrip["LatestTime"] as? String
+            if(originalTrip["EditID"] as! String == "") {
+                tripNameTextField.text = originalTrip["Name"] as? String
+                startTextLabel.text = originalTrip["DepartureLoc"] as? String
+                endTextLabel.text = originalTrip["ArrivalLoc"] as? String
+                earliestTextField.text = originalTrip["EarliestTime"] as? String
+                latestTextField.text = originalTrip["LatestTime"] as? String
+            } else {
+                present(pendingEditAlert, animated: true) { }
+                self.dismiss(animated: true, completion: {})
+            }
+            
         }
         
     }
