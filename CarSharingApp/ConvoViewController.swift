@@ -20,6 +20,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     @IBOutlet weak var sendButton: UIButton!
     
     var Trip: PFObject!
+    var convoMessages: [PFObject] = []
     
     var previousRect: CGRect!
     var returnPressed: Int = 0
@@ -44,6 +45,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             print(title)
             navigationItem.title = title
         }
+        
+        loadOnOpen()
         
         let id = Trip.objectId!
         print(id)
@@ -127,15 +130,50 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     // ================ TEXTVIEW END EDIT ==========================
     
+    // ================ LOAD MESSAGES ON OPEN ======================
+    
+    func loadOnOpen() {
+        //Query the message object/clas in parse
+        let query = PFQuery(className: "Message")
+        
+        //Query messages based on Trip ID
+        let tripID = Trip.objectId!
+        query.whereKey("TripID", equalTo: tripID)
+        
+        //Order by oldest messages on top
+        query.order(byAscending: "_created_at")
+        
+        // Find messages associated with this trip
+        query.findObjectsInBackground { (messages: [PFObject]?, error: Error?) in
+            if let messages = messages {
+                // Add messages to the global ist of messages, then reload the view so it can be displayed
+                for message in messages {
+                    
+                    self.convoMessages.append(message)
+                }
+                
+                self.convoView.reloadData()
+            } else {
+                print(error?.localizedDescription)
+            }
+            
+        }
+    }
+    
+    // ================ LOAD MESSAGES ON OPEN ======================
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return convoMessages.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = convoView.dequeueReusableCell(withReuseIdentifier: "convoCell", for: indexPath) as! ConvoCell
+        let message = convoMessages[indexPath.row]
+        
+        let messageText = message["Text"] as? String
         
         item.textImage.image = UIImage(named: "profile")
-        item.testMessage.text = "I am a message!"
+        item.testMessage.text = messageText
         
         return item
     }
@@ -161,17 +199,15 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             } else if let message = message {
                 if var tripMessages = self.Trip["Messages"] as? [PFObject] {
                     tripMessages.append(message)
+                    self.convoMessages = tripMessages
                     self.Trip["Messages"] = tripMessages
                     self.Trip.saveInBackground()
                     
                     print("Saved Successfully 📝")
-                    self.view.endEditing(true)
-                    let height: Int = self.returnPressed * 20
-                    UIView.animate(withDuration: 0.209, animations: { () -> Void in
-                        self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
-                    })
-                    self.messageField.textColor = UIColor.lightGray
-                    self.messageField.text = "Compose a message..."
+
+                    self.messageField.text = ""
+                    
+                    self.convoView.reloadData()
                 }
             }
         }
