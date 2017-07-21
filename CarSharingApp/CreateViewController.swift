@@ -284,7 +284,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         
         if isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
             
-            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (trip: PFObject?, error: Error?) in
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "") { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 } else if let trip = trip {
@@ -302,11 +302,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             }
         } else {
             self.activityIndicator.stopAnimating()
-            print("Invalid trip, there must be a minimum time window of 20 minutes.")
+            print("Invalid trip")
         }
         
-        
-        
+
         //TODO: set the text fields and labels back to default state
         
         

@@ -780,6 +780,9 @@
                                 <rect key="frame" x="139" y="471" width="81" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Submit edis"/>
+                                <connections>
+                                    <action selector="didTapSubmit:" destination="RNb-p3-pFY" eventType="touchUpInside" id="XNV-RM-Ert"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bk-8a-i8n">
                                 <rect key="frame" x="287" y="28" width="48" height="30"/>
@@ -1738,9 +1741,9 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="vyv-0s-BnT"/>
-        <segue reference="cqV-Eg-IDX"/>
         <segue reference="nDs-Zk-OKT"/>
+        <segue reference="Cxk-ie-e8y"/>
+        <segue reference="vyv-0s-BnT"/>
         <segue reference="BD2-lG-doJ"/>
     </inferredMetricsTieBreakers>
 </document>
