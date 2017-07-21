@@ -250,5 +250,10 @@ class TripDetailViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let editViewController = segue.destination as! EditViewController //tell it its destination
+        editViewController.originalTrip = trip
+    }
+    
     
 }

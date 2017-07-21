@@ -37,9 +37,11 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate, Crea
     }
     
     private func updateHomeControllerIfNeeded(_ viewController: UIViewController, trip: PFObject) {
-        if let navigationController = viewController as? UINavigationController,
-            let homeViewController = navigationController.viewControllers.first as? HomeViewController {
-            homeViewController.didPostTrip(trip: trip)
+        if let SWviewController = viewController as? SWRevealViewController {
+            if let navigationController = SWviewController.frontViewController as? UINavigationController,
+                let homeViewController = navigationController.viewControllers.first as? HomeViewController {
+                homeViewController.didPostTrip(trip: trip)
+            }
         }
     }
     

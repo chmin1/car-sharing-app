@@ -7,13 +7,31 @@
 //
 
 import UIKit
+import Parse
 
 class EditViewController: UIViewController {
 
+    var originalTrip: PFObject?
+    
+    @IBOutlet weak var tripNameTextField: UITextField!
+    @IBOutlet weak var startTextLabel: UILabel!
+    @IBOutlet weak var endTextLabel: UILabel!
+    @IBOutlet weak var earliestTextField: UITextField!
+    @IBOutlet weak var latestTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        if let originalTrip = originalTrip {
+            tripNameTextField.text = originalTrip["Name"] as? String
+            startTextLabel.text = originalTrip["DepartureLoc"] as? String
+            endTextLabel.text = originalTrip["ArrivalLoc"] as? String
+            earliestTextField.text = originalTrip["EarliestTime"] as? String
+            latestTextField.text = originalTrip["LatestTime"] as? String
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +39,10 @@ class EditViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func didTapCancel(_ sender: Any) {
+        self.dismiss(animated: true)
     }
-    */
+
+    
 
 }

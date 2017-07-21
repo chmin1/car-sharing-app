@@ -112,6 +112,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //sets up all the other cells (the trip feed)
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
+            cell.requestButton.isHidden = false //restore default aka request button shows
             let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
             

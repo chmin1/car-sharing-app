@@ -15,27 +15,6 @@ protocol CreateViewControllerDelegate: class {
     func didPostTrip(trip: PFObject)
 }
 
-//========== THIS IS TO GET A DONE BUTTON ON THE DATEPICKER ==========
-extension UIToolbar {
-    
-    func ToolbarPiker(select : Selector) -> UIToolbar {
-        print("in here")
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.black
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: select)
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        
-        toolBar.setItems([ spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        return toolBar
-    }
-    
-}
 
 class CreateViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
