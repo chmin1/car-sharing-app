@@ -40,11 +40,13 @@ class Trip: NSObject {
         trip["EarliestTime"] = earlyDepart // Earliest time you can leave
         trip["LatestTime"] = lateDepart // Latest timne you can leave
         
-        
         var tripMembers = [PFUser]()
         tripMembers.append(trip["Planner"] as! PFUser)
         trip["Members"] = tripMembers
-             
+        
+        trip["EditID"] = "" //this means there's no edit
+        trip["Approvals"] = [PFUser]()
+        
         
         // Save object (following function will save the object in Parse asynchronously)
         trip.saveInBackground { (success: Bool, error: Error?) in
