@@ -11,10 +11,19 @@ import Parse
 
 class message: NSObject {
     
-    let text = "This is my first msg"
-    
-    //var author = PFUser!()
-    
-    
+    class func postMessage(withMessageText messageText: String?, withAuthor author: String?, withDateSent dateSent: String?, withTripID TripID: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+        
+        let message = PFObject(className: "Message")
+        
+        message["Text"] = messageText
+        message["Author"] = author
+        message["dateSent"] = dateSent
+        message["TripID"] = TripID
+        
+        message.saveInBackground { (success: Bool, error: Error?) in
+            completion(message, error)
+        }
+        
+    }
 
 }

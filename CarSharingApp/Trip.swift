@@ -44,8 +44,11 @@ class Trip: NSObject {
         tripMembers.append(trip["Planner"] as! PFUser)
         trip["Members"] = tripMembers
         
+
         trip["EditID"] = "" //this means there's no edit
         trip["Approvals"] = [PFUser]()
+
+        trip["Messages"] = [PFObject]()
         
         
         // Save object (following function will save the object in Parse asynchronously)
