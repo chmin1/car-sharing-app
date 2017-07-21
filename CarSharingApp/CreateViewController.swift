@@ -51,8 +51,12 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
+    
     static let MIN_TIME_WINDOW = 10 //Min time window
-
+    var earlyDate: NSDate!
+    var lateDate: NSDate!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,7 +69,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         
         setUpTapGesture()
         setUpDatePicker()
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -121,15 +125,16 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
-        
-        latestTextField.text = dateToString(date: LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate) //two hour window
+        lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
+        latestTextField.text = dateToString(date: lateDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
-        earliestTextField.text = dateToString(date: EarliestDatePickerView.date as NSDate)
+        earlyDate =  EarliestDatePickerView.date as NSDate
+        earliestTextField.text = dateToString(date: earlyDate)
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -166,20 +171,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     }
     
     
-    func handleDatePickerForLatest(_ sender: UIDatePicker)
-    {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        
-        
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: sender.date)
-        latestTextField.text =  selectedDate
-    }
-    
     func handleDatePickerForEarliest(_ sender: UIDatePicker)
     {
         // Create date formatter
@@ -188,11 +179,41 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
         
-        // Apply date format
+        earlyDate = sender.date as NSDate
         let selectedDate: String = dateFormatter.string(from: sender.date)
         earliestTextField.text =  selectedDate
+        
     }
     
+    
+    func handleDatePickerForLatest(_ sender: UIDatePicker)
+    {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        lateDate = sender.date as NSDate
+        
+        let selectedDate: String = dateFormatter.string(from: sender.date)
+        latestTextField.text =  selectedDate
+        
+    }
+    
+    func isValidDateWindow(earlyDate: NSDate, lateDate: NSDate) -> Bool {
+        
+        if(earlyDate.addMinutes(minutesToAdd: 20).isGreaterThanDate(dateToCompare: lateDate)) {
+            print("You are under the minimum time window of 20 minutes")
+            return false
+        }
+        //TODO: Do other checks so you can have other print statements
+        return true
+    }
+    
+    func areValidLocations(depart: String, destination: String) -> Bool {
+        return true
+    }
     
     /**
      * Called when a non-retryable error occurred when retrieving autocomplete predictions or place
@@ -229,16 +250,16 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func wasCancelled(_ viewController: GMSAutocompleteViewController) {
         dismiss(animated: true)
     }
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     /*
-    * Create a new Trip object and send it to parse when user taps the submit button
-    */
+     * Create a new Trip object and send it to parse when user taps the submit button
+     */
     @IBAction func didTapSubmit(_ sender: Any) {
         
         // Start the activity indicator
@@ -250,28 +271,34 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         let earlyDepart = earliestTextField.text
         let lateDepart = latestTextField.text
         
-        Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (trip: PFObject?, error: Error?) in
-            if let error = error {
-                print("Error creating Trip: \(error.localizedDescription)")
-            } else if let trip = trip {
-                //add this trip to the user's list of trips
-                if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
-                    usersTrips.append(trip)
-                    PFUser.current()?["myTrips"] = usersTrips
-                    PFUser.current()?.saveInBackground()
+        if(isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate)) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) {
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart) { (trip: PFObject?, error: Error?) in
+                if let error = error {
+                    print("Error creating Trip: \(error.localizedDescription)")
+                } else if let trip = trip {
+                    //add this trip to the user's list of trips
+                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
+                        usersTrips.append(trip)
+                        PFUser.current()?["myTrips"] = usersTrips
+                        PFUser.current()?.saveInBackground()
+                    }
+                    //send the trip to the delegate (home vc)
+                    self.delegate?.didPostTrip(trip: trip)
+                    print("trip was created! 😃")
+                    self.activityIndicator.stopAnimating() //stop activity indicator
                 }
-                //send the trip to the delegate (home vc)
-                self.delegate?.didPostTrip(trip: trip)
-                print("trip was created! 😃")
-                self.activityIndicator.stopAnimating() //stop activity indicator
             }
+        } else {
+            print("invalid trip")
         }
+        
+        
         
         //TODO: set the text fields and labels back to default state
         
-    
+        
     }//close didTapSubmit
-
     
-
+    
+    
 }

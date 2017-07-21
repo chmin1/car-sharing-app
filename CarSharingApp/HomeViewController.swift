@@ -381,8 +381,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let earliest = HomeHeaderCell.earliestTextField.text!
         let latest = HomeHeaderCell.latestTextField.text!
         
-        let earliestDate = stringToDate(dateString: earliest)
-        let latestDate = stringToDate(dateString: latest)
+        let earliestDate = earliest.stringToDate()
+        let latestDate = latest.stringToDate()
+        
+//        let earliestDate = stringToDate(dateString: earliest)
+//        let latestDate = stringToDate(dateString: latest)
         
         filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
     }
@@ -395,8 +398,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let tripArrival = trip["ArrivalLoc"] as! String
             let tripEarliest = trip["EarliestTime"] as! String
             let tripLatest = trip["LatestTime"] as! String
-            let tripEarliestDate = stringToDate(dateString: tripEarliest)
-            let tripLatestDate = stringToDate(dateString: tripLatest)
+            let tripEarliestDate = tripEarliest.stringToDate()
+            let tripLatestDate = tripLatest.stringToDate()
             
             return tripDeparture.lowercased() == departureText.lowercased() && tripArrival.lowercased() == arrivalText.lowercased() && compareDates(earliestDate: earliestDate, latestDate: latestDate, tripEarliestDate: tripEarliestDate, tripLatestDate: tripLatestDate)
         }
@@ -415,16 +418,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
 
-    //====== TURNS A DATE STRING TO NSDATE =======
-    func stringToDate(dateString: String) -> NSDate {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        
-        let dateObj = dateFormatter.date(from: dateString)
-        
-        return dateObj! as NSDate //sketchy
-    }
-    
+
     
     
 }

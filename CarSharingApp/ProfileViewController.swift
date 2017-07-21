@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate { //UITableViewDataSource {
     
     @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var profilePicImageView: UIImageView!
@@ -21,7 +21,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         super.viewDidLoad()
         
         tripsTableView.delegate = self
-        tripsTableView.dataSource = self
+        //tripsTableView.dataSource = self
 
         //for hamburger menu
         if self.revealViewController() != nil {

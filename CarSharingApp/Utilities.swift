@@ -63,4 +63,24 @@ extension NSDate {
         //Return Result
         return dateWithHoursAdded
     }
+    
+    func addMinutes(minutesToAdd: Int) -> NSDate {
+        let secondsInMinutes: TimeInterval = Double(minutesToAdd) * 60
+        let dateWithMinutesAdded: NSDate = self.addingTimeInterval(secondsInMinutes)
+        
+        //Return Result
+        return dateWithMinutesAdded
+    }
+       
+}
+
+extension String {
+    func stringToDate() -> NSDate {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        let dateObj = dateFormatter.date(from: self)
+        
+        return dateObj! as NSDate //sketchy
+    }
 }

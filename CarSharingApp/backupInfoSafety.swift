@@ -47,3 +47,14 @@ import Foundation
 //    }
 //    
 //}
+
+//====== TURNS A DATE STRING TO NSDATE =======
+//func stringToDate(dateString: String) -> NSDate {
+//    let dateFormatter = DateFormatter()
+//    dateFormatter.dateFormat = "MMM d, h:mm a"
+//    
+//    let dateObj = dateFormatter.date(from: dateString)
+//    
+//    return dateObj! as NSDate //sketchy
+//}
+//
