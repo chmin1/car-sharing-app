@@ -12,6 +12,9 @@ class ConvoCell: UICollectionViewCell {
     
     @IBOutlet weak var textImage: UIImageView!
     
-    @IBOutlet weak var testMessage: UILabel!
+    @IBOutlet weak var textMessage: UILabel!
     
+    @IBOutlet weak var authorLabel: UILabel!
+    
+    @IBOutlet weak var dateSentLabel: UILabel!
 }

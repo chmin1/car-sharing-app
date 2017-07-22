@@ -162,7 +162,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     // ================ LOAD MESSAGES ON OPEN ======================
     
+    // ================ LOAD COLLECTIONVIEW ========================
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return convoMessages.count
     }
     
@@ -170,13 +173,60 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let item = convoView.dequeueReusableCell(withReuseIdentifier: "convoCell", for: indexPath) as! ConvoCell
         let message = convoMessages[indexPath.row]
         
-        let messageText = message["Text"] as? String
+        let messageText: String
+        let author: String
+        let date: String
+        do {
+            try message.fetchIfNeeded()
+            
+            if let _messageText = message["Text"] as? String {
+                
+                messageText = _messageText
+                
+            } else {
+                
+                messageText = "Failed to load the message"
+                
+            }
+            
+            if let _author = message["Author"] as? String {
+                
+                author = _author
+                
+            } else {
+                
+                author = "Failed to load author"
+                
+            }
+            
+            if let _date = message["dateSent"] as? String {
+                date = _date
+            } else {
+                
+                date = "Failed to load"
+                
+            }
+            
+        } catch {
+            messageText = "Failed to load the message"
+            author = "Failed to load author"
+            date = "Failed to load"
+            
+        }
+        
+        
         
         item.textImage.image = UIImage(named: "profile")
-        item.testMessage.text = messageText
+        item.textMessage.text = messageText
+        item.authorLabel.text = author
+        item.dateSentLabel.text = date
         
         return item
     }
+    
+    // ================ LOAD COLLECTIONVIEW ========================
+    
+    // ============== POST AND RETRIEVE MESSAGE ====================
     
     @IBAction func onSendMessage(_ sender: Any) {
         
@@ -197,23 +247,21 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             if let error = error {
                 print(error.localizedDescription)
             } else if let message = message {
-                if var tripMessages = self.Trip["Messages"] as? [PFObject] {
-                    tripMessages.append(message)
-                    self.convoMessages = tripMessages
-                    self.Trip["Messages"] = tripMessages
-                    self.Trip.saveInBackground()
-                    
-                    print("Saved Successfully 📝")
-
-                    self.messageField.text = ""
-                    
-                    self.convoView.reloadData()
-                }
+                var tripMessages = self.convoMessages
+                tripMessages.append(message)
+                self.convoMessages = tripMessages
+                self.Trip["Messages"] = tripMessages
+                self.Trip.saveInBackground()
+                print("Saved Successfully 📝")
+                
+                self.messageField.text = ""
+                
+                self.convoView.reloadData()
             }
         }
-        
-        
     }
+    
+     // ============== POST AND RETRIEVE MESSAGE ====================
     
     @IBAction func onScreenTap(_ sender: Any) {
         view.endEditing(true)
