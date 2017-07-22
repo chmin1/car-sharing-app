@@ -250,6 +250,21 @@ class TripDetailViewController: UIViewController {
         }
     }
     
+    //====== REMOVE THE USER FROM THE MEMBERS LIST OF TRIP AND REMOVE TRIP FROM TRIP LIST OF USER =======
+    @IBAction func onLeaveTrip(_ sender: Any) {
+        
+        var membersList = trip?["Members"] as! [PFUser]
+        let userIndex = membersList.index(of: PFUser.current()!)
+        membersList.remove(at: userIndex!)
+        trip?["Members"] = membersList
+        
+        var tripList = PFUser.current()?["myTrips"] as! [PFObject]
+        let tripIndex = tripList.index(of: trip!)
+        tripList.remove(at: tripIndex!)
+        
+    }
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let editViewController = segue.destination as! EditViewController //tell it its destination
         editViewController.originalTrip = trip
