@@ -21,6 +21,8 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     @IBOutlet weak var latestTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    var pendingEditAlert: UIAlertController!
+
     var locationSource: UILabel!
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
@@ -32,17 +34,45 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     var invalidLocationsAlert: UIAlertController!
     var invalidTimeWindowAlert: UIAlertController!
     var invalidTripNameAlert: UIAlertController!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Set up invalid trip alerts
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        
+        //Pending Edit
+        pendingEditAlert = UIAlertController(title: "Pending Edit", message: "There is already an edit in progress for this trip. You must wait until it is approved or denied before making another change.", preferredStyle: .alert)
+        pendingEditAlert.addAction(cancelAction)
+        
+        //Invalid Location
+        invalidLocationsAlert = UIAlertController(title: "Invalid Trip", message: "The start and end locations cannot be the same", preferredStyle: .alert)
+        invalidLocationsAlert.addAction(cancelAction)
+        
+        //Invalid Time Window
+        invalidTimeWindowAlert = UIAlertController(title: "Invalid Trip", message: "There must be at least a 20 minute time window", preferredStyle: .alert)
+        invalidTimeWindowAlert.addAction(cancelAction)
+        
+        //Invalid Trip Name
+        invalidTripNameAlert = UIAlertController(title: "Invalid Trip", message: "You must create a trip name", preferredStyle: .alert)
+        invalidTripNameAlert.addAction(cancelAction)
+
         //Fill in the trip info
         if let originalTrip = originalTrip {
-            tripNameTextField.text = originalTrip["Name"] as? String
-            startTextLabel.text = originalTrip["DepartureLoc"] as? String
-            endTextLabel.text = originalTrip["ArrivalLoc"] as? String
-            earliestTextField.text = originalTrip["EarliestTime"] as? String
-            latestTextField.text = originalTrip["LatestTime"] as? String
+            if(originalTrip["EditID"] as! String == "") {
+                tripNameTextField.text = originalTrip["Name"] as? String
+                startTextLabel.text = originalTrip["DepartureLoc"] as? String
+                endTextLabel.text = originalTrip["ArrivalLoc"] as? String
+                earliestTextField.text = originalTrip["EarliestTime"] as? String
+                latestTextField.text = originalTrip["LatestTime"] as? String
+            } else {
+                present(pendingEditAlert, animated: true) { }
+                self.dismiss(animated: true, completion: {})
+            }
+            
         }
         
         //Set Up Autocomplete View controller
@@ -55,21 +85,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         setUpTapGesture()
         setUpDatePicker()
         
-        //Set up invalid trip alerts
-        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-            // handle cancel response here. Doing nothing will dismiss the view.
-        }
-        //Invalid Location
-        invalidLocationsAlert = UIAlertController(title: "Invalid Trip", message: "The start and end locations cannot be the same", preferredStyle: .alert)
-        invalidLocationsAlert.addAction(cancelAction)
-        
-        //Invalid Time Window
-        invalidTimeWindowAlert = UIAlertController(title: "Invalid Trip", message: "There must be at least a 20 minute time window", preferredStyle: .alert)
-        invalidTimeWindowAlert.addAction(cancelAction)
-        
-        //Invalid Trip Name
-        invalidTripNameAlert = UIAlertController(title: "Invalid Trip", message: "You must create a trip name", preferredStyle: .alert)
-        invalidTripNameAlert.addAction(cancelAction)
         
     }
 
@@ -301,24 +316,26 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                         })
                     }
                     print("trip was edited! 🐬")
-                    trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip
-                    let listOfMembers = trip["Members"] as? [PFUser]
-                    //let each member know that it is part of this trip now
-                    for member in listOfMembers! {
-                        if var usersTrips = member["myTrips"] as? [PFObject]{
-                            usersTrips.append(trip)
-                            member["myTrips"] = usersTrips
-                            print(member)
-                            member.saveInBackground(block: { (success: Bool, error:Error?) in
-                                if let error = error {
-                                    print("Error creating Trip: \(error.localizedDescription)")
-                                } else {
-                                    print(success)
-                                    print("member saved properly🐠🐠🐠🐠🐠")
-                                }
-                            })
-                        }
-                    }
+                    
+//                    trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip
+//                    let listOfMembers = trip["Members"] as? [PFUser]
+//                    //let each member know that it is part of this trip now
+//                    for member in listOfMembers! {
+//                        if var usersTrips = member["myTrips"] as? [PFObject]{
+//                            usersTrips.append(trip)
+//                            member["myTrips"] = usersTrips
+//                            print(member)
+//                            member.saveInBackground(block: { (success: Bool, error:Error?) in
+//                                if let error = error {
+//                                    print("Error creating Trip: \(error.localizedDescription)")
+//                                } else {
+//                                    print(success)
+//                                    print("member saved properly🐠🐠🐠🐠🐠")
+//                                }
+//                            })
+//                        }
+//                    }
+                    
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
                     self.originalTrip?.saveInBackground(block: { (success: Bool, error:Error?) in
                         if let error = error {

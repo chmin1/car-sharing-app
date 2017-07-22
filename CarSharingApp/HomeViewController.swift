@@ -231,9 +231,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == HomeHeaderCell.startTextLabel {
+            HomeHeaderCell.startTextLabel.textColor = UIColor.black
             HomeHeaderCell.startTextLabel.text = place.formattedAddress
             print(HomeHeaderCell.startTextLabel.text!)
         } else if locationSource == HomeHeaderCell.endTextLabel {
+            HomeHeaderCell.endTextLabel.textColor = UIColor.black
             HomeHeaderCell.endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)

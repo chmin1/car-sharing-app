@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import GooglePlaces
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -47,8 +48,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginViewController
         }
         
+        //Set up push notifications
+        UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
+            if granted {
+                UIApplication.shared.registerForRemoteNotifications()
+            }
+            
+        }
         
         return true
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification data: [AnyHashable : Any]) {
+        // Print notification payload data
+        print("Push notification received: \(data)")
+        
+        /*
+         Note that this callback will only be invoked whenever the user has either clicked or swiped to interact with your push notification from the lock screen / Notification Center, or if your app was open when the push notification was received by the device.
+         
+         It's up to you to develop the actual logic that gets executed when a notification is interacted with. For example, if you have a messenger app, a "new message" push notification should open the relevant chat page and cause the list of messages to be updated from the server. Make use of the data object which will contain any data that you send from your application backend, such as the chat ID, in the messenger app example.
+         
+         It's important to note that in the event your app is open when a push notification is received, the user will not see the notification at all, and it is up to you to notify the user in some way. This StackOverflow question lists some possible workarounds, such as displaying an in-app banner similar to the stock iOS notification banner.
+ 
+        */
+    }
+    
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        let installation = PFInstallation.current()
+        installation?.setDeviceTokenFrom(deviceToken as Data)
+        installation?.saveInBackground()
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        if error.code == 3010 {
+            print("Push notifications are not supported in the iOS Simulator.")
+        } else {
+            print("application:didFailToRegisterForRemoteNotificationsWithError: %@", error)
+        }
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        PFPush.handle(userInfo)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
