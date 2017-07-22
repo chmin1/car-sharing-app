@@ -667,6 +667,9 @@
                                 <rect key="frame" x="167" y="558" width="40" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Leave"/>
+                                <connections>
+                                    <action selector="onLeaveTrip:" destination="JgV-Vw-IJt" eventType="touchUpInside" id="c8s-uu-h95"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xhT-nQ-zxf">
                                 <rect key="frame" x="172" y="533" width="30" height="30"/>
