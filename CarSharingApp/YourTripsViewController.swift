@@ -17,14 +17,12 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refresh()
         
+        refresh()
         
         yourTripsTableView.dataSource = self
         yourTripsTableView.delegate = self
         
-        
-        // Do any additional setup after loading the view.
     }
     
     func refresh() {
@@ -38,9 +36,10 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             if let trips = trips {
                 self.yourTrips.removeAll()
                 for trip in trips {
-                    let tripEditId = trip["EditID"] as! String //get EditID so that the trip won't show if it's an edit
-                    if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
-                        self.yourTrips.append(trip)
+                    if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
+                        if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
+                            self.yourTrips.append(trip)
+                        }
                     }
                 }
                 self.yourTripsTableView.reloadData()

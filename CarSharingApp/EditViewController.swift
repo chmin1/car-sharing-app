@@ -296,12 +296,39 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
                         usersTrips.append(trip)
                         PFUser.current()?["myTrips"] = usersTrips
-                        PFUser.current()?.saveInBackground()
+                        PFUser.current()?.saveInBackground(block: { (result, error) in
+                            print(error)
+                        })
                     }
                     print("trip was edited! 🐬")
+                    trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip
+                    let listOfMembers = trip["Members"] as? [PFUser]
+                    //let each member know that it is part of this trip now
+                    for member in listOfMembers! {
+                        if var usersTrips = member["myTrips"] as? [PFObject]{
+                            usersTrips.append(trip)
+                            member["myTrips"] = usersTrips
+                            print(member)
+                            member.saveInBackground(block: { (success: Bool, error:Error?) in
+                                if let error = error {
+                                    print("Error creating Trip: \(error.localizedDescription)")
+                                } else {
+                                    print(success)
+                                    print("member saved properly🐠🐠🐠🐠🐠")
+                                }
+                            })
+                        }
+                    }
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
-                    self.originalTrip?.saveInBackground()
+                    self.originalTrip?.saveInBackground(block: { (success: Bool, error:Error?) in
+                        if let error = error {
+                            print("Error creating Trip: \(error.localizedDescription)")
+                        } else {
+                            print("trip saved properly🐠🐠🐠🐠🐠")
+                        }
+                    })
                     self.activityIndicator.stopAnimating() //stop activity indicator
+                    //TODO: send notification
                     self.dismiss(animated: true)
                 }
             }

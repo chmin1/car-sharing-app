@@ -7,13 +7,21 @@
 //
 
 import UIKit
+import Parse
 
-class NotificationsViewController: UIViewController {
+class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    var limboTrips: [PFObject] = []
+    @IBOutlet weak var tableView: UITableView!
+    var originalNameDict: [String: String] = [:] //[editedTripID: tripName]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        fetchTripsInLimbo()
+        
+        tableView.dataSource = self
+        tableView.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,15 +29,104 @@ class NotificationsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func fetchTripsInLimbo() {
+        let currentUser = PFUser.current()
+        let myTrips = currentUser?["myTrips"] as! [PFObject]
+        let query = PFQuery(className: "Trip")
+        query.includeKey("Name")
+        query.includeKey("Members")
+        query.whereKey("Members", equalTo: currentUser)
+        query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
+            if let trips = trips {
+                self.limboTrips.removeAll()
+                for trip in trips {
+                    if let tripEditId = trip["EditID"] as? String {
+                        if(tripEditId != "-1" && tripEditId != ""){
+                            print("print's edit id: \(tripEditId)")
+                            self.originalNameDict[tripEditId] = trip["Name"] as? String //fill in dictionary so each editID knows its original trip's name
+                            print(self.originalNameDict[tripEditId])
+                        } else if tripEditId == "-1" {
+                            self.limboTrips.append(trip) //if it's an edit, add it
+                        }
+                    }
+                }
+                self.tableView.reloadData()
+                //self.refreshControl.endRefreshing()
+            } else {
+                print(error?.localizedDescription)
+            }
+        }
     }
-    */
+    
+    /*
+     * Sets up the cells
+     */
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
+        let trip = limboTrips[indexPath.row]
+        
+        let tripName = trip["Name"] as! String
+        let departureLocation = trip["DepartureLoc"] as! String
+        let arrivalLocation = trip["ArrivalLoc"] as! String
+        let earliestDepart = trip["EarliestTime"] as! String
+        let latestDepart = trip["LatestTime"] as! String
+        //print(trip.objectId!)
+        if let origName = originalNameDict[trip.objectId!] {
+            print(origName)
+            cell.originalTripNameLabel.text = origName
+        }
+        if let tripMembers = trip["Members"] as? [PFUser] {
+            let memberNames = returnMemberNames(tripMembers: tripMembers)
+            var memberString = ""
+            
+            for memberName in memberNames {
+                memberString += memberName
+                if memberName != memberNames.last {
+                    memberString += ", "
+                }
+            }
+            cell.tripMembersLabel.text = memberString
+        }
+        
+        
+        cell.newTripNameLabel.text = tripName
+        cell.departLabel.text = departureLocation
+        cell.destinationLabel.text = arrivalLocation
+        cell.earlyTimeLabel.text = earliestDepart
+        cell.lateDepartLabel.text = latestDepart
+        
+        return cell
+    }
+    
+    
+    /*
+     * Tells the tableview how many rows should be in each section
+     */
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return limboTrips.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
+    func returnMemberNames(tripMembers: [PFUser]) -> [String] {
+        var memberNames: [String] = []
+        for member in tripMembers {
+            if let memberName = member["fullname"] as? String {
+                memberNames.append(memberName)
+            }
+        }
+        return memberNames
+    }
+    
+    @IBAction func didTapDeny(_ sender: Any) {
+    }
+    
+    @IBAction func didTapAccept(_ sender: Any) {
+    }
+    
+    
 
 }
