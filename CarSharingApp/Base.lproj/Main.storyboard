@@ -133,6 +133,7 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="logoutButton" destination="pwo-Jq-5lE" id="SL2-Oc-lH2"/>
                         <outlet property="nameLabel" destination="z4N-0P-GjA" id="8eG-nW-Iim"/>
                         <outlet property="profilePicImageView" destination="Fat-gg-tkE" id="UTN-wf-iZi"/>
                     </connections>

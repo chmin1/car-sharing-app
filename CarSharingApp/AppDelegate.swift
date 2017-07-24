@@ -33,6 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         )
         
         //this enables user to be persisted across app restarts
+
         if let currentUser = PFUser.current() {
             print("Welcome back \(currentUser.username!) 😍")
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

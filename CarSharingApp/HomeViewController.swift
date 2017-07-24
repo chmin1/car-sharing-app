@@ -62,6 +62,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // add refresh control to table view
         tripsTableView.insertSubview(refreshControl, at: 0)
         
+        
+        
     }
     
     func tabBarController(tabbar: UITabBarController, didSelect: UIViewController) {
