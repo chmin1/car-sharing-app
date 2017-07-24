@@ -138,12 +138,12 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     @IBAction func didTapDeny(_ sender: AnyObject) {
-        if let cell = sender.superview??.superview as? TripCell {
+        if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
             let limboTrip = limboTrips[(indexPath?.row)!]
             let limboTripID = limboTrip.objectId!
             let originalTripID = originalNameDict[limboTripID]
-            
+            print("HI")
             //get actual orig trip, then change its edit id to ""
             let query = PFQuery(className: "Trip")
             query.includeKey("EditID")
@@ -167,7 +167,19 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
             
-            //TODO: remove the limbo trip from each members list of trips
+            //remove the limbo trip from its author's list of trips
+            let planner = limboTrip["Planner"] as! PFUser
+            var tripList = planner["myTrips"] as! [PFObject]
+            let tripIndex = tripList.index(of: limboTrip)
+            tripList.remove(at: tripIndex!)
+            planner["myTrips"] = tripList
+            planner.saveInBackground(block: { (success: Bool, error:Error?) in
+                if let error = error {
+                    print("Error removing trip from user's list of trips: \(error.localizedDescription)")
+                } else {
+                    print("Successfully removed trip from user's list of trips🐠")
+                }
+            })
             
         }
     }

@@ -11,7 +11,7 @@ import GooglePlaces
 import Parse
 
 class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
-
+    
     var originalTrip: PFObject?
     
     @IBOutlet weak var tripNameTextField: UITextField!
@@ -32,7 +32,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     var invalidLocationsAlert: UIAlertController!
     var invalidTimeWindowAlert: UIAlertController!
     var invalidTripNameAlert: UIAlertController!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         //Invalid Trip Name
         invalidTripNameAlert = UIAlertController(title: "Invalid Trip", message: "You must create a trip name", preferredStyle: .alert)
         invalidTripNameAlert.addAction(cancelAction)
-
+        
         //Fill in the trip info
         if let originalTrip = originalTrip {
             tripNameTextField.text = originalTrip["Name"] as? String
@@ -75,7 +75,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -294,7 +294,8 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
             Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "-1") { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
-                } else if let trip = trip {
+                }
+                else if let trip = trip {
                     //add this trip to the current user's list of trips
                     if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
                         usersTrips.append(trip)
@@ -305,20 +306,20 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     }
                     print("trip was edited! 🐬")
                     
-                    trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip -- THIS WORKS
-                    let listOfMembers = trip["Members"] as? [PFUser]
-                    
-                    //let each member know that it is part of this trip now -- THIS DOESN'T WORK
-//                     for member in listOfMembers! {
-                        self.addEditTripToAllMembers(member: (listOfMembers?[0])!, trip: trip, withCompletion: { (success: Bool?, error: Error?) in
-                            if let error = error {
-                                print("Error adding trip to member: \(error.localizedDescription)")
-                            } else {
-                                print("trip saved properly to member :)")
-                            }
-                            
-                        })
-//                    }
+                    //                    trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip -- THIS WORKS
+                    //                    let listOfMembers = trip["Members"] as? [PFUser]
+                    //
+                    //                    //let each member know that it is part of this trip now -- THIS DOESN'T WORK
+                    ////                     for member in listOfMembers! {
+                    //                        self.addEditTripToAllMembers(member: (listOfMembers?[0])!, trip: trip, withCompletion: { (success: Bool?, error: Error?) in
+                    //                            if let error = error {
+                    //                                print("Error adding trip to member: \(error.localizedDescription)")
+                    //                            } else {
+                    //                                print("trip saved properly to member :)")
+                    //                            }
+                    //
+                    //                        })
+                    ////                    }
                     
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
                     self.originalTrip?.saveInBackground(block: { (success: Bool, error:Error?) in
@@ -330,32 +331,31 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     })
                     self.activityIndicator.stopAnimating() //stop activity indicator
                     //TODO: send notification
-                    //self.dismiss(animated: true)
+                    self.dismiss(animated: true)
                 }
-            }
+            }//close postTrip
         } else {
             self.activityIndicator.stopAnimating()
             print("Invalid edit (aka invalid trip)")
         }
         
-    }
+    }//close didTapSubmit()
     
-    //TODO: ADD COMPLETION BLOck/handler Look at "didPostTrip in the trip class for reference on how to add completion 
-    
+    //TODO: ADD COMPLETION BLOck/handler Look at "didPostTrip in the trip class for reference on how to add completion
     func addEditTripToAllMembers(member: PFUser, trip: PFObject, withCompletion completion: @escaping (Bool?, Error?) -> ()) {
         
         if var usersTrips = member["myTrips"] as? [PFObject]  {
             usersTrips.append(trip)
             member["myTrips"] = usersTrips
             print(member)
-//            member.saveInBackground(block: { (success: Bool, error:Error?) in
-//                if let error = error {
-//                    print("Error creating Trip: \(error.localizedDescription)")
-//                } else {
-//                    print(success)
-//                    print("member saved properly🌈🌈🌈🌈")
-//                }
-//            })
+            //            member.saveInBackground(block: { (success: Bool, error:Error?) in
+            //                if let error = error {
+            //                    print("Error creating Trip: \(error.localizedDescription)")
+            //                } else {
+            //                    print(success)
+            //                    print("member saved properly🌈🌈🌈🌈")
+            //                }
+            //            })
             member.saveInBackground { (success: Bool, error: Error?) in
                 completion(success, error)
             }
