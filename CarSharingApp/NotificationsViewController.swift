@@ -137,7 +137,39 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return memberNames
     }
     
-    @IBAction func didTapDeny(_ sender: Any) {
+    @IBAction func didTapDeny(_ sender: AnyObject) {
+        if let cell = sender.superview??.superview as? TripCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let limboTrip = limboTrips[(indexPath?.row)!]
+            let limboTripID = limboTrip.objectId!
+            let originalTripID = originalNameDict[limboTripID]
+            
+            //get actual orig trip, then change its edit id to ""
+            let query = PFQuery(className: "Trip")
+            query.includeKey("EditID")
+            query.whereKey("_id", equalTo: originalTripID)
+            query.findObjectsInBackground(block: { (trips: [PFObject]?, error: Error?) in
+                if let trips = trips {
+                    let trip = trips[0] 
+                    trip["EditID"] = ""
+                    trip.saveInBackground()
+                } else {
+                    print(error?.localizedDescription)
+                }
+            })
+            
+            //delete the limbo trip
+            limboTrip.deleteInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if success == true{
+                    print("trip denied !")
+                }
+            })
+            
+            //TODO: remove the limbo trip from each members list of trips
+            
+        }
     }
     
     @IBAction func didTapAccept(_ sender: Any) {

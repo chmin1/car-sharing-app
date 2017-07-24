@@ -308,16 +308,17 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip -- THIS WORKS
                     let listOfMembers = trip["Members"] as? [PFUser]
                     
-                    //let each member know that it is part of this trip now
-                    for member in listOfMembers! {
-                        self.addEditTripToAllMembers(member: member, trip: trip, withCompletion: { (success: Bool?, error: Error?) in
+                    //let each member know that it is part of this trip now -- THIS DOESN'T WORK
+//                     for member in listOfMembers! {
+                        self.addEditTripToAllMembers(member: (listOfMembers?[0])!, trip: trip, withCompletion: { (success: Bool?, error: Error?) in
                             if let error = error {
                                 print("Error adding trip to member: \(error.localizedDescription)")
                             } else {
                                 print("trip saved properly to member :)")
                             }
+                            
                         })
-                    }
+//                    }
                     
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
                     self.originalTrip?.saveInBackground(block: { (success: Bool, error:Error?) in
@@ -329,7 +330,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     })
                     self.activityIndicator.stopAnimating() //stop activity indicator
                     //TODO: send notification
-                    self.dismiss(animated: true)
+                    //self.dismiss(animated: true)
                 }
             }
         } else {
