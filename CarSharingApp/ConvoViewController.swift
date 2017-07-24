@@ -56,6 +56,17 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let section = self.convoView.numberOfSections - 1
+        let item  = self.convoView.numberOfItems(inSection: section) - 1
+        let lastIndexPath = IndexPath(item: item, section: section)
+        print(lastIndexPath)
+        if item > -1 {
+            self.convoView.scrollToItem(at: lastIndexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+        }
+    }
+    
     // ================ TEXTVIEW BEGIN EDIT ========================
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -158,6 +169,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             }
             
         }
+        
     }
     
     // ================ LOAD MESSAGES ON OPEN ======================
@@ -221,7 +233,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         item.authorLabel.text = author
         item.dateSentLabel.text = date
         
-        return item
+               return item
     }
     
     // ================ LOAD COLLECTIONVIEW ========================
@@ -230,7 +242,13 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     @IBAction func onSendMessage(_ sender: Any) {
         
-        let author = PFUser.current()?.username
+        var author: String = ""
+        if let _author = PFUser.current()?["fullname"] as? String {
+            
+            author = _author
+            
+        }
+        
         let textMessage = messageField.text
         let tripID = Trip.objectId
         
@@ -277,6 +295,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             
         }
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
