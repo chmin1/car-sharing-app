@@ -21,7 +21,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var tripsFeed: [PFObject] = []
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
-    var currentTrip: PFObject?
+    var currentTrip: PFObject? 
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var tripsTableView: UITableView!
@@ -44,6 +45,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //Set Up Table View
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
+        
+        //get data from server
         refresh()
         
         //Set Up Autocomplete View controller
@@ -70,6 +73,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //TODO: Edit so that it changes what appears depending on the search parameters
     func refresh() {
+        activityIndicator.startAnimating()
         let query = PFQuery(className: "Trip")
         query.includeKey("Planner")
         query.includeKey("Members")
@@ -90,6 +94,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 self.tripsTableView.reloadData()
                 self.refreshControl.endRefreshing()
+                self.activityIndicator.stopAnimating()
             } else {
                 print(error?.localizedDescription)
             }

@@ -501,6 +501,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xqC-6Y-TYJ">
+                                <rect key="frame" x="169" y="343" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
@@ -508,6 +513,7 @@
                         <barButtonItem key="leftBarButtonItem" image="profile" id="EbN-xH-31A"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="xqC-6Y-TYJ" id="YxG-bE-q3Q"/>
                         <outlet property="profileButton" destination="EbN-xH-31A" id="L39-Oo-5dF"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
                     </connections>
@@ -782,9 +788,9 @@
                                 <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nhg-Wg-qew">
-                                <rect key="frame" x="139" y="471" width="81" height="30"/>
+                                <rect key="frame" x="144" y="471" width="79" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Submit edis"/>
+                                <state key="normal" title="Submit edit"/>
                                 <connections>
                                     <action selector="didTapSubmit:" destination="RNb-p3-pFY" eventType="touchUpInside" id="XNV-RM-Ert"/>
                                 </connections>
@@ -804,6 +810,14 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="guB-ua-lA2">
+                                <rect key="frame" x="146" y="433" width="75" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Delete Trip"/>
+                                <connections>
+                                    <action selector="didTapDeleteTrip:" destination="RNb-p3-pFY" eventType="touchUpInside" id="17s-Yj-qaI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -969,11 +983,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LUo-k5-A1G">
+                                <rect key="frame" x="169" y="304" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Notifications" id="qDe-b9-5sq"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="LUo-k5-A1G" id="Rvw-yz-goM"/>
                         <outlet property="tableView" destination="Zdy-sE-PU5" id="uPa-0S-VWj"/>
                     </connections>
                 </viewController>
@@ -1488,11 +1508,17 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="RcZ-pw-h2C">
+                                <rect key="frame" x="169" y="268" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Your Trips" id="MFQ-52-TOR"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="RcZ-pw-h2C" id="4hK-uj-h8c"/>
                         <outlet property="yourTripsTableView" destination="iu4-Fh-Tlx" id="lwN-ph-99l"/>
                     </connections>
                 </viewController>
@@ -1885,8 +1911,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nDs-Zk-OKT"/>
-        <segue reference="cqV-Eg-IDX"/>
+        <segue reference="WcS-r4-J1G"/>
         <segue reference="BD2-lG-doJ"/>
-        <segue reference="vyv-0s-BnT"/>
+        <segue reference="cqV-Eg-IDX"/>
     </inferredMetricsTieBreakers>
 </document>

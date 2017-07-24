@@ -12,11 +12,19 @@ import Parse
 class YourTripsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var yourTrips: [PFObject] = []
+    var refreshControl: UIRefreshControl!
     
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var yourTripsTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Initialize a Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        yourTripsTableView.insertSubview(refreshControl, at: 0)
         
         refresh()
         
@@ -25,7 +33,13 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    //====== PULL TO REFRESH =======
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        refresh()
+    }
+    
     func refresh() {
+        activityIndicator.startAnimating()
         let currentUser = PFUser.current()
         let myTrips = currentUser?["myTrips"] as! [PFObject]
         let query = PFQuery(className: "Trip")
@@ -40,7 +54,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                         if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
                             self.yourTrips.append(trip)
                             self.yourTripsTableView.reloadData()
-                            //self.refreshControl.endRefreshing()
+                            self.refreshControl.endRefreshing()
+                            self.activityIndicator.stopAnimating()
                         } else {
                             print(error?.localizedDescription)
                         }

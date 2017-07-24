@@ -310,8 +310,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     
                     //let each member know that it is part of this trip now
                     for member in listOfMembers! {
-                        self.addEditTripToAllMembers(member: member, trip: trip, withCompletion: { (success: Bool?, error:
-                            Error?) in
+                        self.addEditTripToAllMembers(member: member, trip: trip, withCompletion: { (success: Bool?, error: Error?) in
                             if let error = error {
                                 print("Error adding trip to member: \(error.localizedDescription)")
                             } else {
@@ -342,21 +341,30 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     
     //TODO: ADD COMPLETION BLOck/handler Look at "didPostTrip in the trip class for reference on how to add completion 
     
-    func addEditTripToAllMembers(member: PFUser, trip: PFObject,
-        withCompletion completion: @escaping (Bool?, Error?) -> ()) {
+    func addEditTripToAllMembers(member: PFUser, trip: PFObject, withCompletion completion: @escaping (Bool?, Error?) -> ()) {
+        
         if var usersTrips = member["myTrips"] as? [PFObject]  {
             usersTrips.append(trip)
             member["myTrips"] = usersTrips
             print(member)
-            member.saveInBackground(block: { (success: Bool, error:Error?) in
-                if let error = error {
-                    print("Error creating Trip: \(error.localizedDescription)")
-                } else {
-                    print(success)
-                    print("member saved properly🌈🌈🌈🌈")
-                }
-            })
+//            member.saveInBackground(block: { (success: Bool, error:Error?) in
+//                if let error = error {
+//                    print("Error creating Trip: \(error.localizedDescription)")
+//                } else {
+//                    print(success)
+//                    print("member saved properly🌈🌈🌈🌈")
+//                }
+//            })
+            member.saveInBackground { (success: Bool, error: Error?) in
+                completion(success, error)
+            }
         }
+        
+    }//close addEditTripToAllMembers()
+    
+    @IBAction func didTapDeleteTrip(_ sender: Any) {
+        
     }
-
-}
+    
+    
+}//close class

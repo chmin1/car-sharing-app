@@ -12,16 +12,25 @@ import Parse
 class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     var limboTrips: [PFObject] = []
+    var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: String] = [:] //[editedTripID: tripName]
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //Initialize a Refresh Control
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        tableView.insertSubview(refreshControl, at: 0)
 
         fetchTripsInLimbo()
         
         tableView.dataSource = self
         tableView.delegate = self
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +38,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         // Dispose of any resources that can be recreated.
     }
     
+    //====== PULL TO REFRESH =======
+    func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        fetchTripsInLimbo()
+    }
+    
     func fetchTripsInLimbo() {
+        activityIndicator.startAnimating()
         let currentUser = PFUser.current()
         let myTrips = currentUser?["myTrips"] as! [PFObject]
         let query = PFQuery(className: "Trip")
@@ -51,7 +66,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                 }
                 self.tableView.reloadData()
-                //self.refreshControl.endRefreshing()
+                self.refreshControl.endRefreshing()
+                self.activityIndicator.stopAnimating()
             } else {
                 print(error?.localizedDescription)
             }
