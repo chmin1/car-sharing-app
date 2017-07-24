@@ -30,6 +30,7 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var requestButton: UIButton!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var leaveButton: UIButton!
+    var pendingEditAlert: UIAlertController!
     
     
     override func viewDidLoad() {
@@ -61,6 +62,14 @@ class TripDetailViewController: UIViewController {
         member3Prof.clipsToBounds = true
         member4Prof.layer.cornerRadius = member4Prof.frame.size.width / 2
         member4Prof.clipsToBounds = true
+        
+        //Pending Edit
+        //Set up invalid trip alerts
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        pendingEditAlert = UIAlertController(title: "Pending Edit", message: "There is already an edit in progress for this trip. You must wait until it is approved or denied before making another change.", preferredStyle: .alert)
+        pendingEditAlert.addAction(cancelAction)
         
         if let trip = trip {
             tripNameLabel.text = trip["Name"] as! String
@@ -257,17 +266,48 @@ class TripDetailViewController: UIViewController {
         let userIndex = membersList.index(of: PFUser.current()!)
         membersList.remove(at: userIndex!)
         trip?["Members"] = membersList
+        trip?.saveInBackground(block: { (success: Bool, error:Error?) in
+            if let error = error {
+                print("Error removing user from Trip: \(error.localizedDescription)")
+            } else {
+                print("user successfully removed from trip🐠🐠🐠🐠🐠")
+            }
+        })
         
         var tripList = PFUser.current()?["myTrips"] as! [PFObject]
         let tripIndex = tripList.index(of: trip!)
         tripList.remove(at: tripIndex!)
-        
+        PFUser.current()?["myTrips"] = tripList
+        PFUser.current()?.saveInBackground(block: { (success: Bool, error:Error?) in
+            if let error = error {
+                print("Error removing trip from user's list of trips: \(error.localizedDescription)")
+            } else {
+                print("Successfully removed trip from user's list of trips🐠🐠🐠🐠🐠")
+            }
+        })
     }
     
+    /*
+    * Only allow Edit VC to open if the trip doesn't already have a corresponding edit pending
+    * Otherwise, present the pending edit alert
+    */
+    @IBAction func didTapEdit(_ sender: Any) {
+        let tripEditId = trip?["EditID"] as! String
+        if tripEditId == "" { //only open edit vc if this trip doesn't have a corresponding edit
+            performSegue(withIdentifier: "editSegue", sender: nil)
+        } else {
+            present(pendingEditAlert, animated: true) { } //present pending edit alert if there is a pending edit
+        }
+    }
     
+    /*
+     * Passes the current trip over to the Edit vc
+     */
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let editViewController = segue.destination as! EditViewController //tell it its destination
-        editViewController.originalTrip = trip
+        if segue.identifier == "editSegue" {
+            let editViewController = segue.destination as! EditViewController //tell it its destination
+            editViewController.originalTrip = trip
+        }
     }
     
     

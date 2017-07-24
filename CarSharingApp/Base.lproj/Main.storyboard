@@ -676,7 +676,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Edit"/>
                                 <connections>
-                                    <segue destination="RNb-p3-pFY" kind="presentation" identifier="editSegue" id="onT-CB-Zvq"/>
+                                    <action selector="didTapEdit:" destination="JgV-Vw-IJt" eventType="touchUpInside" id="D7b-tj-gvQ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -699,6 +699,7 @@
                         <outlet property="name4Label" destination="hfP-Ij-iZv" id="1kr-f6-6Zj"/>
                         <outlet property="requestButton" destination="cFi-v0-f7w" id="4vb-H9-XlX"/>
                         <outlet property="tripNameLabel" destination="iuN-F0-ePK" id="6z6-xl-EJg"/>
+                        <segue destination="RNb-p3-pFY" kind="presentation" identifier="editSegue" id="75c-eU-9Z1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mj2-wq-1qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
