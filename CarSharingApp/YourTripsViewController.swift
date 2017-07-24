@@ -38,6 +38,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             if let trips = trips {
                 self.yourTrips.removeAll()
                 for trip in trips {
+                    //ERROR  BC OLD TRIPS DONT HAVE EDIT IDS
                     let tripEditId = trip["EditID"] as! String //get EditID so that the trip won't show if it's an edit
                     if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
                         self.yourTrips.append(trip)
