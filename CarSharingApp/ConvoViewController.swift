@@ -25,6 +25,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     var previousRect: CGRect!
     var returnPressed: Int = 0
     var newLine: Int = 0
+    
+    var updateTimer = Timer()
+    let updateDelay = 1.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,9 +54,21 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let id = Trip.objectId!
         print(id)
         
+        updateTimer = Timer.scheduledTimer(timeInterval: updateDelay, target: self, selector: #selector(ConvoViewController.refresh), userInfo: nil, repeats: true)
+        
         let amountOfLinesShown: CGFloat = 6
         let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
         messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        let collectionViewContentHeight = convoView.contentSize.height;
+        let collectionViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
+        
+        if(collectionViewContentHeight > collectionViewFrameHeightAfterInserts) {
+            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: true)
+        }
     }
     
     // ================ TEXTVIEW BEGIN EDIT ========================
@@ -61,12 +76,14 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             returnPressed += 1
-            if returnPressed < 17 {
-                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 17)
-                newLine = 17 * returnPressed
+            if returnPressed < 6 {
+                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+                newLine = 6 * returnPressed
                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                     self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
                 })
+                
             }
         }
         
@@ -79,9 +96,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
 //        let currentRect: CGRect = messageField.caretRect(for: pos!)
 //        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
 //            returnPressed += 1
-//            if returnPressed < 3 {
-//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 17)
-//                newLine = 17 * returnPressed
+//            if returnPressed < 6 && returnPressed > 1 {
+//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+//                newLine = 6 * returnPressed
 //                UIView.animate(withDuration: 0.1, animations: { () -> Void in
 //                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
 //                })
@@ -91,7 +108,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
 //        previousRect = currentRect
 //        
 //    }
-//    
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if (messageField.text == "") || (messageField.text == "Compose a message...") {
             messageField.text = ""
@@ -99,6 +116,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         messageField.textColor = UIColor.black
         UIView.animate(withDuration: 0.209, animations: { () -> Void in
             self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
         }, completion: { (_ finished: Bool) -> Void in
         })
         
@@ -115,6 +133,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             let height: Int = returnPressed * 20
             UIView.animate(withDuration: 0.209, animations: { () -> Void in
                 self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+                self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
             })
             
             if (messageField.text == "") {
@@ -158,8 +177,15 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             }
             
         }
+        
     }
     
+    func refresh () {
+        
+        convoView.reloadData()
+        
+    }
+        
     // ================ LOAD MESSAGES ON OPEN ======================
     
     // ================ LOAD COLLECTIONVIEW ========================
@@ -221,7 +247,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         item.authorLabel.text = author
         item.dateSentLabel.text = date
         
-        return item
+               return item
     }
     
     // ================ LOAD COLLECTIONVIEW ========================
@@ -230,7 +256,13 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     @IBAction func onSendMessage(_ sender: Any) {
         
-        let author = PFUser.current()?.username
+        var author: String = ""
+        if let _author = PFUser.current()?["fullname"] as? String {
+            
+            author = _author
+            
+        }
+        
         let textMessage = messageField.text
         let tripID = Trip.objectId
         
@@ -261,8 +293,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         }
     }
     
-     // ============== POST AND RETRIEVE MESSAGE ====================
+    // ============== POST AND RETRIEVE MESSAGE ====================
     
+    // ===================== DISMISS KEYBOARD ======================
     @IBAction func onScreenTap(_ sender: Any) {
         view.endEditing(true)
         let height: Int = returnPressed * 20
@@ -277,6 +310,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             
         }
     }
+    // ===================== DISMISS KEYBOARD ======================
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
