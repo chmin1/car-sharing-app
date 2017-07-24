@@ -272,7 +272,7 @@ class TripDetailViewController: UIViewController {
             if let error = error {
                 print("Error removing user from Trip: \(error.localizedDescription)")
             } else {
-                print("user successfully removed from trip🐠🐠🐠🐠🐠")
+                print("user successfully removed from trip🐸")
             }
         })
         
@@ -284,7 +284,7 @@ class TripDetailViewController: UIViewController {
             if let error = error {
                 print("Error removing trip from user's list of trips: \(error.localizedDescription)")
             } else {
-                print("Successfully removed trip from user's list of trips🐠🐠🐠🐠🐠")
+                print("Successfully removed trip from user's list of trips🦄")
             }
         })
     }

@@ -295,7 +295,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 } else if let trip = trip {
-                    //add this trip to the user's list of trips
+                    //add this trip to the current user's list of trips
                     if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
                         usersTrips.append(trip)
                         PFUser.current()?["myTrips"] = usersTrips
@@ -307,22 +307,10 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     
                     trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip -- THIS WORKS
                     let listOfMembers = trip["Members"] as? [PFUser]
-//                    //let each member know that it is part of this trip now
-//                    for member in listOfMembers! {
-//                        if var usersTrips = member["myTrips"] as? [PFObject]{
-//                            usersTrips.append(trip)
-//                            member["myTrips"] = usersTrips
-//                            print(member)
-//                            member.saveInBackground(block: { (success: Bool, error:Error?) in
-//                                if let error = error {
-//                                    print("Error creating Trip: \(error.localizedDescription)")
-//                                } else {
-//                                    print(success)
-//                                    print("member saved properly🐠🐠🐠🐠🐠")
-//                                }
-//                            })
-//                        }
-//                    }
+                    //let each member know that it is part of this trip now
+                    for member in listOfMembers! {
+                        self.addEditTripToAllMembers(member: member, trip: trip)
+                    }
                     
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
                     self.originalTrip?.saveInBackground(block: { (success: Bool, error:Error?) in
@@ -344,6 +332,20 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         
     }
     
-    
+    func addEditTripToAllMembers(member: PFUser, trip: PFObject) {
+        if var usersTrips = member["myTrips"] as? [PFObject]{
+            usersTrips.append(trip)
+            member["myTrips"] = usersTrips
+            print(member)
+            member.saveInBackground(block: { (success: Bool, error:Error?) in
+                if let error = error {
+                    print("Error creating Trip: \(error.localizedDescription)")
+                } else {
+                    print(success)
+                    print("member saved properly🌈🌈🌈🌈")
+                }
+            })
+        }
+    }
 
 }
