@@ -263,6 +263,8 @@ class TripDetailViewController: UIViewController {
     @IBAction func onLeaveTrip(_ sender: Any) {
         
         var membersList = trip?["Members"] as! [PFUser]
+        //print(membersList)
+        //ISSUE: the instances of pfuser.current are not the same the actual user that is logged in. they have different values for: <PFUser: 0x6080000e7880> and the current user is not actually in the array even though the person trying to leave the trip is
         let userIndex = membersList.index(of: PFUser.current()!)
         membersList.remove(at: userIndex!)
         trip?["Members"] = membersList

@@ -12,31 +12,6 @@ protocol HomeHeaderCellDelegate: class {
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel)
 }
 
-/*
- * This is the toolbar that puts a Done button in the date picker 
- * https://stackoverflow.com/questions/28048469/add-a-done-button-within-a-pop-up-datepickerview-in-swift
- */
-extension UIToolbar {
-    
-    func ToolbarPiker(mySelect : Selector) -> UIToolbar {
-        print("in here")
-        let toolBar = UIToolbar()
-        toolBar.barStyle = UIBarStyle.default
-        toolBar.isTranslucent = true
-        toolBar.tintColor = UIColor.black
-        toolBar.sizeToFit()
-        
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: mySelect)
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        
-        toolBar.setItems([ spaceButton, doneButton], animated: false)
-        toolBar.isUserInteractionEnabled = true
-        
-        return toolBar
-    }
-    
-}
-
 class HomeHeaderCell: UITableViewCell {
     
     @IBOutlet weak var startTextLabel: UILabel!
@@ -44,15 +19,21 @@ class HomeHeaderCell: UITableViewCell {
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var latestTextField: UITextField!
     
+    @IBOutlet weak var goButton: UIButton!
+    
     weak var delegate: HomeHeaderCellDelegate?
 
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        //Set up tap gesture recognizer for start and end labels
         let startLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapStartLabel(_sender:))
         )
         let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapEndLabel(_sender:))
         )
+        
+        //Add boarder to start and end labels
         startTextLabel.layer.borderColor = UIColor.gray.cgColor
         startTextLabel.layer.borderWidth = 0.5
         startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
@@ -62,6 +43,10 @@ class HomeHeaderCell: UITableViewCell {
         endTextLabel.layer.borderWidth = 0.5
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
+        
+        //Make Go Button circular
+        goButton.layer.cornerRadius = 0.5 * goButton.bounds.size.width
+        goButton.clipsToBounds = true
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
