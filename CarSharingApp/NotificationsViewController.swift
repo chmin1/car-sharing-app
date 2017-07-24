@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var limboTrips: [PFObject] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
@@ -25,14 +25,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
-
+        
         fetchTripsInLimbo()
         
         tableView.dataSource = self
         tableView.delegate = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,6 +79,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         let trip = limboTrips[indexPath.row]
         
         let tripName = trip["Name"] as! String
@@ -140,9 +141,29 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func didTapDeny(_ sender: Any) {
     }
     
-    @IBAction func didTapAccept(_ sender: Any) {
+    @IBAction func didTapAccept(_ sender: AnyObject) {
+        if let cell = sender.superview??.superview as? TripCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let limboTrip = limboTrips[(indexPath?.row)!]
+            var approvalList = limboTrip["Approvals"] as! [PFUser]
+            approvalList.append(PFUser.current()!)
+            limboTrip["Approvals"] = approvalList
+            limboTrip.saveInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("You sucessfully accepted the trip!")
+                }
+            })
+            
+        }
+        
+        //TODO get origional trip, get list of members in that trip, check if edittrip[approvals]== ogtrip[members] if so then replace og trip with editied trip
+        //delete og trip, clear the edit id for the edited trip and set edited trip[members] = edittrip[approvals] then clear the approvals array
+
     }
     
-    
-
+    func checkIfAllApprove(limboTrip: Trip, origionalTrip: Trip) {
+        
+    }
 }
