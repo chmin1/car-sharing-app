@@ -40,6 +40,17 @@ class MenuController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func didTapLogout(_ sender: Any) {
+        //logs user out
+        NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
+        PFUser.logOutInBackground(block: { (error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Successful loggout")
+            }
+        })
+    }
 
     // MARK: - Table view data source
 

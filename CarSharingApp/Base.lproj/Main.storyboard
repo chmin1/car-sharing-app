@@ -113,13 +113,14 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="57.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Logout button goes here" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ATj-a7-4Dw">
-                                                    <rect key="frame" x="24" y="11" width="221" height="24"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pwo-Jq-5lE">
+                                                    <rect key="frame" x="163" y="13" width="48" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <state key="normal" title="Logout"/>
+                                                    <connections>
+                                                        <action selector="didTapLogout:" destination="V0u-MS-Nb2" eventType="touchUpInside" id="jSd-dh-7dc"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -345,7 +346,11 @@
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wzG-kl-mTP">
                                                     <rect key="frame" x="172" y="163" width="30" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Go!"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <state key="normal" title="Go!">
+                                                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
                                                     <connections>
                                                         <action selector="didTapGo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ayR-SO-0J4"/>
                                                     </connections>
@@ -377,6 +382,7 @@
                                         <connections>
                                             <outlet property="earliestTextField" destination="F7s-pL-TgB" id="PlT-hV-EyC"/>
                                             <outlet property="endTextLabel" destination="fpN-47-gZK" id="0KP-bb-zD1"/>
+                                            <outlet property="goButton" destination="wzG-kl-mTP" id="Oxd-x1-nQf"/>
                                             <outlet property="latestTextField" destination="Id5-LI-dzY" id="9Ii-77-uGc"/>
                                             <outlet property="startTextLabel" destination="Qyd-xN-Nb6" id="Tep-a7-p7l"/>
                                         </connections>
@@ -500,11 +506,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="Y3o-LU-3St">
                         <barButtonItem key="leftBarButtonItem" image="profile" id="EbN-xH-31A"/>
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="Wsz-Tr-qPh">
-                            <connections>
-                                <action selector="didTapLogout:" destination="BYZ-38-t0r" id="6By-SR-cCq"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="profileButton" destination="EbN-xH-31A" id="L39-Oo-5dF"/>
@@ -537,7 +538,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="SNM-GX-FjU">
-                                        <rect key="frame" x="10" y="8" width="49" height="49"/>
+                                        <rect key="frame" x="8" y="8" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
                                         <connections>
@@ -553,30 +554,23 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-oN-wCc">
-                                        <rect key="frame" x="77" y="58" width="91" height="23"/>
+                                        <rect key="frame" x="77" y="55" width="91" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfP-Ij-iZv">
-                                        <rect key="frame" x="266" y="58" width="91" height="23"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R81-Ko-L7U">
-                                        <rect key="frame" x="-11" y="61" width="91" height="23"/>
+                                        <rect key="frame" x="-13" y="55" width="91" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohu-dB-Bvi">
-                                        <rect key="frame" x="172" y="58" width="91" height="23"/>
+                                        <rect key="frame" x="172" y="55" width="91" height="23"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -584,6 +578,13 @@
                                         <rect key="frame" x="98" y="8" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfP-Ij-iZv">
+                                        <rect key="frame" x="266" y="55" width="91" height="23"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
@@ -1767,8 +1768,8 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nDs-Zk-OKT"/>
-        <segue reference="Cxk-ie-e8y"/>
+        <segue reference="cqV-Eg-IDX"/>
         <segue reference="BD2-lG-doJ"/>
-        <segue reference="WcS-r4-J1G"/>
+        <segue reference="vyv-0s-BnT"/>
     </inferredMetricsTieBreakers>
 </document>

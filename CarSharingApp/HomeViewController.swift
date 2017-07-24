@@ -210,6 +210,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
+    }
+    
+
+    
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
         self.present(autoCompleteViewController, animated: true, completion: nil)
         if(label == HomeHeaderCell.startTextLabel) {
@@ -280,18 +286,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         dismiss(animated: true)
     }
     
-    
-    @IBAction func didTapLogout(_ sender: Any) {
-        //logs user out
-        NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
-        PFUser.logOutInBackground(block: { (error) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                print("Successful loggout")
-            }
-        })
-    }
     
     func didPostTrip(trip: PFObject) {
         print("did post trip")
