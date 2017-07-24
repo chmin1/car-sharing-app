@@ -58,12 +58,11 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let section = self.convoView.numberOfSections - 1
-        let item  = self.convoView.numberOfItems(inSection: section) - 1
-        let lastIndexPath = IndexPath(item: item, section: section)
-        print(lastIndexPath)
-        if item > -1 {
-            self.convoView.scrollToItem(at: lastIndexPath, at: UICollectionViewScrollPosition.bottom, animated: false)
+        let collectionViewContentHeight = convoView.contentSize.height;
+        let collectionViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
+        
+        if(collectionViewContentHeight > collectionViewFrameHeightAfterInserts) {
+            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: false)
         }
     }
     
@@ -72,11 +71,14 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             returnPressed += 1
-            if returnPressed < 17 {
-                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 17)
-                newLine = 17 * returnPressed
+            if returnPressed < 6 {
+                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+                newLine = 6 * returnPressed
                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                     self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+                })
+                UICollectionView.animate(withDuration: 0.1, animations: { () -> Void in
+                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
                 })
             }
         }
@@ -90,9 +92,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
 //        let currentRect: CGRect = messageField.caretRect(for: pos!)
 //        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
 //            returnPressed += 1
-//            if returnPressed < 3 {
-//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 17)
-//                newLine = 17 * returnPressed
+//            if returnPressed < 6 && returnPressed > 1 {
+//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+//                newLine = 6 * returnPressed
 //                UIView.animate(withDuration: 0.1, animations: { () -> Void in
 //                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
 //                })
@@ -102,7 +104,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
 //        previousRect = currentRect
 //        
 //    }
-//    
+    
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if (messageField.text == "") || (messageField.text == "Compose a message...") {
             messageField.text = ""
@@ -279,8 +281,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         }
     }
     
-     // ============== POST AND RETRIEVE MESSAGE ====================
+    // ============== POST AND RETRIEVE MESSAGE ====================
     
+    // ===================== DISMISS KEYBOARD ======================
     @IBAction func onScreenTap(_ sender: Any) {
         view.endEditing(true)
         let height: Int = returnPressed * 20
@@ -295,7 +298,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             
         }
     }
-    
+    // ===================== DISMISS KEYBOARD ======================
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
