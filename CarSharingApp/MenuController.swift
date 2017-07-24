@@ -13,6 +13,8 @@ class MenuController: UITableViewController {
 
     @IBOutlet weak var profilePicImageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var logoutButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class MenuController: UITableViewController {
         //set name label
         let nameText = PFUser.current()?["fullname"] as! String
         nameLabel.text = nameText
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {

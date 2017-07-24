@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     var limboTrips: [PFObject] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
@@ -25,14 +25,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
-
+        
         fetchTripsInLimbo()
         
         tableView.dataSource = self
         tableView.delegate = self
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -79,6 +79,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
+        cell.selectionStyle = UITableViewCellSelectionStyle.none
         let trip = limboTrips[indexPath.row]
         
         let tripName = trip["Name"] as! String
@@ -143,50 +144,124 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let limboTrip = limboTrips[(indexPath?.row)!]
             let limboTripID = limboTrip.objectId!
             let originalTripID = originalNameDict[limboTripID]
-            print("HI")
-            //get actual orig trip, then change its edit id to ""
-            let query = PFQuery(className: "Trip")
-            query.includeKey("EditID")
-            query.whereKey("_id", equalTo: originalTripID)
-            query.findObjectsInBackground(block: { (trips: [PFObject]?, error: Error?) in
-                if let trips = trips {
-                    let trip = trips[0] 
-                    trip["EditID"] = ""
-                    trip.saveInBackground()
-                } else {
-                    print(error?.localizedDescription)
-                }
-            })
+            
+            var origionalTrip = getOrigionalTrip(limboTripId: limboTripID)
+            origionalTrip["EditID"] = ""
+            origionalTrip.saveInBackground()
             
             //delete the limbo trip
-            limboTrip.deleteInBackground(block: { (success: Bool, error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else if success == true{
-                    print("trip denied !")
-                }
-            })
-            
-            //remove the limbo trip from its author's list of trips
-            let planner = limboTrip["Planner"] as! PFUser
-            var tripList = planner["myTrips"] as! [PFObject]
-            let tripIndex = tripList.index(of: limboTrip)
-            tripList.remove(at: tripIndex!)
-            planner["myTrips"] = tripList
-            planner.saveInBackground(block: { (success: Bool, error:Error?) in
-                if let error = error {
-                    print("Error removing trip from user's list of trips: \(error.localizedDescription)")
-                } else {
-                    print("Successfully removed trip from user's list of trips🐠")
-                }
-            })
+            deleteTrip(trip: limboTrip)
             
         }
     }
     
-    @IBAction func didTapAccept(_ sender: Any) {
+    @IBAction func didTapAccept(_ sender: AnyObject) {
+        print("Chose Accept")
+        if let cell = sender.superview??.superview as? EditedTripCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let limboTrip = limboTrips[(indexPath?.row)!]
+            var approvalList = limboTrip["Approvals"] as! [PFUser]
+            approvalList.append(PFUser.current()!)
+            limboTrip["Approvals"] = approvalList
+            let limboTripID = limboTrip.objectId!
+            limboTrip.saveInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("You sucessfully accepted the trip!")
+                }
+            })
+            
+            let origionalTrip = getOrigionalTrip(limboTripId: limboTripID)
+            self.checkIfAllApprove(limboTrip: limboTrip, origionalTrip: origionalTrip)
+            
+        }
+
     }
     
+    func addUserToTrip(user: PFUser, trip: PFObject) {
+        //Update for user
+        var userTrips = user["MyTrips"] as! [PFObject]
+        userTrips.append(trip)
+        user["MyTrips"] = userTrips
+        user.saveInBackground()
+        
+        //Update for trip
+        var userList = trip["Members"] as! [PFUser]
+        userList.append(user)
+        trip["Members"] = userList
+        trip.saveInBackground()
+    }
     
-
+    func removeUserFromTrip(user: PFUser, trip: PFObject) {
+        //Update for user
+        var userTrips = user["MyTrips"] as! [PFObject]
+        let tripIndex = userTrips.index(of: trip)
+        userTrips.remove(at: tripIndex!)
+        user["MyTrips"] = userTrips
+        user.saveInBackground()
+        
+        //Update for trip
+        var userList = trip["Members"] as! [PFUser]
+        let userIndex = userList.index(of: user)
+        userList.remove(at: userIndex!)
+        trip["Members"] = userList
+        trip.saveInBackground()
+    }
+    
+    func updateMembersTrips(members: [PFUser], newTrip: PFObject, oldTrip: PFObject) {
+        for member in members {
+            var userTrips = member["MyTrips"] as! [PFObject]
+            if(userTrips.contains(oldTrip)) {
+                let tripIndex = userTrips.index(of: oldTrip)
+                userTrips.remove(at: tripIndex!)
+                userTrips.append(newTrip)
+            }
+            member["myTrips"] = userTrips
+            member.saveInBackground()
+        }
+    }
+    
+    func deleteTrip(trip: PFObject) {
+        trip.deleteInBackground(block: { (success: Bool, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if success == true{
+                print("trip denied !")
+            }
+        })
+    }
+    
+    func getOrigionalTrip(limboTripId: String) -> PFObject {
+        let originalTripID = originalNameDict[limboTripId]
+        let query = PFQuery(className: "Trip")
+        var trip = PFObject()
+        query.includeKey("Members")
+        query.includeKey("EditID")
+        query.whereKey("_id", equalTo: originalTripID)
+        query.findObjectsInBackground(block: { (trips: [PFObject]?, error: Error?) in
+            if let trips = trips {
+                trip = trips[0]
+            } else {
+                print(error?.localizedDescription)
+            }
+        })
+        return trip
+    }
+    
+    func checkIfAllApprove(limboTrip: PFObject, origionalTrip: PFObject) {
+        var membersList = origionalTrip["Members"] as! [PFUser]
+        var approvalList = limboTrip["Approvals"] as! [PFUser]
+        if(membersList == approvalList) {
+            membersList = limboTrip["Members"] as! [PFUser]
+            limboTrip["Approvals"] = []
+            limboTrip["EditID"] = ""
+            limboTrip.saveInBackground()
+            
+            deleteTrip(trip: origionalTrip)
+            
+            updateMembersTrips(members: membersList, newTrip: limboTrip, oldTrip: origionalTrip)
+            
+        }
+    }
 }
