@@ -25,6 +25,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     var previousRect: CGRect!
     var returnPressed: Int = 0
     var newLine: Int = 0
+    
+    var updateTimer = Timer()
+    let updateDelay = 1.0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +54,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let id = Trip.objectId!
         print(id)
         
+        updateTimer = Timer.scheduledTimer(timeInterval: updateDelay, target: self, selector: #selector(ConvoViewController.refresh), userInfo: nil, repeats: true)
+        
         let amountOfLinesShown: CGFloat = 6
         let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
         messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
@@ -62,7 +67,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let collectionViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
         
         if(collectionViewContentHeight > collectionViewFrameHeightAfterInserts) {
-            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: false)
+            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: true)
         }
     }
     
@@ -76,10 +81,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
                 newLine = 6 * returnPressed
                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
                     self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
-                })
-                UICollectionView.animate(withDuration: 0.1, animations: { () -> Void in
                     self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
                 })
+                
             }
         }
         
@@ -112,6 +116,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         messageField.textColor = UIColor.black
         UIView.animate(withDuration: 0.209, animations: { () -> Void in
             self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
         }, completion: { (_ finished: Bool) -> Void in
         })
         
@@ -128,6 +133,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             let height: Int = returnPressed * 20
             UIView.animate(withDuration: 0.209, animations: { () -> Void in
                 self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+                self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
             })
             
             if (messageField.text == "") {
@@ -174,6 +180,12 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         
     }
     
+    func refresh () {
+        
+        convoView.reloadData()
+        
+    }
+        
     // ================ LOAD MESSAGES ON OPEN ======================
     
     // ================ LOAD COLLECTIONVIEW ========================
