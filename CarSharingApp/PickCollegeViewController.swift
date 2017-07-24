@@ -105,15 +105,4 @@ class PickCollegeViewController: UITableViewController {
     
 }//close class
 
-extension PickCollegeViewController: UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        filterContentForSearchText(searchController.searchBar.text!)
-    }
-}
 
-extension PickCollegeViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar) {
-        filterContentForSearchText(searchBar.text!)
-    }
-}

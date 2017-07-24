@@ -111,8 +111,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == startTextLabel {
+            startTextLabel.textColor = UIColor.black
             startTextLabel.text = place.formattedAddress
         } else if locationSource == endTextLabel {
+            endTextLabel.textColor = UIColor.black
             endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)
