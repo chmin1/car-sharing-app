@@ -307,9 +307,17 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
                     
                     trip["Members"] = self.originalTrip?["Members"]! //give the edited trip the same members as the original trip -- THIS WORKS
                     let listOfMembers = trip["Members"] as? [PFUser]
+                    
                     //let each member know that it is part of this trip now
                     for member in listOfMembers! {
-                        self.addEditTripToAllMembers(member: member, trip: trip)
+                        self.addEditTripToAllMembers(member: member, trip: trip, withCompletion: { (success: Bool?, error:
+                            Error?) in
+                            if let error = error {
+                                print("Error adding trip to member: \(error.localizedDescription)")
+                            } else {
+                                print("trip saved properly to member :)")
+                            }
+                        })
                     }
                     
                     self.originalTrip?["EditID"] = trip.objectId! //store a reference to this edit in the original trip
@@ -332,8 +340,11 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         
     }
     
-    func addEditTripToAllMembers(member: PFUser, trip: PFObject) {
-        if var usersTrips = member["myTrips"] as? [PFObject]{
+    //TODO: ADD COMPLETION BLOck/handler Look at "didPostTrip in the trip class for reference on how to add completion 
+    
+    func addEditTripToAllMembers(member: PFUser, trip: PFObject,
+        withCompletion completion: @escaping (Bool?, Error?) -> ()) {
+        if var usersTrips = member["myTrips"] as? [PFObject]  {
             usersTrips.append(trip)
             member["myTrips"] = usersTrips
             print(member)

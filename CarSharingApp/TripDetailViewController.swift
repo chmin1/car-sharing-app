@@ -263,8 +263,6 @@ class TripDetailViewController: UIViewController {
     @IBAction func onLeaveTrip(_ sender: Any) {
         
         var membersList = trip?["Members"] as! [PFUser]
-        //print(membersList)
-        //ISSUE: the instances of pfuser.current are not the same the actual user that is logged in. they have different values for: <PFUser: 0x6080000e7880> and the current user is not actually in the array even though the person trying to leave the trip is
         let userIndex = membersList.index(of: PFUser.current()!)
         membersList.remove(at: userIndex!)
         trip?["Members"] = membersList
@@ -272,7 +270,7 @@ class TripDetailViewController: UIViewController {
             if let error = error {
                 print("Error removing user from Trip: \(error.localizedDescription)")
             } else {
-                print("user successfully removed from trip🐸")
+                print("user successfully removed from trip🐠🐠🐠🐠🐠")
             }
         })
         
@@ -284,7 +282,7 @@ class TripDetailViewController: UIViewController {
             if let error = error {
                 print("Error removing trip from user's list of trips: \(error.localizedDescription)")
             } else {
-                print("Successfully removed trip from user's list of trips🦄")
+                print("Successfully removed trip from user's list of trips🐠🐠🐠🐠🐠")
             }
         })
     }
