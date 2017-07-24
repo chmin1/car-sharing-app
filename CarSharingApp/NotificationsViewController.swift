@@ -179,6 +179,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
 
     }
     
+    
+    /*
+     * Adds the user to the trip members list, adds the trip to the user trip list
+     */
     func addUserToTrip(user: PFUser, trip: PFObject) {
         //Update for user
         var userTrips = user["MyTrips"] as! [PFObject]
@@ -193,6 +197,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         trip.saveInBackground()
     }
     
+    /*
+     * Removes the user to the trip members list, removes the trip to the user trip list
+     */
     func removeUserFromTrip(user: PFUser, trip: PFObject) {
         //Update for user
         var userTrips = user["MyTrips"] as! [PFObject]
@@ -209,20 +216,15 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         trip.saveInBackground()
     }
     
-    func updateMembersTrips(members: [PFUser], newTrip: PFObject, oldTrip: PFObject) {
-        for member in members {
-            var userTrips = member["MyTrips"] as! [PFObject]
-            if(userTrips.contains(oldTrip)) {
-                let tripIndex = userTrips.index(of: oldTrip)
-                userTrips.remove(at: tripIndex!)
-                userTrips.append(newTrip)
-            }
-            member["myTrips"] = userTrips
-            member.saveInBackground()
-        }
-    }
-    
+    /*
+     * Deletes the trip from the user's list of trips
+     * Deletes the trip from parse
+    */
     func deleteTrip(trip: PFObject) {
+        let membersList = trip["Members"] as! [PFUser]
+        for member in membersList {
+            removeUserFromTrip(user: member, trip: trip)
+        }
         trip.deleteInBackground(block: { (success: Bool, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
@@ -232,6 +234,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         })
     }
     
+    /*
+     * Returns the origional trip assocaited with the given tripID string
+     */
     func getOrigionalTrip(limboTripId: String) -> PFObject {
         let originalTripID = originalNameDict[limboTripId]
         let query = PFQuery(className: "Trip")
@@ -249,18 +254,31 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return trip
     }
     
+    /*
+     * Publishes the edited trip as an actual trip and deletes the old trip
+     */
+    func replaceOldWithEdit(newTrip: PFObject, oldTrip: PFObject) {
+        
+        let membersList = newTrip["Members"] as! [PFUser]
+        newTrip["Approvals"] = []
+        newTrip["EditID"] = ""
+        newTrip.saveInBackground()
+        
+        for member in membersList {
+            addUserToTrip(user: member, trip: newTrip)
+            removeUserFromTrip(user: member, trip: oldTrip)
+        }
+    }
+    
+    /*
+     * Checks if all of the users have approved the edited trip
+     */
     func checkIfAllApprove(limboTrip: PFObject, origionalTrip: PFObject) {
-        var membersList = origionalTrip["Members"] as! [PFUser]
-        var approvalList = limboTrip["Approvals"] as! [PFUser]
+        let membersList = origionalTrip["Members"] as! [PFUser]
+        let approvalList = limboTrip["Approvals"] as! [PFUser]
         if(membersList == approvalList) {
-            membersList = limboTrip["Members"] as! [PFUser]
-            limboTrip["Approvals"] = []
-            limboTrip["EditID"] = ""
-            limboTrip.saveInBackground()
-            
+            replaceOldWithEdit(newTrip: limboTrip, oldTrip: origionalTrip)
             deleteTrip(trip: origionalTrip)
-            
-            updateMembersTrips(members: membersList, newTrip: limboTrip, oldTrip: origionalTrip)
             
         }
     }
