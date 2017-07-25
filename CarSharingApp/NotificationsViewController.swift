@@ -27,10 +27,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
         
-        fetchTripsInLimbo()
-        
         tableView.dataSource = self
         tableView.delegate = self
+        
+        fetchTripsInLimbo()
         
     }
     

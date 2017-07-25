@@ -73,7 +73,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    //TODO: Edit so that it changes what appears depending on the search parameters
+    //TODO: Edit so that it changes what appears depending on the search parameters -- didn't we do this? 
     func refresh() {
         activityIndicator.startAnimating()
         let query = PFQuery(className: "Trip")
@@ -206,7 +206,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
             //section 1 has filteredTripsFeed.count rows
         else if (section == 1) {
-            //TODO: Set this to be filteredtrips.count
+            
             return filteredTripsFeed.count
         }
         return 0
