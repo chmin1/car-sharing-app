@@ -15,7 +15,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var listOfEditIds: [String] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
-    var originalNameDict: [String: String] = [:] //[editedTripID: tripName]
+    var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -62,14 +62,21 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.listOfEditIds.removeAll()
                 for trip in trips {
                     if let tripEditId = trip["EditID"] as? String {
-                        if(tripEditId != ""){
+                        if(tripEditId != "") {
                             print("trip's edit id: \(tripEditId)")
-                            self.originalNameDict[tripEditId] = trip["Name"] as? String //fill in dictionary so each editID knows its original trip's name
+                            var oldTripInfo = ["", ""]
+                            oldTripInfo[0] = trip.objectId!
+                            oldTripInfo[1] = (trip["Name"] as? String)!
+                            self.originalNameDict[tripEditId] = oldTripInfo
+                            
                             self.listOfEditIds.append(tripEditId) //if the trip has an edit, add that edit id to the list of edit ids
-                            self.fillLimboTripList()
+                            
                         }
                     }
+                    
                 }
+                
+                self.fillLimboTripList()
                 
             } else {
                 print(error?.localizedDescription)
@@ -82,13 +89,24 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * limbo trip to the list of limbo trips for the tableview
      */
     func fillLimboTripList() {
+        if(self.listOfEditIds.count == 0){
+            self.tableView.reloadData()
+            self.refreshControl.endRefreshing()
+            self.activityIndicator.stopAnimating()
+            //TODO: maybe show something on notifications vc that says "no notifications"
+        }
         for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id
             let query = PFQuery(className: "Trip")
             query.whereKey("objectId", equalTo: editID)
             query.findObjectsInBackground(block: { (returnedLimboTrips: [PFObject]?, error: Error?) in
+                //Code below is being called twice
                 if let returnedLimboTrips = returnedLimboTrips {
                     self.limboTrips.removeAll()
-                    self.limboTrips.append(returnedLimboTrips[0]) //add the fetched limbo trip to the list for the tableview
+                    let limbotrip = returnedLimboTrips[0]
+                    if(self.shouldDisplayTrip(trip: limbotrip)) {
+                        print("HII")
+                        self.limboTrips.append(limbotrip) //add the fetched limbo trip to the list for the tableview
+                    }
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
                     self.activityIndicator.stopAnimating()
@@ -99,6 +117,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }//close fillLimboTripList()
     
+    func shouldDisplayTrip(trip: PFObject) -> Bool {
+        let approvalList = trip["Approvals"] as! [PFUser]
+        for member in approvalList {
+            let memberID = member.objectId
+            if(memberID == PFUser.current()?.objectId) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
     /*
      * Sets up the cells
      */
@@ -106,14 +135,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
         let trip = limboTrips[indexPath.row]
-        
         let tripName = trip["Name"] as! String
         let departureLocation = trip["DepartureLoc"] as! String
         let arrivalLocation = trip["ArrivalLoc"] as! String
         let earliestDepart = trip["EarliestTime"] as! String
         let latestDepart = trip["LatestTime"] as! String
         //print(trip.objectId!)
-        if let origName = originalNameDict[trip.objectId!] {
+        if let origName = originalNameDict[trip.objectId!]?[1] {
             print(origName)
             cell.originalTripNameLabel.text = origName
         }
@@ -123,10 +151,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.destinationLabel.text = arrivalLocation
         cell.earlyTimeLabel.text = earliestDepart
         cell.lateDepartLabel.text = latestDepart
-        
         return cell
     }
     
+   
     
     /*
      * Tells the tableview how many rows should be in each section
@@ -153,13 +181,22 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func didTapDeny(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
+            //print("Limbotrips \(limboTrips)")
             let limboTrip = limboTrips[(indexPath?.row)!]
             let limboTripID = limboTrip.objectId!
-            let originalTripID = originalNameDict[limboTripID]
             
-            var origionalTrip = getOrigionalTrip(limboTripId: limboTripID)
-            origionalTrip["EditID"] = "" //reset original trip's edit id
-            origionalTrip.saveInBackground()
+            
+            getOrigionalTrip(limboTripId: limboTripID, withCompletion: { (origionalTrip: PFObject?, error: Error?) in
+                if let origionalTrip = origionalTrip {
+                    origionalTrip["EditID"] = "" //reset original trip's edit id
+                    origionalTrip.saveInBackground()
+                } else {
+                    print(error?.localizedDescription)
+                }
+                
+            })
+            
+            
             
             //delete the limbo trip
             deleteTrip(trip: limboTrip)
@@ -184,11 +221,18 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
             
-            let origionalTrip = getOrigionalTrip(limboTripId: limboTripID)
-            self.checkIfAllApprove(limboTrip: limboTrip, origionalTrip: origionalTrip)
+            getOrigionalTrip(limboTripId: limboTripID, withCompletion: { (origionalTrip: PFObject?, error: Error?) in
+                if let origionalTrip = origionalTrip {
+                    self.checkIfAllApprove(limboTrip: limboTrip, origionalTrip: origionalTrip)
+                } else {
+                    print(error?.localizedDescription)
+                }
+                
+            })
+            
             
         }
-
+        
     }
     
     
@@ -231,13 +275,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Deletes the trip from the user's list of trips
      * Deletes the trip from parse
-    */
+     */
     public func deleteTrip(trip: PFObject) {
-        if let membersList = trip["Members"] as? [PFUser] {
-            for member in membersList {
-                removeUserFromTrip(user: member, trip: trip)
-            }
-        }
+        /* if let membersList = trip["Members"] as? [PFUser] {
+         for member in membersList {
+         removeUserFromTrip(user: member, trip: trip)
+         }
+         }
+         */
         
         trip.deleteInBackground(block: { (success: Bool, error: Error?) in
             if let error = error {
@@ -251,21 +296,20 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Returns the origional trip assocaited with the given tripID string
      */
-    public func getOrigionalTrip(limboTripId: String) -> PFObject {
-        let originalTripID = originalNameDict[limboTripId]
+    public func getOrigionalTrip(limboTripId: String, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+        let originalTripID = originalNameDict[limboTripId]?[0]
         let query = PFQuery(className: "Trip")
-        var trip = PFObject()
-        query.includeKey("Members")
-        query.includeKey("EditID")
+        var trip: PFObject?
+        //query.includeKey("EditID")
         query.whereKey("objectId", equalTo: originalTripID)
         query.findObjectsInBackground(block: { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 trip = trips[0]
+                completion(trip, nil)
             } else {
                 print(error?.localizedDescription)
             }
         })
-        return trip
     }
     
     /*
