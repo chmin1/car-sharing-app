@@ -134,23 +134,26 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
         cell.selectionStyle = UITableViewCellSelectionStyle.none
-        let trip = limboTrips[indexPath.row]
-        let tripName = trip["Name"] as! String
-        let departureLocation = trip["DepartureLoc"] as! String
-        let arrivalLocation = trip["ArrivalLoc"] as! String
-        let earliestDepart = trip["EarliestTime"] as! String
-        let latestDepart = trip["LatestTime"] as! String
-        //print(trip.objectId!)
-        if let origName = originalNameDict[trip.objectId!]?[1] {
-            print(origName)
-            cell.originalTripNameLabel.text = origName
+        if(limboTrips.count != 0) {
+            let trip = limboTrips[indexPath.row]
+            let tripName = trip["Name"] as! String
+            let departureLocation = trip["DepartureLoc"] as! String
+            let arrivalLocation = trip["ArrivalLoc"] as! String
+            let earliestDepart = trip["EarliestTime"] as! String
+            let latestDepart = trip["LatestTime"] as! String
+            //print(trip.objectId!)
+            if let origName = originalNameDict[trip.objectId!]?[1] {
+                print(origName)
+                cell.originalTripNameLabel.text = origName
+            }
+            
+            cell.newTripNameLabel.text = tripName
+            cell.departLabel.text = departureLocation
+            cell.destinationLabel.text = arrivalLocation
+            cell.earlyTimeLabel.text = earliestDepart
+            cell.lateDepartLabel.text = latestDepart
         }
         
-        cell.newTripNameLabel.text = tripName
-        cell.departLabel.text = departureLocation
-        cell.destinationLabel.text = arrivalLocation
-        cell.earlyTimeLabel.text = earliestDepart
-        cell.lateDepartLabel.text = latestDepart
         return cell
     }
     
@@ -195,9 +198,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
                 
             })
-            
-            
-            
             //delete the limbo trip
             deleteTrip(trip: limboTrip)
             
@@ -218,6 +218,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("You sucessfully accepted the trip!")
+                    self.tableView.reloadData()
                 }
             })
             
@@ -289,6 +290,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 print(error.localizedDescription)
             } else if success == true{
                 print("trip deleted !")
+                self.tableView.reloadData()
             }
         })
     }
@@ -334,10 +336,30 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     public func checkIfAllApprove(limboTrip: PFObject, origionalTrip: PFObject) {
         let membersList = origionalTrip["Members"] as! [PFUser]
         let approvalList = limboTrip["Approvals"] as! [PFUser]
-        if(membersList == approvalList) {
+        if(listsAreEqual(memberList: membersList, approvalList: approvalList)) {
             replaceOldWithEdit(newTrip: limboTrip, oldTrip: origionalTrip)
             deleteTrip(trip: origionalTrip)
             
         }
+    }
+    
+    func listsAreEqual(memberList: [PFUser], approvalList: [PFUser]) -> Bool {
+        var memberIds = [String]()
+        var approvalIds = [String]()
+        
+        for member in memberList {
+            memberIds.append(member.objectId!)
+        }
+        
+        for approver in approvalList {
+            approvalIds.append(approver.objectId!)
+        }
+        
+        for memberId in memberIds {
+            if !approvalIds.contains(memberId) {
+                return false
+            }
+        }
+        return true
     }
 }

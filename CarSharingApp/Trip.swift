@@ -41,7 +41,9 @@ class Trip: NSObject {
         trip["LatestTime"] = lateDepart // Latest timne you can leave
         
         var tripMembers = [PFUser]()
-        tripMembers.append(trip["Planner"] as! PFUser)
+        if(editID != "-1") {
+            tripMembers.append(trip["Planner"] as! PFUser)
+        }
         trip["Members"] = tripMembers
         
         trip["EditID"] = editID //this means there's no edit
