@@ -157,7 +157,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return cell
     }
     
-   
+    
     
     /*
      * Tells the tableview how many rows should be in each section
@@ -278,12 +278,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Deletes the trip from parse
      */
     public func deleteTrip(trip: PFObject) {
-        /* if let membersList = trip["Members"] as? [PFUser] {
-         for member in membersList {
-         removeUserFromTrip(user: member, trip: trip)
-         }
-         }
-         */
+        
+        if let membersList = trip["Members"] as? [PFUser] {
+            if membersList != [] {
+                for member in membersList {
+                    removeUserFromTrip(user: member, trip: trip)
+                }
+            }
+        }
         
         trip.deleteInBackground(block: { (success: Bool, error: Error?) in
             if let error = error {
