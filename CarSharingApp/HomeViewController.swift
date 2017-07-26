@@ -145,7 +145,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 cell.tripMembersLabel.text = memberString
                 
-                displayProfilePics(withCell: cell, withMembers: tripMembers)
+                let memberProfPics = returnMemberProfPics(tripMembers: tripMembers)
+                displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
+                
                 
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
                 let currentMemberName = PFUser.current()?["fullname"] as! String
@@ -166,8 +168,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableViewCell()
     }
     
-    func displayProfilePics(withCell cell: TripCell, withMembers members: [PFUser]){
-        let count = members.count
+    func displayProfilePics(withCell cell: TripCell, withMemberPics pics: [PFFile]){
+        let count = pics.count
         cell.onePersonImageView.isHidden = true
         cell.twoPeopleImageView1.isHidden = true
         cell.twoPeopleImageView2.isHidden = true
@@ -210,11 +212,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     //======== TURNS ARRAY OF MEMBERS' PROF PICS ========
-    func returnMemberProfPics(tripMembers: [PFUser]) -> [String] {
-        var memberPics: [String] = []
-        for member in memberPics {
-            if let memberName = member["fullname"] as? String {
-                memberNames.append(memberName)
+    func returnMemberProfPics(tripMembers: [PFUser]) -> [PFFile] {
+        var memberPics: [PFFile] = []
+        for member in tripMembers {
+            print("HI")
+            if let profPic = member["profPic"] as? PFFile {
+                memberPics.append(profPic)
             }
         }
         return memberPics
@@ -386,14 +389,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     membersArray.append(PFUser.current()!)
                     currentTrip?["Members"] = membersArray
                     
-                    //add this trip to the user's list of trips and SAVE
-                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject] {
-                        print(currentTrip!)
-                        usersTrips.append(currentTrip!)
-                        PFUser.current()?["myTrips"] = usersTrips
-                        PFUser.current()?.saveInBackground()
-                    }
-                    
                     //TODO: union operation on the times to change the trip time window
                     
                     //SAVE this updated trip info to the trip
@@ -436,9 +431,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let earliestDate = earliest.stringToDate()
         let latestDate = latest.stringToDate()
-        
-//        let earliestDate = stringToDate(dateString: earliest)
-//        let latestDate = stringToDate(dateString: latest)
         
         filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
     }

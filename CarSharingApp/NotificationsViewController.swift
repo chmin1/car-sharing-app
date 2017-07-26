@@ -244,48 +244,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Adds the user to the trip members list, adds the trip to the user trip list
      */
     public func addUserToTrip(user: PFUser, trip: PFObject) {
-        //Update for user
-        //var userTrips = user["myTrips"] as! [PFObject]
-        //userTrips.append(trip)
-        //user["myTrips"] = userTrips
-        //user.saveInBackground()
-        
         //Update for trip
         var userList = trip["Members"] as! [PFUser]
         userList.append(user)
         trip["Members"] = userList
         //trip.saveInBackground()
-    }
-    
-    /*
-     * Removes the user to the trip members list, removes the trip to the user trip list
-     */
-    public func removeUserFromTrip(user: PFUser, trip: PFObject) {
-        //Update for user
-        var userTrips = user["myTrips"] as! [PFObject]
-        var tripindex: Int!
-        let tripID = trip.objectId
-        for userTrip in userTrips {
-            let userTripID = userTrip.objectId
-            if(userTripID == tripID){
-                tripindex = userTrips.index(of: userTrip)
-                break
-            }
-        }
-        //let tripIndex = userTrips.index(of: trip) //NEED TO CHECK OBJ ID
-        userTrips.remove(at: tripindex)
-        user["myTrips"] = userTrips
-       //user.saveInBackground()
-        
-        
-        
-        //Update for trip -- ONLY USEFUL FOR "LEAVE TRIP" WHICH ALREADY WORKS WITHOUT THIS METHOD
-        /* var userList = trip["Members"] as! [PFUser]
-         let userIndex = userList.index(of: user)
-         userList.remove(at: userIndex!)
-         trip["Members"] = userList
-         trip.saveInBackground()
-         */
     }
     
     /*
@@ -344,17 +307,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             if let members = members {
                 for member in members {
                     self.addUserToTrip(user: member as! PFUser, trip: newTrip)
-                    //self.removeUserFromTrip(user: member as! PFUser, trip: oldTrip)
                 }
-                /*
-                PFObject.saveAll(inBackground: members, block: { (success: Bool, error: Error?) in
-                    if success == true {
-                        print("Saved all members!")
-                    } else {
-                        print(error?.localizedDescription)
-                    }
-                })
-                */
+                
                 newTrip.saveInBackground(block: { (success: Bool, error: Error?) in
                     if success == true {
                         print("Saved all members to trip!")

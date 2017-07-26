@@ -23,7 +23,6 @@ class User: NSObject {
         newUser["fullname"] = firstname! + " " + lastname!
         newUser["school"] = school
         newUser["profPic"] = User.getPFFileFromImage(image: #imageLiteral(resourceName: "profile"))
-        newUser["myTrips"] = [PFObject]()
         
         newUser.signUpInBackground { (success: Bool, error: Error?) in
             if success {
