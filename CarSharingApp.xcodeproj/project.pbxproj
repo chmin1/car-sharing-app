@@ -13,6 +13,7 @@
 		93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFC1F16A27F003BB533 /* TripCell.swift */; };
 		93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */; };
 		93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */; };
+		93E6B6C21F293DEF0048CBDF /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93E6B6C11F293DEF0048CBDF /* Helper.swift */; };
 		93EB998F1F201CB80078A072 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB998E1F201CB80078A072 /* ProfileViewController.swift */; };
 		93EB99981F214A430078A072 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93EB99971F214A430078A072 /* SWRevealViewController.m */; };
 		93EB999A1F214C6A0078A072 /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93EB99991F214C6A0078A072 /* EditViewController.swift */; };
@@ -77,6 +78,7 @@
 		93202BFC1F16A27F003BB533 /* TripCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripCell.swift; sourceTree = "<group>"; };
 		93202BFE1F16A357003BB533 /* HomeHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeHeaderCell.swift; sourceTree = "<group>"; };
 		93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TripDetailViewController.swift; sourceTree = "<group>"; };
+		93E6B6C11F293DEF0048CBDF /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		93EB998E1F201CB80078A072 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		93EB99961F214A430078A072 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		93EB99971F214A430078A072 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
@@ -221,6 +223,7 @@
 				F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */,
 				E109611D1F2020A80053762B /* backwardsSegue.swift */,
 				E109612A1F22ACC80053762B /* EditedTripCell.swift */,
+				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -585,6 +588,7 @@
 				93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */,
 				F9E2C6A51F1FE2490016D6E2 /* ConvoCell.swift in Sources */,
 				F9E2C6A31F1EDEE00016D6E2 /* ConvoViewController.swift in Sources */,
+				93E6B6C21F293DEF0048CBDF /* Helper.swift in Sources */,
 				E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */,
 				E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */,
 				E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */,

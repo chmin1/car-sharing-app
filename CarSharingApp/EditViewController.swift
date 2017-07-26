@@ -324,7 +324,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     
     
     @IBAction func didTapDeleteTrip(_ sender: Any) {
-        //NotificationsViewController.deleteTrip(trip: originalTrip!)
+        Helper.deleteTrip(trip: originalTrip!)
 
         
     }

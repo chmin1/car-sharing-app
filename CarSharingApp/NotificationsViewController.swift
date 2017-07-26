@@ -199,7 +199,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 
             })
             //delete the limbo trip
-            deleteTrip(trip: limboTrip)
+            Helper.deleteTrip(trip: limboTrip)
+            self.tableView.reloadData()
             
         }
     }
@@ -254,18 +255,20 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Deletes the trip from the user's list of trips
      * Deletes the trip from parse
-     */
-    public func deleteTrip(trip: PFObject) {
+ 
+    static func deleteTrip(trip: PFObject) {
         
         trip.deleteInBackground(block: { (success: Bool, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
             } else if success == true{
                 print("trip deleted !")
-                self.tableView.reloadData()
+                self.tableview.reloadData()
             }
+
         })
     }
+*/
     
     /*
      * Returns the origional trip assocaited with the given tripID string
@@ -330,7 +333,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         let membersList = origionalTrip["Members"] as! [PFUser]
         let approvalList = limboTrip["Approvals"] as! [PFUser]
         if(listsAreEqual(memberList: membersList, approvalList: approvalList)) {
-            deleteTrip(trip: origionalTrip)
+            Helper.deleteTrip(trip: origionalTrip)
+            self.tableView.reloadData()
             replaceOldWithEdit(newTrip: limboTrip, oldTrip: origionalTrip)
             
         }
