@@ -263,8 +263,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     public func removeUserFromTrip(user: PFUser, trip: PFObject) {
         //Update for user
         var userTrips = user["myTrips"] as! [PFObject]
-        let tripIndex = m.index(of: trip) //NEED TO CHECK OBJ ID
-        userTrips.remove(at: tripIndex!)
+        var tripindex: Int!
+        let tripID = trip.objectId
+        for userTrip in userTrips {
+            let userTripID = userTrip.objectId
+            if(userTripID == tripID){
+                tripindex = userTrips.index(of: userTrip)
+                break
+            }
+        }
+        //let tripIndex = userTrips.index(of: trip) //NEED TO CHECK OBJ ID
+        userTrips.remove(at: tripindex)
         user["myTrips"] = userTrips
         user.saveInBackground()
         
@@ -326,7 +335,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             
             let query = PFQuery(className: "_User")
             query.whereKey("objectId", equalTo: member.objectId)
-            query.includeKey("myTrips")
+//            query.includeKey("myTrips")
             query.findObjectsInBackground(block: { (members: [PFObject]?, error: Error?) in
                 if let members = members {
                     let member = members[0] as! PFUser
