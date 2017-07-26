@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class MessagesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     @IBOutlet weak var messagesView: UICollectionView!
     
     var tripData: [PFObject?] = []
@@ -19,7 +19,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         messagesView.delegate = self
         messagesView.dataSource = self
         refresh()
@@ -41,7 +41,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tripData.count 
+        return tripData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -102,19 +102,19 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
         
     }
-
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     
-    */
-
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     
+     */
+    
 }

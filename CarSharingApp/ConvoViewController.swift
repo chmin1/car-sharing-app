@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 
 class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -25,6 +26,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     var previousRect: CGRect!
     var returnPressed: Int = 0
     var newLine: Int = 0
+    
+    let liveQueryClient = ParseLiveQuery.Client()
     
     var updateTimer = Timer()
     let updateDelay = 1.0
@@ -67,7 +70,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let collectionViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
         
         if(collectionViewContentHeight > collectionViewFrameHeightAfterInserts) {
-            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: true)
+            convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: false)
         }
     }
     
@@ -178,14 +181,56 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             
         }
         
+//        let subscription = self.liveQueryClient
+//            .subscribe(query)
+//            .handle(Event.created) { _, message in
+//                self.convoMessages.append(message)
+//        }
     }
     
-    func refresh () {
+    func refresh() {
         
-        convoView.reloadData()
+        //Query the message object/clas in parse
+        let query = PFQuery(className: "Message")
+        query.includeKey("Message")
+        
+        //Query messages based on Trip ID
+        let tripID = Trip.objectId!
+        query.whereKey("TripID", equalTo: tripID)
+        
+        //Order by oldest messages on top
+        query.order(byAscending: "_created_at")
+        
+        // Iterate through all messages you have so far (self.convoMessage)
+        // Find the message with the highest date sent
+        // Add query whereKey where date sent to greater than that one
+        var lastMsg: PFObject!
+        
+        if convoMessages.count > 0 {
+            lastMsg = convoMessages[convoMessages.count - 1]
+        }
+        
+        query.whereKey("dateSent", greaterThan: lastMsg["dateSent"])
+        
+        // Find messages associated with this trip
+        query.findObjectsInBackground { (messages: [PFObject]?, error: Error?) in
+            if let messages = messages {
+                
+                for message in messages {
+                    
+                    
+                    self.convoMessages.append(message)
+                }
+
+                self.convoView.reloadData()
+            } else {
+                print(error?.localizedDescription)
+            }
+            
+        }
         
     }
-        
+    
     // ================ LOAD MESSAGES ON OPEN ======================
     
     // ================ LOAD COLLECTIONVIEW ========================
