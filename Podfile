@@ -7,6 +7,7 @@ target 'CarSharingApp' do
 
   # Pods for CarSharingApp
     pod 'Parse'
+    pod 'ParseLiveQuery'
     pod 'GooglePlaces'
 
   target 'CarSharingAppTests' do
