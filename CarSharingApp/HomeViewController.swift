@@ -145,6 +145,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 cell.tripMembersLabel.text = memberString
                 
+                displayProfilePics(withCell: cell, withMembers: tripMembers)
+                
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
                 let currentMemberName = PFUser.current()?["fullname"] as! String
                 if memberNames.contains(currentMemberName) || memberNames.count == 4 {
@@ -164,6 +166,38 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         return UITableViewCell()
     }
     
+    func displayProfilePics(withCell cell: TripCell, withMembers members: [PFUser]){
+        let count = members.count
+        cell.onePersonImageView.isHidden = true
+        cell.twoPeopleImageView1.isHidden = true
+        cell.twoPeopleImageView2.isHidden = true
+        cell.threePeopleImageView1.isHidden = true
+        cell.threePeopleImageView2.isHidden = true
+        cell.threePeopleImageView3.isHidden = true
+        cell.fourPeopleImageView1.isHidden = true
+        cell.fourPeopleImageView2.isHidden = true
+        cell.fourPeopleImageView3.isHidden = true
+        cell.fourPeopleImageView4.isHidden = true
+        
+        if(count == 1){
+            cell.onePersonImageView.isHidden = false
+        } else if (count == 2) {
+            cell.twoPeopleImageView1.isHidden = false
+            cell.twoPeopleImageView2.isHidden = false
+        } else if (count == 3) {
+            cell.threePeopleImageView1.isHidden = false
+            cell.threePeopleImageView2.isHidden = false
+            cell.threePeopleImageView3.isHidden = false
+        } else if (count == 4) {
+            cell.fourPeopleImageView1.isHidden = false
+            cell.fourPeopleImageView2.isHidden = false
+            cell.fourPeopleImageView3.isHidden = false
+            cell.fourPeopleImageView4.isHidden = false
+        }
+        
+    }
+    
+    
     //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
@@ -173,6 +207,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }
         return memberNames
+    }
+    
+    //======== TURNS ARRAY OF MEMBERS' PROF PICS ========
+    func returnMemberProfPics(tripMembers: [PFUser]) -> [String] {
+        var memberPics: [String] = []
+        for member in memberPics {
+            if let memberName = member["fullname"] as? String {
+                memberNames.append(memberName)
+            }
+        }
+        return memberPics
     }
     
     /*

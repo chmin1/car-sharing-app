@@ -311,7 +311,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         let originalTripID = originalNameDict[limboTripId]?[0]
         let query = PFQuery(className: "Trip")
         var trip: PFObject?
-        //query.includeKey("EditID")
         query.whereKey("objectId", equalTo: originalTripID)
         query.findObjectsInBackground(block: { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
