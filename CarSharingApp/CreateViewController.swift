@@ -216,6 +216,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         if(depart == destination) {
             present(invalidLocationsAlert, animated: true) { }
             return false
+        } else if (depart == "Add Start Location" || destination == "Add End Location") {
+            return false
         }
         return true
     }
