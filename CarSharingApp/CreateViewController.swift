@@ -216,6 +216,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         if(depart == destination) {
             present(invalidLocationsAlert, animated: true) { }
             return false
+        } else if (depart == "Add Start Location" || destination == "Add End Location") {
+            return false
         }
         return true
     }
@@ -290,12 +292,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 } else if let trip = trip {
-                    //add this trip to the user's list of trips
-                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject]{
-                        usersTrips.append(trip)
-                        PFUser.current()?["myTrips"] = usersTrips
-                        PFUser.current()?.saveInBackground()
-                    }
                     //send the trip to the delegate (home vc)
                     self.delegate?.didPostTrip(trip: trip)
                     print("trip was created! 😃")

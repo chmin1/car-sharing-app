@@ -5,6 +5,8 @@
 //  Created by Annabel Strauss on 7/19/17.
 //  Copyright © 2017 FBU. All rights reserved.
 //
+//  https://github.com/John-Lluch/SWRevealViewController
+//
 
 import UIKit
 import Parse

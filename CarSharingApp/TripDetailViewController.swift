@@ -205,20 +205,6 @@ class TripDetailViewController: UIViewController {
                     membersArray.append(PFUser.current()!)
                     trip?["Members"] = membersArray
                     
-                    //add this trip to the user's list of trips and SAVE
-                    if var usersTrips = PFUser.current()!["myTrips"] as? [PFObject] {
-                        print(trip!)
-                        usersTrips.append(trip!)
-                        PFUser.current()?["myTrips"] = usersTrips
-                        PFUser.current()?.saveInBackground(block: { (success: Bool, error: Error?) in
-                            if let error = error {
-                                print(error.localizedDescription)
-                            } else if success {
-                                print("😆success! updated user to add trip")
-                            }
-                        })
-                    }
-                    
                     //SAVE this updated trip into to the trip
                     trip?.saveInBackground(block: { (success: Bool, error: Error?) in
                         if let error = error {
@@ -271,18 +257,6 @@ class TripDetailViewController: UIViewController {
                 print("Error removing user from Trip: \(error.localizedDescription)")
             } else {
                 print("user successfully removed from trip")
-            }
-        })
-        
-        var tripList = PFUser.current()?["myTrips"] as! [PFObject]
-        let tripIndex = tripList.index(of: trip!)
-        tripList.remove(at: tripIndex!)
-        PFUser.current()?["myTrips"] = tripList
-        PFUser.current()?.saveInBackground(block: { (success: Bool, error:Error?) in
-            if let error = error {
-                print("Error removing trip from user's list of trips: \(error.localizedDescription)")
-            } else {
-                print("Successfully removed trip from user's list of trips")
             }
         })
         

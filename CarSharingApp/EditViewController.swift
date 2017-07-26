@@ -10,6 +10,7 @@ import UIKit
 import GooglePlaces
 import Parse
 
+
 class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
     
     var originalTrip: PFObject?
@@ -124,8 +125,10 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == startTextLabel {
+            startTextLabel.textColor = UIColor.black
             startTextLabel.text = place.formattedAddress
         } else if locationSource == endTextLabel {
+            endTextLabel.textColor = UIColor.black
             endTextLabel.text = place.formattedAddress
         }
         self.dismiss(animated: true)
@@ -321,6 +324,8 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     
     
     @IBAction func didTapDeleteTrip(_ sender: Any) {
+        Helper.deleteTrip(trip: originalTrip!)
+
         
     }
     
