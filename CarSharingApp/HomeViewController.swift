@@ -72,14 +72,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //set width of the hamburger menu thing when it comes out
         self.revealViewController().rearViewRevealWidth = 200
         
-        //change color of Nav bar
-        let myColor = UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+        //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = myColor
-        
-//        let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, self.tabBarController!.tabBar.frame.height, 0);
-//        //Where tableview is the IBOutlet for your storyboard tableview.
-//        tripsTableView.contentInset = adjustForTabbarInsets;
+        self.navigationController?.navigationBar.barTintColor = Helper.coral()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
     }
     
@@ -198,9 +194,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0) {
-            return 200
+            return 184
         } else if (indexPath.section == 1) {
-            return 151
+            return 162
         }
         return 0
     }

@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 extension NSDate {
     func isGreaterThanDate(dateToCompare: NSDate) -> Bool {
         //Declare Variables
