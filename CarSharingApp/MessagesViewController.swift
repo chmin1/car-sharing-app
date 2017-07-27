@@ -29,6 +29,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to table view
         messagesView.insertSubview(refreshControl, at: 0)
+        messagesView.alwaysBounceVertical = true
         
         let layout = messagesView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.minimumInteritemSpacing = 0
@@ -63,22 +64,26 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")
-        query.whereKey("Members", equalTo: currentUser)
-        query.order(byDescending: "_created_at")
+        query.whereKey("Members", equalTo: currentUser!)
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.tripData.removeAll()
                 for trip in trips {
-                    self.tripData.append(trip)
+                    if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
+                        if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
+                            self.tripData.append(trip)
+                        } else {
+                            print(error?.localizedDescription)
+                        }
+                    }
+                    
                 }
                 self.messagesView.reloadData()
                 self.refreshControl.endRefreshing()
-            } else {
-                print(error?.localizedDescription)
             }
         }
-        
     }
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
