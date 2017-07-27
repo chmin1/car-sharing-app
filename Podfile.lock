@@ -1,7 +1,11 @@
 PODS:
   - Bolts-Swift (1.3.0)
   - Bolts/Tasks (1.8.4)
+  - GoogleMaps (2.3.1):
+    - GoogleMaps/Maps (= 2.3.1)
   - GoogleMaps/Base (2.3.1)
+  - GoogleMaps/Maps (2.3.1):
+    - GoogleMaps/Base
   - GooglePlaces (2.3.1):
     - GoogleMaps/Base (= 2.3.1)
   - Parse (1.14.4):
@@ -13,6 +17,7 @@ PODS:
   - Starscream (2.0.3)
 
 DEPENDENCIES:
+  - GoogleMaps
   - GooglePlaces
   - Parse
   - ParseLiveQuery
@@ -26,6 +31,6 @@ SPEC CHECKSUMS:
   ParseLiveQuery: 38fb42e4b8611ecfcb199d47e48aeaf6879f8560
   Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
 
-PODFILE CHECKSUM: 3f12d092ae5c8eb07bcd327c66a9d4872357f28d
+PODFILE CHECKSUM: 701e7f028c8e3b0d766c34156b356d832afb1a18
 
 COCOAPODS: 1.2.1
