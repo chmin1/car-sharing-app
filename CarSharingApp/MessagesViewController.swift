@@ -60,7 +60,6 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func refresh() {
         let currentUser = PFUser.current()
-        let myTrips = currentUser?["myTrips"] as! [PFObject]
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")
