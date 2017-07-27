@@ -46,6 +46,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
         filter.type = .address
+        filter.country = "US"
         autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
@@ -243,6 +244,34 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print(error.localizedDescription)
         
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    //Get Place Predictions Programmatically
+    //Call GMSPlacesClient
+    func placeAutocomplete() {
+        let filter = GMSAutocompleteFilter()
+        filter.type = .establishment
+        let placesClient = GMSPlacesClient()
+        placesClient.autocompleteQuery("", bounds: nil, filter: filter, callback: {(results, error) -> Void in
+            if let error = error {
+                print("Autocomplete error \(error)")
+                return
+            }
+            if let results = results {
+                for result in results {
+                    print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+                }
+            }
+        })
     }
     
     
