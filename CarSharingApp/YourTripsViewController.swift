@@ -52,15 +52,15 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                     if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
                         if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
                             self.yourTrips.append(trip)
-                            self.yourTripsTableView.reloadData()
-                            self.refreshControl.endRefreshing()
-                            self.activityIndicator.stopAnimating()
                         } else {
                             print(error?.localizedDescription)
                         }
                     }
                     
                 }
+                self.yourTripsTableView.reloadData()
+                self.refreshControl.endRefreshing()
+                self.activityIndicator.stopAnimating()
             }
         }
     }
