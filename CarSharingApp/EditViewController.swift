@@ -38,6 +38,33 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpInvalidTripAlerts()
+        setUpAutoCompleteVC()
+        setUpTapGesture()
+        setUpDatePicker()
+        
+        //Fill in the trip info
+        if let originalTrip = originalTrip {
+            tripNameTextField.text = originalTrip["Name"] as? String
+            startTextLabel.text = originalTrip["DepartureLoc"] as? String
+            endTextLabel.text = originalTrip["ArrivalLoc"] as? String
+            earliestTextField.text = originalTrip["EarliestTime"] as? String
+            latestTextField.text = originalTrip["LatestTime"] as? String
+        }
+        
+        
+    }
+    
+    func setUpAutoCompleteVC() {
+        //Set Up Autocomplete View controller
+        filter = GMSAutocompleteFilter()
+        filter.type = .address
+        autoCompleteViewController = GMSAutocompleteViewController()
+        autoCompleteViewController.delegate = self
+        autoCompleteViewController.autocompleteFilter = filter
+    }
+    
+    func setUpInvalidTripAlerts() {
         //Set up invalid trip alerts
         let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
             // handle cancel response here. Doing nothing will dismiss the view.
@@ -54,36 +81,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         //Invalid Trip Name
         invalidTripNameAlert = UIAlertController(title: "Invalid Trip", message: "You must create a trip name", preferredStyle: .alert)
         invalidTripNameAlert.addAction(cancelAction)
-        
-        //Fill in the trip info
-        if let originalTrip = originalTrip {
-            tripNameTextField.text = originalTrip["Name"] as? String
-            startTextLabel.text = originalTrip["DepartureLoc"] as? String
-            endTextLabel.text = originalTrip["ArrivalLoc"] as? String
-            earliestTextField.text = originalTrip["EarliestTime"] as? String
-            latestTextField.text = originalTrip["LatestTime"] as? String
-        }
-        
-        //Set Up Autocomplete View controller
-        filter = GMSAutocompleteFilter()
-        filter.type = .address
-        autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        autoCompleteViewController.autocompleteFilter = filter
-        
-        setUpTapGesture()
-        setUpDatePicker()
-        
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func didTapCancel(_ sender: Any) {
-        self.dismiss(animated: true)
+
     }
     
     func setUpTapGesture() {
@@ -141,7 +139,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
         lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
-        latestTextField.text = dateToString(date: lateDate) //two hour window
+        latestTextField.text = Helper.dateToString(date: lateDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
@@ -149,7 +147,8 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
         earlyDate =  EarliestDatePickerView.date as NSDate
-        earliestTextField.text = dateToString(date: earlyDate)
+        earliestTextField.text = Helper.dateToString(date: earlyDate)
+
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -173,6 +172,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         earliestTextField.resignFirstResponder()
     }
     
+    /*
     func dateToString(date: NSDate) -> String {
         // Create date formatter
         let dateFormatter: DateFormatter = DateFormatter()
@@ -184,6 +184,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         let selectedDate: String = dateFormatter.string(from: date as Date)
         return selectedDate
     }
+ */
     
     
     func handleDatePickerForEarliest(_ sender: UIDatePicker)
@@ -248,23 +249,11 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
      *
      * A non-retryable error is defined as one that is unlikely to be fixed by immediately retrying the
      * operation.
-     *
-     * Only the following values of |GMSPlacesErrorCode| are retryable:
-     * <ul>
-     * <li>kGMSPlacesNetworkError
-     * <li>kGMSPlacesServerError
-     * <li>kGMSPlacesInternalError
-     * </ul>
-     * All other error codes are non-retryable.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param error The |NSError| that was returned.
      */
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print(error.localizedDescription)
         
     }
-    
     
     /**
      * Called when the user taps the Cancel button in a |GMSAutocompleteViewController|.
@@ -319,15 +308,22 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
             print("Invalid edit (aka invalid trip)")
         }
         
-    }//close didTapSubmit()
-    
-    
-    
-    @IBAction func didTapDeleteTrip(_ sender: Any) {
-        Helper.deleteTrip(trip: originalTrip!)
-
-        
     }
     
     
-}//close class
+    @IBAction func didTapDeleteTrip(_ sender: Any) {
+        //TODO: Post as notification and wait for approvals until it gets deleted
+        Helper.deleteTrip(trip: originalTrip!)
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func didTapCancel(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
+    
+    
+}

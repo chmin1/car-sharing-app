@@ -83,7 +83,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         print("latestdep: \(latestDepart)")
         if let tripMembers = trip["Members"] as? [PFUser] {
             print(tripName)
-            let memberNames = returnMemberNames(tripMembers: tripMembers)
+            let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
             print(memberNames)
             var memberString = ""
             
@@ -95,7 +95,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             cell.tripMembersLabel.text = memberString
             
-            let memberProfPics = returnMemberProfPics(tripMembers: tripMembers)
+            let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
             displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
         }
         
@@ -178,6 +178,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    /*
+    
     //======== TURNS ARRAY OF MEMBERS' PROF PICS ========
     func returnMemberProfPics(tripMembers: [PFUser]) -> [PFFile] {
         var memberPics: [PFFile] = []
@@ -189,6 +191,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return memberPics
     }
+ */
     
     
     /*
@@ -202,6 +205,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /*
     //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
@@ -212,7 +216,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         return memberNames
     }
-    
+    */
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

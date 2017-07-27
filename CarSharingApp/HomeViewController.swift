@@ -133,7 +133,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let latestDepart = trip["LatestTime"] as! String
             if let tripMembers = trip["Members"] as? [PFUser] {
                 print(tripName)
-                let memberNames = returnMemberNames(tripMembers: tripMembers)
+                let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
                 print(memberNames)
                 var memberString = ""
                 
@@ -239,7 +239,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    
+    /*
     //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
@@ -250,6 +250,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return memberNames
     }
+ */
     
     //======== TURNS ARRAY OF MEMBERS' PROF PICS ========
     func returnMemberProfPics(tripMembers: [PFUser]) -> [PFFile] {
@@ -423,7 +424,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func addUserToTrip() {
         var membersArray = currentTrip?["Members"] as! [PFUser]
         if membersArray.count < 4 {
-            let memberNames = returnMemberNames(tripMembers: membersArray)
+            let memberNames = Helper.returnMemberNames(tripMembers: membersArray)
             if let fullname = PFUser.current()?["fullname"] {
                 if memberNames.contains(fullname as! String) == false {
                     membersArray.append(PFUser.current()!)

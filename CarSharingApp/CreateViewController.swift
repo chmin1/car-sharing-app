@@ -127,7 +127,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
         lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
-        latestTextField.text = dateToString(date: lateDate) //two hour window
+        latestTextField.text = Helper.dateToString(date: lateDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
@@ -135,7 +135,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
         earlyDate =  EarliestDatePickerView.date as NSDate
-        earliestTextField.text = dateToString(date: earlyDate)
+        earliestTextField.text = Helper.dateToString(date: earlyDate)
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -157,18 +157,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func dismissPicker() {
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
-    }
-    
-    func dateToString(date: NSDate) -> String {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: date as Date)
-        return selectedDate
     }
     
     

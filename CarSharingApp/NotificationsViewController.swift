@@ -170,17 +170,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
-    func returnMemberNames(tripMembers: [PFUser]) -> [String] {
-        var memberNames: [String] = []
-        for member in tripMembers {
-            if let memberName = member["fullname"] as? String {
-                memberNames.append(memberName)
-            }
-        }
-        return memberNames
-    }
-    
+
     @IBAction func didTapDeny(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)

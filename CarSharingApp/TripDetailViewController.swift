@@ -78,7 +78,7 @@ class TripDetailViewController: UIViewController {
             departureLocLabel.text = trip["DepartureLoc"] as! String
             arrivalLocLabel.text = trip["ArrivalLoc"] as! String
             let members = trip["Members"] as! [PFUser]
-            let memberNames = returnMemberNames(tripMembers: members) as [String]
+            let memberNames = Helper.returnMemberNames(tripMembers: members) as [String]
             print(memberNames)
             self.fillInNamesAndProfPics(memberNames: memberNames, members: members)
             
@@ -163,7 +163,8 @@ class TripDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    //======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
+    /*
+    /======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
     func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
         for member in tripMembers {
@@ -173,6 +174,8 @@ class TripDetailViewController: UIViewController {
         }
         return memberNames
     }
+    
+ */
     
     @IBAction func didTapRequestToJoinTrip(_ sender: Any) {
         present(requestToJoinAlert, animated: true, completion: nil)
@@ -199,7 +202,7 @@ class TripDetailViewController: UIViewController {
     func addUserToTrip() {
         var membersArray = trip?["Members"] as! [PFUser]
         if membersArray.count < 4 {
-            let memberNames = returnMemberNames(tripMembers: membersArray)
+            let memberNames = Helper.returnMemberNames(tripMembers: membersArray)
             if let fullname = PFUser.current()?["fullname"] {
                 if memberNames.contains(fullname as! String) == false {
                     membersArray.append(PFUser.current()!)
