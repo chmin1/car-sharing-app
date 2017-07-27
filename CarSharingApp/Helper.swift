@@ -58,13 +58,6 @@ class Helper {
         }
         return memberPics
     }
-
-    //returnMemberProfPics
-    //compareDates
-    //isValidDateWindow
-    //areValidLocations
-    //isValidTripName
-    //Look at all the ones in notifications vc
     
     
 }
