@@ -234,7 +234,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Adds the user to the trip members list, adds the trip to the user trip list
      */
-    public func addUserToTrip(user: PFUser, trip: PFObject) {
+     func addUserToTrip(user: PFUser, trip: PFObject) {
         //Update for trip
         var userList = trip["Members"] as! [PFUser]
         userList.append(user)
@@ -263,7 +263,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Returns the origional trip assocaited with the given tripID string
      */
-    public func getOrigionalTrip(limboTripId: String, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    func getOrigionalTrip(limboTripId: String, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         let originalTripID = originalNameDict[limboTripId]?[0]
         let query = PFQuery(className: "Trip")
         var trip: PFObject?
@@ -319,7 +319,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Checks if all of the users have approved the edited trip
      */
-    public func checkIfAllApprove(limboTrip: PFObject, origionalTrip: PFObject) {
+    func checkIfAllApprove(limboTrip: PFObject, origionalTrip: PFObject) {
         let membersList = origionalTrip["Members"] as! [PFUser]
         let approvalList = limboTrip["Approvals"] as! [PFUser]
         if(listsAreEqual(memberList: membersList, approvalList: approvalList)) {
