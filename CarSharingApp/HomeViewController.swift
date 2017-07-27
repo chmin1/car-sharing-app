@@ -31,6 +31,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /* Methods attempting to get rid of the grey space on home vc
+        self.automaticallyAdjustsScrollViewInsets = false
+        //tripsTableView.contentInset = UIEdgeInsets.zero
+        tripsTableView.contentInset.bottom = 0
+        self.edgesForExtendedLayout = UIRectEdge.all
+        */
     
         //for hamburger menu
         if self.revealViewController() != nil {
@@ -228,10 +235,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /*
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude
     }
     
+ */
 
     
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
