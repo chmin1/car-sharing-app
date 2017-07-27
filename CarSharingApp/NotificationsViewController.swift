@@ -32,10 +32,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         fetchTripsInLimbo()
         
-        //change color of Nav bar
-        let myColor = UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+        //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.navigationBar.barTintColor = myColor
+        self.navigationController?.navigationBar.barTintColor = Helper.coral()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
     }
     

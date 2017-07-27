@@ -12,7 +12,7 @@ import Parse
 class Helper {
     
     static func teal() -> UIColor {
-        return UIColor(red: 68.0/255.0, green: 105.0/255.0, blue: 171.0/255.0, alpha: 1.0)
+        return UIColor(red: 63.0/255.0, green: 150.0/255.0, blue: 203.0/255.0, alpha: 1.0)
     }
     
     static func navy() -> UIColor {

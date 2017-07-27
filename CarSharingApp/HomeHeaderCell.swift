@@ -45,8 +45,11 @@ class HomeHeaderCell: UITableViewCell {
         endTextLabel.isUserInteractionEnabled = true
         
         //Make Go Button circular
-        goButton.layer.cornerRadius = 0.5 * goButton.bounds.size.width
+        goButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
         goButton.clipsToBounds = true
+        goButton.backgroundColor = Helper.coral()
+//        goButton.layer.borderWidth = 2
+//        goButton.layer.borderColor = Helper.teal().cgColor
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
