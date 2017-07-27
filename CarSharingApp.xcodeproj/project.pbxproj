@@ -34,6 +34,7 @@
 		E18E2CAD1F18378D00930CE0 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */; };
 		E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */; };
 		E18E2CB11F1837A400930CE0 /* YourTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */; };
+		E1A003E51F2A6446004B51F9 /* GeneralNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -102,6 +103,7 @@
 		E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourTripsViewController.swift; sourceTree = "<group>"; };
+		E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralNotificationsCell.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				E109611D1F2020A80053762B /* backwardsSegue.swift */,
 				E109612A1F22ACC80053762B /* EditedTripCell.swift */,
 				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
+				E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				93EB99981F214A430078A072 /* SWRevealViewController.m in Sources */,
 				E10961291F21347E0053762B /* Utilities.swift in Sources */,
 				F9EFA0CC1F15856A00866E6E /* AppDelegate.swift in Sources */,
+				E1A003E51F2A6446004B51F9 /* GeneralNotificationsCell.swift in Sources */,
 				E109611C1F1E9AF90053762B /* MainTabBarController.swift in Sources */,
 				93202BF91F169D9A003BB533 /* HomeViewController.swift in Sources */,
 				F942121F1F1E834B0051D1A9 /* Coversations.swift in Sources */,
