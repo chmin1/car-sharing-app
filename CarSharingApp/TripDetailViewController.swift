@@ -252,8 +252,14 @@ class TripDetailViewController: UIViewController {
     @IBAction func onLeaveTrip(_ sender: Any) {
         
         var membersList = trip?["Members"] as! [PFUser]
-        let userIndex = membersList.index(of: PFUser.current()!)
-        membersList.remove(at: userIndex!)
+        let currentUserName = PFUser.current()?["fullname"] as! String
+        for member in membersList {
+            let memberName = member["fullname"] as! String
+            if memberName == currentUserName {
+                let removeIndex = membersList.index(of: member)
+                 membersList.remove(at: removeIndex!)
+            }
+        }
         trip?["Members"] = membersList
         trip?.saveInBackground(block: { (success: Bool, error:Error?) in
             if let error = error {

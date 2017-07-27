@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1963,7 +1963,7 @@
         <scene sceneID="giH-s8-Mdl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LMv-AA-L7b" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Your Trips" id="BLM-J0-f4M"/>
+                    <tabBarItem key="tabBarItem" title="Your Trips" image="car (2)" id="BLM-J0-f4M"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xm0-vA-lWR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -1997,7 +1997,7 @@
             </objects>
             <point key="canvasLocation" x="-2142" y="409"/>
         </scene>
-        <!--Item-->
+        <!--Home-->
         <scene sceneID="JjO-3F-saK">
             <objects>
                 <viewController id="BJm-5L-rKO" customClass="SWRevealViewController" sceneMemberID="viewController">
@@ -2010,7 +2010,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="o1t-Al-3cJ"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home (1)" id="o1t-Al-3cJ"/>
                     <connections>
                         <segue destination="oA5-xI-SRE" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="Cxk-ie-e8y"/>
                         <segue destination="V0u-MS-Nb2" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="3kt-Nr-ffy"/>
@@ -2058,6 +2058,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="car (2)" width="32" height="32"/>
+        <image name="home (1)" width="24" height="24"/>
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
