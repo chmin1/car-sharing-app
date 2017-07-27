@@ -40,6 +40,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         //set name label
         let nameText = PFUser.current()?["fullname"] as! String
         nameLabel.text = nameText
+        
+        //change color of Nav bar
+        let myColor = UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = myColor
 
     }
 

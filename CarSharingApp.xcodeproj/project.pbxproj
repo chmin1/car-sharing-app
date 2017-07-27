@@ -35,6 +35,12 @@
 		E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */; };
 		E18E2CB11F1837A400930CE0 /* YourTripsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */; };
 		E1A003E51F2A6446004B51F9 /* GeneralNotificationsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */; };
+		E1A003E91F2A975F004B51F9 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = E1A003E81F2A975F004B51F9 /* fonts */; };
+		E1A003EB1F2A97BD004B51F9 /* Mada in Resources */ = {isa = PBXBuildFile; fileRef = E1A003EA1F2A97BD004B51F9 /* Mada */; };
+		E1A003ED1F2A986E004B51F9 /* Mada-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003EC1F2A986E004B51F9 /* Mada-Regular.ttf */; };
+		E1A003EF1F2A99A6004B51F9 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003EE1F2A99A6004B51F9 /* Nunito-Regular.ttf */; };
+		E1A003F11F2A99AC004B51F9 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003F01F2A99AC004B51F9 /* Quicksand-Regular.ttf */; };
+		E1A003F31F2A99B6004B51F9 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003F21F2A99B6004B51F9 /* Raleway-Regular.ttf */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -104,6 +110,12 @@
 		E18E2CAE1F18379A00930CE0 /* MessagesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesViewController.swift; sourceTree = "<group>"; };
 		E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourTripsViewController.swift; sourceTree = "<group>"; };
 		E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralNotificationsCell.swift; sourceTree = "<group>"; };
+		E1A003E81F2A975F004B51F9 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		E1A003EA1F2A97BD004B51F9 /* Mada */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Mada; path = fonts/Mada; sourceTree = "<group>"; };
+		E1A003EC1F2A986E004B51F9 /* Mada-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Mada-Regular.ttf"; path = "CarSharingApp/fonts/Mada/Mada-Regular.ttf"; sourceTree = "<group>"; };
+		E1A003EE1F2A99A6004B51F9 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nunito-Regular.ttf"; path = "CarSharingApp/fonts/Nunito/Nunito-Regular.ttf"; sourceTree = "<group>"; };
+		E1A003F01F2A99AC004B51F9 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "CarSharingApp/fonts/Quicksand/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
+		E1A003F21F2A99B6004B51F9 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Raleway-Regular.ttf"; path = "CarSharingApp/fonts/Raleway/Raleway-Regular.ttf"; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -225,7 +237,6 @@
 				F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */,
 				E109611D1F2020A80053762B /* backwardsSegue.swift */,
 				E109612A1F22ACC80053762B /* EditedTripCell.swift */,
-				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
 				E1A003E41F2A6446004B51F9 /* GeneralNotificationsCell.swift */,
 			);
 			name = Classes;
@@ -242,6 +253,10 @@
 		F9EFA0BF1F15856A00866E6E = {
 			isa = PBXGroup;
 			children = (
+				E1A003F21F2A99B6004B51F9 /* Raleway-Regular.ttf */,
+				E1A003F01F2A99AC004B51F9 /* Quicksand-Regular.ttf */,
+				E1A003EE1F2A99A6004B51F9 /* Nunito-Regular.ttf */,
+				E1A003EC1F2A986E004B51F9 /* Mada-Regular.ttf */,
 				F9EFA0CA1F15856A00866E6E /* CarSharingApp */,
 				F9EFA0DF1F15856A00866E6E /* CarSharingAppTests */,
 				F9EFA0EA1F15856A00866E6E /* CarSharingAppUITests */,
@@ -264,6 +279,8 @@
 		F9EFA0CA1F15856A00866E6E /* CarSharingApp */ = {
 			isa = PBXGroup;
 			children = (
+				E1A003E81F2A975F004B51F9 /* fonts */,
+				E1A003EA1F2A97BD004B51F9 /* Mada */,
 				E109611F1F2025810053762B /* SWRevealViewController */,
 				F9EFA0CB1F15856A00866E6E /* AppDelegate.swift */,
 				F9EFA0CF1F15856A00866E6E /* Main.storyboard */,
@@ -274,6 +291,7 @@
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
 				F9EFA0D21F15856A00866E6E /* Assets.xcassets */,
+				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
 				E10961281F21347E0053762B /* Utilities.swift */,
 			);
 			path = CarSharingApp;
@@ -417,7 +435,13 @@
 			files = (
 				F9EFA0D61F15856A00866E6E /* LaunchScreen.storyboard in Resources */,
 				F9EFA0D31F15856A00866E6E /* Assets.xcassets in Resources */,
+				E1A003EB1F2A97BD004B51F9 /* Mada in Resources */,
 				F9EFA0D11F15856A00866E6E /* Main.storyboard in Resources */,
+				E1A003E91F2A975F004B51F9 /* fonts in Resources */,
+				E1A003EF1F2A99A6004B51F9 /* Nunito-Regular.ttf in Resources */,
+				E1A003F11F2A99AC004B51F9 /* Quicksand-Regular.ttf in Resources */,
+				E1A003F31F2A99B6004B51F9 /* Raleway-Regular.ttf in Resources */,
+				E1A003ED1F2A986E004B51F9 /* Mada-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
