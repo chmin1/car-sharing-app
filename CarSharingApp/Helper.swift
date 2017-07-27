@@ -11,6 +11,18 @@ import Parse
 
 class Helper {
     
+    static func teal() -> UIColor {
+        return UIColor(red: 68.0/255.0, green: 105.0/255.0, blue: 171.0/255.0, alpha: 1.0)
+    }
+    
+    static func navy() -> UIColor {
+        return UIColor(red: 68.0/255.0, green: 105.0/255.0, blue: 171.0/255.0, alpha: 1.0)
+    }
+    
+    static func coral() -> UIColor {
+        return UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+    }
+    
     /*
      * Deletes the trip from the user's list of trips
      * Deletes the trip from parse

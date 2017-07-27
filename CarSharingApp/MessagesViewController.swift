@@ -35,6 +35,10 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = layout.minimumInteritemSpacing
         
+        //change color of Nav bar
+        let myColor = UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = myColor
     }
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {

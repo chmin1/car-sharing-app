@@ -62,8 +62,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         // add refresh control to table view
         tripsTableView.insertSubview(refreshControl, at: 0)
         
+        //set width of the hamburger menu thing when it comes out
         self.revealViewController().rearViewRevealWidth = 200
         
+        //change color of Nav bar
+        let myColor = UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.navigationBar.barTintColor = myColor
+        
+//        let adjustForTabbarInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, self.tabBarController!.tabBar.frame.height, 0);
+//        //Where tableview is the IBOutlet for your storyboard tableview.
+//        tripsTableView.contentInset = adjustForTabbarInsets;
+        
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
     }
     
     func tabBarController(tabbar: UITabBarController, didSelect: UIViewController) {
@@ -124,6 +138,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             cell.requestButton.isHidden = false //restore default aka request button shows
+            //give the request button color
+            cell.requestButton.backgroundColor = Helper.coral()
+        
             let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
             
@@ -176,7 +193,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (indexPath.section == 0) {
             return 200
         } else if (indexPath.section == 1) {
-            return 160
+            return 151
         }
         return 0
     }
