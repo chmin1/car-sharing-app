@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import GoogleMaps
 import Parse
 
 //========== THIS IS THE DELEGATE PROTOCOL ==========
