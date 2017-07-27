@@ -27,10 +27,11 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     var returnPressed: Int = 0
     var newLine: Int = 0
     
+    //Parse Live Query Client
     let liveQueryClient = ParseLiveQuery.Client()
     
-//    var updateTimer = Timer()
-//    let updateDelay = 1.0
+    // A subscription for the live query client
+    var subscriptionX:Subscription<PFObject>? = nil;
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,16 +49,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         messageField.text = "Compose a message..."
 
         if let title = Trip["Name"] as? String {
-            print(title)
             navigationItem.title = title
         }
         
         loadOnOpen()
-        
-        let id = Trip.objectId!
-        print(id)
-        
-//        updateTimer = Timer.scheduledTimer(timeInterval: updateDelay, target: self, selector: #selector(ConvoViewController.refresh), userInfo: nil, repeats: true)
         
         let amountOfLinesShown: CGFloat = 6
         let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
@@ -177,62 +172,20 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
                 
                 self.convoView.reloadData()
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "oops")
             }
             
         }
         
-        let subscription = self.liveQueryClient
-            .subscribe(query)
-            .handle(Event.created) { _, message in
-                print("message: \(message)")
+        //Subscribe the parse user to the live query
+        self.subscriptionX = self.liveQueryClient
+            .subscribe(query);
+        
+        self.subscriptionX?.handle(Event.created) { _, message in
                 self.convoMessages.append(message)
                 self.convoView.reloadData()
         }
     }
-    
-//    func refresh() {
-//        
-//        //Query the message object/clas in parse
-//        let query = PFQuery(className: "Message")
-//        query.includeKey("Message")
-//        
-//        //Query messages based on Trip ID
-//        let tripID = Trip.objectId!
-//        query.whereKey("TripID", equalTo: tripID)
-//        
-//        //Order by oldest messages on top
-//        query.order(byAscending: "_created_at")
-//        
-//        // Iterate through all messages you have so far (self.convoMessage)
-//        // Find the message with the highest date sent
-//        // Add query whereKey where date sent to greater than that one
-//        var lastMsg: PFObject!
-//        
-//        if convoMessages.count > 0 {
-//            lastMsg = convoMessages[convoMessages.count - 1]
-//        }
-//        
-//        query.whereKey("dateSent", greaterThan: lastMsg["dateSent"])
-//        
-//        // Find messages associated with this trip
-//        query.findObjectsInBackground { (messages: [PFObject]?, error: Error?) in
-//            if let messages = messages {
-//                
-//                for message in messages {
-//                    
-//                    
-//                    self.convoMessages.append(message)
-//                }
-//
-//                self.convoView.reloadData()
-//            } else {
-//                print(error?.localizedDescription)
-//            }
-    
-//        }
-    
-//    }
     
     // ================ LOAD MESSAGES ON OPEN ======================
     
@@ -251,7 +204,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let author: String
         let date: String
         do {
-            try message.fetchIfNeeded()
+            try message.fetchIfNeededInBackground()
             
             if let _messageText = message["Text"] as? String {
                 
