@@ -63,7 +63,6 @@ class TripCell: UITableViewCell {
         fourPeopleImageView4.layer.cornerRadius = fourPeopleImageView4.frame.size.width / 2
         fourPeopleImageView4.clipsToBounds = true
         
-        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

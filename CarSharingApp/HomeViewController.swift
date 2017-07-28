@@ -137,6 +137,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.requestButton.isHidden = false //restore default aka request button shows
             //give the request button color
             cell.requestButton.backgroundColor = Helper.coral()
+            //Make Button ovular
+            cell.requestButton.layer.cornerRadius = cell.requestButton.frame.height / 2
+            cell.requestButton.clipsToBounds = true
         
             let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
