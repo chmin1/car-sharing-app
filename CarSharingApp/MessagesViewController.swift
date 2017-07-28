@@ -73,11 +73,18 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         if let tripMsgs = trip?["Messages"] as? [PFObject?] {
             let MsgCount = tripMsgs.count
             let lastMsg = tripMsgs[MsgCount - 1]
-            let msgText = lastMsg?["Text"] as? String ?? " "
-            if msgText == " " {
-                textPrev = msgText
-            } else if let lastMsgText = lastMsg?["Text"] as? String {
-                   textPrev = lastMsgText
+            do {
+                
+                try lastMsg?.fetchIfNeeded()
+                
+                if let msgText = lastMsg?["Text"] as? String {
+                    textPrev = msgText
+                }
+                
+            } catch {
+                
+                textPrev = " "
+                
             }
         }
         item.messagePreviewLabel.text = textPrev
