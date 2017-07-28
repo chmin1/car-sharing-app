@@ -25,6 +25,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     @IBOutlet weak var tripNameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var minTimeLabel: UILabel!
+    
     weak var delegate: CreateViewControllerDelegate?
     
     var locationSource: UILabel!
@@ -34,6 +36,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     static let MIN_TIME_WINDOW = 10 //Min time window
     var earlyDate: NSDate!
     var lateDate: NSDate!
+    var today: NSDate!
     
     var invalidLocationsAlert: UIAlertController!
     var invalidTimeWindowAlert: UIAlertController!
@@ -72,6 +75,8 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        minTimeLabel.textColor = Helper.coral()
         
     }
     
@@ -137,7 +142,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
-        earlyDate =  EarliestDatePickerView.date as NSDate
+        
+        today = EarliestDatePickerView.date as NSDate
+        earlyDate =  today
         earliestTextField.text = Helper.dateToString(date: earlyDate)
         
         //create the toolbar so there's a Done button in the datepicker
@@ -171,6 +178,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
         
+        let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
+        sender.maximumDate = maximumDate as Date
+        sender.minimumDate = today as NSDate as Date
+
         earlyDate = sender.date as NSDate
         let selectedDate: String = dateFormatter.string(from: sender.date)
         earliestTextField.text =  selectedDate
@@ -185,6 +196,9 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
+        
+        let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
+        sender.minimumDate = minimumDate as Date
         
         lateDate = sender.date as NSDate
         

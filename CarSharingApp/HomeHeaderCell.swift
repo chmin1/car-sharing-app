@@ -19,9 +19,14 @@ class HomeHeaderCell: UITableViewCell {
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var latestTextField: UITextField!
     
+    @IBOutlet weak var minTimeLabel: UILabel!
     @IBOutlet weak var goButton: UIButton!
     
     weak var delegate: HomeHeaderCellDelegate?
+    
+    var earlyDate: NSDate!
+    var lateDate: NSDate!
+    var today: NSDate!
 
     
     override func awakeFromNib() {
@@ -54,15 +59,17 @@ class HomeHeaderCell: UITableViewCell {
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
-        earliestTextField.text = dateToString(date: EarliestDatePickerView.date as NSDate)
+        today = EarliestDatePickerView.date as NSDate
+        earlyDate =  today
+        //earliestTextField.text = dateToString(date: EarliestDatePickerView.date as NSDate)
         
         //create the date picker FOR LATEST and make it appear / be functional
         var LatestDatePickerView  : UIDatePicker = UIDatePicker()
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
-        latestTextField.text = dateToString(date: LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate) //two hour window
-        
+        lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
+        //latestTextField.text = Helper.dateToString(date: lateDate) //two hour window
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -77,7 +84,7 @@ class HomeHeaderCell: UITableViewCell {
         latestTextField.inputAccessoryView = toolBar
         earliestTextField.inputAccessoryView = toolBar
 
-        
+        minTimeLabel.textColor = Helper.coral()
     }
     
     /*
@@ -108,6 +115,9 @@ class HomeHeaderCell: UITableViewCell {
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
         
+        let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
+        sender.minimumDate = minimumDate as Date
+        
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: sender.date)
         latestTextField.text =  selectedDate
@@ -120,6 +130,9 @@ class HomeHeaderCell: UITableViewCell {
         
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
+        let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
+        sender.maximumDate = maximumDate as Date
+        sender.minimumDate = today as NSDate as Date
         
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: sender.date)
