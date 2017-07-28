@@ -20,6 +20,9 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //make bar button items in nav bar white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
         //Initialize a Refresh Control
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)

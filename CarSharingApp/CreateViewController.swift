@@ -25,6 +25,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var tripNameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var createButton: UIButton!
     
     weak var delegate: CreateViewControllerDelegate?
     
@@ -44,12 +45,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         super.viewDidLoad()
         
         let user = PFUser.current()!
-        if let school = user["school"] as? String {
-            
-            startTextLabel.text = school
-            endTextLabel.text = school
-            
-        }
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -84,6 +79,11 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        //Make Create Button circular
+        createButton.layer.cornerRadius = 0.15 * createButton.bounds.size.width
+        createButton.clipsToBounds = true
+        createButton.backgroundColor = Helper.coral()
         
     }
     

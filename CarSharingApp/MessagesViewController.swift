@@ -20,6 +20,9 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //make bar button items in nav bar white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
         messagesView.delegate = self
         messagesView.dataSource = self
         refresh()
