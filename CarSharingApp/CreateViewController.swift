@@ -283,7 +283,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     //Call GMSPlacesClient
     func placeAutocomplete() {
         let filter = GMSAutocompleteFilter()
-        filter.type = .establishment
+        filter.type = .address //was .establishment
         let placesClient = GMSPlacesClient()
         placesClient.autocompleteQuery("", bounds: nil, filter: filter, callback: {(results, error) -> Void in
             if let error = error {

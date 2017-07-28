@@ -352,6 +352,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
     }
     
+    
+    @IBAction func didTapClear(_ sender: Any) {
+        HomeHeaderCell.startTextLabel.textColor = UIColor.lightGray
+        HomeHeaderCell.endTextLabel.textColor = UIColor.lightGray
+        HomeHeaderCell.startTextLabel.text = "Select Starting Location"
+        HomeHeaderCell.endTextLabel.text = "Select Ending Location"
+        
+        HomeHeaderCell.earliestTextField.textColor = UIColor.lightGray
+        HomeHeaderCell.latestTextField.textColor = UIColor.lightGray
+        HomeHeaderCell.earliestTextField.text = HomeHeaderCell.earliestTextField.placeholder
+        HomeHeaderCell.latestTextField.text = HomeHeaderCell.latestTextField.placeholder
+        
+        refresh()
+        
+    }
+    
+    
+    
     func filterContent(withDepartureText departureText: String, withArrivalText arrivalText: String, withEarliestDate earliestDate: NSDate, withLatestDate latestDate: NSDate) {
         
         filteredTripsFeed = tripsFeed.filter { trip in

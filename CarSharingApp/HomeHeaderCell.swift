@@ -21,6 +21,8 @@ class HomeHeaderCell: UITableViewCell {
     
     @IBOutlet weak var minTimeLabel: UILabel!
     @IBOutlet weak var goButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    
     
     weak var delegate: HomeHeaderCellDelegate?
     
@@ -57,7 +59,12 @@ class HomeHeaderCell: UITableViewCell {
         //Make Go Button circular
         goButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
         goButton.clipsToBounds = true
-        goButton.backgroundColor = Helper.coral()
+        goButton.backgroundColor = Helper.teal()
+        
+        //Make Clear Button Circular
+        clearButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
+        clearButton.clipsToBounds = true
+        clearButton.backgroundColor = Helper.coral()
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
