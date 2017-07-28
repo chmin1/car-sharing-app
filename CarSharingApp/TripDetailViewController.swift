@@ -19,10 +19,12 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var name2Label: UILabel!
     @IBOutlet weak var name3Label: UILabel!
     @IBOutlet weak var name4Label: UILabel!
+    
     @IBOutlet weak var earliestLabel: UILabel!
     @IBOutlet weak var latestLabel: UILabel!
     @IBOutlet weak var departureLocLabel: UILabel!
     @IBOutlet weak var arrivalLocLabel: UILabel!
+    
     @IBOutlet weak var member1Prof: UIImageView!
     @IBOutlet weak var member2Prof: UIImageView!
     @IBOutlet weak var member3Prof: UIImageView!
@@ -63,6 +65,12 @@ class TripDetailViewController: UIViewController {
         member4Prof.layer.cornerRadius = member4Prof.frame.size.width / 2
         member4Prof.clipsToBounds = true
         
+        //Set up the labels to have and colors
+        earliestLabel.textColor = Helper.coral()
+        latestLabel.textColor = Helper.coral()
+        
+        
+        
         //Pending Edit
         //Set up invalid trip alerts
         let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
@@ -71,6 +79,8 @@ class TripDetailViewController: UIViewController {
         pendingEditAlert = UIAlertController(title: "Pending Edit", message: "There is already an edit in progress for this trip. You must wait until it is approved or denied before making another change.", preferredStyle: .alert)
         pendingEditAlert.addAction(cancelAction)
         
+        
+        //Fill in the labels to present the trip information
         if let trip = trip {
             tripNameLabel.text = trip["Name"] as! String
             earliestLabel.text = trip["EarliestTime"] as! String
