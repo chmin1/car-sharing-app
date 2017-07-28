@@ -43,9 +43,19 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let user = PFUser.current()!
+        if let school = user["school"] as? String {
+            
+            startTextLabel.text = school
+            endTextLabel.text = school
+            
+        }
+        
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
         filter.type = .address
+        filter.type = .establishment
+        filter.type = .geocode
         filter.country = "US"
         autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
@@ -117,10 +127,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.black
-            startTextLabel.text = place.formattedAddress
+            startTextLabel.text = place.name
         } else if locationSource == endTextLabel {
             endTextLabel.textColor = UIColor.black
-            endTextLabel.text = place.formattedAddress
+            endTextLabel.text = place.name
         }
         self.dismiss(animated: true)
     }
