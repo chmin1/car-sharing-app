@@ -53,6 +53,10 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     @IBAction func didTapLeaveTime(_ sender: Any) {
         //HomeViewController.addUserToTrip()
         addUserToTrip()
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        dismiss(animated: true, completion: nil)
     }
     
     //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" (aka "Merge") IS PRESSED =======
