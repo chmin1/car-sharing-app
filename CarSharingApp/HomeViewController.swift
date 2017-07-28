@@ -31,7 +31,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+
         //for hamburger menu
         if self.revealViewController() != nil {
             profileButton.target = self.revealViewController()
@@ -228,12 +228,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return CGFloat.leastNormalMagnitude
-    }
-    
-
     
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
         self.present(autoCompleteViewController, animated: true, completion: nil)
