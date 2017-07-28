@@ -163,19 +163,6 @@ class TripDetailViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    /*
-    /======== TURNS ARRAY OF MEMBERS FROM PFUSER TO STRING ========
-    func returnMemberNames(tripMembers: [PFUser]) -> [String] {
-        var memberNames: [String] = []
-        for member in tripMembers {
-            if let memberName = member["fullname"] as? String {
-                memberNames.append(memberName)
-            }
-        }
-        return memberNames
-    }
-    
- */
     
     @IBAction func didTapRequestToJoinTrip(_ sender: Any) {
         present(requestToJoinAlert, animated: true, completion: nil)
