@@ -155,7 +155,7 @@
             </objects>
             <point key="canvasLocation" x="-4290.3999999999996" y="1163.568215892054"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--SETTINGS-->
         <scene sceneID="rma-Ne-a24">
             <objects>
                 <viewController id="UEa-Ku-p1f" customClass="SettingsViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -177,7 +177,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="9Ic-eT-IWk">
+                    <navigationItem key="navigationItem" title="SETTINGS" id="9Ic-eT-IWk">
                         <barButtonItem key="leftBarButtonItem" image="profile" id="rLg-Rj-Mr5">
                             <connections>
                                 <action selector="didTapBack:" destination="UEa-Ku-p1f" id="y24-70-XMy"/>
@@ -192,7 +192,7 @@
             </objects>
             <point key="canvasLocation" x="-4866" y="2819"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--YOUR PROFILE-->
         <scene sceneID="veI-Qh-YJ5">
             <objects>
                 <viewController id="Wqj-KG-oA8" customClass="ProfileViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -248,7 +248,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Vyu-JJ-j7I">
+                    <navigationItem key="navigationItem" title="YOUR PROFILE" id="Vyu-JJ-j7I">
                         <barButtonItem key="leftBarButtonItem" image="profile" id="Q60-79-hdi"/>
                     </navigationItem>
                     <connections>
@@ -567,13 +567,6 @@
                                                         <action selector="didTapRequestToJoin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="POh-S5-deG"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dVG-1F-APy">
-                                                    <rect key="frame" x="283" y="128" width="43" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="modal">
-                                                        <color key="titleColor" red="0.0" green="0.80395352840000001" blue="0.27539389301854889" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -614,7 +607,7 @@
                         <outlet property="activityIndicator" destination="xqC-6Y-TYJ" id="YxG-bE-q3Q"/>
                         <outlet property="profileButton" destination="EbN-xH-31A" id="L39-Oo-5dF"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
-                        <segue destination="rAy-k9-e58" kind="presentation" identifier="halfModalSegue" id="KA5-C4-scP"/>
+                        <segue destination="rAy-k9-e58" kind="presentation" identifier="halfModalSegue" id="lI8-F8-sf7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
