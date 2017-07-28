@@ -1871,7 +1871,9 @@
                                 <rect key="frame" x="154" y="560" width="58" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="Submit"/>
+                                <state key="normal" title="Submit">
+                                    <color key="titleColor" red="0.91927744289340096" green="0.11128228420389193" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="didTapSubmit:" destination="MFX-uB-tZm" eventType="touchUpInside" id="tDg-1I-y2X"/>
                                 </connections>
@@ -2006,7 +2008,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qhl-Wf-Cnk">
                                 <rect key="frame" x="160" y="380" width="55" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Sign Up"/>
+                                <state key="normal" title="Sign Up">
+                                    <color key="titleColor" red="0.91927744289340096" green="0.11128228420389193" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="MFX-uB-tZm" kind="presentation" id="Opd-AL-ehI"/>
                                 </connections>
@@ -2202,7 +2206,7 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="fkk-zX-pMM"/>
+        <segue reference="nDs-Zk-OKT"/>
         <segue reference="cqV-Eg-IDX"/>
         <segue reference="BD2-lG-doJ"/>
         <segue reference="vyv-0s-BnT"/>
