@@ -126,6 +126,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //sets up the headercell
         if indexPath.section == 0 {
             let headerCell = tableView.dequeueReusableCell(withIdentifier: "HomeHeaderCell") as! HomeHeaderCell
+            headerCell.selectionStyle = UITableViewCellSelectionStyle.none
             headerCell.delegate = self
             HomeHeaderCell = headerCell
             return headerCell
@@ -189,7 +190,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (indexPath.section == 0) {
             return 184
         } else if (indexPath.section == 1) {
-            return 162
+            return 170
         }
         return 0
     }
@@ -223,6 +224,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
+    
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return CGFloat.leastNormalMagnitude

@@ -28,10 +28,21 @@ class EditedTripCell: UITableViewCell {
         // Initialization code
         
         //give the accept and deny button color
-        denyButton.backgroundColor = Helper.teal()
+        denyButton.backgroundColor = UIColor.white
+        denyButton.layer.borderWidth = 2
+        denyButton.layer.borderColor = Helper.teal().cgColor
         acceptButton.backgroundColor = Helper.teal()
+        denyButton.setTitleColor(Helper.teal(), for: .normal)
+        
         editingLabel.textColor = Helper.coral()
         originalTripNameLabel.textColor = Helper.coral()
+        
+        //Make Buttons ovular
+        denyButton.layer.cornerRadius = denyButton.frame.height / 2
+        acceptButton.layer.cornerRadius = denyButton.frame.height / 2
+        denyButton.clipsToBounds = true
+        acceptButton.clipsToBounds = true
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
