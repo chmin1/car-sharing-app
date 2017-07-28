@@ -191,7 +191,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath.section == 0) {
-            return 184
+            return 227
         } else if (indexPath.section == 1) {
             return 170
         }
@@ -320,6 +320,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         present(requestToJoinAlert, animated: true, completion: nil)
     }
+    
+    
     
     func setUpRequestToJoinAlert(){
         // Set up the requestToJoinAlert

@@ -34,12 +34,12 @@ class HomeHeaderCell: UITableViewCell {
         )
         
         //Add boarder to start and end labels
-        startTextLabel.layer.borderColor = UIColor.gray.cgColor
+        startTextLabel.layer.borderColor = UIColor.lightGray.cgColor
         startTextLabel.layer.borderWidth = 0.5
         startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
         
-        endTextLabel.layer.borderColor = UIColor.gray.cgColor
+        endTextLabel.layer.borderColor = UIColor.lightGray.cgColor
         endTextLabel.layer.borderWidth = 0.5
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
@@ -48,8 +48,6 @@ class HomeHeaderCell: UITableViewCell {
         goButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
         goButton.clipsToBounds = true
         goButton.backgroundColor = Helper.coral()
-//        goButton.layer.borderWidth = 2
-//        goButton.layer.borderColor = Helper.teal().cgColor
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
