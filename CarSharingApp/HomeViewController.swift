@@ -313,45 +313,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let cell = sender.superview??.superview as? TripCell {
             let indexPath = tripsTableView.indexPath(for: cell)
             currentTrip = filteredTripsFeed[(indexPath?.row)!]
+            performSegue(withIdentifier: "halfModalSegue", sender: nil)
+            tripsTableView.reloadData()
         }
-        
-        performSegue(withIdentifier: "halfModalSegue", sender: nil)
     }
     
     
-    //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" IS PRESSED =======
-    func addUserToTrip() {
-        var membersArray = currentTrip?["Members"] as! [PFUser]
-        if membersArray.count < 4 {
-            let memberNames = Helper.returnMemberNames(tripMembers: membersArray)
-            if let fullname = PFUser.current()?["fullname"] {
-                if memberNames.contains(fullname as! String) == false {
-                    membersArray.append(PFUser.current()!)
-                    currentTrip?["Members"] = membersArray
-                    
-                    //TODO: union operation on the times to change the trip time window
-                    
-                    //SAVE this updated trip info to the trip
-                    currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
-                        if let error = error {
-                            print(error.localizedDescription)
-                        } else if success{
-                            print("😆success! updated trip to add new member")
-                            self.tripsTableView.reloadData()
-                        }
-                    })
-                    currentTrip = nil
-                } else if memberNames.contains(fullname as! String) == true{
-                    print("You are already in this trip")
-                }
-            }
-        }
-        else {
-            print("Can't join - this trip is already full")
-        }
-    }//close addUserToTrip()
-    
-    //====== SEGUE TO DETAIL VIEW =======
+    //====== SEGUE PLACES =======
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "homeToDetail" {
             let cell = sender as! UITableViewCell
@@ -366,6 +334,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
             segue.destination.modalPresentationStyle = .custom
             segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+            let navigationController = segue.destination as! HalfModalNavViewController
+            let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
+            halfModelVC.currentTrip = currentTrip
         }
     }
     
