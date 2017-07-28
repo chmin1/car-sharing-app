@@ -92,15 +92,19 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         )
         let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapEndLabel(_sender:))
         )
-        startTextLabel.layer.borderColor = UIColor.gray.cgColor
+        startTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
         startTextLabel.layer.borderWidth = 0.5
         startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
+        startTextLabel.layer.cornerRadius = startTextLabel.frame.height / 5
+        startTextLabel.clipsToBounds = true
         
-        endTextLabel.layer.borderColor = UIColor.gray.cgColor
+        endTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
         endTextLabel.layer.borderWidth = 0.5
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
+        endTextLabel.layer.cornerRadius = endTextLabel.frame.height / 5
+        endTextLabel.clipsToBounds = true
     }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
