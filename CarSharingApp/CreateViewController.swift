@@ -8,6 +8,7 @@
 
 import UIKit
 import GooglePlaces
+import GoogleMaps
 import Parse
 
 //========== THIS IS THE DELEGATE PROTOCOL ==========
@@ -42,9 +43,20 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let user = PFUser.current()!
+        if let school = user["school"] as? String {
+            
+            startTextLabel.text = school
+            endTextLabel.text = school
+            
+        }
+        
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
         filter.type = .address
+        filter.type = .establishment
+        filter.type = .geocode
+        filter.country = "US"
         autoCompleteViewController = GMSAutocompleteViewController()
         autoCompleteViewController.delegate = self
         autoCompleteViewController.autocompleteFilter = filter
@@ -115,10 +127,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.black
-            startTextLabel.text = place.formattedAddress
+            startTextLabel.text = place.name
         } else if locationSource == endTextLabel {
             endTextLabel.textColor = UIColor.black
-            endTextLabel.text = place.formattedAddress
+            endTextLabel.text = place.name
         }
         self.dismiss(animated: true)
     }
@@ -242,6 +254,34 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print(error.localizedDescription)
         
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+    
+    //Get Place Predictions Programmatically
+    //Call GMSPlacesClient
+    func placeAutocomplete() {
+        let filter = GMSAutocompleteFilter()
+        filter.type = .establishment
+        let placesClient = GMSPlacesClient()
+        placesClient.autocompleteQuery("", bounds: nil, filter: filter, callback: {(results, error) -> Void in
+            if let error = error {
+                print("Autocomplete error \(error)")
+                return
+            }
+            if let results = results {
+                for result in results {
+                    print("Result \(result.attributedFullText) with placeID \(result.placeID)")
+                }
+            }
+        })
     }
     
     
