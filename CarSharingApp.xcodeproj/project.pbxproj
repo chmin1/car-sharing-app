@@ -256,6 +256,7 @@
 				F942121A1F1D46AB0051D1A9 /* messagesCell.swift */,
 				F942121E1F1E834B0051D1A9 /* Coversations.swift */,
 				F9E2C6A01F1EBD6C0016D6E2 /* message.swift */,
+				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
 				F9E2C6A41F1FE2490016D6E2 /* ConvoCell.swift */,
 				E109611D1F2020A80053762B /* backwardsSegue.swift */,
 				E109612A1F22ACC80053762B /* EditedTripCell.swift */,

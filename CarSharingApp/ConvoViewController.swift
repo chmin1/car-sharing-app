@@ -57,6 +57,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         let amountOfLinesShown: CGFloat = 6
         let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
         messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -241,9 +244,22 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
             
         }
         
+        var profilePic: PFFile!
         
+        if let tripMembers = Trip["Members"] as? [PFUser] {
+            for member in tripMembers {
+                if let fullName = member["fullname"] as? String {
+                    if (fullName == author) {
+                        profilePic = member["profPic"] as! PFFile
+                    }
+                }
+            }
+        }
         
-        item.textImage.image = UIImage(named: "profile")
+        profilePic.getDataInBackground { (data: Data?, error: Error?) in
+            item.textImage.image = UIImage(data: data!)
+        }
+        
         item.textMessage.text = messageText
         item.authorLabel.text = author
         item.dateSentLabel.text = date

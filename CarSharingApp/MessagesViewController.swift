@@ -58,11 +58,37 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
         let trip = tripData[indexPath.row]
-        let name = trip?["Name"] as? String ?? "No name trip"
-        item.messageTitleLabel.text = name.capitalized
-        item.messagePreviewLabel.text = "This is a test that to check if this label works!"
-        item.recipientImage.image = UIImage(named: "profile")
+        item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
+        let createdAt = trip?.updatedAt
+        let dateFormatter = DateFormatter()
         
+        dateFormatter.dateStyle = .short
+        dateFormatter.timeStyle = .short
+        dateFormatter.timeZone = NSTimeZone.local
+        
+        let localDate = dateFormatter.string(from: createdAt!)
+        item.dateLabel.text = localDate
+        
+        var textPrev: String!
+        if let tripMsgs = trip?["Messages"] as? [PFObject?] {
+            let MsgCount = tripMsgs.count
+            let lastMsg = tripMsgs[MsgCount - 1]
+            let msgText = lastMsg?["Text"] as? String ?? " "
+            if msgText == " " {
+                textPrev = msgText
+            } else if let lastMsgText = lastMsg?["Text"] as? String {
+                   textPrev = lastMsgText
+            }
+        }
+        item.messagePreviewLabel.text = textPrev
+        
+        if let tripMembers = trip?["Members"] as? [PFUser] {
+            let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
+            print(memberNames)
+            
+            let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
+            Helper.displayProfilePics(withCell: item, withMemberPics: memberProfPics)
+        }        
         return item
         
     }
@@ -72,7 +98,9 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")
+        query.includeKey("_updated_at")
         query.whereKey("Members", equalTo: currentUser!)
+        query.order(byDescending: "_updated_at")
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.tripData.removeAll()
@@ -97,7 +125,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
     }
-
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
