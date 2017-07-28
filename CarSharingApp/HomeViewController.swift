@@ -31,14 +31,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /* Methods attempting to get rid of the grey space on home vc
-        self.automaticallyAdjustsScrollViewInsets = false
-        //tripsTableView.contentInset = UIEdgeInsets.zero
-        tripsTableView.contentInset.bottom = 0
-        self.edgesForExtendedLayout = UIRectEdge.all
-        */
-    
+
         //for hamburger menu
         if self.revealViewController() != nil {
             profileButton.target = self.revealViewController()
