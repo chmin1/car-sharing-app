@@ -14,11 +14,19 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     @IBOutlet weak var myDatePicker: UIDatePicker!
     var newTime: String = ""
     var currentTrip: PFObject?
-    var originalTripTime: String = ""
+    var originalTripEarliestTime: String = ""
+    var originalTripLatestTime: String = ""
     
     override func viewWillAppear(_ animated: Bool) {
         newTime = setUpDatePicker(date: myDatePicker.date)
-        originalTripTime = currentTrip?["LatestTime"] as! String
+        originalTripLatestTime = currentTrip?["LatestTime"] as! String
+        originalTripEarliestTime = currentTrip?["EarliestTime"] as! String
+        
+        let minDate = originalTripEarliestTime.stringToDate()
+        let maxDate = originalTripLatestTime.stringToDate()
+        
+        myDatePicker.minimumDate = minDate.addMinutes(minutesToAdd: 20) as Date
+        myDatePicker.maximumDate = maxDate as Date
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -35,7 +43,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
-        
+
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: date as Date)
         
@@ -59,7 +67,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
 
     @IBAction func didTapLeaveTime(_ sender: Any) {
         
-        addUserToTrip(withNewTime: originalTripTime) //keep the time as the original trip time
+        addUserToTrip(withNewTime: originalTripLatestTime) //keep the time as the original trip time
         
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false

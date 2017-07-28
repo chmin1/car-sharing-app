@@ -12,8 +12,6 @@ import Parse
 class TripDetailViewController: UIViewController {
     
     var trip: PFObject?
-    var requestToJoinAlert: UIAlertController!
-    
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var name1Label: UILabel!
     @IBOutlet weak var name2Label: UILabel!
@@ -31,13 +29,10 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var leaveButton: UIButton!
     var pendingEditAlert: UIAlertController!
-    
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //set up request to join alert
-        setUpRequestToJoinAlert()
         
         //hide all name labels (only make them appear if there's a name to put)
         name2Label.isHidden = true
@@ -165,23 +160,7 @@ class TripDetailViewController: UIViewController {
     
     
     @IBAction func didTapRequestToJoinTrip(_ sender: Any) {
-        present(requestToJoinAlert, animated: true, completion: nil)
-    }
-    
-    func setUpRequestToJoinAlert(){
-        // Set up the requestToJoinAlert
-        requestToJoinAlert = UIAlertController(title: "Requesting To Join Trip", message: "Are you sure you want to join this trip?", preferredStyle: .alert)
-        
-        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
-            // handle cancel response here. Doing nothing will dismiss the view.
-        }
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.addUserToTrip()
-        }
-        
-        requestToJoinAlert.addAction(noAction) // add the no action to the alertController
-        requestToJoinAlert.addAction(yesAction) // add the yes action to the alertController
+        performSegue(withIdentifier: "halfModalSegue", sender: nil)
     }
     
     
@@ -281,6 +260,15 @@ class TripDetailViewController: UIViewController {
         if segue.identifier == "editSegue" {
             let editViewController = segue.destination as! EditViewController //tell it its destination
             editViewController.originalTrip = trip
+        }
+        if segue.identifier == "halfModalSegue" {
+            super.prepare(for: segue, sender: sender)
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+            segue.destination.modalPresentationStyle = .custom
+            segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
+            let navigationController = segue.destination as! HalfModalNavViewController
+            let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
+            halfModelVC.currentTrip = trip
         }
     }
     
