@@ -41,6 +41,12 @@
 		E1A003EF1F2A99A6004B51F9 /* Nunito-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003EE1F2A99A6004B51F9 /* Nunito-Regular.ttf */; };
 		E1A003F11F2A99AC004B51F9 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003F01F2A99AC004B51F9 /* Quicksand-Regular.ttf */; };
 		E1A003F31F2A99B6004B51F9 /* Raleway-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E1A003F21F2A99B6004B51F9 /* Raleway-Regular.ttf */; };
+		E1A003F51F2BAC73004B51F9 /* HalfModalNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003F41F2BAC73004B51F9 /* HalfModalNavViewController.swift */; };
+		E1A003F71F2BAD47004B51F9 /* HalfModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003F61F2BAD47004B51F9 /* HalfModalViewController.swift */; };
+		E1A003F91F2BAE0A004B51F9 /* HalfModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003F81F2BAE0A004B51F9 /* HalfModalPresentationController.swift */; };
+		E1A003FE1F2BAF10004B51F9 /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003FA1F2BAF0F004B51F9 /* HalfModalTransitioningDelegate.swift */; };
+		E1A003FF1F2BAF10004B51F9 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003FB1F2BAF0F004B51F9 /* HalfModalInteractiveTransition.swift */; };
+		E1A004001F2BAF10004B51F9 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A003FC1F2BAF0F004B51F9 /* HalfModalTransitionAnimator.swift */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -116,6 +122,12 @@
 		E1A003EE1F2A99A6004B51F9 /* Nunito-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Nunito-Regular.ttf"; path = "CarSharingApp/fonts/Nunito/Nunito-Regular.ttf"; sourceTree = "<group>"; };
 		E1A003F01F2A99AC004B51F9 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Quicksand-Regular.ttf"; path = "CarSharingApp/fonts/Quicksand/Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		E1A003F21F2A99B6004B51F9 /* Raleway-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Raleway-Regular.ttf"; path = "CarSharingApp/fonts/Raleway/Raleway-Regular.ttf"; sourceTree = "<group>"; };
+		E1A003F41F2BAC73004B51F9 /* HalfModalNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalNavViewController.swift; sourceTree = "<group>"; };
+		E1A003F61F2BAD47004B51F9 /* HalfModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalViewController.swift; sourceTree = "<group>"; };
+		E1A003F81F2BAE0A004B51F9 /* HalfModalPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalPresentationController.swift; sourceTree = "<group>"; };
+		E1A003FA1F2BAF0F004B51F9 /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalTransitioningDelegate.swift; path = Transitioning/HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
+		E1A003FB1F2BAF0F004B51F9 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalInteractiveTransition.swift; path = Transitioning/HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
+		E1A003FC1F2BAF0F004B51F9 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HalfModalTransitionAnimator.swift; path = Transitioning/HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -208,6 +220,8 @@
 				E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */,
 				E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */,
 				93EB99991F214C6A0078A072 /* EditViewController.swift */,
+				E1A003F41F2BAC73004B51F9 /* HalfModalNavViewController.swift */,
+				E1A003F61F2BAD47004B51F9 /* HalfModalViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -220,6 +234,17 @@
 				E10961201F2025B00053762B /* CarSharingApp-Bridging-Header.h */,
 			);
 			name = SWRevealViewController;
+			sourceTree = "<group>";
+		};
+		E1A003FD1F2BAF0F004B51F9 /* Transitioning */ = {
+			isa = PBXGroup;
+			children = (
+				E1A003FA1F2BAF0F004B51F9 /* HalfModalTransitioningDelegate.swift */,
+				E1A003FB1F2BAF0F004B51F9 /* HalfModalInteractiveTransition.swift */,
+				E1A003FC1F2BAF0F004B51F9 /* HalfModalTransitionAnimator.swift */,
+			);
+			name = Transitioning;
+			path = "../../../Downloads/HalfModalPresentationController-master/HalfModalPresentationController";
 			sourceTree = "<group>";
 		};
 		F942120E1F1692110051D1A9 /* Classes */ = {
@@ -291,8 +316,10 @@
 				F9EFA0D41F15856A00866E6E /* LaunchScreen.storyboard */,
 				F9EFA0D71F15856A00866E6E /* Info.plist */,
 				F9EFA0D21F15856A00866E6E /* Assets.xcassets */,
+				E1A003FD1F2BAF0F004B51F9 /* Transitioning */,
 				93E6B6C11F293DEF0048CBDF /* Helper.swift */,
 				E10961281F21347E0053762B /* Utilities.swift */,
+				E1A003F81F2BAE0A004B51F9 /* HalfModalPresentationController.swift */,
 			);
 			path = CarSharingApp;
 			sourceTree = "<group>";
@@ -607,19 +634,24 @@
 				E18E2CB11F1837A400930CE0 /* YourTripsViewController.swift in Sources */,
 				E18E2CAD1F18378D00930CE0 /* NotificationsViewController.swift in Sources */,
 				E109611E1F2020A80053762B /* backwardsSegue.swift in Sources */,
+				E1A003F71F2BAD47004B51F9 /* HalfModalViewController.swift in Sources */,
 				F94212101F16924F0051D1A9 /* Trip.swift in Sources */,
+				E1A003FE1F2BAF10004B51F9 /* HalfModalTransitioningDelegate.swift in Sources */,
 				E18E2C9D1F16926B00930CE0 /* LoginViewController.swift in Sources */,
 				E18E2CAB1F18378000930CE0 /* CreateViewController.swift in Sources */,
 				E18E2C9B1F15995800930CE0 /* User.swift in Sources */,
 				E10961251F205D7A0053762B /* MenuController.swift in Sources */,
 				93BDB94A1F1D413A00F9A711 /* TripDetailViewController.swift in Sources */,
 				F9E2C6A51F1FE2490016D6E2 /* ConvoCell.swift in Sources */,
+				E1A003F51F2BAC73004B51F9 /* HalfModalNavViewController.swift in Sources */,
 				F9E2C6A31F1EDEE00016D6E2 /* ConvoViewController.swift in Sources */,
+				E1A003F91F2BAE0A004B51F9 /* HalfModalPresentationController.swift in Sources */,
 				93E6B6C21F293DEF0048CBDF /* Helper.swift in Sources */,
 				E18E2CA51F17EABE00930CE0 /* backupInfoSafety.swift in Sources */,
 				E18E2CA31F17E93F00930CE0 /* CollegesDict.swift in Sources */,
 				E18E2C9F1F16933400930CE0 /* SignupViewController.swift in Sources */,
 				F94212151F16D0130051D1A9 /* College.swift in Sources */,
+				E1A003FF1F2BAF10004B51F9 /* HalfModalInteractiveTransition.swift in Sources */,
 				F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */,
 				F9E2C6A11F1EBD6C0016D6E2 /* message.swift in Sources */,
 				93EB99981F214A430078A072 /* SWRevealViewController.m in Sources */,
@@ -637,6 +669,7 @@
 				93EB998F1F201CB80078A072 /* ProfileViewController.swift in Sources */,
 				E109612B1F22ACC80053762B /* EditedTripCell.swift in Sources */,
 				E18E2CAF1F18379A00930CE0 /* MessagesViewController.swift in Sources */,
+				E1A004001F2BAF10004B51F9 /* HalfModalTransitionAnimator.swift in Sources */,
 				E18E2CA91F18177F00930CE0 /* PickCollegeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,17 +16,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var autoCompleteViewController: GMSAutocompleteViewController!
     var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
-    var requestToJoinAlert: UIAlertController!
     var refreshControl: UIRefreshControl!
     var tripsFeed: [PFObject] = []
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
     var currentTrip: PFObject? 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var tripsTableView: UITableView!
     
+    var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     
     override func viewDidLoad() {
@@ -38,9 +38,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             profileButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
-        
-        //set up request to join alert
-        setUpRequestToJoinAlert()
         
         //Set Up Table View
         tripsTableView.delegate = self
@@ -318,26 +315,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             currentTrip = filteredTripsFeed[(indexPath?.row)!]
         }
         
-        present(requestToJoinAlert, animated: true, completion: nil)
+        performSegue(withIdentifier: "halfModalSegue", sender: nil)
     }
     
-    
-    
-    func setUpRequestToJoinAlert(){
-        // Set up the requestToJoinAlert
-        requestToJoinAlert = UIAlertController(title: "Requesting To Join Trip", message: "Are you sure you want to join this trip?", preferredStyle: .alert)
-        
-        let noAction = UIAlertAction(title: "No", style: .cancel) { (action) in
-            // handle cancel response here. Doing nothing will dismiss the view.
-        }
-        
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            self.addUserToTrip()
-        }
-        
-        requestToJoinAlert.addAction(noAction) // add the no action to the alertController
-        requestToJoinAlert.addAction(yesAction) // add the yes action to the alertController
-    }
     
     //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" IS PRESSED =======
     func addUserToTrip() {
@@ -380,6 +360,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
                 detailViewController.trip = trip
             }
+        }
+        if segue.identifier == "halfModalSegue" {
+            super.prepare(for: segue, sender: sender)
+            self.halfModalTransitioningDelegate = HalfModalTransitioningDelegate(viewController: self, presentingViewController: segue.destination)
+            segue.destination.modalPresentationStyle = .custom
+            segue.destination.transitioningDelegate = self.halfModalTransitioningDelegate
         }
     }
     
