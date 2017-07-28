@@ -14,10 +14,19 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     @IBOutlet weak var myDatePicker: UIDatePicker!
     var newTime: String = ""
     var currentTrip: PFObject?
+    var originalTripEarliestTime: String = ""
+    var originalTripLatestTime: String = ""
     
     override func viewWillAppear(_ animated: Bool) {
         newTime = setUpDatePicker(date: myDatePicker.date)
-        print("original new time = \(newTime)")
+        originalTripLatestTime = currentTrip?["LatestTime"] as! String
+        originalTripEarliestTime = currentTrip?["EarliestTime"] as! String
+        
+        let minDate = originalTripEarliestTime.stringToDate()
+        let maxDate = originalTripLatestTime.stringToDate()
+        
+        myDatePicker.minimumDate = minDate.addMinutes(minutesToAdd: 20) as Date
+        myDatePicker.maximumDate = maxDate as Date
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -34,7 +43,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         
         // Set date format
         dateFormatter.dateFormat = "MMM d, h:mm a"
-        
+
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: date as Date)
         
@@ -47,12 +56,19 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     }
     
     @IBAction func didTapChangeTime(_ sender: Any) {
-        //HomeViewController.addUserToTrip()
+        
+        addUserToTrip(withNewTime: newTime) //change the time to the new user specified time
+        
+        if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
+            delegate.interactiveDismiss = false
+        }
+        dismiss(animated: true, completion: nil)
     }
 
     @IBAction func didTapLeaveTime(_ sender: Any) {
-        //HomeViewController.addUserToTrip()
-        addUserToTrip()
+        
+        addUserToTrip(withNewTime: originalTripLatestTime) //keep the time as the original trip time
+        
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
         }
@@ -60,7 +76,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     }
     
     //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" (aka "Merge") IS PRESSED =======
-    func addUserToTrip() {
+    func addUserToTrip(withNewTime newTime: String) {
         var membersArray = currentTrip?["Members"] as! [PFUser]
         if membersArray.count < 4 {
             let memberNames = Helper.returnMemberNames(tripMembers: membersArray)
@@ -69,7 +85,8 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
                     membersArray.append(PFUser.current()!)
                     currentTrip?["Members"] = membersArray
                     
-                    //TODO: union operation on the times to change the trip time window
+                    //change the latest time of the trip
+                    currentTrip?["LatestTime"] = newTime
                     
                     //SAVE this updated trip info to the trip
                     currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in

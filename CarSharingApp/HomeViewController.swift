@@ -32,6 +32,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //make bar button items in nav bar white
+        self.navigationController?.navigationBar.tintColor = UIColor.white
+        
         //for hamburger menu
         if self.revealViewController() != nil {
             profileButton.target = self.revealViewController()

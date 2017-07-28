@@ -25,6 +25,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var tripNameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var createButton: UIButton!
     
     @IBOutlet weak var minTimeLabel: UILabel!
     
@@ -47,12 +48,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         super.viewDidLoad()
         
         let user = PFUser.current()!
-        if let school = user["school"] as? String {
-            
-            startTextLabel.text = school
-            endTextLabel.text = school
-            
-        }
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -87,8 +82,12 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        
         minTimeLabel.textColor = Helper.coral()
+        //Make Create Button circular
+        createButton.layer.cornerRadius = 0.15 * createButton.bounds.size.width
+        createButton.clipsToBounds = true
+        createButton.backgroundColor = Helper.coral()
+
         
     }
     
@@ -97,15 +96,19 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         )
         let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapEndLabel(_sender:))
         )
-        startTextLabel.layer.borderColor = UIColor.gray.cgColor
+        startTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
         startTextLabel.layer.borderWidth = 0.5
         startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
+        startTextLabel.layer.cornerRadius = startTextLabel.frame.height / 5
+        startTextLabel.clipsToBounds = true
         
-        endTextLabel.layer.borderColor = UIColor.gray.cgColor
+        endTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
         endTextLabel.layer.borderWidth = 0.5
         endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
+        endTextLabel.layer.cornerRadius = endTextLabel.frame.height / 5
+        endTextLabel.clipsToBounds = true
     }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
