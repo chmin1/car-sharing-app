@@ -77,7 +77,8 @@ class TripDetailViewController: UIViewController {
         
         //Fill in the labels to present the trip information
         if let trip = trip {
-            tripNameLabel.text = trip["Name"] as! String
+            let name = trip["Name"] as! String
+            tripNameLabel.text = name.capitalized
             earliestLabel.text = trip["EarliestTime"] as! String
             latestLabel.text = trip["LatestTime"] as! String
             departureLocLabel.text = trip["DepartureLoc"] as! String
@@ -108,7 +109,7 @@ class TripDetailViewController: UIViewController {
         
         //fill in first person's info if count > 0
         if let member1 = memberNames[0] {
-            name1Label.text = member1 //fill in their name
+            name1Label.text = member1.capitalized //fill in their name
             //fill in their prof pic
             if let profPic = members[0]["profPic"] as? PFFile {
                 profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -122,7 +123,7 @@ class TripDetailViewController: UIViewController {
             name2Label.isHidden = false
             member2Prof.isHidden = false
             if let member2 = memberNames[1] {
-                name2Label.text = member2 //fill in their name
+                name2Label.text = member2.capitalized //fill in their name
                 //fill in their prof pic
                 if let profPic = members[1]["profPic"] as? PFFile {
                     profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -137,7 +138,7 @@ class TripDetailViewController: UIViewController {
             name3Label.isHidden = false
             member3Prof.isHidden = false
             if let member3 = memberNames[2] {
-                name3Label.text = member3 //fill in their name
+                name3Label.text = member3.capitalized //fill in their name
                 //fill in their prof pic
                 if let profPic = members[2]["profPic"] as? PFFile {
                     profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -152,7 +153,7 @@ class TripDetailViewController: UIViewController {
             name4Label.isHidden = false
             member4Prof.isHidden = false
             if let member4 = memberNames[3] {
-                name4Label.text = member4 //fill in their name
+                name4Label.text = member4.capitalized //fill in their name
                 //fill in their prof pic
                 if let profPic = members[3]["profPic"] as? PFFile {
                     profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -210,17 +211,17 @@ class TripDetailViewController: UIViewController {
         if newCount == 2 {
             name2Label.isHidden = false
             member2Prof.isHidden = false
-            name2Label.text = currentFullname
+            name2Label.text = currentFullname.capitalized
         }
         if newCount == 3 {
             name3Label.isHidden = false
             member3Prof.isHidden = false
-            name3Label.text = currentFullname
+            name3Label.text = currentFullname.capitalized
         }
         if newCount == 4 {
             name4Label.isHidden = false
             member4Prof.isHidden = false
-            name4Label.text = currentFullname
+            name4Label.text = currentFullname.capitalized
         }
     }
     

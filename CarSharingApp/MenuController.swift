@@ -27,7 +27,7 @@ class MenuController: UITableViewController {
         
         //set name label
         let nameText = PFUser.current()?["fullname"] as! String
-        nameLabel.text = nameText
+        nameLabel.text = nameText.capitalized
         
         //no lines between table view cells
         self.tableView.separatorStyle = .none

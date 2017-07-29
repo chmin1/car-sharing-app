@@ -42,7 +42,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         //set name label
         let nameText = PFUser.current()?["fullname"] as! String
-        nameLabel.text = nameText
+        nameLabel.text = nameText.capitalized
         
         //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false

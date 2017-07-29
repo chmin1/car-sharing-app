@@ -42,6 +42,29 @@ class Helper {
         })
     }
     
+    static func displayEmptyTableView(withTableView tableView: UITableView, withText text: String) {
+        //no lines between table view cells
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = Helper.veryLightGray()
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+        noDataLabel.text = text
+        noDataLabel.textColor = UIColor.black
+        noDataLabel.font =  UIFont (name: "Quicksand", size: 20)
+        noDataLabel.textAlignment = .center
+        tableView.backgroundView  = noDataLabel
+    }
+    
+    static func displayEmptyCollectionView(withCollectionView collectionView: UICollectionView, withText text: String) {
+        //no lines between collection view cells
+        collectionView.backgroundColor = Helper.veryLightGray()
+        let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
+        noDataLabel.text = text
+        noDataLabel.textColor = UIColor.black
+        noDataLabel.font =  UIFont (name: "Quicksand", size: 20)
+        noDataLabel.textAlignment = .center
+        collectionView.backgroundView  = noDataLabel
+    }
+    
     static func dateToString(date: NSDate) -> String {
         // Create date formatter
         let dateFormatter: DateFormatter = DateFormatter()

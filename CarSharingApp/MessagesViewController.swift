@@ -58,7 +58,8 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
         let trip = tripData[indexPath.row]
-        item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
+        let name = trip?["Name"] as? String ?? "No name trip"
+        item.messageTitleLabel.text = name.capitalized
         item.messagePreviewLabel.text = "This is a test that to check if this label works!"
         item.recipientImage.image = UIImage(named: "profile")
         
@@ -85,6 +86,12 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
                     }
                     
                 }
+                
+                //displays the "No trips" label if there are no trips to display
+                if self.tripData.count == 0 {
+                    Helper.displayEmptyCollectionView(withCollectionView: self.messagesView, withText: "No messages to display!")
+                }
+                
                 self.messagesView.reloadData()
                 self.refreshControl.endRefreshing()
             }

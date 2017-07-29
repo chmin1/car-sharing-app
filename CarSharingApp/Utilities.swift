@@ -82,7 +82,7 @@ extension String {
         let dateObj = dateFormatter.date(from: self)
         
         return dateObj! as NSDate //sketchy
-    }
+    }  
 }
 
 //========== THIS IS TO GET A DONE BUTTON ON THE DATEPICKER ==========

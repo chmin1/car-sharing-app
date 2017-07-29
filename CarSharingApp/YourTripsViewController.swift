@@ -66,6 +66,11 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                     }
                     
                 }
+                //displays the "No trips" label if there are no trips to display
+                if self.yourTrips.count == 0 {
+                    Helper.displayEmptyTableView(withTableView: self.yourTripsTableView, withText: "You are not currently in any trips!")
+                }
+                
                 self.yourTripsTableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.activityIndicator.stopAnimating()
@@ -96,7 +101,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             var memberString = ""
             
             for memberName in memberNames {
-                memberString += memberName
+                memberString += memberName.capitalized
                 if memberName != memberNames.last {
                     memberString += ", "
                 }
@@ -107,7 +112,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             Helper.displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
         }
         
-        cell.tripName.text = tripName
+        cell.tripName.text = tripName.capitalized
         cell.departLabel.text = departureLocation
         cell.destinationLabel.text = arrivalLocation
         cell.earlyTimeLabel.text = earliestDepart

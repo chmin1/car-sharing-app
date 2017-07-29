@@ -104,6 +104,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 
+                //displays the "No trips" label if there are no trips to display
+                if self.filteredTripsFeed.count == 0 {
+                    Helper.displayEmptyTableView(withTableView: self.tripsTableView, withText: "No trips to display!")
+                }
+                
                 self.tripsTableView.reloadData()
                 self.refreshControl.endRefreshing()
                 self.activityIndicator.stopAnimating()
@@ -155,7 +160,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 var memberString = ""
                 
                 for memberName in memberNames {
-                    memberString += memberName
+                    memberString += memberName.capitalized
                     if memberName != memberNames.last {
                         memberString += ", "
                     }
@@ -174,7 +179,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
             
-            cell.tripName.text = tripName
+            cell.tripName.text = tripName.capitalized
             cell.departLabel.text = departureLocation
             cell.destinationLabel.text = arrivalLocation
             cell.earlyTimeLabel.text = earliestDepart

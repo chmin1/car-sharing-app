@@ -120,6 +120,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
         }
+        //displays the "No notifications" label if there are no notifications to display
+        if self.limboTrips.count == 0 {
+            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+        }
     }//close fillLimboTripList()
     
     func shouldDisplayTrip(trip: PFObject) -> Bool {
@@ -149,10 +153,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             //print(trip.objectId!)
             if let origName = originalNameDict[trip.objectId!]?[1] {
                 print(origName)
-                cell.originalTripNameLabel.text = origName
+                cell.originalTripNameLabel.text = origName.capitalized
             }
             
-            cell.newTripNameLabel.text = tripName
+            cell.newTripNameLabel.text = tripName.capitalized
             cell.departLabel.text = departureLocation
             cell.destinationLabel.text = arrivalLocation
             cell.earlyTimeLabel.text = earliestDepart

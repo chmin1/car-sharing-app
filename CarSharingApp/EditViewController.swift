@@ -62,7 +62,8 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         
         //Fill in the trip info
         if let originalTrip = originalTrip {
-            tripNameTextField.text = originalTrip["Name"] as? String
+            let name = originalTrip["Name"] as? String
+            tripNameTextField.text = name?.capitalized
             startTextLabel.text = originalTrip["DepartureLoc"] as? String
             endTextLabel.text = originalTrip["ArrivalLoc"] as? String
             earliestTextField.text = originalTrip["EarliestTime"] as? String
