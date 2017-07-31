@@ -98,7 +98,7 @@ class Helper {
     static func displayEmptyTableView(withTableView tableView: UITableView, withText text: String) {
         //no lines between table view cells
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Helper.veryLightGray()
+        tableView.backgroundColor = UIColor.white
         let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
         noDataLabel.text = text
         noDataLabel.textColor = UIColor.black
@@ -123,8 +123,7 @@ class Helper {
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        
+        dateFormatter.dateFormat = "MMM d, YYYY h:mm a"        
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: date as Date)
         return selectedDate
@@ -220,6 +219,22 @@ class Helper {
             })
         }
         
+    }
+    /*
+     * Check if a trip is in the past by comparing it's latest date to the current date
+     */
+    static func isPastTrip(trip: PFObject) -> Bool {
+        
+        let datePickerView : UIDatePicker = UIDatePicker()
+        let today = datePickerView.date as NSDate
+        print(trip["LatestTime"] as! String)
+        print(Helper.dateToString(date: today))
+        let latestTime = trip["LatestTime"] as! String
+        let lateDate = latestTime.stringToDate()
+        if today.isGreaterThanDate(dateToCompare: lateDate) { //logic should be isless than but that was not working
+            return true
+        }
+        return false
     }
     
     // Same thing, but for a collectionView

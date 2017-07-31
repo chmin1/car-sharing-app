@@ -35,6 +35,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //make bar button items in nav bar white
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
+        //Make profile picture clickable
         /*
         if let profPic = PFUser.current()?["profPic"] as? PFFile {
             profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -104,8 +105,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tripsFeed.removeAll()
                 self.filteredTripsFeed.removeAll()
                 for trip in trips {
+                    //TODO: Check if the trip is in the past
                     if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
-                        if(tripEditId != "-1"){ //only add trip to the feed if it's NOT an edit
+                        print(trip["Name"])
+                        if(tripEditId != "-1" && !Helper.isPastTrip(trip: trip)){ //only add trip to the feed if it's NOT an edit and not in the past
                             self.tripsFeed.append(trip)
                             self.filteredTripsFeed.append(trip)
                         }

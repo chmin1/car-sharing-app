@@ -42,7 +42,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, h:mm a"
+        dateFormatter.dateFormat = "MMM d, YYYY h:mm a"
 
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: date as Date)
