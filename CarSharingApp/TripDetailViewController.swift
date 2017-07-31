@@ -229,11 +229,12 @@ class TripDetailViewController: UIViewController {
         }
     }
     
-    //====== REMOVE THE USER FROM THE MEMBERS LIST OF TRIP AND REMOVE TRIP FROM TRIP LIST OF USER =======
+    //====== REMOVE THE USER FROM THE TRIP'S LIST OF MEMEBERS =======
     @IBAction func onLeaveTrip(_ sender: Any) {
         
         var membersList = trip?["Members"] as! [PFUser]
         let currentUserName = PFUser.current()?["fullname"] as! String
+        //remove current user from trip's list of members
         for member in membersList {
             let memberName = member["fullname"] as! String
             if memberName == currentUserName {
@@ -241,14 +242,25 @@ class TripDetailViewController: UIViewController {
                  membersList.remove(at: removeIndex!)
             }
         }
-        trip?["Members"] = membersList
-        trip?.saveInBackground(block: { (success: Bool, error:Error?) in
-            if let error = error {
-                print("Error removing user from Trip: \(error.localizedDescription)")
-            } else {
-                print("user successfully removed from trip")
-            }
-        })
+        
+        if membersList.count > 0 { //if there are still members in the trip, update the trip
+            trip?["Members"] = membersList
+            trip?.saveInBackground(block: { (success: Bool, error:Error?) in
+                if let error = error {
+                    print("Error removing user from Trip: \(error.localizedDescription)")
+                } else {
+                    print("FROM DETAIL VC: user successfully removed from trip")
+                }
+            })
+        } else if membersList.count == 0 { //if there are no members in the trip, delete the trip
+            trip?.deleteInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                } else {
+                    print("FROM DETAIL VC: user left trip and trip deleted")
+                }
+            })
+        }
         
         //go back to Home VC
         _ = navigationController?.popViewController(animated: true)

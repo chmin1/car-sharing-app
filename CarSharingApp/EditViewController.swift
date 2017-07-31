@@ -21,7 +21,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     @IBOutlet weak var earliestTextField: UITextField!
     @IBOutlet weak var latestTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var submitButton: UIButton!
     
     
@@ -49,15 +48,9 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         setUpDatePicker()
         
         //Make Buttons ovular and color their background/text
-        deleteButton.layer.cornerRadius = deleteButton.frame.height / 2
         submitButton.layer.cornerRadius = submitButton.frame.height / 2
-        deleteButton.clipsToBounds = true
         submitButton.clipsToBounds = true
         submitButton.backgroundColor = Helper.coral()
-        deleteButton.backgroundColor = UIColor.white
-        deleteButton.layer.borderWidth = 2
-        deleteButton.layer.borderColor = Helper.coral().cgColor
-        deleteButton.setTitleColor(Helper.coral(), for: .normal)
         submitButton.setTitleColor(UIColor.white, for: .normal)
         
         //Fill in the trip info
@@ -342,12 +335,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
             print("Invalid edit (aka invalid trip)")
         }
         
-    }
-    
-    
-    @IBAction func didTapDeleteTrip(_ sender: Any) {
-        //TODO: Post as notification and wait for approvals until it gets deleted
-        Helper.deleteTrip(trip: originalTrip!)
     }
     
     override func didReceiveMemoryWarning() {
