@@ -246,15 +246,14 @@ class Helper {
         
         let datePickerView : UIDatePicker = UIDatePicker()
         let today = datePickerView.date as NSDate
-        //print(trip["LatestTime"] as! String)
-        print(Helper.dateToString(date: today))
+        print("today: \(Helper.dateToString(date: today))")
         let latestTime = trip["LatestTime"] as! String
-        print(latestTime)
-        //let lateDate = latestTime.stringToDate()
-        //print("\(lateDate)")
-        //if today.isGreaterThanDate(dateToCompare: lateDate) { //logic should be isless than but that was not working
-        //    return true
-        //}
+        print("latest for trip: \(latestTime)")
+        let lateDate = latestTime.stringToDate()
+        print("\(lateDate)")
+        if today.isGreaterThanDate(dateToCompare: lateDate) { //logic should be isless than but that was not working
+            return true
+        }
         return false
     }
     

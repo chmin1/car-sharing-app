@@ -77,7 +77,8 @@ extension NSDate {
 extension String {
     func stringToDate() -> NSDate {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM d, YYYY h:mm a"
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.timeZone = NSTimeZone.local
         
         let dateObj = dateFormatter.date(from: self)
         
