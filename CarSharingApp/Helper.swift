@@ -57,9 +57,16 @@ class Helper {
             if let trips = trips {
                 
                 for trip in trips {
-                    var memberList: [PFUser] = trip["Members"] as! [PFUser] //get trip's list of members
-                    let index = memberList.index(of: PFUser.current()!) //get index of current member
-                    memberList.remove(at: index!) //remove current member from the list
+                    var memberList = trip["Members"] as! [PFUser] //get trip's list of members
+                    let currentUserName = PFUser.current()?["fullname"] as! String
+                    for member in memberList {
+                        let memberName = member["fullname"] as! String
+                        if memberName == currentUserName {
+                            let removeIndex = memberList.index(of: member)
+                            memberList.remove(at: removeIndex!)
+                        }
+                    }
+                    
                     if memberList.count > 0 {
                         trip.saveInBackground(block: { (success: Bool, error: Error?) in
                             if let error = error {
@@ -82,15 +89,27 @@ class Helper {
                 }//close for loop
                 
             }//close if let trip=trips
+            
+            PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if success == true{
+                    print("user deleted !")
+                }
+            })
+            
+            //logs user out
+            NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
+            PFUser.logOutInBackground(block: { (error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Successful loggout")
+                }
+            })
+            
         }//close query
         
-        PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if success == true{
-                print("user deleted !")
-            }
-        })
     }
     
     
