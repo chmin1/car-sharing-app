@@ -8,14 +8,22 @@
 
 import UIKit
 import Parse
+import ParseLiveQuery
 
 class MessagesViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var messagesView: UICollectionView!
     
     var tripData: [PFObject?] = []
+    var tripIDs: [String] = []
     
     var refreshControl: UIRefreshControl!
+    
+    //Parse Live Query Client
+    let liveQueryClient = ParseLiveQuery.Client()
+    
+    // A subscription for the live query client
+    var subscriptionX:Subscription<PFObject>? = nil;
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,6 +34,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         messagesView.delegate = self
         messagesView.dataSource = self
         refresh()
+        getMessageTripIDs()
         
         //Initialize a Refresh Control
         refreshControl = UIRefreshControl()
@@ -46,6 +55,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         refresh()
+        getMessageTripIDs()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -58,12 +68,97 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let item = messagesView.dequeueReusableCell(withReuseIdentifier: "messageCell", for: indexPath) as! messagesCell
         let trip = tripData[indexPath.row]
-        let name = trip?["Name"] as? String ?? "No name trip"
-        item.messageTitleLabel.text = name.capitalized
-        item.messagePreviewLabel.text = "This is a test that to check if this label works!"
-        item.recipientImage.image = UIImage(named: "profile")
+        do {
+            try trip?.fetchIfNeeded()
+            
+            item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
+            let createdAt = trip?.updatedAt
+            let dateFormatter = DateFormatter()
+            
+            dateFormatter.dateStyle = .short
+            dateFormatter.timeStyle = .short
+            dateFormatter.timeZone = NSTimeZone.local
+            
+            let localDate = dateFormatter.string(from: createdAt!)
+            item.dateLabel.text = localDate
+            
+//            if let message = (trip?["Messages"] as? [PFObject])?.last {
+//                do {
+//                    try   message.fetchIfNeeded()
+//                    if let messageText = message["Text"] as? String {
+//                        item.messagePreviewLabel.text = messageText
+//                    }
+//                } catch {
+//                    item.messagePreviewLabel.text = "Failed to fetch data"
+//                }
+//                
+//            }
+            
+            var textPrev: String!
+            let tripID = trip?.objectId
+            if tripIDs.contains(tripID!) {
+                if let tripMsgs = trip?["Messages"] as? [PFObject?] {
+                    let lastMsgIndex = tripMsgs.count - 1
+                    if let lastMsg = tripMsgs[lastMsgIndex] {
+                        try lastMsg.fetchIfNeeded()
+                        if let msgText = lastMsg["Text"] as? String {
+                            textPrev = msgText
+                        }
+                    }
+                }
+            } else {
+                
+                textPrev = "No Messages Yet... 📝"
+                
+            }
+            item.messagePreviewLabel.text = textPrev
+            
+            if let tripMembers = trip?["Members"] as? [PFUser] {
+                let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
+                print(memberNames)
+                
+                let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
+                Helper.displayProfilePics(withCell: item, withMemberPics: memberProfPics)
+            }
+            
+        } catch {
+            
+            item.messageTitleLabel.text = "Not Found"
+            item.dateLabel.text = "Not Found"
+            item.messagePreviewLabel.text = "Not Found"
+            if let tripMembers = trip?["Members"] as? [PFUser] {
+                let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
+                print(memberNames)
+                
+                let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
+                Helper.displayProfilePics(withCell: item, withMemberPics: memberProfPics)
+            }
+            
+        }
         
         return item
+        
+    }
+    
+    func getMessageTripIDs() {
+        
+        let query = PFQuery(className: "Message")
+        query.includeKey("TripID")
+        do{
+           let results = try query.findObjects()
+            for result in results {
+                if let tripID = result["TripID"] as? String {
+                    if tripIDs.contains(tripID) {
+                        continue
+                    } else {
+                        tripIDs.append(tripID)
+                    }
+                }
+            }
+        } catch {
+            print("no Messages found")
+        }
+        
         
     }
     
@@ -72,7 +167,9 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")
+        query.includeKey("_updated_at")
         query.whereKey("Members", equalTo: currentUser!)
+        query.order(byDescending: "_updated_at")
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.tripData.removeAll()
@@ -96,8 +193,18 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
                 self.refreshControl.endRefreshing()
             }
         }
+        
+        //Subscribe the parse user to the live query
+        self.subscriptionX = self.liveQueryClient
+            .subscribe(query);
+        
+        self.subscriptionX?.handle(Event.created) { _, trip in
+            self.tripData.append(trip)
+            self.messagesView.reloadData()
+        }
+        
     }
-
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
