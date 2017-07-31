@@ -213,7 +213,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, YYYY h:mm a"
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
         
         let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
         sender.maximumDate = maximumDate as Date
@@ -232,7 +232,7 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, YYYY h:mm a"
+        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
         
         let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
         sender.minimumDate = minimumDate as Date
