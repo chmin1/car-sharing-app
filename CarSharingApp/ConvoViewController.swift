@@ -10,7 +10,7 @@ import UIKit
 import Parse
 import ParseLiveQuery
 
-class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     @IBOutlet weak var convoView: UICollectionView!
     
@@ -35,6 +35,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let flowLayout = convoView.collectionViewLayout as! UICollectionViewFlowLayout
         
         convoView.delegate = self
         convoView.dataSource = self
@@ -197,6 +199,20 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return convoMessages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let item = convoView.dequeueReusableCell(withReuseIdentifier: "convoCell", for: indexPath) as! ConvoCell
+
+        
+        let width = convoView.frame.size.width
+        let height: CGFloat = 100
+        let size = CGSize(width: width, height: height)
+        
+        let textheight = item.textMessage.sizeThatFits(size)
+        
+        return textheight
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
