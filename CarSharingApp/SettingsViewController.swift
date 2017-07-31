@@ -11,6 +11,8 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var profileButton: UIBarButtonItem!
+    @IBOutlet weak var deleteButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,11 @@ class SettingsViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-
+        
+        //Make delete button ovular and properly colored
+        deleteButton.layer.cornerRadius = deleteButton.frame.height / 2
+        deleteButton.clipsToBounds = true
+        deleteButton.backgroundColor = Helper.coral()
     }
 
     override func didReceiveMemoryWarning() {
@@ -37,12 +43,10 @@ class SettingsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    @IBAction func didTapBack(_ sender: Any) {
-        print("hello")
-        self.dismiss(animated: true) { 
-            print("done")
-        }
+    
+    @IBAction func didTapDeleteButton(_ sender: Any) {
+        Helper.deleteUser()
     }
+    
     
 }

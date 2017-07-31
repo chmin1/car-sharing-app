@@ -28,7 +28,6 @@ class Helper {
     }
     
     /*
-     * Deletes the trip from the user's list of trips
      * Deletes the trip from parse
      */
     static func deleteTrip(trip: PFObject) {
@@ -41,6 +40,60 @@ class Helper {
             }
         })
     }
+    
+    /*
+     * Deletes the current user from each trip that it was in
+     * If the user was the only person in a trip, delete that trip
+     * Deletes the current user from parse
+     */
+    static func deleteUser() {
+        
+        let currentUser = PFUser.current()
+        let query = PFQuery(className: "Trip")
+        query.includeKey("Name")
+        query.includeKey("Members")
+        query.whereKey("Members", equalTo: currentUser)
+        query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
+            if let trips = trips {
+                
+                for trip in trips {
+                    var memberList: [PFUser] = trip["Members"] as! [PFUser] //get trip's list of members
+                    let index = memberList.index(of: PFUser.current()!) //get index of current member
+                    memberList.remove(at: index!) //remove current member from the list
+                    if memberList.count > 0 {
+                        trip.saveInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else if success == true{
+                                print("FROM SETTINGS PAGE: trip saved so no longer has user")
+                            }
+                        })
+                    }
+                    else if memberList.count == 0 {
+                        trip.deleteInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else if success == true{
+                                print("FROM SETTINGS PAGE: trip deleted")
+                            }
+                        })
+                    }
+                    
+                }//close for loop
+                
+            }//close if let trip=trips
+        }//close query
+        
+        PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if success == true{
+                print("user deleted !")
+            }
+        })
+    }
+    
+    
     
     static func displayEmptyTableView(withTableView tableView: UITableView, withText text: String) {
         //no lines between table view cells
