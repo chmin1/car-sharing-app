@@ -98,7 +98,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
-            //TODO: maybe show something on notifications vc that says "no notifications"
         }
         self.limboTrips.removeAll()
         for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id

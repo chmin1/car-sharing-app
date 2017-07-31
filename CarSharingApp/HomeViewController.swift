@@ -100,7 +100,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    //TODO: Edit so that it changes what appears depending on the search parameters -- didn't we do this? 
     func refresh() {
         activityIndicator.startAnimating()
         let query = PFQuery(className: "Trip")
@@ -385,7 +384,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
         }
     
-        
     }
     
     

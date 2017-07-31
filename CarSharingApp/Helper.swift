@@ -130,7 +130,7 @@ class Helper {
     
     static func displayEmptyCollectionView(withCollectionView collectionView: UICollectionView, withText text: String) {
         //no lines between collection view cells
-        collectionView.backgroundColor = Helper.veryLightGray()
+        collectionView.backgroundColor = UIColor.white
         let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         noDataLabel.text = text
         noDataLabel.textColor = UIColor.black
