@@ -108,7 +108,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     //TODO: Check if the trip is in the past
                     if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
                         print(trip["Name"])
-                        if(tripEditId != "-1" && !Helper.isPastTrip(trip: trip)){ //only add trip to the feed if it's NOT an edit and not in the past
+                        if(tripEditId != "-1") {  //&& !Helper.isPastTrip(trip: trip)){ //only add trip to the feed if it's NOT an edit and not in the past
                             self.tripsFeed.append(trip)
                             self.filteredTripsFeed.append(trip)
                         }
