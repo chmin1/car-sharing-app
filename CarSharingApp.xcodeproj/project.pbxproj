@@ -217,7 +217,6 @@
 				E109611B1F1E9AF90053762B /* MainTabBarController.swift */,
 				F9E2C6A21F1EDEE00016D6E2 /* ConvoViewController.swift */,
 				E10961241F205D7A0053762B /* MenuController.swift */,
-				E10961261F2067CC0053762B /* SettingsViewController.swift */,
 				E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */,
 				E18E2CAC1F18378D00930CE0 /* NotificationsViewController.swift */,
 				93EB99991F214C6A0078A072 /* EditViewController.swift */,
@@ -225,6 +224,7 @@
 				E1A003F61F2BAD47004B51F9 /* HalfModalViewController.swift */,
 				93EB998E1F201CB80078A072 /* ProfileViewController.swift */,
 				E1C09B151F2FAC3E00F22AD6 /* UserProfileViewController.swift */,
+				E10961261F2067CC0053762B /* SettingsViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
