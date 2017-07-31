@@ -63,6 +63,8 @@ class TripDetailViewController: UIViewController {
         //Set up the labels to have and colors
         earliestLabel.textColor = Helper.coral()
         latestLabel.textColor = Helper.coral()
+        departureLocLabel.textColor = Helper.coral()
+        arrivalLocLabel.textColor = Helper.coral()
         
         
         
