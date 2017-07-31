@@ -18,6 +18,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var HomeHeaderCell: HomeHeaderCell!
     var refreshControl: UIRefreshControl!
     var tripsFeed: [PFObject] = []
+    var emptyFieldAlert: UIAlertController!
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
     var currentTrip: PFObject? 
@@ -32,6 +33,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Set up the emptyFieldAlert
+        emptyFieldAlert = UIAlertController(title: "Empty Field", message: "Fill in all search fields!", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
+            // handle cancel response here. Doing nothing will dismiss the view.
+        }
+        emptyFieldAlert.addAction(cancelAction) // add the cancel action to the alertController
+        
         //make bar button items in nav bar white
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
@@ -92,7 +100,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    //TODO: Edit so that it changes what appears depending on the search parameters -- didn't we do this? 
     func refresh() {
         activityIndicator.startAnimating()
         let query = PFQuery(className: "Trip")
@@ -365,10 +372,18 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let earliest = HomeHeaderCell.earliestTextField.text!
         let latest = HomeHeaderCell.latestTextField.text!
         
-        let earliestDate = earliest.stringToDate()
-        let latestDate = latest.stringToDate()
-        
-        filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
+        //display error message if one of the field is empty
+        if departure == " Select Starting Location" || arrival == " Select Ending Location" || earliest == "" || latest == "" {
+            present(emptyFieldAlert, animated: true) { }
+            return
+        }
+        //perform the search if all fields are filled
+        else {
+            let earliestDate = earliest.stringToDate()
+            let latestDate = latest.stringToDate()
+            filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
+        }
+    
     }
     
     

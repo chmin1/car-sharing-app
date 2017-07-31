@@ -51,14 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginViewController
         }
         
-        //Set up push notifications
-        UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in
-            if granted {
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-            
-        }
-        
         return true
     }
     

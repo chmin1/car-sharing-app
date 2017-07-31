@@ -63,10 +63,10 @@ class Helper {
                         let memberName = member["fullname"] as! String
                         if memberName == currentUserName {
                             let removeIndex = memberList.index(of: member)
-                            memberList.remove(at: removeIndex!)
+                            memberList.remove(at: removeIndex!) //remove the uesr from the trip's list of users
                         }
                     }
-                    
+                    //if there's more than one person in trip, delete this user from the trip
                     if memberList.count > 0 {
                         trip.saveInBackground(block: { (success: Bool, error: Error?) in
                             if let error = error {
@@ -76,6 +76,7 @@ class Helper {
                             }
                         })
                     }
+                    //if this user is the only person in the trip, delete the trip
                     else if memberList.count == 0 {
                         trip.deleteInBackground(block: { (success: Bool, error: Error?) in
                             if let error = error {
@@ -90,6 +91,7 @@ class Helper {
                 
             }//close if let trip=trips
             
+            //Deletes the user from the database
             PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
@@ -98,7 +100,7 @@ class Helper {
                 }
             })
             
-            //logs user out
+            //Logs user out
             NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
             PFUser.logOutInBackground(block: { (error) in
                 if let error = error {
@@ -128,7 +130,7 @@ class Helper {
     
     static func displayEmptyCollectionView(withCollectionView collectionView: UICollectionView, withText text: String) {
         //no lines between collection view cells
-        collectionView.backgroundColor = Helper.veryLightGray()
+        collectionView.backgroundColor = UIColor.white
         let noDataLabel: UILabel = UILabel(frame: CGRect(x: 0, y: 0, width: collectionView.bounds.size.width, height: collectionView.bounds.size.height))
         noDataLabel.text = text
         noDataLabel.textColor = UIColor.black

@@ -82,7 +82,10 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         createButton.clipsToBounds = true
         createButton.backgroundColor = Helper.coral()
 
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        setUpDatePicker()
     }
     
     func setUpTapGesture() {
@@ -336,9 +339,13 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             print("Invalid trip")
         }
         
-
-        //TODO: set the text fields and labels back to default state
-        
+        //Set the text fields and labels back to default state
+        tripNameTextField.text = ""
+        tripNameTextField.placeholder = "Trip Name"
+        startTextLabel.textColor = UIColor.lightGray
+        endTextLabel.textColor = UIColor.lightGray
+        startTextLabel.text = " Add Start Location"
+        endTextLabel.text = " Add End Location"
         
     }//close didTapSubmit
     
