@@ -47,6 +47,7 @@
 		E1A004041F2BF9BA004B51F9 /* HalfModalInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A004011F2BF9BA004B51F9 /* HalfModalInteractiveTransition.swift */; };
 		E1A004051F2BF9BA004B51F9 /* HalfModalTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A004021F2BF9BA004B51F9 /* HalfModalTransitionAnimator.swift */; };
 		E1A004061F2BF9BA004B51F9 /* HalfModalTransitioningDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A004031F2BF9BA004B51F9 /* HalfModalTransitioningDelegate.swift */; };
+		E1C09B161F2FAC3E00F22AD6 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C09B151F2FAC3E00F22AD6 /* UserProfileViewController.swift */; };
 		F94212101F16924F0051D1A9 /* Trip.swift in Sources */ = {isa = PBXBuildFile; fileRef = F942120F1F16924F0051D1A9 /* Trip.swift */; };
 		F94212131F16CDB20051D1A9 /* CollegeAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */; };
 		F94212151F16D0130051D1A9 /* College.swift in Sources */ = {isa = PBXBuildFile; fileRef = F94212141F16D0130051D1A9 /* College.swift */; };
@@ -128,6 +129,7 @@
 		E1A004011F2BF9BA004B51F9 /* HalfModalInteractiveTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalInteractiveTransition.swift; sourceTree = "<group>"; };
 		E1A004021F2BF9BA004B51F9 /* HalfModalTransitionAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitionAnimator.swift; sourceTree = "<group>"; };
 		E1A004031F2BF9BA004B51F9 /* HalfModalTransitioningDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HalfModalTransitioningDelegate.swift; sourceTree = "<group>"; };
+		E1C09B151F2FAC3E00F22AD6 /* UserProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		E75CC69B011F916E1E0B4E11 /* Pods_CarSharingAppUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarSharingAppUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F942120F1F16924F0051D1A9 /* Trip.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trip.swift; sourceTree = "<group>"; };
 		F94212121F16CDB20051D1A9 /* CollegeAPIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollegeAPIManager.swift; sourceTree = "<group>"; };
@@ -214,7 +216,6 @@
 				93BDB9491F1D413A00F9A711 /* TripDetailViewController.swift */,
 				E109611B1F1E9AF90053762B /* MainTabBarController.swift */,
 				F9E2C6A21F1EDEE00016D6E2 /* ConvoViewController.swift */,
-				93EB998E1F201CB80078A072 /* ProfileViewController.swift */,
 				E10961241F205D7A0053762B /* MenuController.swift */,
 				E10961261F2067CC0053762B /* SettingsViewController.swift */,
 				E18E2CB01F1837A400930CE0 /* YourTripsViewController.swift */,
@@ -222,6 +223,8 @@
 				93EB99991F214C6A0078A072 /* EditViewController.swift */,
 				E1A003F41F2BAC73004B51F9 /* HalfModalNavViewController.swift */,
 				E1A003F61F2BAD47004B51F9 /* HalfModalViewController.swift */,
+				93EB998E1F201CB80078A072 /* ProfileViewController.swift */,
+				E1C09B151F2FAC3E00F22AD6 /* UserProfileViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -664,6 +667,7 @@
 				93202BFF1F16A357003BB533 /* HomeHeaderCell.swift in Sources */,
 				E10961271F2067CC0053762B /* SettingsViewController.swift in Sources */,
 				93202BFD1F16A27F003BB533 /* TripCell.swift in Sources */,
+				E1C09B161F2FAC3E00F22AD6 /* UserProfileViewController.swift in Sources */,
 				F942121B1F1D46AB0051D1A9 /* messagesCell.swift in Sources */,
 				93EB998F1F201CB80078A072 /* ProfileViewController.swift in Sources */,
 				E1A004061F2BF9BA004B51F9 /* HalfModalTransitioningDelegate.swift in Sources */,

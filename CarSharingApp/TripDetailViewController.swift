@@ -12,6 +12,7 @@ import Parse
 class TripDetailViewController: UIViewController {
     
     var trip: PFObject?
+    var globalMembers: [PFUser] = []
     @IBOutlet weak var tripNameLabel: UILabel!
     @IBOutlet weak var name1Label: UILabel!
     @IBOutlet weak var name2Label: UILabel!
@@ -84,6 +85,7 @@ class TripDetailViewController: UIViewController {
             departureLocLabel.text = trip["DepartureLoc"] as! String
             arrivalLocLabel.text = trip["ArrivalLoc"] as! String
             let members = trip["Members"] as! [PFUser]
+            globalMembers = members
             let memberNames = Helper.returnMemberNames(tripMembers: members) as [String]
             print(memberNames)
             self.fillInNamesAndProfPics(memberNames: memberNames, members: members)
@@ -251,6 +253,26 @@ class TripDetailViewController: UIViewController {
 
     }
     
+    @IBAction func didTapMember1(_ sender: Any) {
+        let member = globalMembers[0]
+        performSegue(withIdentifier: "userProfile", sender: member)
+    }
+    
+    @IBAction func didTapMember2(_ sender: Any) {
+        let member = globalMembers[1]
+        performSegue(withIdentifier: "userProfile", sender: member)
+    }
+    
+    @IBAction func didTapMember3(_ sender: Any) {
+        let member = globalMembers[2]
+        performSegue(withIdentifier: "userProfile", sender: member)
+    }
+    
+    @IBAction func didTapMember4(_ sender: Any) {
+        let member = globalMembers[3]
+        performSegue(withIdentifier: "userProfile", sender: member)
+    }
+    
     /*
     * Only allow Edit VC to open if the trip doesn't already have a corresponding edit pending
     * Otherwise, present the pending edit alert
@@ -280,6 +302,11 @@ class TripDetailViewController: UIViewController {
             let navigationController = segue.destination as! HalfModalNavViewController
             let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
             halfModelVC.currentTrip = trip
+        }
+        if segue.identifier == "userProfile" {
+            let userProfileViewController = segue.destination as! UserProfileViewController //tell it its destination
+            //let profileViewController = destinationNavigationController.topViewController as! UserProfileViewController
+            userProfileViewController.user = sender as! PFUser
         }
     }
     

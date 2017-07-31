@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBOutlet weak var mySegmentedControl: UISegmentedControl!
     let list1: [String] = ["hi", "yo"]
     let list2: [String] = ["annbel", "strauss"]
+    var user: PFUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +28,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
         tripsTableView.delegate = self
-        //tripsTableView.dataSource = self
 
         //for hamburger menu
         if self.revealViewController() != nil {
@@ -36,12 +36,16 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        if user == nil {
+            user = PFUser.current()
+        }
+        
         //make prof pic circular
         profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
         profilePicImageView.clipsToBounds = true
         
         //set name label
-        let nameText = PFUser.current()?["fullname"] as! String
+        let nameText = user["fullname"] as! String
         nameLabel.text = nameText.capitalized
         
         //set background and text color of Nav bar
@@ -53,7 +57,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
 
     override func viewWillAppear(_ animated: Bool) {
         //set prof pic
-        if let profPic = PFUser.current()?["profPic"] as? PFFile {
+        if let profPic = user["profPic"] as? PFFile {
             profPic.getDataInBackground { (imageData: Data!, error: Error?) in
                 self.profilePicImageView.image = UIImage(data: imageData)
             }

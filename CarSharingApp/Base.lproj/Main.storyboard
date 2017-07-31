@@ -213,7 +213,7 @@
                                 </connections>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-Us-lMh">
-                                <rect key="frame" x="0.0" y="288" width="375" height="379"/>
+                                <rect key="frame" x="0.0" y="318" width="375" height="349"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -235,7 +235,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="agV-OW-swt">
-                                <rect key="frame" x="0.0" y="259" width="375" height="29"/>
+                                <rect key="frame" x="0.0" y="282" width="375" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <segments>
                                     <segment title="Upcoming Trips"/>
@@ -706,7 +706,7 @@
                                 <rect key="frame" x="16" y="40" width="343" height="120"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="SNM-GX-FjU">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="SNM-GX-FjU">
                                         <rect key="frame" x="13" y="-2" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
@@ -714,9 +714,13 @@
                                             <outletCollection property="gestureRecognizers" destination="LLx-Ug-A7C" appends="YES" id="sOR-Fz-7vd"/>
                                         </connections>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="F8N-E3-cgK">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="F8N-E3-cgK">
                                         <rect key="frame" x="176" y="-2" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="iHV-x3-qX4" appends="YES" id="nht-bn-wPT"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84u-oN-wCc">
                                         <rect key="frame" x="51" y="102" width="129" height="23"/>
@@ -732,9 +736,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Kae-Ab-zjs">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="Kae-Ab-zjs">
                                         <rect key="frame" x="91" y="55" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="MN6-3i-2sr" appends="YES" id="psz-7T-uaw"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohu-dB-Bvi">
                                         <rect key="frame" x="145" y="45" width="110" height="23"/>
@@ -743,9 +751,13 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="ObU-3k-ZLP">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile" translatesAutoresizingMaskIntoConstraints="NO" id="ObU-3k-ZLP">
                                         <rect key="frame" x="258" y="55" width="49" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="eHw-w1-NZv" appends="YES" id="r1o-Q0-sMq"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hfP-Ij-iZv">
                                         <rect key="frame" x="223" y="102" width="120" height="23"/>
@@ -792,10 +804,30 @@
                         <outlet property="tripNameLabel" destination="iuN-F0-ePK" id="6z6-xl-EJg"/>
                         <segue destination="RNb-p3-pFY" kind="presentation" identifier="editSegue" id="75c-eU-9Z1"/>
                         <segue destination="rAy-k9-e58" kind="presentation" identifier="halfModalSegue" id="Pww-X3-iAj"/>
+                        <segue destination="DRF-5f-JIm" kind="show" identifier="userProfile" id="75m-cN-xVU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mj2-wq-1qh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="LLx-Ug-A7C"/>
+                <tapGestureRecognizer id="LLx-Ug-A7C" userLabel="Tap Gesture Recognizer Member1">
+                    <connections>
+                        <action selector="didTapMember1:" destination="JgV-Vw-IJt" id="aOA-QA-x6J"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="MN6-3i-2sr" userLabel="Tap Gesture Recognizer Member2">
+                    <connections>
+                        <action selector="didTapMember2:" destination="JgV-Vw-IJt" id="l0R-Ed-658"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="iHV-x3-qX4" userLabel="Tap Gesture Recognizer Member3">
+                    <connections>
+                        <action selector="didTapMember3:" destination="JgV-Vw-IJt" id="N4G-Qa-g9X"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="eHw-w1-NZv" userLabel="Tap Gesture Recognizer Member4">
+                    <connections>
+                        <action selector="didTapMember4:" destination="JgV-Vw-IJt" id="dwQ-my-Dkr"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-3111.1999999999998" y="2818.7406296851577"/>
         </scene>
@@ -2152,7 +2184,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mun-h1-mpY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4100" y="1961"/>
+            <point key="canvasLocation" x="-4070" y="1961"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ic2-hS-dqj">
@@ -2190,6 +2222,71 @@
             </objects>
             <point key="canvasLocation" x="-1550" y="2666"/>
         </scene>
+        <!--User Profile View Controller-->
+        <scene sceneID="z7S-sX-bVB">
+            <objects>
+                <viewController id="DRF-5f-JIm" customClass="UserProfileViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a8b-KA-nSB"/>
+                        <viewControllerLayoutGuide type="bottom" id="oYC-zf-CuF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wvE-FA-9kJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="owM-kW-9gX">
+                                <rect key="frame" x="126" y="86" width="123" height="123"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <gestureRecognizers/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dAb-6i-Ef8">
+                                <rect key="frame" x="0.0" y="318" width="375" height="349"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="profilePageCell" id="qM3-Yr-AUZ">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qM3-Yr-AUZ" id="aRA-Q8-ehm">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ajt-6j-qTf">
+                                <rect key="frame" x="0.0" y="282" width="375" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="Upcoming Trips"/>
+                                    <segment title="Past Trips"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedControlActionChanged:" destination="Wqj-KG-oA8" eventType="valueChanged" id="zQY-Ws-715"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IcA-gd-ioS">
+                                <rect key="frame" x="16" y="228" width="343" height="28"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="V4I-Kw-9Wg"/>
+                    <connections>
+                        <outlet property="mySegmentedControl" destination="ajt-6j-qTf" id="shN-0Z-7Sv"/>
+                        <outlet property="nameLabel" destination="IcA-gd-ioS" id="cmA-Du-nOo"/>
+                        <outlet property="profilePicImageView" destination="owM-kW-9gX" id="AHC-tD-Bb8"/>
+                        <outlet property="tripsTableView" destination="dAb-6i-Ef8" id="hhX-cY-bk2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PMD-d4-OoR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2074" y="3646"/>
+        </scene>
     </scenes>
     <resources>
         <image name="car (2)" width="32" height="32"/>
@@ -2199,9 +2296,9 @@
     <inferredMetricsTieBreakers>
         <segue reference="nDs-Zk-OKT"/>
         <segue reference="cqV-Eg-IDX"/>
-        <segue reference="BD2-lG-doJ"/>
-        <segue reference="lI8-F8-sf7"/>
+        <segue reference="udw-Nn-bqf"/>
         <segue reference="vyv-0s-BnT"/>
+        <segue reference="Pww-X3-iAj"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.017594873171725547" blue="0.99649196863174438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
