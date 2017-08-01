@@ -122,7 +122,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             })
         }
         //displays the "No notifications" label if there are no notifications to display
-        if self.limboTrips.count == 0 {
+        if self.limboTrips.count == 0 && self.requests.count == 0 {
             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
         }
     }//close fillLimboTripList()
@@ -245,6 +245,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         return 0
     }
 
+    /*
+     * If a user denies a trip edit, that edit is deleted and the original trip
+     * is set back to having no corressponding edit
+     */
     @IBAction func didTapDeny(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
@@ -269,6 +273,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
+    /*
+     * If a user accepts a trip edit, make the trip edit the actual trip and delete the 
+     * original trip
+     */
     @IBAction func didTapAccept(_ sender: AnyObject) {
         print("Chose Accept")
         if let cell = sender.superview??.superview as? EditedTripCell {
@@ -298,12 +306,61 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
                 
             })
-            
-            
         }
-        
     }
     
+    
+    /*
+     * If the Trip Planner denies the request to join trip, delete that request
+     */
+    func didTapDenyRequest(_ sender: AnyObject) {
+        if let cell = sender.superview??.superview as? RequestCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let request = requests[(indexPath?.row)!]
+            request.deleteInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Sucessfully deleted the request 🐞")
+                }
+            })
+        }
+    }
+    
+    /*
+     * If the Trip Planner accepts the request to join trip, update the trip to have this
+     * new member and new time, and delete the request
+     */
+    func didTapAcceptRequest(_ sender: AnyObject) {
+        if let cell = sender.superview??.superview as? RequestCell {
+            let indexPath = tableView.indexPath(for: cell)
+            let request = requests[(indexPath?.row)!]
+            let newUser = request["User"] as! PFUser
+            let newTime = request["NewTime"] as! String
+            let trip = request["Trip"] as! PFObject
+            var membersArray = trip["Members"] as! [PFUser]
+            membersArray.append(newUser)
+            trip["Members"] = membersArray //update trip's members to have the request user
+            trip["LatestTime"] = newTime //change the latest time of the trip
+            //save the trip
+            trip.saveInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else if success{
+                    print("😆success! request accepted and trip updated")
+                }
+            })
+            //delete the request
+            request.deleteInBackground(block: { (success: Bool, error: Error?) in
+                if let error = error {
+                    print(error.localizedDescription)
+                } else {
+                    print("Sucessfully deleted the request 🐞")
+                }
+            })
+            
+        }
+    }
     
     /*
      * Adds the user to the trip members list, adds the trip to the user trip list
