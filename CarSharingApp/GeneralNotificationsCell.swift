@@ -10,7 +10,8 @@ import UIKit
 
 class GeneralNotificationsCell: UITableViewCell {
 
-    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

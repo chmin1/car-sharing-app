@@ -13,7 +13,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     var limboTrips: [PFObject] = []
     var requests: [PFObject] = []
+    var generalNotifs: [PFObject] = []
     var listOfEditIds: [String] = []
+    var everythingArray: [PFObject] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
@@ -33,6 +35,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
         fetchTripsInLimbo()
         fetchRequests()
+        //fetchGeneralNotifs()
         
         //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false
@@ -48,8 +51,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        everythingArray.removeAll()
         fetchTripsInLimbo()
         fetchRequests()
+        //fetchGeneralNotifs()
     }
     
     func fetchTripsInLimbo() {
@@ -106,12 +111,15 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id
             let query = PFQuery(className: "Trip")
             query.whereKey("objectId", equalTo: editID)
+            query.addDescendingOrder("createdAt")
+            query.includeKey("createdAt")
             query.findObjectsInBackground(block: { (returnedLimboTrips: [PFObject]?, error: Error?) in
-                //Code below is being called twice
                 if let returnedLimboTrips = returnedLimboTrips {
                     let limbotrip = returnedLimboTrips[0]
                     if(self.shouldDisplayTrip(trip: limbotrip)) {
                         self.limboTrips.append(limbotrip) //add the fetched limbo trip to the list for the tableview
+                        self.everythingArray.append(limbotrip)
+                        self.sortEverythingArray()
                     }
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
@@ -121,10 +129,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
         }
-        //displays the "No notifications" label if there are no notifications to display
-        if self.limboTrips.count == 0 && self.requests.count == 0 {
-            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
-        }
+        
     }//close fillLimboTripList()
     
     /*
@@ -135,11 +140,29 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.whereKey("TripPlannerID", equalTo: PFUser.current()!.objectId!)
         query.includeKey("User")
         query.includeKey("Trip")
+        query.includeKey("createdAt")
+        query.addDescendingOrder("createdAt")
         query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
             if let returnedRequests = returnedRequests {
                 self.requests.removeAll()
                 for request in returnedRequests {
-                    self.requests.append(request)
+                    let trip = request["Trip"] as! PFObject
+                    let memberArray = trip["Members"] as! [PFUser]
+                    let memberCount = memberArray.count
+                    if memberCount < 4 { //only add this request to the table view if the trip isn't full
+                        self.requests.append(request)
+                        self.everythingArray.append(request)
+                        self.sortEverythingArray()
+                    } else { //if the trip is full, delete this request
+                        request.deleteInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else {
+                                print("deleted request bc trip was full 🐸")
+                            }
+                        })
+                        //TODO: send notif to user to say trip got full
+                    }
                 }
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -149,42 +172,34 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func shouldDisplayTrip(trip: PFObject) -> Bool {
-        let approvalList = trip["Approvals"] as! [PFUser]
-        for member in approvalList {
-            let memberID = member.objectId
-            if(memberID == PFUser.current()?.objectId) {
-                return false;
-            }
-        }
-        return true;
+    /*
+     * Get the general notifications for the table view
+     */
+    func fetchGeneralNotifs() {
+        let query = PFQuery(className: "GeneralNotification")
+        //idk what to query on
+    }
+    
+    func sortEverythingArray() {
+        everythingArray.sort(by: { (first: PFObject, second: PFObject) -> Bool in
+            (first.createdAt!) > (second.createdAt!)
+        })
     }
     
     /*
      * Sets up the cells
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
-            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
-            let request = requests[indexPath.row]
-            let trip = request["Trip"] as! PFObject
-            let user = request["User"] as! PFUser
-            let newTime = request["NewTime"] as! String
-            let tripName = trip["Name"] as! String
-            let userName = user["fullname"] as! String
-            cell.tripName.text = tripName.capitalized
-            cell.newUserName.text = userName.capitalized
-            cell.newTime.text = newTime
-            
-            return cell
-        }//close section 0
-            
-        else if indexPath.section == 1 {
+        //displays the "No notifications" label if there are no notifications to display
+        if everythingArray.count == 0 {
+            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+        }
+        let thing = everythingArray[indexPath.row]
+        if thing.parseClassName == "Trip" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
             if(limboTrips.count != 0) {
-                let trip = limboTrips[indexPath.row]
+                let trip = everythingArray[indexPath.row]
                 let tripName = trip["Name"] as! String
                 let departureLocation = trip["DepartureLoc"] as! String
                 let arrivalLocation = trip["ArrivalLoc"] as! String
@@ -203,7 +218,85 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 cell.lateDepartLabel.text = latestDepart
             }
             return cell
-        }//close section 1
+        }
+        else if thing.parseClassName == "Request" {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
+            let request = everythingArray[indexPath.row]
+            let trip = request["Trip"] as! PFObject
+            let user = request["User"] as! PFUser
+            let newTime = request["NewTime"] as! String
+            let tripName = trip["Name"] as! String
+            let userName = user["fullname"] as! String
+            
+            //create the string with attributed text so that you can change colors of words
+            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Quicksand", size: 16.0)!]
+            let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
+            let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
+            let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
+            let finalMessage = NSMutableAttributedString()
+            finalMessage.append(userNameAttr)
+            finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
+            finalMessage.append(tripNameAttr)
+            finalMessage.append(NSMutableAttributedString(string: ", with a latest departure time of "))
+            finalMessage.append(newTimeAttr)
+            cell.newUserName.attributedText = finalMessage
+            
+            
+            return cell
+        }
+        
+//        if indexPath.section == 0 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
+//            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
+//            let request = requests[indexPath.row]
+//            let trip = request["Trip"] as! PFObject
+//            let user = request["User"] as! PFUser
+//            let newTime = request["NewTime"] as! String
+//            let tripName = trip["Name"] as! String
+//            let userName = user["fullname"] as! String
+//            
+//            //create the string with attributed text so that you can change colors of words
+//            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Quicksand", size: 16.0)!]
+//            let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
+//            let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
+//            let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
+//            let finalMessage = NSMutableAttributedString()
+//            finalMessage.append(userNameAttr)
+//            finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
+//            finalMessage.append(tripNameAttr)
+//            finalMessage.append(NSMutableAttributedString(string: ", with a latest departure time of "))
+//            finalMessage.append(newTimeAttr)
+//            cell.newUserName.attributedText = finalMessage
+//
+//            
+//            return cell
+//        }//close section 0
+//            
+//        else if indexPath.section == 1 {
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
+//            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
+//            if(limboTrips.count != 0) {
+//                let trip = limboTrips[indexPath.row]
+//                let tripName = trip["Name"] as! String
+//                let departureLocation = trip["DepartureLoc"] as! String
+//                let arrivalLocation = trip["ArrivalLoc"] as! String
+//                let earliestDepart = trip["EarliestTime"] as! String
+//                let latestDepart = trip["LatestTime"] as! String
+//                //print(trip.objectId!)
+//                if let origName = originalNameDict[trip.objectId!]?[1] {
+//                    print(origName)
+//                    cell.originalTripNameLabel.text = origName.capitalized
+//                }
+//                
+//                cell.newTripNameLabel.text = tripName.capitalized
+//                cell.departLabel.text = departureLocation
+//                cell.destinationLabel.text = arrivalLocation
+//                cell.earlyTimeLabel.text = earliestDepart
+//                cell.lateDepartLabel.text = latestDepart
+//            }
+//            return cell
+//        }//close section 1
         return UITableViewCell()
     }//close cellForRowAt
     
@@ -213,13 +306,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Tells the tableview how many rows should be in each section
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return requests.count
+        //displays the "No notifications" label if there are no notifications to display
+        if everythingArray.count == 0 {
+            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
         }
-        else if section == 1 {
-            return limboTrips.count
-        }
-        return 0
+        return everythingArray.count
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -227,20 +318,20 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     /*
-     * 1 section for requests, 1 section for edit trips
+     * 1 section for requests, 1 section for edit trips, 1 section for general notifications
      */
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 1
     }
     
     /*
      * Determines the height of the sections
      */
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (indexPath.section == 0) {
-            return 147
-        } else if (indexPath.section == 1) {
+        if everythingArray[indexPath.row].parseClassName == "Trip" {
             return 179
+        } else if everythingArray[indexPath.row].parseClassName == "Request" {
+            return 147
         }
         return 0
     }
@@ -252,8 +343,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func didTapDeny(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
-            //print("Limbotrips \(limboTrips)")
-            let limboTrip = limboTrips[(indexPath?.row)!]
+            let limboTrip = everythingArray[(indexPath?.row)!]
             let limboTripID = limboTrip.objectId!
             
             
@@ -268,7 +358,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             })
             //delete the limbo trip
             Helper.deleteTrip(trip: limboTrip)
-            self.tableView.reloadData()
+            self.fetchTripsInLimbo()
+            self.fetchRequests()
             
         }
     }
@@ -281,7 +372,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         print("Chose Accept")
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
-            let limboTrip = limboTrips[(indexPath?.row)!]
+            let limboTrip = everythingArray[(indexPath?.row)!]
             var approvalList = limboTrip["Approvals"] as! [PFUser]
             print("before \(approvalList)")
             approvalList.append(PFUser.current()!)
@@ -293,7 +384,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("You sucessfully accepted the trip!")
-                    self.tableView.reloadData()
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
             
@@ -313,15 +405,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * If the Trip Planner denies the request to join trip, delete that request
      */
-    func didTapDenyRequest(_ sender: AnyObject) {
+    @IBAction func didTapDenyRequest(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
-            let request = requests[(indexPath?.row)!]
+            let request = everythingArray[(indexPath?.row)!]
             request.deleteInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
         }
@@ -331,13 +425,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * If the Trip Planner accepts the request to join trip, update the trip to have this
      * new member and new time, and delete the request
      */
-    func didTapAcceptRequest(_ sender: AnyObject) {
+    @IBAction func didTapAcceptRequest(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
-            let request = requests[(indexPath?.row)!]
+            let request = everythingArray[(indexPath?.row)!]
             let newUser = request["User"] as! PFUser
             let newTime = request["NewTime"] as! String
             let trip = request["Trip"] as! PFObject
+            let oldMembersArray = trip["Members"] as! [PFUser]
             var membersArray = trip["Members"] as! [PFUser]
             membersArray.append(newUser)
             trip["Members"] = membersArray //update trip's members to have the request user
@@ -348,6 +443,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else if success{
                     print("😆success! request accepted and trip updated")
+                    self.notifyTripMembersAboutNewMember(withTrip: trip, withMembers: oldMembersArray) //send notification to other trip members
                 }
             })
             //delete the request
@@ -356,9 +452,21 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
             
+        }
+    }
+    
+    func notifyTripMembersAboutNewMember(withTrip trip: PFObject, withMembers members: [PFUser]) {
+        GeneralNotification.postGeneralNotification(withTrip: trip, withUserList: members, withMessage: "Someone just joined a trip that you're in!") { (notification: PFObject?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let notification = notification {
+                print("notification created 🐤")
+            }
         }
     }
     
@@ -372,24 +480,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         trip["Members"] = userList
         //trip.saveInBackground()
     }
-    
-    /*
-     * Deletes the trip from the user's list of trips
-     * Deletes the trip from parse
- 
-    static func deleteTrip(trip: PFObject) {
-        
-        trip.deleteInBackground(block: { (success: Bool, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if success == true{
-                print("trip deleted !")
-                self.tableview.reloadData()
-            }
-
-        })
-    }
-*/
     
     /*
      * Returns the origional trip assocaited with the given tripID string
@@ -479,5 +569,16 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
         return true
+    }
+    
+    func shouldDisplayTrip(trip: PFObject) -> Bool {
+        let approvalList = trip["Approvals"] as! [PFUser]
+        for member in approvalList {
+            let memberID = member.objectId
+            if(memberID == PFUser.current()?.objectId) {
+                return false;
+            }
+        }
+        return true;
     }
 }
