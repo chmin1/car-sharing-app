@@ -12,6 +12,7 @@ import Parse
 class NotificationsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var limboTrips: [PFObject] = []
+    var requests: [PFObject] = []
     var listOfEditIds: [String] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
@@ -31,6 +32,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.delegate = self
         
         fetchTripsInLimbo()
+        fetchRequests()
         
         //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false
@@ -47,6 +49,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         fetchTripsInLimbo()
+        fetchRequests()
     }
     
     func fetchTripsInLimbo() {
@@ -108,7 +111,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 if let returnedLimboTrips = returnedLimboTrips {
                     let limbotrip = returnedLimboTrips[0]
                     if(self.shouldDisplayTrip(trip: limbotrip)) {
-                        print("HII")
                         self.limboTrips.append(limbotrip) //add the fetched limbo trip to the list for the tableview
                     }
                     self.tableView.reloadData()
@@ -125,6 +127,28 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }//close fillLimboTripList()
     
+    /*
+    * Get the requests for the table view
+    */
+    func fetchRequests() {
+        let query = PFQuery(className: "Request")
+        query.whereKey("TripPlannerID", equalTo: PFUser.current()!.objectId!)
+        query.includeKey("User")
+        query.includeKey("Trip")
+        query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
+            if let returnedRequests = returnedRequests {
+                self.requests.removeAll()
+                for request in returnedRequests {
+                    self.requests.append(request)
+                }
+                self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
+            } else {
+                print("Error: \(error?.localizedDescription)")
+            }
+        }
+    }
+    
     func shouldDisplayTrip(trip: PFObject) -> Bool {
         let approvalList = trip["Approvals"] as! [PFUser]
         for member in approvalList {
@@ -140,30 +164,48 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Sets up the cells
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
-        cell.selectionStyle = UITableViewCellSelectionStyle.none
-        if(limboTrips.count != 0) {
-            let trip = limboTrips[indexPath.row]
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
+            let request = requests[indexPath.row]
+            let trip = request["Trip"] as! PFObject
+            let user = request["User"] as! PFUser
+            let newTime = request["NewTime"] as! String
             let tripName = trip["Name"] as! String
-            let departureLocation = trip["DepartureLoc"] as! String
-            let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earliestDepart = trip["EarliestTime"] as! String
-            let latestDepart = trip["LatestTime"] as! String
-            //print(trip.objectId!)
-            if let origName = originalNameDict[trip.objectId!]?[1] {
-                print(origName)
-                cell.originalTripNameLabel.text = origName.capitalized
-            }
+            let userName = user["fullname"] as! String
+            cell.tripName.text = tripName.capitalized
+            cell.newUserName.text = userName.capitalized
+            cell.newTime.text = newTime
             
-            cell.newTripNameLabel.text = tripName.capitalized
-            cell.departLabel.text = departureLocation
-            cell.destinationLabel.text = arrivalLocation
-            cell.earlyTimeLabel.text = earliestDepart
-            cell.lateDepartLabel.text = latestDepart
-        }
-        
-        return cell
-    }
+            return cell
+        }//close section 0
+            
+        else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
+            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
+            if(limboTrips.count != 0) {
+                let trip = limboTrips[indexPath.row]
+                let tripName = trip["Name"] as! String
+                let departureLocation = trip["DepartureLoc"] as! String
+                let arrivalLocation = trip["ArrivalLoc"] as! String
+                let earliestDepart = trip["EarliestTime"] as! String
+                let latestDepart = trip["LatestTime"] as! String
+                //print(trip.objectId!)
+                if let origName = originalNameDict[trip.objectId!]?[1] {
+                    print(origName)
+                    cell.originalTripNameLabel.text = origName.capitalized
+                }
+                
+                cell.newTripNameLabel.text = tripName.capitalized
+                cell.departLabel.text = departureLocation
+                cell.destinationLabel.text = arrivalLocation
+                cell.earlyTimeLabel.text = earliestDepart
+                cell.lateDepartLabel.text = latestDepart
+            }
+            return cell
+        }//close section 1
+        return UITableViewCell()
+    }//close cellForRowAt
     
     
     
@@ -171,13 +213,37 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Tells the tableview how many rows should be in each section
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return limboTrips.count
+        if section == 0 {
+            return requests.count
+        }
+        else if section == 1 {
+            return limboTrips.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /*
+     * 1 section for requests, 1 section for edit trips
+     */
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    /*
+     * Determines the height of the sections
+     */
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0) {
+            return 147
+        } else if (indexPath.section == 1) {
+            return 179
+        }
+        return 0
+    }
 
     @IBAction func didTapDeny(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? EditedTripCell {

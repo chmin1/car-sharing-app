@@ -43,15 +43,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         //make bar button items in nav bar white
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
-        //Make profile picture clickable
-        /*
-        if let profPic = PFUser.current()?["profPic"] as? PFFile {
-            profPic.getDataInBackground { (imageData: Data!, error: Error?) in
-                self.profileButton.image = UIImage(data: imageData)
-            }
-        }
-        */
-        
         //for hamburger menu
         if self.revealViewController() != nil {
             profileButton.target = self.revealViewController()

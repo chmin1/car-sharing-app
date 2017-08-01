@@ -57,7 +57,15 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     
     @IBAction func didTapChangeTime(_ sender: Any) {
         
-        addUserToTrip(withNewTime: newTime) //change the time to the new user specified time
+        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withTime: newTime) { (request: PFObject?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let request = request {
+                print("request created with NEW TIME! 🐹")
+            }
+        }
+        
+        //addUserToTrip(withNewTime: newTime) //change the time to the new user specified time
         
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
@@ -67,7 +75,15 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
 
     @IBAction func didTapLeaveTime(_ sender: Any) {
         
-        addUserToTrip(withNewTime: originalTripLatestTime) //keep the time as the original trip time
+        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withTime: originalTripLatestTime) { (request: PFObject?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let request = request {
+                print("request created with SAME TIME! 🐹")
+            }
+        }
+        
+        //addUserToTrip(withNewTime: originalTripLatestTime) //keep the time as the original trip time
         
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
