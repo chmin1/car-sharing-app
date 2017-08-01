@@ -36,8 +36,9 @@ class RequestCell: UITableViewCell {
         denyButton.clipsToBounds = true
         acceptButton.clipsToBounds = true
         
-        editingLabel.textColor = Helper.coral()
-        tripNameLabel.textColor = Helper.coral()
+        newTime.textColor = Helper.coral()
+        tripName.textColor = Helper.coral()
+        newUserName.textColor = Helper.coral()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
