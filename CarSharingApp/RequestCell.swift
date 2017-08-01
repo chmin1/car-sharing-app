@@ -13,10 +13,10 @@ class RequestCell: UITableViewCell {
     @IBOutlet weak var tripName: UILabel!
     @IBOutlet weak var newUserName: UILabel!
     @IBOutlet weak var newTime: UILabel!
-    @IBOutlet weak var denyButton: UIButton!
     @IBOutlet weak var acceptButton: UIButton!
     @IBOutlet weak var editingLabel: UILabel!
     @IBOutlet weak var tripNameLabel: UILabel!
+    @IBOutlet weak var denyButton: UIButton!
     
 
     override func awakeFromNib() {
@@ -36,9 +36,9 @@ class RequestCell: UITableViewCell {
         denyButton.clipsToBounds = true
         acceptButton.clipsToBounds = true
         
-        newTime.textColor = Helper.coral()
-        tripName.textColor = Helper.coral()
-        newUserName.textColor = Helper.coral()
+//        newTime.textColor = Helper.coral()
+//        tripName.textColor = Helper.coral()
+//        newUserName.textColor = Helper.coral()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

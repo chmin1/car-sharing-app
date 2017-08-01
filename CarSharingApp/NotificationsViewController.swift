@@ -173,9 +173,20 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let newTime = request["NewTime"] as! String
             let tripName = trip["Name"] as! String
             let userName = user["fullname"] as! String
-            cell.tripName.text = tripName.capitalized
-            cell.newUserName.text = userName.capitalized
-            cell.newTime.text = newTime
+            
+            //create the string with attributed text so that you can change colors of words
+            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Quicksand", size: 16.0)!]
+            let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
+            let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
+            let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
+            let finalMessage = NSMutableAttributedString()
+            finalMessage.append(userNameAttr)
+            finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
+            finalMessage.append(tripNameAttr)
+            finalMessage.append(NSMutableAttributedString(string: ", with a latest departure time of "))
+            finalMessage.append(newTimeAttr)
+            cell.newUserName.attributedText = finalMessage
+
             
             return cell
         }//close section 0
@@ -313,7 +324,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * If the Trip Planner denies the request to join trip, delete that request
      */
-    func didTapDenyRequest(_ sender: AnyObject) {
+    @IBAction func didTapDenyRequest(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
             let request = requests[(indexPath?.row)!]
@@ -331,7 +342,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * If the Trip Planner accepts the request to join trip, update the trip to have this
      * new member and new time, and delete the request
      */
-    func didTapAcceptRequest(_ sender: AnyObject) {
+    @IBAction func didTapAcceptRequest(_ sender: AnyObject) {
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
             let request = requests[(indexPath?.row)!]
