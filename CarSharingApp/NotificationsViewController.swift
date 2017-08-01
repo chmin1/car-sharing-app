@@ -13,7 +13,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     var limboTrips: [PFObject] = []
     var requests: [PFObject] = []
+    var generalNotifs: [PFObject] = []
     var listOfEditIds: [String] = []
+    var everythingArray: [PFObject] = []
     var refreshControl: UIRefreshControl!
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
@@ -31,8 +33,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         tableView.dataSource = self
         tableView.delegate = self
         
-        fetchTripsInLimbo()
-        fetchRequests()
+//        fetchTripsInLimbo()
+//        fetchRequests()
+//        fetchGeneralNotifs()
+        fetchEverything()
         
         //set background and text color of Nav bar
         self.navigationController?.navigationBar.isTranslucent = false
@@ -50,6 +54,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         fetchTripsInLimbo()
         fetchRequests()
+        fetchGeneralNotifs()
     }
     
     func fetchTripsInLimbo() {
@@ -106,6 +111,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id
             let query = PFQuery(className: "Trip")
             query.whereKey("objectId", equalTo: editID)
+            query.addDescendingOrder("createdAt")
+            query.includeKey("createdAt")
             query.findObjectsInBackground(block: { (returnedLimboTrips: [PFObject]?, error: Error?) in
                 //Code below is being called twice
                 if let returnedLimboTrips = returnedLimboTrips {
@@ -135,11 +142,27 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.whereKey("TripPlannerID", equalTo: PFUser.current()!.objectId!)
         query.includeKey("User")
         query.includeKey("Trip")
+        query.includeKey("createdAt")
+        query.addDescendingOrder("createdAt")
         query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
             if let returnedRequests = returnedRequests {
                 self.requests.removeAll()
                 for request in returnedRequests {
-                    self.requests.append(request)
+                    let trip = request["Trip"] as! PFObject
+                    let memberArray = trip["Members"] as! [PFUser]
+                    let memberCount = memberArray.count
+                    if memberCount < 4 { //only add this request to the table view if the trip isn't full
+                        self.requests.append(request)
+                    } else { //if the trip is full, delete this request
+                        request.deleteInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else {
+                                print("deleted request bc trip was full 🐸")
+                            }
+                        })
+                        //TODO: send notif to user to say trip got full
+                    }
                 }
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
@@ -149,21 +172,35 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func shouldDisplayTrip(trip: PFObject) -> Bool {
-        let approvalList = trip["Approvals"] as! [PFUser]
-        for member in approvalList {
-            let memberID = member.objectId
-            if(memberID == PFUser.current()?.objectId) {
-                return false;
-            }
+    /*
+     * Get the general notifications for the table view
+     */
+    func fetchGeneralNotifs() {
+        let query = PFQuery(className: "GeneralNotification")
+    }
+    
+    func fetchEverything() {
+        fetchRequests()
+        fetchTripsInLimbo()
+        // limboTrips, requests
+        for trip in limboTrips {
+            everythingArray.append(trip)
         }
-        return true;
+        for request in requests {
+            everythingArray.append(request)
+        }
+        
+        everythingArray.sort(by: { (first: PFObject, second: PFObject) -> Bool in
+            (first["createdAt"] as! String) < (second["createdAt"] as! String)
+        })
     }
     
     /*
      * Sets up the cells
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let thing = everythingArray[indexPath.row]
+        
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
             cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
@@ -230,6 +267,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         else if section == 1 {
             return limboTrips.count
         }
+        else if section == 2 {
+            return generalNotifs.count
+        }
         return 0
     }
     
@@ -241,7 +281,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * 1 section for requests, 1 section for edit trips
      */
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     /*
@@ -252,6 +292,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             return 147
         } else if (indexPath.section == 1) {
             return 179
+        }
+        else if (indexPath.section == 1) {
+            return 89
         }
         return 0
     }
@@ -279,7 +322,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             })
             //delete the limbo trip
             Helper.deleteTrip(trip: limboTrip)
-            self.tableView.reloadData()
+            self.fetchTripsInLimbo()
+            self.fetchRequests()
             
         }
     }
@@ -304,7 +348,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("You sucessfully accepted the trip!")
-                    self.tableView.reloadData()
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
             
@@ -333,6 +378,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
         }
@@ -349,6 +396,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let newUser = request["User"] as! PFUser
             let newTime = request["NewTime"] as! String
             let trip = request["Trip"] as! PFObject
+            let oldMembersArray = trip["Members"] as! [PFUser]
             var membersArray = trip["Members"] as! [PFUser]
             membersArray.append(newUser)
             trip["Members"] = membersArray //update trip's members to have the request user
@@ -359,6 +407,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else if success{
                     print("😆success! request accepted and trip updated")
+                    self.notifyTripMembersAboutNewMember(withTrip: trip, withMembers: oldMembersArray) //send notification to other trip members
                 }
             })
             //delete the request
@@ -367,9 +416,21 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
+                    self.fetchTripsInLimbo()
+                    self.fetchRequests()
                 }
             })
             
+        }
+    }
+    
+    func notifyTripMembersAboutNewMember(withTrip trip: PFObject, withMembers members: [PFUser]) {
+        GeneralNotification.postGeneralNotification(withTrip: trip, withUserList: members, withMessage: "Someone just joined a trip that you're in!") { (notification: PFObject?, error: Error?) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else if let notification = notification {
+                print("notification created 🐤")
+            }
         }
     }
     
@@ -383,24 +444,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         trip["Members"] = userList
         //trip.saveInBackground()
     }
-    
-    /*
-     * Deletes the trip from the user's list of trips
-     * Deletes the trip from parse
- 
-    static func deleteTrip(trip: PFObject) {
-        
-        trip.deleteInBackground(block: { (success: Bool, error: Error?) in
-            if let error = error {
-                print(error.localizedDescription)
-            } else if success == true{
-                print("trip deleted !")
-                self.tableview.reloadData()
-            }
-
-        })
-    }
-*/
     
     /*
      * Returns the origional trip assocaited with the given tripID string
@@ -490,5 +533,16 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
         return true
+    }
+    
+    func shouldDisplayTrip(trip: PFObject) -> Bool {
+        let approvalList = trip["Approvals"] as! [PFUser]
+        for member in approvalList {
+            let memberID = member.objectId
+            if(memberID == PFUser.current()?.objectId) {
+                return false;
+            }
+        }
+        return true;
     }
 }
