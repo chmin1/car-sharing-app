@@ -23,6 +23,7 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var latestLabel: UILabel!
     @IBOutlet weak var departureLocLabel: UILabel!
     @IBOutlet weak var arrivalLocLabel: UILabel!
+    @IBOutlet weak var requestPendingLabel: UILabel!
     
     @IBOutlet weak var member1Prof: UIImageView!
     @IBOutlet weak var member2Prof: UIImageView!
@@ -37,6 +38,8 @@ class TripDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getUserRequests()
+        
         //hide all name labels (only make them appear if there's a name to put)
         name2Label.isHidden = true
         name3Label.isHidden = true
@@ -47,9 +50,10 @@ class TripDetailViewController: UIViewController {
         member3Prof.isHidden = true
         member4Prof.isHidden = true
         
-        //hide edit and leave buttons
+        //hide edit and leave buttons and request pending
         editButton.isHidden = true
         leaveButton.isHidden = true
+        requestPendingLabel.isHidden = true
         
         //make all prof pics circular
         member1Prof.layer.cornerRadius = member1Prof.frame.size.width / 2
@@ -66,7 +70,7 @@ class TripDetailViewController: UIViewController {
         latestLabel.textColor = Helper.coral()
         departureLocLabel.textColor = Helper.coral()
         arrivalLocLabel.textColor = Helper.coral()
-        
+        requestPendingLabel.textColor = Helper.coral()
         
         
         //Pending Edit
@@ -91,6 +95,7 @@ class TripDetailViewController: UIViewController {
             let memberNames = Helper.returnMemberNames(tripMembers: members) as [String]
             print(memberNames)
             self.fillInNamesAndProfPics(memberNames: memberNames, members: members)
+
             
             //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
             let currentMemberName = PFUser.current()?["fullname"] as! String?
@@ -322,6 +327,29 @@ class TripDetailViewController: UIViewController {
             //let profileViewController = destinationNavigationController.topViewController as! UserProfileViewController
             userProfileViewController.user = sender as! PFUser
         }
+    }
+    
+    func getUserRequests() {
+        let query = PFQuery(className: "Request")
+        query.whereKey("UserID", equalTo: PFUser.current()!.objectId!)
+        query.includeKey("Trip")
+        query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
+            if let returnedRequests = returnedRequests {
+                for request in returnedRequests {
+                    let requestTrip =  request["Trip"] as! PFObject
+                    
+                    
+                    if requestTrip.objectId == self.trip?.objectId {
+                        self.requestButton.isHidden = true
+                        self.requestPendingLabel.isHidden = false
+                    }
+                }
+            } else {
+                print("Error: \(error?.localizedDescription)")
+            }
+        }
+        //tripsTableView.reloadData()
+        
     }
     
     

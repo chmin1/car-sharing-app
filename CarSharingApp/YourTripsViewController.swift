@@ -29,6 +29,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         // add refresh control to table view
         yourTripsTableView.insertSubview(refreshControl, at: 0)
         
+        
+        
         refresh()
         
         yourTripsTableView.dataSource = self
@@ -111,6 +113,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
             Helper.displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
         }
+        
         
         cell.tripName.text = tripName.capitalized
         cell.departLabel.text = departureLocation

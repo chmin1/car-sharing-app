@@ -34,13 +34,9 @@ class TripCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        requestPendingLabel.textColor = Helper.coral()
         
-        //give the request button color
-        requestButton.backgroundColor = Helper.coral()
-        //Make Button ovular
-        requestButton.layer.cornerRadius = requestButton.frame.height / 2
-        requestButton.clipsToBounds = true
+        
+        
         
         //make prof pic circular
         onePersonImageView.layer.cornerRadius = onePersonImageView.frame.size.width / 2

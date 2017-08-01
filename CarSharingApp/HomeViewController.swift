@@ -57,8 +57,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         tripsTableView.dataSource = self
         
         //get data from server
-        refresh()
         getUserRequests()
+        
+        
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -152,7 +153,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             cell.requestButton.isHidden = false //restore default aka request button shows
             cell.requestPendingLabel.isHidden = true
-           
+            cell.requestPendingLabel.textColor = Helper.coral()
         
             let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
@@ -174,10 +175,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                     }
                 }
                 cell.tripMembersLabel.text = memberString
+
                 
                 if (requestedTrips.contains(trip.objectId!)) {
                     cell.requestButton.isHidden = true
                     cell.requestPendingLabel.isHidden = false
+                    
                 }
                 
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
@@ -193,6 +196,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
                 
             }
+            //give the request button color
+            cell.requestButton.backgroundColor = Helper.coral()
+            //Make Button ovular
+            cell.requestButton.layer.cornerRadius = cell.requestButton.frame.height / 2
+            cell.requestButton.clipsToBounds = true
             
             cell.tripName.text = tripName.capitalized
             cell.departLabel.text = departureLocation
@@ -436,13 +444,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let returnedRequests = returnedRequests {
                 for request in returnedRequests {
                     let requestTrip =  request["Trip"] as! PFObject
-                    self.requestedTrips.append(requestTrip.objectId!)
+                    self.requestedTrips.append(requestTrip.objectId!) 
                 }
+                self.refresh()
             } else {
                 print("Error: \(error?.localizedDescription)")
             }
         }
-        //tripsTableView.reloadData()
+        
 
     }
     
