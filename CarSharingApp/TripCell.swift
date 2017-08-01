@@ -17,6 +17,8 @@ class TripCell: UITableViewCell {
     @IBOutlet weak var lateDepartLabel: UILabel!
     @IBOutlet weak var requestButton: UIButton!
     @IBOutlet weak var tripMembersLabel: UILabel!
+    @IBOutlet weak var requestPendingLabel: UILabel!
+    
     @IBOutlet weak var onePersonImageView: UIImageView!
     @IBOutlet weak var twoPeopleImageView1: UIImageView!
     @IBOutlet weak var twoPeopleImageView2: UIImageView!
@@ -31,6 +33,14 @@ class TripCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        requestPendingLabel.textColor = Helper.coral()
+        
+        //give the request button color
+        requestButton.backgroundColor = Helper.coral()
+        //Make Button ovular
+        requestButton.layer.cornerRadius = requestButton.frame.height / 2
+        requestButton.clipsToBounds = true
         
         //make prof pic circular
         onePersonImageView.layer.cornerRadius = onePersonImageView.frame.size.width / 2
@@ -62,6 +72,7 @@ class TripCell: UITableViewCell {
         
         fourPeopleImageView4.layer.cornerRadius = fourPeopleImageView4.frame.size.width / 2
         fourPeopleImageView4.clipsToBounds = true
+        
         
     }
 

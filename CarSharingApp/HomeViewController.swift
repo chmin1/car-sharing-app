@@ -21,7 +21,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var emptyFieldAlert: UIAlertController!
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
-    var currentTrip: PFObject? 
+    var currentTrip: PFObject?
+    var requestedTrips: [String] = []
+    
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     @IBOutlet weak var profileButton: UIBarButtonItem!
@@ -56,6 +58,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //get data from server
         refresh()
+        getUserRequests()
         
         //Set Up Autocomplete View controller
         filter = GMSAutocompleteFilter()
@@ -103,7 +106,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tripsFeed.removeAll()
                 self.filteredTripsFeed.removeAll()
                 for trip in trips {
-                    //TODO: Check if the trip is in the past
                     if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
                         print(trip["Name"])
                         if(tripEditId != "-1") && !Helper.isPastTrip(trip: trip) { //only add trip to the feed if it's NOT an edit and not in the past
@@ -149,11 +151,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         else if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
             cell.requestButton.isHidden = false //restore default aka request button shows
-            //give the request button color
-            cell.requestButton.backgroundColor = Helper.coral()
-            //Make Button ovular
-            cell.requestButton.layer.cornerRadius = cell.requestButton.frame.height / 2
-            cell.requestButton.clipsToBounds = true
+            cell.requestPendingLabel.isHidden = true
+           
         
             let trip = filteredTripsFeed[indexPath.row]
             let tripName = trip["Name"] as! String
@@ -176,15 +175,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 cell.tripMembersLabel.text = memberString
                 
-                let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
-                Helper.displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
-                
+                if (requestedTrips.contains(trip.objectId!)) {
+                    cell.requestButton.isHidden = true
+                    cell.requestPendingLabel.isHidden = false
+                }
                 
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
                 let currentMemberName = PFUser.current()?["fullname"] as! String
                 if memberNames.contains(currentMemberName) || memberNames.count == 4 {
                     cell.requestButton.isHidden = true
                 }
+                
+                
+                let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
+                Helper.displayProfilePics(withCell: cell, withMemberPics: memberProfPics)
+                
+                
                 
             }
             
@@ -422,8 +428,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    func getUserRequests() {
+        let query = PFQuery(className: "Request")
+        query.whereKey("UserID", equalTo: PFUser.current()!.objectId!)
+        query.includeKey("Trip")
+        query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
+            if let returnedRequests = returnedRequests {
+                for request in returnedRequests {
+                    let requestTrip =  request["Trip"] as! PFObject
+                    self.requestedTrips.append(requestTrip.objectId!)
+                }
+            } else {
+                print("Error: \(error?.localizedDescription)")
+            }
+        }
+        //tripsTableView.reloadData()
 
+    }
+    
 
-    
-    
 }

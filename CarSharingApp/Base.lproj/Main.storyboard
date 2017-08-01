@@ -558,6 +558,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Request Pending" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7je-Pj-O8s">
+                                                    <rect key="frame" x="118" y="132" width="138" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="Quicksand-Bold" family="Quicksand" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
@@ -571,6 +578,7 @@
                                             <outlet property="lateDepartLabel" destination="nwq-b6-cEC" id="7Zz-b3-YMr"/>
                                             <outlet property="onePersonImageView" destination="aLe-Wr-Gwf" id="rFX-RO-DQI"/>
                                             <outlet property="requestButton" destination="9m9-0P-Ecn" id="TGC-EJ-P3H"/>
+                                            <outlet property="requestPendingLabel" destination="7je-Pj-O8s" id="U9b-HC-EPD"/>
                                             <outlet property="threePeopleImageView1" destination="jr8-Wc-MfE" id="LDP-Ff-oiv"/>
                                             <outlet property="threePeopleImageView2" destination="RG6-gZ-Fdn" id="WaH-ix-xQP"/>
                                             <outlet property="threePeopleImageView3" destination="pWA-jK-YXc" id="So4-6X-8yk"/>
