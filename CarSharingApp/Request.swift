@@ -23,8 +23,8 @@ class Request: NSObject {
         request["User"] = user
         request["NewTime"] = newTime
         let planner = trip?["Planner"] as! PFUser
-        //request["TripPlanner"] = planner.objectId
         request["TripPlannerID"] = planner.objectId
+        request["UserID"] = user?.objectId
         
         // Save object (following function will save the object in Parse asynchronously)
         request.saveInBackground { (success: Bool, error: Error?) in
