@@ -71,6 +71,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 Copyright 2017 Google
 
+## GooglePlacePicker
+
+Copyright 2017 Google
+
 ## GooglePlaces
 
 Copyright 2017 Google

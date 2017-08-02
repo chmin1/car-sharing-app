@@ -10,6 +10,7 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import Parse
+import GooglePlacePicker
 
 //========== THIS IS THE DELEGATE PROTOCOL ==========
 protocol CreateViewControllerDelegate: class {
@@ -17,7 +18,7 @@ protocol CreateViewControllerDelegate: class {
 }
 
 
-class CreateViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
+class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelegate {
     
     @IBOutlet weak var startTextLabel: UILabel!
     @IBOutlet weak var endTextLabel: UILabel!
@@ -32,9 +33,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     weak var delegate: CreateViewControllerDelegate?
     
     var locationSource: UILabel!
-    var autoCompleteViewController: GMSAutocompleteViewController!
-    var filter: GMSAutocompleteFilter!
-    
     var earlyDate: NSDate!
     var lateDate: NSDate!
     var today: NSDate!
@@ -46,17 +44,7 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         super.viewDidLoad()
         
         let user = PFUser.current()!
-        
-        //Set Up Autocomplete View controller
-        filter = GMSAutocompleteFilter()
-        filter.type = .address
-        filter.type = .establishment
-        filter.type = .geocode
-        filter.country = "US"
-        autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        autoCompleteViewController.autocompleteFilter = filter
-        
+
         setUpTapGesture()
         setUpDatePicker()
         
@@ -110,26 +98,24 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
         locationSource = startTextLabel
-        self.present(autoCompleteViewController, animated: true, completion: nil)
-        print("Tapped start label")
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
     }
     
     func didTapEndLabel(_sender: UITapGestureRecognizer) {
         locationSource = endTextLabel
-        self.present(autoCompleteViewController, animated: true, completion: nil)
-        print("Tapped End label")
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
     }
     
-    /**
-     * Called when a place has been selected from the available autocomplete predictions.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param place The |GMSPlace| that was returned.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    // To receive the results from the place picker 'self' will need to conform to
+    // GMSPlacePickerViewControllerDelegate and implement this code.
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.black
             startTextLabel.text = place.name
@@ -137,8 +123,26 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
             endTextLabel.textColor = UIColor.black
             endTextLabel.text = place.name
         }
-        self.dismiss(animated: true)
+        
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("Place name \(place.name)")
+        print("Place address \(place.formattedAddress)")
+        print("Place attributions \(place.attributions)")
     }
+    
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
+    }
+    
+    func placePicker(_ viewController: GMSPlacePickerViewController, didFailWithError error: Error) {
+        print(error)
+    }
+    
     
     func setUpDatePicker() {
         //create the date picker FOR LATEST and make it appear / be functional
@@ -238,69 +242,6 @@ class CreateViewController: UIViewController, GMSAutocompleteViewControllerDeleg
         return true
     }
     
-    /**
-     * Called when a non-retryable error occurred when retrieving autocomplete predictions or place
-     * details.
-     *
-     * A non-retryable error is defined as one that is unlikely to be fixed by immediately retrying the
-     * operation.
-     *
-     * Only the following values of |GMSPlacesErrorCode| are retryable:
-     * <ul>
-     * <li>kGMSPlacesNetworkError
-     * <li>kGMSPlacesServerError
-     * <li>kGMSPlacesInternalError
-     * </ul>
-     * All other error codes are non-retryable.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param error The |NSError| that was returned.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print(error.localizedDescription)
-        
-    }
-    
-    // Turn the network activity indicator on and off again.
-    func didRequestAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    }
-    
-    func didUpdateAutocompletePredictions(_ viewController: GMSAutocompleteViewController) {
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
-    }
-    
-    //Get Place Predictions Programmatically
-    //Call GMSPlacesClient
-    func placeAutocomplete() {
-        let filter = GMSAutocompleteFilter()
-        filter.type = .address //was .establishment
-        let placesClient = GMSPlacesClient.shared()
-        placesClient.autocompleteQuery("", bounds: nil, filter: filter, callback: {(results, error) -> Void in
-            if let error = error {
-                print("Autocomplete error \(error)")
-                return
-            }
-            if let results = results {
-                for result in results {
-                    print("Result \(result.attributedFullText) with placeID \(result.placeID)")
-                }
-            }
-        })
-    }
-    
-    
-    /**
-     * Called when the user taps the Cancel button in a |GMSAutocompleteViewController|.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     */
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true)
-    }
     
     
     override func didReceiveMemoryWarning() {
