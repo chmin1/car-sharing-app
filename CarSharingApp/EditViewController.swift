@@ -161,7 +161,7 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
-        lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
+        lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
         latestTextField.text = Helper.dateToString(date: lateDate) //two hour window
         
         //create the date picker FOR EARLIEST and make it appear / be functional
