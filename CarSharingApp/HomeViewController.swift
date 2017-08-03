@@ -73,7 +73,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        emojiView.isHidden = true
+        //emojiView.isHidden = true
         
     }
     
