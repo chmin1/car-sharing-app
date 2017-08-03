@@ -591,6 +591,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__9_2291006" translatesAutoresizingMaskIntoConstraints="NO" id="A6A-Na-yvi">
+                                <rect key="frame" x="123" y="320" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xqC-6Y-TYJ">
                                 <rect key="frame" x="169" y="343" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -604,6 +608,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="xqC-6Y-TYJ" id="YxG-bE-q3Q"/>
+                        <outlet property="emojiView" destination="A6A-Na-yvi" id="TsZ-ga-oKh"/>
                         <outlet property="profileButton" destination="EbN-xH-31A" id="L39-Oo-5dF"/>
                         <outlet property="tripsTableView" destination="2dY-iM-c0B" id="LaB-ka-FoG"/>
                         <segue destination="rAy-k9-e58" kind="presentation" identifier="halfModalSegue" id="lI8-F8-sf7"/>
@@ -1268,12 +1273,17 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__24_2290994 (2)" translatesAutoresizingMaskIntoConstraints="NO" id="4vi-VQ-lBF">
+                                <rect key="frame" x="123" y="150" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="NOTIFICATIONS" id="qDe-b9-5sq"/>
                     <connections>
                         <outlet property="activityIndicator" destination="LUo-k5-A1G" id="Rvw-yz-goM"/>
+                        <outlet property="emojiView" destination="4vi-VQ-lBF" id="zgf-HU-cCm"/>
                         <outlet property="tableView" destination="Zdy-sE-PU5" id="uPa-0S-VWj"/>
                     </connections>
                 </viewController>
@@ -1558,6 +1568,10 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__17_2291002" translatesAutoresizingMaskIntoConstraints="NO" id="xmH-Vn-b2b">
+                                <rect key="frame" x="123" y="269" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1569,6 +1583,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="MESSAGES" id="Z8h-cR-Ivx"/>
                     <connections>
+                        <outlet property="emojiView" destination="xmH-Vn-b2b" id="Qx2-hX-x87"/>
                         <outlet property="messagesView" destination="kof-TL-IsU" id="ZVZ-pG-Huq"/>
                     </connections>
                 </viewController>
@@ -1898,6 +1913,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__8_2290989" translatesAutoresizingMaskIntoConstraints="NO" id="m7f-WF-10B">
+                                <rect key="frame" x="120" y="150" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="RcZ-pw-h2C">
                                 <rect key="frame" x="169" y="268" width="37" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1909,6 +1928,7 @@
                     <navigationItem key="navigationItem" title="YOUR TRIPS" id="MFQ-52-TOR"/>
                     <connections>
                         <outlet property="activityIndicator" destination="RcZ-pw-h2C" id="4hK-uj-h8c"/>
+                        <outlet property="emojiView" destination="m7f-WF-10B" id="14Y-Et-Vmh"/>
                         <outlet property="yourTripsTableView" destination="iu4-Fh-Tlx" id="lwN-ph-99l"/>
                     </connections>
                 </viewController>
@@ -2391,6 +2411,10 @@
         <image name="icons8-Notification-30" width="30" height="30"/>
         <image name="icons8-Plus-30" width="30" height="30"/>
         <image name="icons8-Speech Bubble with Dots-30" width="30" height="30"/>
+        <image name="if_smiley__17_2291002" width="128" height="128"/>
+        <image name="if_smiley__24_2290994 (2)" width="128" height="128"/>
+        <image name="if_smiley__8_2290989" width="128" height="128"/>
+        <image name="if_smiley__9_2291006" width="128" height="128"/>
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
