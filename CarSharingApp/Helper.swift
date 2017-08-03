@@ -23,6 +23,10 @@ class Helper {
         return UIColor(red: 254.0/255.0, green: 104.0/255.0, blue: 106.0/255.0, alpha: 1.0)
     }
     
+    static func peach() -> UIColor {
+        return UIColor(red: 255.0/255.0, green: 173.0/255.0, blue: 112.0/255.0, alpha: 1.0)
+    }
+    
     static func veryLightGray() -> UIColor {
         return UIColor(red: 205.0/255.0, green: 205.0/255.0, blue: 205.0/255.0, alpha: 1.0)
     }
