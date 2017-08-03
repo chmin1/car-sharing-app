@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate { //UITableViewDataSource {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource { //UITableViewDataSource {
     
     @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var profilePicImageView: UIImageView!
@@ -28,6 +28,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.tintColor = UIColor.white
         
         tripsTableView.delegate = self
+        tripsTableView.dataSource = self
 
         //for hamburger menu
         if self.revealViewController() != nil {
