@@ -54,7 +54,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         Dock.backgroundColor = Helper.coral()
         sendButton.backgroundColor = UIColor.white
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
-        sendButton.titleLabel?.textColor = Helper.coral()
+        sendButton.setTitleColor(Helper.coral(), for: .normal)
 
         if let title = Trip["Name"] as? String {
             navigationItem.title = title
