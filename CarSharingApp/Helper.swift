@@ -114,7 +114,19 @@ class Helper {
         
     }
     
-    
+    /*
+     * Checks that the trip planner of the given trip goes to the same school as the current user
+     */
+    static func isSameSchool(withTrip trip: PFObject) -> Bool {
+        let tripPlanner = trip["Planner"] as! PFUser
+        let plannerSchool = tripPlanner["school"] as! String
+        let userSchool = PFUser.current()?["school"] as! String
+        if plannerSchool.lowercased() == userSchool.lowercased(){
+            return true
+        }
+        return false
+        
+    }
     
     static func displayEmptyTableView(withTableView tableView: UITableView, withText text: String) {
         //no lines between table view cells
