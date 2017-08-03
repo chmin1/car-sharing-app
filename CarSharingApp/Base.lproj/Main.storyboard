@@ -1569,7 +1569,7 @@
                                 </cells>
                             </collectionView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__17_2291002" translatesAutoresizingMaskIntoConstraints="NO" id="xmH-Vn-b2b">
-                                <rect key="frame" x="123" y="269" width="128" height="128"/>
+                                <rect key="frame" x="123" y="150" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
