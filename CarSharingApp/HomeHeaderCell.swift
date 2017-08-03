@@ -59,12 +59,19 @@ class HomeHeaderCell: UITableViewCell {
         //Make Go Button circular
         goButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
         goButton.clipsToBounds = true
-        goButton.backgroundColor = Helper.coral()
+        //goButton.backgroundColor = Helper.coral()
         
         //Make Clear Button Circular
         clearButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
         clearButton.clipsToBounds = true
-        clearButton.backgroundColor = Helper.peach()
+        //clearButton.backgroundColor = Helper.peach()
+        
+        //give the Search and Clear buttons color
+        clearButton.backgroundColor = UIColor.white
+        clearButton.layer.borderWidth = 2
+        clearButton.layer.borderColor = Helper.peach().cgColor
+        goButton.backgroundColor = Helper.peach()
+        clearButton.setTitleColor(Helper.peach(), for: .normal)
         
         //create the date picker FOR EARLIEST and make it appear / be functional
         var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
