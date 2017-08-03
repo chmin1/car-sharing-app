@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
+        //change status bar color to white
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        
         // Initialize Parse
         // Set applicationId and server based on the values in the Heroku settings.
         // clientKey is not used on Parse open source unless explicitly configured
