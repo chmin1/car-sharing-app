@@ -129,7 +129,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        refresh()
+        getUserRequests()
     }
     
     /*
@@ -176,7 +176,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if (requestedTrips.contains(trip.objectId!)) {
                     cell.requestButton.isHidden = true
                     cell.requestPendingLabel.isHidden = false
-                    
+                } else {
+                    cell.requestButton.isHidden = false
+                    cell.requestPendingLabel.isHidden = true
                 }
                 
                 //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it

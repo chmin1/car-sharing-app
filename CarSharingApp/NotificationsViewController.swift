@@ -81,6 +81,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             if let trips = trips {
                 if trips.count == 0 {
                     self.noNotifs = true
+                } else {
+                    self.noNotifs = false
                 }
                 self.listOfEditIds.removeAll()
                 for trip in trips {
@@ -157,6 +159,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             if let returnedRequests = returnedRequests {
                 if returnedRequests.count == 0 {
                     self.noNotifs = true
+                }  else {
+                    self.noNotifs = false
                 }
                 self.requests.removeAll()
                 for request in returnedRequests {
