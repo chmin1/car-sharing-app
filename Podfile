@@ -11,6 +11,7 @@ target 'CarSharingApp' do
     pod 'GooglePlaces'
     pod 'GoogleMaps'
     pod 'GooglePlacePicker'
+    pod 'GrowingTextView'
 
   target 'CarSharingAppTests' do
     inherit! :search_paths
