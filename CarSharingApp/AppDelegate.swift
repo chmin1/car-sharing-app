@@ -54,6 +54,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.window?.rootViewController = loginViewController
         }
         
+        //Change status bar color 
+        UIApplication.shared.statusBarStyle = .lightContent
+
+        
         return true
     }
     

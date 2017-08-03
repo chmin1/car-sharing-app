@@ -14,6 +14,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var messagesView: UICollectionView!
     
+    @IBOutlet weak var emojiView: UIImageView!
     var tripData: [PFObject?] = []
     var tripIDs: [String] = []
     
@@ -27,6 +28,8 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        emojiView.isHidden = true
         
         //make bar button items in nav bar white
         self.navigationController?.navigationBar.tintColor = UIColor.white
@@ -187,6 +190,7 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
                 //displays the "No trips" label if there are no trips to display
                 if self.tripData.count == 0 {
                     Helper.displayEmptyCollectionView(withCollectionView: self.messagesView, withText: "No messages to display!")
+                    self.emojiView.isHidden = false
                 }
                 
                 self.messagesView.reloadData()

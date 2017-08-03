@@ -73,15 +73,13 @@ class HomeHeaderCell: UITableViewCell {
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
         today = EarliestDatePickerView.date as NSDate
         earlyDate =  today
-        //earliestTextField.text = dateToString(date: EarliestDatePickerView.date as NSDate)
         
         //create the date picker FOR LATEST and make it appear / be functional
         var LatestDatePickerView  : UIDatePicker = UIDatePicker()
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
-        lateDate = LatestDatePickerView.date.addingTimeInterval(120.0*60.0) as NSDate
-        //latestTextField.text = Helper.dateToString(date: lateDate) //two hour window
+        lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -126,6 +124,7 @@ class HomeHeaderCell: UITableViewCell {
         // Set date format
         dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
         
+        lateDate = sender.date as NSDate
         let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
         sender.minimumDate = minimumDate as Date
         
@@ -140,6 +139,7 @@ class HomeHeaderCell: UITableViewCell {
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
+        earlyDate = sender.date as NSDate
         dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
         let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
         sender.maximumDate = maximumDate as Date

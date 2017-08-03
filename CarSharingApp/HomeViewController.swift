@@ -28,6 +28,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet weak var profileButton: UIBarButtonItem!
     @IBOutlet weak var tripsTableView: UITableView!
     
+    @IBOutlet weak var emojiView: UIImageView!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
     
     
@@ -72,6 +73,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
+        emojiView.isHidden = true
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -109,6 +112,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 //displays the "No trips" label if there are no trips to display
                 if self.filteredTripsFeed.count == 0 {
                     Helper.displayEmptyTableView(withTableView: self.tripsTableView, withText: "No trips to display!")
+                    self.emojiView.isHidden = false
                 }
                 
                 self.tripsTableView.reloadData()
@@ -355,6 +359,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let earliestDate = earliest.stringToDate()
             let latestDate = latest.stringToDate()
             filterContent(withDepartureText: departure, withArrivalText: arrival, withEarliestDate: earliestDate, withLatestDate: latestDate)
+        }
+        //displays the "No trips" label if there are no trips to display
+        if self.filteredTripsFeed.count == 0 {
+            Helper.displayEmptyTableView(withTableView: self.tripsTableView, withText: "No trips to display!")
+            self.emojiView.isHidden = false
         }
     
     }

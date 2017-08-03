@@ -21,6 +21,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var emojiView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,6 +42,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        
+        emojiView.isHidden = true
         
     }
     
@@ -309,6 +312,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         //displays the "No notifications" label if there are no notifications to display
         if everythingArray.count == 0 {
             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+            emojiView.isHidden = false
         }
         return everythingArray.count
     }

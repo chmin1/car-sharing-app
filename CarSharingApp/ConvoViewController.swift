@@ -10,9 +10,9 @@ import UIKit
 import Parse
 import ParseLiveQuery
 
-class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var convoView: UICollectionView!
+    @IBOutlet weak var convoView: UITableView!
     
     @IBOutlet weak var Dock: UIView!
     
@@ -36,6 +36,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        convoView.rowHeight = UITableViewAutomaticDimension
+        convoView.estimatedRowHeight = 100
+        convoView.separatorStyle = UITableViewCellSeparatorStyle.none
+        
         convoView.delegate = self
         convoView.dataSource = self
         messageField.delegate = self
@@ -43,10 +47,14 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         previousRect = CGRect.zero
         messageField.layer.masksToBounds = true
         messageField.layer.borderWidth = 1.0
-        messageField.layer.borderColor = UIColor.black.cgColor
+        messageField.layer.borderColor = Helper.coral().cgColor
         messageField.layer.cornerRadius = 6
         messageField.textColor = UIColor.lightGray
         messageField.text = "Compose a message..."
+        Dock.backgroundColor = Helper.coral()
+        sendButton.backgroundColor = UIColor.white
+        sendButton.layer.cornerRadius = sendButton.frame.height / 2
+        sendButton.setTitleColor(Helper.coral(), for: .normal)
 
         if let title = Trip["Name"] as? String {
             navigationItem.title = title
@@ -64,10 +72,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     override func viewDidAppear(_ animated: Bool) {
         
-        let collectionViewContentHeight = convoView.contentSize.height;
-        let collectionViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
+        let tableViewContentHeight = convoView.contentSize.height;
+        let tableViewFrameHeightAfterInserts = convoView.frame.size.height - (convoView.contentInset.top + convoView.contentInset.bottom)
         
-        if(collectionViewContentHeight > collectionViewFrameHeightAfterInserts) {
+        if(tableViewContentHeight > tableViewFrameHeightAfterInserts) {
             convoView.setContentOffset(CGPoint(x: 0, y: convoView.contentSize.height - convoView.frame.size.height), animated: false)
         }
     }
@@ -92,7 +100,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     }
     
 //    func textViewDidChange(_ textView: UITextView) {
-//        
+//
 //        let pos: UITextPosition? = messageField.endOfDocument
 //        let currentRect: CGRect = messageField.caretRect(for: pos!)
 //        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
@@ -194,13 +202,15 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
     
     // ================ LOAD COLLECTIONVIEW ========================
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return convoMessages.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let item = convoView.dequeueReusableCell(withReuseIdentifier: "convoCell", for: indexPath) as! ConvoCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let item = convoView.dequeueReusableCell(withIdentifier: "ConvoCell", for: indexPath) as! ConvoCell
+        //let item = convoView.dequeueReusableCell(withIdentifier: "convoCell", for: indexPath) as! ConvoCell
         let message = convoMessages[indexPath.row]
         
         let messageText: String
@@ -261,11 +271,32 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UICollectionVie
         }
         
         item.textMessage.text = messageText
+        //        item.textMessage.lineBreakMode = NSLineBreakMode.byWordWrapping
+        //        item.textMessage.numberOfLines = 0
+        //        let size = item.textMessage.sizeThatFits(CGSize(width: item.textMessage.frame.width, height: CGFloat.greatestFiniteMagnitude))
+        //        print("size: \(size)")
+        //        item.textMessage.frame = CGRect(
+        //            x:item.textMessage.frame.origin.x,
+        //            y:item.textMessage.frame.origin.y,
+        //            width:item.textMessage.frame.size.width,
+        //            height: size.height
+        //        )
+        //
+        //        let cellHeight: CGFloat = item.frame.height + (item.textMessage.frame.size.height - item.frame.size.height) + 60
+        //        print(cellHeight)
+        //        item.frame.size = CGSize(width: item.frame.width, height: cellHeight)
+        
+        
+        
         item.authorLabel.text = author
         item.dateSentLabel.text = date
         
-               return item
+        return item
     }
+    
+
+    
+
     
     // ================ LOAD COLLECTIONVIEW ========================
     

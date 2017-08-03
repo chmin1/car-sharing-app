@@ -17,6 +17,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var yourTripsTableView: UITableView!
     
+    @IBOutlet weak var emojiView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +30,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         // add refresh control to table view
         yourTripsTableView.insertSubview(refreshControl, at: 0)
         
+        emojiView.isHidden = true
         
         
         refresh()
@@ -71,7 +73,9 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                 //displays the "No trips" label if there are no trips to display
                 if self.yourTrips.count == 0 {
                     Helper.displayEmptyTableView(withTableView: self.yourTripsTableView, withText: "You are not currently in any trips!")
+                    self.emojiView.isHidden = false
                 }
+                
                 
                 self.yourTripsTableView.reloadData()
                 self.refreshControl.endRefreshing()

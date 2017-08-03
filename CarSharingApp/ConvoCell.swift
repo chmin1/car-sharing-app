@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ConvoCell: UICollectionViewCell {
+class ConvoCell: UITableViewCell {
     
     @IBOutlet weak var textImage: UIImageView!
     
@@ -17,4 +17,16 @@ class ConvoCell: UICollectionViewCell {
     @IBOutlet weak var authorLabel: UILabel!
     
     @IBOutlet weak var dateSentLabel: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
+    }
+
 }
