@@ -113,6 +113,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if self.filteredTripsFeed.count == 0 {
                     Helper.displayEmptyTableView(withTableView: self.tripsTableView, withText: "No trips to display!")
                     self.emojiView.isHidden = false
+                } else {
+                    self.emojiView.isHidden = true
                 }
                 
                 self.tripsTableView.reloadData()
@@ -364,6 +366,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if self.filteredTripsFeed.count == 0 {
             Helper.displayEmptyTableView(withTableView: self.tripsTableView, withText: "No trips to display!")
             self.emojiView.isHidden = false
+        } else {
+            emojiView.isHidden = true
         }
     
     }
