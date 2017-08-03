@@ -102,7 +102,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 for trip in trips {
                     if let tripEditId = trip["EditID"] as? String { //get EditID so that the trip won't show if it's an edit
                         print(trip["Name"])
-                        if(tripEditId != "-1") && !Helper.isPastTrip(trip: trip) { //only add trip to the feed if it's NOT an edit and not in the past
+                        if(tripEditId != "-1") && !Helper.isPastTrip(trip: trip) && Helper.isSameSchool(withTrip: trip){ //only add trip to the feed if it's NOT an edit and not in the past and the same school as the current user 
                             self.tripsFeed.append(trip)
                             self.filteredTripsFeed.append(trip)
                         }

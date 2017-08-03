@@ -18,7 +18,7 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Set up the emptyFieldAlert
         emptyFieldAlert = UIAlertController(title: "Empty Field", message: "Fill in all text fields!", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: "OK", style: .cancel) { (action) in

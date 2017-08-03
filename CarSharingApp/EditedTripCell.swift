@@ -30,9 +30,9 @@ class EditedTripCell: UITableViewCell {
         //give the accept and deny button color
         denyButton.backgroundColor = UIColor.white
         denyButton.layer.borderWidth = 2
-        denyButton.layer.borderColor = Helper.teal().cgColor
-        acceptButton.backgroundColor = Helper.teal()
-        denyButton.setTitleColor(Helper.teal(), for: .normal)
+        denyButton.layer.borderColor = Helper.peach().cgColor
+        acceptButton.backgroundColor = Helper.peach()
+        denyButton.setTitleColor(Helper.peach(), for: .normal)
         
         editingLabel.textColor = Helper.coral()
         originalTripNameLabel.textColor = Helper.coral()

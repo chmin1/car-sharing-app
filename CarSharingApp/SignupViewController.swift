@@ -162,6 +162,7 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
      * This gets the school from the PickCollegeViewController and sets the label in this class
      */
     func selectCollege(_ selectCollege: PickCollegeViewController, didSelectCollege college: String?) {
+        addSchoolLabel?.textColor = UIColor.white
         addSchoolLabel?.text = college
     }
     
