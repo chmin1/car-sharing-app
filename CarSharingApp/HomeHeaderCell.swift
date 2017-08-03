@@ -57,14 +57,12 @@ class HomeHeaderCell: UITableViewCell {
         endTextLabel.clipsToBounds = true
         
         //Make Go Button circular
-        goButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
+        goButton.layer.cornerRadius = goButton.frame.height / 2
         goButton.clipsToBounds = true
-        //goButton.backgroundColor = Helper.coral()
         
         //Make Clear Button Circular
-        clearButton.layer.cornerRadius = 0.15 * goButton.bounds.size.width
+        clearButton.layer.cornerRadius = goButton.frame.height / 2
         clearButton.clipsToBounds = true
-        //clearButton.backgroundColor = Helper.peach()
         
         //give the Search and Clear buttons color
         clearButton.backgroundColor = UIColor.white

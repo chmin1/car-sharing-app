@@ -16,8 +16,25 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     var currentTrip: PFObject?
     var originalTripEarliestTime: String = ""
     var originalTripLatestTime: String = ""
+    @IBOutlet weak var leaveTimeButton: UIButton!
+    @IBOutlet weak var changeTimeButton: UIButton!
+    
     
     override func viewWillAppear(_ animated: Bool) {
+        
+        //Make Buttons Circular
+        leaveTimeButton.layer.cornerRadius = leaveTimeButton.frame.height / 2
+        leaveTimeButton.clipsToBounds = true
+        changeTimeButton.layer.cornerRadius = changeTimeButton.frame.height / 2
+        changeTimeButton.clipsToBounds = true
+        
+        //give the Search and Clear buttons color
+        leaveTimeButton.backgroundColor = UIColor.white
+        leaveTimeButton.layer.borderWidth = 2
+        leaveTimeButton.layer.borderColor = Helper.peach().cgColor
+        changeTimeButton.backgroundColor = Helper.peach()
+        leaveTimeButton.setTitleColor(Helper.peach(), for: .normal)
+
         newTime = setUpDatePicker(date: myDatePicker.date)
         originalTripLatestTime = currentTrip?["LatestTime"] as! String
         originalTripEarliestTime = currentTrip?["EarliestTime"] as! String

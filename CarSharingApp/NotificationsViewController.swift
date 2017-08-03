@@ -246,7 +246,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let userName = user["fullname"] as! String
             
             //create the string with attributed text so that you can change colors of words
-            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Quicksand", size: 16.0)!]
+            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Avenir Next", size: 16.0)!]
             let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
             let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
             let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
