@@ -65,6 +65,7 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         minTimeLabel.textColor = Helper.coral()
+        
         //Make Create Button circular
         createButton.layer.cornerRadius = 0.15 * createButton.bounds.size.width
         createButton.clipsToBounds = true
@@ -118,10 +119,10 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.black
-            startTextLabel.text = place.name
+            startTextLabel.text = place.formattedAddress
         } else if locationSource == endTextLabel {
             endTextLabel.textColor = UIColor.black
-            endTextLabel.text = place.name
+            endTextLabel.text = place.formattedAddress
         }
         
         // Dismiss the place picker, as it cannot dismiss itself.

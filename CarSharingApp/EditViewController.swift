@@ -9,9 +9,9 @@
 import UIKit
 import GooglePlaces
 import Parse
+import GooglePlacePicker
 
-
-class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegate {
+class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate {
     
     var originalTrip: PFObject?
     
@@ -26,8 +26,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     
     @IBOutlet weak var minTimeLabel: UILabel!
     var locationSource: UILabel!
-    var autoCompleteViewController: GMSAutocompleteViewController!
-    var filter: GMSAutocompleteFilter!
     
     static let MIN_TIME_WINDOW = 10 //Min time window
     var earlyDate: NSDate!
@@ -43,7 +41,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         super.viewDidLoad()
         
         setUpInvalidTripAlerts()
-        setUpAutoCompleteVC()
         setUpTapGesture()
         setUpDatePicker()
         
@@ -68,14 +65,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         
     }
     
-    func setUpAutoCompleteVC() {
-        //Set Up Autocomplete View controller
-        filter = GMSAutocompleteFilter()
-        filter.type = .address
-        autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        autoCompleteViewController.autocompleteFilter = filter
-    }
     
     func setUpInvalidTripAlerts() {
         //Set up invalid trip alerts
@@ -121,26 +110,24 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
         locationSource = startTextLabel
-        self.present(autoCompleteViewController, animated: true, completion: nil)
-        print("Tapped start label")
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
     }
     
     func didTapEndLabel(_sender: UITapGestureRecognizer) {
         locationSource = endTextLabel
-        self.present(autoCompleteViewController, animated: true, completion: nil)
-        print("Tapped End label")
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
     }
     
-    /**
-     * Called when a place has been selected from the available autocomplete predictions.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param place The |GMSPlace| that was returned.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    // To receive the results from the place picker 'self' will need to conform to
+    // GMSPlacePickerViewControllerDelegate and implement this code.
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.black
             startTextLabel.text = place.formattedAddress
@@ -148,7 +135,24 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
             endTextLabel.textColor = UIColor.black
             endTextLabel.text = place.formattedAddress
         }
-        self.dismiss(animated: true)
+        
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("Place name \(place.name)")
+        print("Place address \(place.formattedAddress)")
+        print("Place attributions \(place.attributions)")
+    }
+    
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("No place selected")
+    }
+    
+    func placePicker(_ viewController: GMSPlacePickerViewController, didFailWithError error: Error) {
+        print(error)
     }
     
     func setUpDatePicker() {
@@ -191,20 +195,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
     }
-    
-    /*
-    func dateToString(date: NSDate) -> String {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MMM d, h:mm a"
-        
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: date as Date)
-        return selectedDate
-    }
- */
     
     
     func handleDatePickerForEarliest(_ sender: UIDatePicker)
@@ -270,29 +260,6 @@ class EditViewController: UIViewController, GMSAutocompleteViewControllerDelegat
         return true
     }
     
-    /**
-     * Called when a non-retryable error occurred when retrieving autocomplete predictions or place
-     * details.
-     *
-     * A non-retryable error is defined as one that is unlikely to be fixed by immediately retrying the
-     * operation.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print(error.localizedDescription)
-        
-    }
-    
-    /**
-     * Called when the user taps the Cancel button in a |GMSAutocompleteViewController|.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     */
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        dismiss(animated: true)
-    }
     
     /*
      * Create a new Trip object and send it to parse when user taps the submit button

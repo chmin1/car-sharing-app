@@ -9,12 +9,11 @@
 import UIKit
 import GooglePlaces
 import Parse
+import GooglePlacePicker
 
-class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSAutocompleteViewControllerDelegate, HomeHeaderCellDelegate, CreateViewControllerDelegate {
+class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, GMSPlacePickerViewControllerDelegate, HomeHeaderCellDelegate, CreateViewControllerDelegate {
     
     var locationSource: UILabel!
-    var autoCompleteViewController: GMSAutocompleteViewController!
-    var filter: GMSAutocompleteFilter!
     var HomeHeaderCell: HomeHeaderCell!
     var refreshControl: UIRefreshControl!
     var tripsFeed: [PFObject] = []
@@ -58,16 +57,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         //get data from server
         getUserRequests()
-        
-        
-        
-        //Set Up Autocomplete View controller
-        filter = GMSAutocompleteFilter()
-        filter.type = .address
-        autoCompleteViewController = GMSAutocompleteViewController()
-        autoCompleteViewController.delegate = self
-        autoCompleteViewController.autocompleteFilter = filter
-        
+  
         //Initialize a Refresh Control
         refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
@@ -258,7 +248,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     func HomeHeaderCell(_ homeHeaderCell: HomeHeaderCell, didTap label: UILabel) {
-        self.present(autoCompleteViewController, animated: true, completion: nil)
+       
+        let config = GMSPlacePickerConfig(viewport: nil)
+        let placePicker = GMSPlacePickerViewController(config: config)
+        placePicker.delegate = self
+        present(placePicker, animated: true, completion: nil)
+        
         if(label == HomeHeaderCell.startTextLabel) {
             locationSource = HomeHeaderCell.startTextLabel
         } else if(label == HomeHeaderCell.endTextLabel) {
@@ -267,16 +262,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    /**
-     * Called when a place has been selected from the available autocomplete predictions.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param place The |GMSPlace| that was returned.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    
+    // To receive the results from the place picker 'self' will need to conform to
+    // GMSPlacePickerViewControllerDelegate and implement this code.
+    func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
+        
         if locationSource == HomeHeaderCell.startTextLabel {
             HomeHeaderCell.startTextLabel.textColor = UIColor.black
             HomeHeaderCell.startTextLabel.text = place.formattedAddress
@@ -285,46 +275,24 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             HomeHeaderCell.endTextLabel.textColor = UIColor.black
             HomeHeaderCell.endTextLabel.text = place.formattedAddress
         }
-        self.dismiss(animated: true)
         
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
+        
+        print("Place name \(place.name)")
+        print("Place address \(place.formattedAddress)")
+        print("Place attributions \(place.attributions)")
     }
     
-    
-    /**
-     * Called when a non-retryable error occurred when retrieving autocomplete predictions or place
-     * details.
-     *
-     * A non-retryable error is defined as one that is unlikely to be fixed by immediately retrying the
-     * operation.
-     *
-     * Only the following values of |GMSPlacesErrorCode| are retryable:
-     * <ul>
-     * <li>kGMSPlacesNetworkError
-     * <li>kGMSPlacesServerError
-     * <li>kGMSPlacesInternalError
-     * </ul>
-     * All other error codes are non-retryable.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     * @param error The |NSError| that was returned.
-     */
-    func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
-        print(error.localizedDescription)
+    func placePickerDidCancel(_ viewController: GMSPlacePickerViewController) {
+        // Dismiss the place picker, as it cannot dismiss itself.
+        viewController.dismiss(animated: true, completion: nil)
         
+        print("No place selected")
     }
     
-    
-    /**
-     * Called when the user taps the Cancel button in a |GMSAutocompleteViewController|.
-     *
-     * Implementations of this method should dismiss the view controller as the view controller will not
-     * dismiss itself.
-     *
-     * @param viewController The |GMSAutocompleteViewController| that generated the event.
-     */
-    func wasCancelled(_ viewController: GMSAutocompleteViewController) {
-        self.tripsTableView.reloadData()
-        dismiss(animated: true)
+    func placePicker(_ viewController: GMSPlacePickerViewController, didFailWithError error: Error) {
+        print(error)
     }
     
     
@@ -395,13 +363,13 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBAction func didTapClear(_ sender: Any) {
         HomeHeaderCell.startTextLabel.textColor = UIColor.lightGray
         HomeHeaderCell.endTextLabel.textColor = UIColor.lightGray
-        HomeHeaderCell.startTextLabel.text = "Select Starting Location"
-        HomeHeaderCell.endTextLabel.text = "Select Ending Location"
-        
-        HomeHeaderCell.earliestTextField.textColor = UIColor.lightGray
-        HomeHeaderCell.latestTextField.textColor = UIColor.lightGray
-        HomeHeaderCell.earliestTextField.text = HomeHeaderCell.earliestTextField.placeholder
-        HomeHeaderCell.latestTextField.text = HomeHeaderCell.latestTextField.placeholder
+        HomeHeaderCell.startTextLabel.text = " Select Starting Location"
+        HomeHeaderCell.endTextLabel.text = " Select Ending Location"
+    
+        HomeHeaderCell.earliestTextField.text = ""
+        HomeHeaderCell.earliestTextField.placeholder = "Select Earliest Departure Time"
+        HomeHeaderCell.latestTextField.text = ""
+        HomeHeaderCell.latestTextField.placeholder = "Select Latest Departure Time"
         
         refresh()
         
