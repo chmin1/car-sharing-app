@@ -17,6 +17,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var listOfEditIds: [String] = []
     var everythingArray: [PFObject] = []
     var refreshControl: UIRefreshControl!
+    var noNotifs: Bool!
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -24,6 +25,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var emojiView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        noNotifs = false
+        
+        emojiView.isHidden = true
         
         //Initialize a Refresh Control
         refreshControl = UIRefreshControl()
@@ -43,7 +47,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
-        emojiView.isHidden = true
+        
         
     }
     
@@ -75,6 +79,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.whereKey("Members", equalTo: currentUser)
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
+                if trips.count == 0 {
+                    self.noNotifs = true
+                }
                 self.listOfEditIds.removeAll()
                 for trip in trips {
                     if let tripEditId = trip["EditID"] as? String {
@@ -128,6 +135,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     self.refreshControl.endRefreshing()
                     self.activityIndicator.stopAnimating()
                 } else {
+                    self.noNotifs = true
                     print("HELLO ERROR: \(error?.localizedDescription)")
                 }
             })
@@ -147,6 +155,9 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.addDescendingOrder("createdAt")
         query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
             if let returnedRequests = returnedRequests {
+                if returnedRequests.count == 0 {
+                    self.noNotifs = true
+                }
                 self.requests.removeAll()
                 for request in returnedRequests {
                     let trip = request["Trip"] as! PFObject
@@ -170,6 +181,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             } else {
+                
                 print("Error: \(error?.localizedDescription)")
             }
         }
@@ -196,6 +208,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         //displays the "No notifications" label if there are no notifications to display
         if everythingArray.count == 0 {
             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+            emojiView.isHidden = false
         }
         let thing = everythingArray[indexPath.row]
         if thing.parseClassName == "Trip" {
@@ -248,58 +261,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             
             return cell
         }
-        
-//        if indexPath.section == 0 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "RequestCell", for: indexPath) as! RequestCell
-//            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
-//            let request = requests[indexPath.row]
-//            let trip = request["Trip"] as! PFObject
-//            let user = request["User"] as! PFUser
-//            let newTime = request["NewTime"] as! String
-//            let tripName = trip["Name"] as! String
-//            let userName = user["fullname"] as! String
-//            
-//            //create the string with attributed text so that you can change colors of words
-//            let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Quicksand", size: 16.0)!]
-//            let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
-//            let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
-//            let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
-//            let finalMessage = NSMutableAttributedString()
-//            finalMessage.append(userNameAttr)
-//            finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
-//            finalMessage.append(tripNameAttr)
-//            finalMessage.append(NSMutableAttributedString(string: ", with a latest departure time of "))
-//            finalMessage.append(newTimeAttr)
-//            cell.newUserName.attributedText = finalMessage
-//
-//            
-//            return cell
-//        }//close section 0
-//            
-//        else if indexPath.section == 1 {
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
-//            cell.selectionStyle = UITableViewCellSelectionStyle.none //makes it so you can't click on the cell
-//            if(limboTrips.count != 0) {
-//                let trip = limboTrips[indexPath.row]
-//                let tripName = trip["Name"] as! String
-//                let departureLocation = trip["DepartureLoc"] as! String
-//                let arrivalLocation = trip["ArrivalLoc"] as! String
-//                let earliestDepart = trip["EarliestTime"] as! String
-//                let latestDepart = trip["LatestTime"] as! String
-//                //print(trip.objectId!)
-//                if let origName = originalNameDict[trip.objectId!]?[1] {
-//                    print(origName)
-//                    cell.originalTripNameLabel.text = origName.capitalized
-//                }
-//                
-//                cell.newTripNameLabel.text = tripName.capitalized
-//                cell.departLabel.text = departureLocation
-//                cell.destinationLabel.text = arrivalLocation
-//                cell.earlyTimeLabel.text = earliestDepart
-//                cell.lateDepartLabel.text = latestDepart
-//            }
-//            return cell
-//        }//close section 1
         return UITableViewCell()
     }//close cellForRowAt
     
@@ -310,10 +271,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //displays the "No notifications" label if there are no notifications to display
-        if everythingArray.count == 0 {
-            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
-            emojiView.isHidden = false
-        }
+         if noNotifs && everythingArray.count == 0 {
+             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+             emojiView.isHidden = false
+         }
         return everythingArray.count
     }
     

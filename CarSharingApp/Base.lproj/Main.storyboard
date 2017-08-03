@@ -628,7 +628,7 @@
                                 <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__9_2291006" translatesAutoresizingMaskIntoConstraints="NO" id="yFM-XD-QA9">
-                                <rect key="frame" x="67" y="297" width="128" height="128"/>
+                                <rect key="frame" x="120" y="160" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1314,7 +1314,7 @@
                                 <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__24_2290994 (2)" translatesAutoresizingMaskIntoConstraints="NO" id="th6-SK-c2U">
-                                <rect key="frame" x="123" y="269" width="128" height="128"/>
+                                <rect key="frame" x="123" y="160" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -1623,6 +1623,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="MESSAGES" id="Z8h-cR-Ivx"/>
                     <connections>
+                        <outlet property="emojiView" destination="xmH-Vn-b2b" id="m71-9A-YPH"/>
                         <outlet property="messagesView" destination="kof-TL-IsU" id="ZVZ-pG-Huq"/>
                     </connections>
                 </viewController>
@@ -1958,7 +1959,7 @@
                                 <color key="color" red="0.098039217289999994" green="0.098039217289999994" blue="0.098039217289999994" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="if_smiley__8_2290989" translatesAutoresizingMaskIntoConstraints="NO" id="p9y-i4-FsZ">
-                                <rect key="frame" x="123" y="222" width="128" height="128"/>
+                                <rect key="frame" x="123" y="160" width="128" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -2478,10 +2479,10 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nDs-Zk-OKT"/>
+        <segue reference="328-7y-CCe"/>
         <segue reference="cqV-Eg-IDX"/>
         <segue reference="udw-Nn-bqf"/>
-        <segue reference="328-7y-CCe"/>
-        <segue reference="Pww-X3-iAj"/>
+        <segue reference="lI8-F8-sf7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.017594873171725547" blue="0.99649196863174438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
