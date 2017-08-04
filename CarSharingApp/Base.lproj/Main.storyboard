@@ -751,7 +751,7 @@
                         <viewControllerLayoutGuide type="bottom" id="q9d-Ag-VdQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XUP-kL-qWg">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mhg-rJ-STE" userLabel="LineView">
@@ -1780,7 +1780,7 @@
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="25"/>
+                                                            <integer key="value" value="30"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
@@ -2785,8 +2785,8 @@
         <segue reference="nDs-Zk-OKT"/>
         <segue reference="cqV-Eg-IDX"/>
         <segue reference="udw-Nn-bqf"/>
-        <segue reference="vyv-0s-BnT"/>
         <segue reference="Pww-X3-iAj"/>
+        <segue reference="ekq-zp-brq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.017594873171725547" blue="0.99649196863174438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
