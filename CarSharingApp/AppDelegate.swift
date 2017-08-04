@@ -56,6 +56,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //Change status bar color 
         UIApplication.shared.statusBarStyle = .lightContent
+        
+        let attr = NSDictionary(object: UIFont(name: "Avenir Next", size: 15.0)!, forKey: NSFontAttributeName as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: [])
 
         
         return true

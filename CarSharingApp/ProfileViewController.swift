@@ -55,6 +55,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
+        //change color of segmented control
+        mySegmentedControl.tintColor = Helper.peach()
+        
     }
     
     func refresh() {

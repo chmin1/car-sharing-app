@@ -43,6 +43,9 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
         
+        //change color of segmented control
+        mySegmentedControl.tintColor = Helper.peach()
+        
     }
     
     func refresh() {
@@ -96,6 +99,10 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     
@@ -194,9 +201,33 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         return myCell
     }
     
+    //TOGGLING SEGMENTED CONTROL
     @IBAction func segmentedControlActionChanged(_ sender: Any) {
         tripsTableView.reloadData()
     }
+    
+    //====== SEGUE TO DETAIL VIEW =======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
+            switch(mySegmentedControl.selectedSegmentIndex)
+            {
+            case 0:
+                let trip = currentTrips[indexPath.row] //get the trip
+                let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+                detailViewController.trip = trip
+                break
+            case 1:
+                let trip = pastTrips[indexPath.row] //get the trip
+                let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+                detailViewController.trip = trip
+                break
+            default:
+                break
+            }
+        }
+    }
+    
     
     
 }
