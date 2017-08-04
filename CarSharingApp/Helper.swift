@@ -348,4 +348,13 @@ class Helper {
         
     }
     
+    static func currentTimeToNearest10() -> NSDate {
+        let calendar = Calendar.current
+        let rightNow = Date()
+        let interval = 10
+        let nextDiff = interval - calendar.component(.minute, from: rightNow) % interval
+        let nextDate = calendar.date(byAdding: .minute, value: nextDiff, to: rightNow) ?? Date()
+        return nextDate as NSDate
+    }
+    
 }

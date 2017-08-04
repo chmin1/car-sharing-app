@@ -35,6 +35,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         changeTimeButton.backgroundColor = Helper.peach()
         leaveTimeButton.setTitleColor(Helper.peach(), for: .normal)
 
+        myDatePicker.minuteInterval = 10
         newTime = setUpDatePicker(date: myDatePicker.date)
         originalTripLatestTime = currentTrip?["LatestTime"] as! String
         originalTripEarliestTime = currentTrip?["EarliestTime"] as! String

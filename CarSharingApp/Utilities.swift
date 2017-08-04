@@ -71,6 +71,7 @@ extension NSDate {
         //Return Result
         return dateWithMinutesAdded
     }
+
        
 }
 
@@ -88,7 +89,7 @@ extension String {
 
 //========== THIS IS TO GET A DONE BUTTON ON THE DATEPICKER ==========
 extension UIToolbar {
-    
+
     func ToolbarPiker(select : Selector) -> UIToolbar {
         print("in here")
         let toolBar = UIToolbar()
@@ -105,8 +106,10 @@ extension UIToolbar {
         
         return toolBar
     }
+
     
 }
+
 
 
 extension PickCollegeViewController: UISearchResultsUpdating {

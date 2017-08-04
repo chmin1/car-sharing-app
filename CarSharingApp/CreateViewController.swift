@@ -138,23 +138,22 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
     
     
     func setUpDatePicker() {
+        //create the date picker FOR EARLIEST and make it appear / be functional
+        let EarliestDatePickerView  : UIDatePicker = UIDatePicker()
+        EarliestDatePickerView.minuteInterval = 10
+        EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
+        earliestTextField.inputView = EarliestDatePickerView
+        EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
+        today = Helper.currentTimeToNearest10()
+        earlyDate =  today
+        
         //create the date picker FOR LATEST and make it appear / be functional
-        var LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        let LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        LatestDatePickerView.minuteInterval = 10
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
         lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
-
-        
-        //create the date picker FOR EARLIEST and make it appear / be functional
-        var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
-        EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
-        earliestTextField.inputView = EarliestDatePickerView
-        EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
-        
-        today = EarliestDatePickerView.date as NSDate
-        earlyDate =  today
-        earliestTextField.text = Helper.dateToString(date: earlyDate)
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()

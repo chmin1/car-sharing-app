@@ -72,19 +72,27 @@ class HomeHeaderCell: UITableViewCell {
         clearButton.setTitleColor(Helper.peach(), for: .normal)
         
         //create the date picker FOR EARLIEST and make it appear / be functional
-        var EarliestDatePickerView  : UIDatePicker = UIDatePicker()
+        let EarliestDatePickerView  : UIDatePicker = UIDatePicker()
+        EarliestDatePickerView.minuteInterval = 10
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
-        today = EarliestDatePickerView.date as NSDate
+        today = Helper.currentTimeToNearest10()
         earlyDate =  today
         
         //create the date picker FOR LATEST and make it appear / be functional
-        var LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        let LatestDatePickerView  : UIDatePicker = UIDatePicker()
+        LatestDatePickerView.minuteInterval = 10
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
         lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
+
+        /*
+        let toolBar = UIToolbar().ToolbarPiker(select: #selector(self.dismissPicker))
+        latestTextField.inputAccessoryView = toolBar
+        earliestTextField.inputAccessoryView = toolBar
+        */
         
         //create the toolbar so there's a Done button in the datepicker
         let toolBar = UIToolbar()
@@ -98,7 +106,7 @@ class HomeHeaderCell: UITableViewCell {
         toolBar.isUserInteractionEnabled = true
         latestTextField.inputAccessoryView = toolBar
         earliestTextField.inputAccessoryView = toolBar
-
+ 
     }
     
     /*
@@ -107,17 +115,6 @@ class HomeHeaderCell: UITableViewCell {
     func dismissPicker() {
         latestTextField.resignFirstResponder()
         earliestTextField.resignFirstResponder()
-    }
-
-    func dateToString(date: NSDate) -> String {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: date as Date)
-        return selectedDate
     }
 
     func handleDatePickerForLatest(_ sender: UIDatePicker)
