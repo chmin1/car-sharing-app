@@ -1818,7 +1818,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-mi-URE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="569"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="566.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConvoCell" rowHeight="100" id="Fgr-W6-yBe" customClass="ConvoCell" customModule="CarSharingApp" customModuleProvider="target">
@@ -1890,28 +1890,41 @@
                                 </prototypes>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWT-AY-5Yw">
-                                <rect key="frame" x="0.0" y="569" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="566.5" width="375" height="51.5"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5rK-8O-CqP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                        <rect key="frame" x="8" y="8" width="290" height="33"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="8" y="8" width="281" height="35.5"/>
+                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" adjustable="YES"/>
                                         </accessibility>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="290" id="a1n-GX-o0c"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                <color key="value" red="0.85180157420000002" green="0.54661452769999996" blue="0.49901354310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDK-zk-yf8">
-                                        <rect key="frame" x="306" y="7.5" width="61" height="34"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <rect key="frame" x="297" y="7.5" width="70" height="37"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="IoS-pu-u0R"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="18"/>
                                         <state key="normal" title="Send"/>
                                         <connections>
                                             <action selector="onSendMessage:" destination="Kyd-KR-sHy" eventType="touchUpInside" id="2Pv-tg-bYD"/>
                                         </connections>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDn-wy-8AE" userLabel="topBorder">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="2" id="31r-MB-fu2"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.87694300518134716" green="0.87694300518134716" blue="0.87694300518134716" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -1920,7 +1933,10 @@
                                     <constraint firstAttribute="bottom" secondItem="5rK-8O-CqP" secondAttribute="bottom" constant="8" id="KFS-Kd-0Dl"/>
                                     <constraint firstAttribute="trailing" secondItem="BDK-zk-yf8" secondAttribute="trailing" constant="8" id="RQv-jk-Pru"/>
                                     <constraint firstItem="5rK-8O-CqP" firstAttribute="leading" secondItem="OWT-AY-5Yw" secondAttribute="leading" constant="8" id="iaF-fl-3Vp"/>
+                                    <constraint firstItem="kDn-wy-8AE" firstAttribute="leading" secondItem="OWT-AY-5Yw" secondAttribute="leading" id="kpH-fl-fZF"/>
                                     <constraint firstItem="BDK-zk-yf8" firstAttribute="centerY" secondItem="OWT-AY-5Yw" secondAttribute="centerY" id="qEF-9S-eYq"/>
+                                    <constraint firstItem="kDn-wy-8AE" firstAttribute="top" secondItem="OWT-AY-5Yw" secondAttribute="top" id="taq-Ko-ebd"/>
+                                    <constraint firstAttribute="trailing" secondItem="kDn-wy-8AE" secondAttribute="trailing" id="xQW-y2-zBL"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1944,6 +1960,7 @@
                         <outlet property="convoView" destination="beZ-mi-URE" id="Tqi-4O-6CS"/>
                         <outlet property="messageField" destination="5rK-8O-CqP" id="Kfq-uu-Hmb"/>
                         <outlet property="sendButton" destination="BDK-zk-yf8" id="gvi-RZ-DAx"/>
+                        <outlet property="topBorder" destination="kDn-wy-8AE" id="DH7-Y6-f7u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qwq-H7-4XG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2823,7 +2840,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ekq-zp-brq"/>
-        <segue reference="nDs-Zk-OKT"/>
+        <segue reference="fkk-zX-pMM"/>
         <segue reference="udw-Nn-bqf"/>
         <segue reference="cqV-Eg-IDX"/>
         <segue reference="lI8-F8-sf7"/>
