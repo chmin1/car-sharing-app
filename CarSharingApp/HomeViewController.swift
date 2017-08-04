@@ -83,7 +83,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tabBarController(tabbar: UITabBarController, didSelect: UIViewController) {
         print("HI")
-        var secondTab = self.tabBarController?.viewControllers?[1] as? CreateViewController
+        let secondTab = self.tabBarController?.viewControllers?[1] as? CreateViewController
         secondTab?.delegate = self
         
     }
