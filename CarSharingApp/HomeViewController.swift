@@ -77,6 +77,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        emojiView.isHidden = true
+        getUserRequests()
+    }
+    
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
