@@ -209,6 +209,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     // ================ LOAD MESSAGES ON OPEN ======================
     
     func loadOnOpen() {
+        let currentUser = PFUser.current()!
         //Query the message object/clas in parse
         let query = PFQuery(className: "Message")
         
@@ -241,8 +242,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
             .subscribe(query);
         
         self.subscriptionX?.handle(Event.created) { _, message in
-                self.convoMessages.append(message)
-                self.convoView.reloadData()
+            
+            self.convoMessages.append(message)
+            self.convoView.reloadData()
         }
     }
     
@@ -361,7 +363,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
             } else if let message = message {
                 var tripMessages = self.convoMessages
                 tripMessages.append(message)
-                self.convoMessages = tripMessages
+                //self.convoMessages = tripMessages
                 self.Trip["Messages"] = tripMessages
                 self.Trip.saveInBackground()
                 print("Saved Successfully 📝")
