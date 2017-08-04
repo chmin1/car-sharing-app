@@ -29,6 +29,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         tripsTableView.delegate = self
         tripsTableView.dataSource = self
+        refresh()
         
         //for hamburger menu
         if self.revealViewController() != nil {
@@ -181,6 +182,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         return returnVal
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tripsTableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
         
@@ -262,6 +267,29 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func segmentedControlActionChanged(_ sender: Any) {
         tripsTableView.reloadData()
     }
+    
+    //====== SEGUE TO DETAIL VIEW =======
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tripsTableView.indexPath(for: cell) {//get this to find the actual trip
+            switch(mySegmentedControl.selectedSegmentIndex)
+            {
+            case 0:
+                let trip = currentTrips[indexPath.row] //get the trip
+                let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+                detailViewController.trip = trip
+                break
+            case 1:
+                let trip = pastTrips[indexPath.row] //get the trip
+                let detailViewController = segue.destination as! TripDetailViewController //tell it its destination
+                detailViewController.trip = trip
+                break
+            default:
+                break
+            }
+        }
+    }
+    
     
     
 }
