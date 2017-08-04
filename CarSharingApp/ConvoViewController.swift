@@ -17,6 +17,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     
     @IBOutlet weak var Dock: UIView!
     
+    @IBOutlet weak var topBorder: UIView!
+    
     @IBOutlet weak var messageField: GrowingTextView!
     
     @IBOutlet weak var sendButton: UIButton!
@@ -54,14 +56,14 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         
         previousRect = CGRect.zero
         messageField.layer.masksToBounds = true
-        messageField.layer.borderWidth = 2.5
-        messageField.layer.borderColor = Helper.peach().cgColor
-        messageField.layer.cornerRadius = 6
-        messageField.textColor = UIColor.lightGray
         messageField.maxLength = 0
-        messageField.maxHeight = 70
-        messageField.text = "Compose a message..."
+        messageField.maxHeight = 100
+        messageField.placeHolder = "Compose a message..."
+        messageField.placeHolderColor = Helper.peach()
+        messageField.textColor = UIColor.white
+        
         Dock.backgroundColor = Helper.coral()
+        topBorder.backgroundColor = Helper.peach()
         sendButton.backgroundColor = UIColor.white
         sendButton.layer.borderWidth = 2.5
         sendButton.layer.borderColor = Helper.peach().cgColor
@@ -111,7 +113,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
             if (messageField.text == "") || (messageField.text == "Compose a message...") {
                 messageField.text = ""
             }
-            messageField.textColor = UIColor.black
+            
             
             UIView.animate(withDuration: 0, animations: {
                 
@@ -389,13 +391,6 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
 //        })
         
         bottomConstraint.constant = -49
-        
-        if (messageField.text == "") {
-            
-            messageField.textColor = UIColor.lightGray
-            messageField.text = "Compose a message..."
-            
-        }
         
         UIView.animate(withDuration: 0, animations: {
             
