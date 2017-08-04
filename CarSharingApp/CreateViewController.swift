@@ -27,7 +27,6 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
     @IBOutlet weak var tripNameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var createButton: UIButton!
-    
     @IBOutlet weak var minTimeLabel: UILabel!
     
     weak var delegate: CreateViewControllerDelegate?
@@ -36,6 +35,7 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
     var earlyDate: NSDate!
     var lateDate: NSDate!
     var today: NSDate!
+    var coordinates = [String: [Double]]()
     
     var invalidLocationsAlert: UIAlertController!
     var invalidTripNameAlert: UIAlertController!
@@ -112,9 +112,11 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.white
             startTextLabel.text = place.formattedAddress
+            coordinates["from"] = [place.coordinate.latitude, place.coordinate.longitude]
         } else if locationSource == endTextLabel {
             endTextLabel.textColor = UIColor.white
             endTextLabel.text = place.formattedAddress
+            coordinates["to"] = [place.coordinate.latitude, place.coordinate.longitude]
         }
         
         // Dismiss the place picker, as it cannot dismiss itself.
@@ -259,7 +261,7 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         
         if areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
             
-            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "") { (trip: PFObject?, error: Error?) in
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 } else if let trip = trip {
