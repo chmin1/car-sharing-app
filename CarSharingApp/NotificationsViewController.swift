@@ -17,15 +17,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var listOfEditIds: [String] = []
     var everythingArray: [PFObject] = []
     var refreshControl: UIRefreshControl!
-    var noNotifs: Bool!
+    var noNotifs: Bool = false
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+    var noLimbos: Bool = false
+    var noRequests: Bool = false
+    var limboFetchDone: Bool = false
+    var requestsFetchDone: Bool = false
     @IBOutlet weak var emojiView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
-        noNotifs = false
         
         emojiView.isHidden = true
         
@@ -51,6 +53,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        emojiView.isHidden = true
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -59,6 +65,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         everythingArray.removeAll()
+        emojiView.isHidden = true
         fetchTripsInLimbo()
         fetchRequests()
         //fetchGeneralNotifs()
@@ -79,11 +86,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.whereKey("Members", equalTo: currentUser)
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
-                if trips.count == 0 {
-                    self.noNotifs = true
-                } else {
-                    self.noNotifs = false
-                }
                 self.listOfEditIds.removeAll()
                 for trip in trips {
                     if let tripEditId = trip["EditID"] as? String {
@@ -100,7 +102,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                     
                 }
-                
                 self.fillLimboTripList()
                 
             } else {
@@ -137,17 +138,17 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     self.refreshControl.endRefreshing()
                     self.activityIndicator.stopAnimating()
                 } else {
-                    self.noNotifs = true
                     print("HELLO ERROR: \(error?.localizedDescription ?? "Unknown Error")")
                 }
             })
         }
         
+        
     }//close fillLimboTripList()
     
     /*
-    * Get the requests for the table view
-    */
+     * Get the requests for the table view
+     */
     func fetchRequests() {
         let query = PFQuery(className: "Request")
         query.whereKey("TripPlannerID", equalTo: PFUser.current()!.objectId!)
@@ -157,11 +158,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         query.addDescendingOrder("createdAt")
         query.findObjectsInBackground { (returnedRequests: [PFObject]?, error: Error?) in
             if let returnedRequests = returnedRequests {
-                if returnedRequests.count == 0 {
-                    self.noNotifs = true
-                }  else {
-                    self.noNotifs = false
-                }
                 self.requests.removeAll()
                 for request in returnedRequests {
                     let trip = request["Trip"] as! PFObject
@@ -180,6 +176,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                             }
                         })
                         //TODO: send notif to user to say trip got full
+                    }
+                }
+                if self.requests.isEmpty {
+                    self.noRequests = true
+                    if self.limboTrips.isEmpty {
+                        Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+                        self.emojiView.isHidden = false
                     }
                 }
                 self.tableView.reloadData()
@@ -209,11 +212,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Sets up the cells
      */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //displays the "No notifications" label if there are no notifications to display
-        if everythingArray.count == 0 {
-            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
-            emojiView.isHidden = false
-        }
         let thing = everythingArray[indexPath.row]
         if thing.parseClassName == "Trip" {
             let cell = tableView.dequeueReusableCell(withIdentifier: "EditedTripCell", for: indexPath) as! EditedTripCell
@@ -274,11 +272,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Tells the tableview how many rows should be in each section
      */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //displays the "No notifications" label if there are no notifications to display
-         if noNotifs && everythingArray.count == 0 {
-             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
-             emojiView.isHidden = false
-         }
         return everythingArray.count
     }
     
@@ -304,7 +297,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         }
         return 0
     }
-
+    
     /*
      * If a user denies a trip edit, that edit is deleted and the original trip
      * is set back to having no corressponding edit
@@ -334,7 +327,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     /*
-     * If a user accepts a trip edit, make the trip edit the actual trip and delete the 
+     * If a user accepts a trip edit, make the trip edit the actual trip and delete the
      * original trip
      */
     @IBAction func didTapAccept(_ sender: AnyObject) {
@@ -442,7 +435,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     /*
      * Adds the user to the trip members list, adds the trip to the user trip list
      */
-     func addUserToTrip(user: PFUser, trip: PFObject) {
+    func addUserToTrip(user: PFUser, trip: PFObject) {
         //Update for trip
         var userList = trip["Members"] as! [PFUser]
         userList.append(user)

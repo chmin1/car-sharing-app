@@ -169,7 +169,7 @@ class Helper {
     static func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
         for member in tripMembers {
-            if let memberName = member["fullname"] as? String {
+            if let memberName = member["firstname"] as? String {
                 memberNames.append(memberName)
             }
         }
