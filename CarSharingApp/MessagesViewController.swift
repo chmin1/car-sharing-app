@@ -73,8 +73,8 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
         let trip = tripData[indexPath.row]
         do {
             try trip?.fetchIfNeeded()
-            
-            item.messageTitleLabel.text = trip?["Name"] as? String ?? "No name trip"
+            let title = trip?["Name"] as? String ?? "No name trip"
+            item.messageTitleLabel.text = title.capitalized
             let createdAt = trip?.updatedAt
             let dateFormatter = DateFormatter()
             
