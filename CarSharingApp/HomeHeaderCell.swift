@@ -99,7 +99,6 @@ class HomeHeaderCell: UITableViewCell {
         latestTextField.inputAccessoryView = toolBar
         earliestTextField.inputAccessoryView = toolBar
 
-        minTimeLabel.textColor = Helper.coral()
     }
     
     /*

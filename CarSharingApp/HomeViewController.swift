@@ -176,7 +176,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         memberString += ", "
                     }
                 }
-                cell.tripMembersLabel.text = memberString
+                //cell.tripMembersLabel.text = memberString
 
                 
                 if (requestedTrips.contains(trip.objectId!)) {
@@ -201,7 +201,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                 
             }
             //give the request button color
-            cell.requestButton.backgroundColor = Helper.coral()
+            cell.requestButton.backgroundColor = Helper.peach()
             //Make Button ovular
             cell.requestButton.layer.cornerRadius = cell.requestButton.frame.height / 2
             cell.requestButton.clipsToBounds = true
