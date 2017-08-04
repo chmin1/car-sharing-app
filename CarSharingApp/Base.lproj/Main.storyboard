@@ -2818,11 +2818,11 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="ekq-zp-brq"/>
         <segue reference="nDs-Zk-OKT"/>
         <segue reference="udw-Nn-bqf"/>
         <segue reference="cqV-Eg-IDX"/>
         <segue reference="lI8-F8-sf7"/>
-        <segue reference="ekq-zp-brq"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.017594873171725547" blue="0.99649196863174438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

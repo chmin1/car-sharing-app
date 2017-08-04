@@ -65,7 +65,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                         if(tripEditId != "-1" && !Helper.isPastTrip(trip: trip)){ //only add trip to the feed if it's NOT an edit
                             self.yourTrips.append(trip)
                         } else {
-                            print(error?.localizedDescription)
+                            print(error?.localizedDescription ?? "Unknown Error")
                         }
                     }
                     

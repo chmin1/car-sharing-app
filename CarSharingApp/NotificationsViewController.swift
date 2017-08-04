@@ -104,7 +104,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.fillLimboTripList()
                 
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "Unknown Error")
             }
         }
     }//close fetchTripsInLimbo()
@@ -138,7 +138,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     self.activityIndicator.stopAnimating()
                 } else {
                     self.noNotifs = true
-                    print("HELLO ERROR: \(error?.localizedDescription)")
+                    print("HELLO ERROR: \(error?.localizedDescription ?? "Unknown Error")")
                 }
             })
         }
@@ -186,7 +186,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 self.refreshControl.endRefreshing()
             } else {
                 
-                print("Error: \(error?.localizedDescription)")
+                print("Error: \(error?.localizedDescription ?? "Unknown Error")")
             }
         }
     }
@@ -321,7 +321,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     origionalTrip["EditID"] = "" //reset original trip's edit id
                     origionalTrip.saveInBackground()
                 } else {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription ?? "Unknown Error")
                 }
                 
             })
@@ -363,7 +363,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 if let origionalTrip = origionalTrip {
                     self.checkIfAllApprove(limboTrip: limboTrip, origionalTrip: origionalTrip)
                 } else {
-                    print(error?.localizedDescription)
+                    print(error?.localizedDescription ?? "Unknown Error")
                 }
                 
             })
@@ -463,7 +463,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 trip = trips[0]
                 completion(trip, nil)
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "Unknown Error")
             }
         })
     }
@@ -500,7 +500,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                 })
             } else {
-                print("error description 2: \(error?.localizedDescription)")
+                print("error description 2: \(error?.localizedDescription ?? "Unknown Error")")
             }
         })
         
