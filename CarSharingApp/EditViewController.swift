@@ -31,7 +31,8 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
     var earlyDate: NSDate!
     var lateDate: NSDate!
     var today: NSDate!
-    
+    var coordinates = [String: [Double]]()
+
     var invalidLocationsAlert: UIAlertController!
     var invalidTimeWindowAlert: UIAlertController!
     var invalidTripNameAlert: UIAlertController!
@@ -277,7 +278,7 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         
         if isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
             
-            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "-1") { (trip: PFObject?, error: Error?) in
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "-1", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 }

@@ -35,8 +35,7 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var leaveButton: UIButton!
     var pendingEditAlert: UIAlertController!
     var halfModalTransitioningDelegate: HalfModalTransitioningDelegate?
-    
-    @IBOutlet weak var myMapView: UIView!
+    @IBOutlet weak var myMapView: GMSMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +70,8 @@ class TripDetailViewController: UIViewController {
         //Set up the labels to have and colors
         earliestLabel.textColor = Helper.coral()
         latestLabel.textColor = Helper.coral()
-        departureLocLabel.textColor = Helper.coral()
-        arrivalLocLabel.textColor = Helper.coral()
+        //departureLocLabel.textColor = Helper.coral()
+        //arrivalLocLabel.textColor = Helper.coral()
         requestPendingLabel.textColor = Helper.coral()
         
         
@@ -91,8 +90,8 @@ class TripDetailViewController: UIViewController {
             tripNameLabel.text = name.capitalized
             earliestLabel.text = trip["EarliestTime"] as! String
             latestLabel.text = trip["LatestTime"] as! String
-            departureLocLabel.text = trip["DepartureLoc"] as! String
-            arrivalLocLabel.text = trip["ArrivalLoc"] as! String
+            //departureLocLabel.text = trip["DepartureLoc"] as! String
+            //arrivalLocLabel.text = trip["ArrivalLoc"] as! String
             let members = trip["Members"] as! [PFUser]
             globalMembers = members
             let memberNames = Helper.returnMemberNames(tripMembers: members) as [String]
@@ -101,7 +100,7 @@ class TripDetailViewController: UIViewController {
 
             
             //hide the "request to join" button if the current user is already in that trip OR if that trip already has 4 ppl in it
-            let currentMemberName = PFUser.current()?["fullname"] as! String?
+            let currentMemberName = PFUser.current()?["firstname"] as! String?
             if memberNames.contains(currentMemberName!) || memberNames.count == 4 {
                 requestButton.isHidden = true
             }
@@ -111,21 +110,52 @@ class TripDetailViewController: UIViewController {
                 leaveButton.isHidden = false
             }
             
+            //do the google maps thing if a trip has long/lat (newer trips only as of 8/4/17)
+            if let coordinates = trip["Coordinates"] as? [String: [Double]] {
+                //get the coordinates of the from/to locations
+                let fromLat = coordinates["from"]?[0]
+                let fromLong = coordinates["from"]?[1]
+                let toLat = coordinates["to"]?[0]
+                let toLong = coordinates["to"]?[1]
+                //set up the google map frame thing and add markers (aka pins)
+                let camera = GMSCameraPosition.camera(withLatitude: fromLat!, longitude: fromLong!, zoom: 14.0)
+                let fromMarker = GMSMarker()
+                fromMarker.position = CLLocationCoordinate2D(latitude: fromLat!, longitude: fromLong!)
+                fromMarker.title = trip["DepartureLoc"] as! String
+                fromMarker.map = myMapView
+                let toMarker = GMSMarker()
+                toMarker.position = CLLocationCoordinate2D(latitude: toLat!, longitude: toLong!)
+                toMarker.title = trip["ArrivalLoc"] as! String
+                toMarker.map = myMapView
+                //create path from marker to marker
+                let path = GMSMutablePath()
+                path.add(CLLocationCoordinate2DMake(fromLat!, fromLong!))
+                path.add(CLLocationCoordinate2DMake(toLat!, toLong!))
+                let polyline = GMSPolyline(path: path)
+                polyline.strokeWidth = 2.0
+                polyline.map = myMapView
+                //create bounds so the map zooms out to show both markers
+                let bounds = GMSCoordinateBounds(path: path)
+                myMapView.animate(with: GMSCameraUpdate.fit(bounds, withPadding: 50.0))
+            }
         }
         
-        
-        let camera = GMSCameraPosition.camera(withLatitude: -33.868,
-                                              longitude: 151.2086,
-                                              zoom: 14)
-        let mapView = GMSMapView.map(withFrame: .zero, camera: camera)
-        
-        let marker = GMSMarker()
-        marker.position = camera.target
-        marker.snippet = "Hello World"
-        //marker.appearAnimation = kGMSMarkerAnimationPop
-        marker.map = mapView
-        
-        myMapView = mapView
+        //make buttons circular and styled
+        editButton.layer.cornerRadius = editButton.frame.height / 2
+        editButton.clipsToBounds = true
+        leaveButton.layer.cornerRadius = leaveButton.frame.height / 2
+        leaveButton.clipsToBounds = true
+        leaveButton.backgroundColor = UIColor.white
+        leaveButton.layer.borderWidth = 2
+        leaveButton.layer.borderColor = Helper.peach().cgColor
+        editButton.backgroundColor = Helper.peach()
+        leaveButton.setTitleColor(Helper.peach(), for: .normal)
+        editButton.setTitleColor(UIColor.white, for: .normal)
+        requestButton.layer.cornerRadius = requestButton.frame.height / 2
+        requestButton.clipsToBounds = true
+        requestButton.backgroundColor = Helper.peach()
+        requestButton.setTitleColor(UIColor.white, for: .normal)
+
         
     }//close viewDidLoad()
     

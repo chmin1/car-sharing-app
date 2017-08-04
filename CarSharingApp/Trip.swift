@@ -27,7 +27,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withEditID editID: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withEditID editID: String?, withCoords coordinates: [String: [Double]], withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Trip Object: PFObject
         let trip = PFObject(className: "Trip")
@@ -39,6 +39,7 @@ class Trip: NSObject {
         trip["ArrivalLoc"] = arrivalLoc // Location you will arrive to
         trip["EarliestTime"] = earlyDepart // Earliest time you can leave
         trip["LatestTime"] = lateDepart // Latest timne you can leave
+        trip["Coordinates"] = coordinates //lat and long of locations
         
         var tripMembers = [PFUser]()
         if(editID != "-1") {
