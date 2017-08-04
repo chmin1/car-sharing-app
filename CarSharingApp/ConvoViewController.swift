@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import ParseLiveQuery
+import GrowingTextView
 
 class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
     
@@ -16,7 +17,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     
     @IBOutlet weak var Dock: UIView!
     
-    @IBOutlet weak var messageField: UITextView!
+    @IBOutlet weak var messageField: GrowingTextView!
     
     @IBOutlet weak var sendButton: UIButton!
     
@@ -27,6 +28,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     var returnPressed: Int = 0
     var newLine: Int = 0
     
+    var bottomConstraint = NSLayoutConstraint()
+    let keyboardBaseHeight: CGFloat = -49
+    
     //Parse Live Query Client
     let liveQueryClient = ParseLiveQuery.Client()
     
@@ -35,6 +39,7 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        automaticallyAdjustsScrollViewInsets = false
         
         convoView.rowHeight = UITableViewAutomaticDimension
         convoView.estimatedRowHeight = 100
@@ -44,17 +49,25 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         convoView.dataSource = self
         messageField.delegate = self
         
+        bottomConstraint = NSLayoutConstraint(item: Dock, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: keyboardBaseHeight)
+        view.addConstraint(bottomConstraint)
+        
         previousRect = CGRect.zero
         messageField.layer.masksToBounds = true
-        messageField.layer.borderWidth = 1.0
-        messageField.layer.borderColor = Helper.coral().cgColor
+        messageField.layer.borderWidth = 2.5
+        messageField.layer.borderColor = Helper.peach().cgColor
         messageField.layer.cornerRadius = 6
         messageField.textColor = UIColor.lightGray
+        messageField.maxLength = 0
+        messageField.maxHeight = 70
         messageField.text = "Compose a message..."
         Dock.backgroundColor = Helper.coral()
         sendButton.backgroundColor = UIColor.white
+        sendButton.layer.borderWidth = 2.5
+        sendButton.layer.borderColor = Helper.peach().cgColor
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
-        sendButton.setTitleColor(Helper.coral(), for: .normal)
+        sendButton.setTitleColor(Helper.peach(), for: .normal)
+        sendButton.backgroundColor = nil
 
         if let title = Trip["Name"] as? String {
             navigationItem.title = title
@@ -66,7 +79,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         let maxHeight:CGFloat = messageField.font!.lineHeight * amountOfLinesShown
         messageField.sizeThatFits(CGSize(width: 315, height: maxHeight))
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
+//        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardNotification), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
     
@@ -82,79 +97,112 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     
     // ================ TEXTVIEW BEGIN EDIT ========================
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            returnPressed += 1
-            if returnPressed < 6 {
-                //messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
-                newLine = 6 * returnPressed
-                UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
-                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
-                })
-                 
+    func handleKeyboardNotification(notification: NSNotification) {
+        
+        if let userInfo = notification.userInfo{
+            
+            let keyBoardFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+            print(keyBoardFrame!)
+            
+            //let isKeyBoardShowing = NSNotification.Name.UIKeyboardWillShow
+            
+            bottomConstraint.constant = -keyBoardFrame!.height
+            
+            if (messageField.text == "") || (messageField.text == "Compose a message...") {
+                messageField.text = ""
             }
-        }
-        
-        return true
-    }
-    
-    func textViewDidChange(_ textView: UITextView) {
-
-        let pos: UITextPosition? = messageField.endOfDocument
-        let currentRect: CGRect = messageField.caretRect(for: pos!)
-        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
-            returnPressed += 1
-            if returnPressed < 6 && returnPressed > 1 {
-                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
-                newLine = 6 * returnPressed
-                UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
-                })
-            }
-        }
-        
-        previousRect = currentRect
-        
-    }
-    
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if (messageField.text == "") || (messageField.text == "Compose a message...") {
-            messageField.text = ""
-        }
-        messageField.textColor = UIColor.black
-        UIView.animate(withDuration: 0.209, animations: { () -> Void in
-            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
-            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
-        }, completion: { (_ finished: Bool) -> Void in
-        })
-        
-        return true
-        
-    }
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        let touch: UITouch? = touches.first
-        if touch?.phase == .began {
-            messageField.resignFirstResponder()
-            view.endEditing(true)
-            let height: Int = returnPressed * 20
-            UIView.animate(withDuration: 0.209, animations: { () -> Void in
-                self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
-                self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+            messageField.textColor = UIColor.black
+            
+            UIView.animate(withDuration: 0, animations: {
+                
+                self.view.layoutIfNeeded()
+                
+            }, completion: { (completion) in
+                
+                let indexPath = IndexPath(item: self.convoMessages.count - 1, section: 0)
+                self.convoView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                
             })
-            
-            if (messageField.text == "") {
-                
-                messageField.textColor = UIColor.lightGray
-                messageField.text = "Compose a message..."
-                
-            }
-            
         }
         
+        
+        
     }
+    
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if text == "\n" {
+//            returnPressed += 1
+//            if returnPressed < 6 {
+//                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+//                newLine = 6 * returnPressed
+//                UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//                })
+//                 
+//            }
+//        }
+//        
+//        return true
+//    }
+//    
+//    func textViewDidChange(_ textView: UITextView) {
+//
+//        let pos: UITextPosition? = messageField.endOfDocument
+//        let currentRect: CGRect = messageField.caretRect(for: pos!)
+//        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
+//            returnPressed += 1
+//            if returnPressed < 6 && returnPressed > 1 {
+//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+//                newLine = 6 * returnPressed
+//                UIView.animate(withDuration: 0.1, animations: { () -> Void in
+//                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//                })
+//            }
+//        }
+//        
+//        previousRect = currentRect
+//        
+//    }
+//    
+//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+//        if (messageField.text == "") || (messageField.text == "Compose a message...") {
+//            messageField.text = ""
+//        }
+//        messageField.textColor = UIColor.black
+//        UIView.animate(withDuration: 0.209, animations: { () -> Void in
+//            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+//        }, completion: { (_ finished: Bool) -> Void in
+//        })
+//        
+//        return true
+//        
+//    }
+//
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        
+//        let touch: UITouch? = touches.first
+//        if touch?.phase == .began {
+//            messageField.resignFirstResponder()
+//            view.endEditing(true)
+//            let height: Int = returnPressed * 20
+//            UIView.animate(withDuration: 0.209, animations: { () -> Void in
+//                self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+//                self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+//            })
+//            
+//            if (messageField.text == "") {
+//                
+//                messageField.textColor = UIColor.lightGray
+//                messageField.text = "Compose a message..."
+//                
+//            }
+//            
+//        }
+//        
+//    }
     
     // ================ TEXTVIEW END EDIT ==========================
     
@@ -323,6 +371,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
                 self.convoView.reloadData()
             }
         }
+        
+        
+        
     }
     
     // ============== POST AND RETRIEVE MESSAGE ====================
@@ -330,10 +381,12 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     // ===================== DISMISS KEYBOARD ======================
     @IBAction func onScreenTap(_ sender: Any) {
         view.endEditing(true)
-        let height: Int = returnPressed * 20
-        UIView.animate(withDuration: 0.209, animations: { () -> Void in
-            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
-        })
+//        let height: Int = returnPressed * 20
+//        UIView.animate(withDuration: 0.209, animations: { () -> Void in
+//            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-height))
+//        })
+        
+        bottomConstraint.constant = -49
         
         if (messageField.text == "") {
             
@@ -341,6 +394,19 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
             messageField.text = "Compose a message..."
             
         }
+        
+        UIView.animate(withDuration: 0, animations: {
+            
+            self.view.layoutIfNeeded()
+            
+        }, completion: { (completion) in
+            
+            let indexPath = IndexPath(item: self.convoMessages.count - 1, section: 0)
+            self.convoView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+
+            
+        })
+        
     }
     // ===================== DISMISS KEYBOARD ======================
 
