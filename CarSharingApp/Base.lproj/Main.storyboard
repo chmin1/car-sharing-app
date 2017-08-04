@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F2073" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -1669,7 +1669,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gks-Mz-fAK">
-                                                    <rect key="frame" x="88" y="16" width="36.5" height="23.5"/>
+                                                    <rect key="frame" x="88" y="16" width="143" height="23.5"/>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1682,7 +1682,10 @@
                                                     </constraints>
                                                 </view>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12:00pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRO-aj-R3S">
-                                                    <rect key="frame" x="296.5" y="16" width="62.5" height="20.5"/>
+                                                    <rect key="frame" x="239" y="16" width="120" height="20.5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="120" id="v4u-2f-ViZ"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="AvenirNext-Regular" family="Avenir Next" pointSize="15"/>
                                                     <color key="textColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -1754,6 +1757,7 @@
                                             <constraint firstItem="ASG-hf-DcE" firstAttribute="leading" secondItem="gks-Mz-fAK" secondAttribute="leading" id="LF1-Kd-NaH"/>
                                             <constraint firstAttribute="bottom" secondItem="ML3-gI-xF4" secondAttribute="bottom" id="NgL-x0-dti"/>
                                             <constraint firstItem="ML3-gI-xF4" firstAttribute="top" relation="greaterThanOrEqual" secondItem="ASG-hf-DcE" secondAttribute="bottom" constant="8" id="PNW-NB-HrC"/>
+                                            <constraint firstItem="NRO-aj-R3S" firstAttribute="leading" secondItem="gks-Mz-fAK" secondAttribute="trailing" constant="8" id="PfE-kd-58e"/>
                                             <constraint firstItem="NRO-aj-R3S" firstAttribute="top" secondItem="kNk-QU-1QQ" secondAttribute="topMargin" constant="8" id="iBl-7A-YiI"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="NRO-aj-R3S" secondAttribute="trailing" constant="8" id="iYw-P3-Cu1"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="ASG-hf-DcE" secondAttribute="trailing" constant="8" id="wIN-BZ-HpX"/>
