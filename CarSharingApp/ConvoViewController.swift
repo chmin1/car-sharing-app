@@ -86,37 +86,37 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         if text == "\n" {
             returnPressed += 1
             if returnPressed < 6 {
-                messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+                //messageField.frame = CGRect(x: 10, y: 10, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
                 newLine = 6 * returnPressed
                 UIView.animate(withDuration: 0.1, animations: { () -> Void in
-                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
-                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+                    self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
                 })
-                
+                 
             }
         }
         
         return true
     }
     
-//    func textViewDidChange(_ textView: UITextView) {
-//
-//        let pos: UITextPosition? = messageField.endOfDocument
-//        let currentRect: CGRect = messageField.caretRect(for: pos!)
-//        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
-//            returnPressed += 1
-//            if returnPressed < 6 && returnPressed > 1 {
-//                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
-//                newLine = 6 * returnPressed
-//                UIView.animate(withDuration: 0.1, animations: { () -> Void in
-//                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
-//                })
-//            }
-//        }
-//        
-//        previousRect = currentRect
-//        
-//    }
+    func textViewDidChange(_ textView: UITextView) {
+
+        let pos: UITextPosition? = messageField.endOfDocument
+        let currentRect: CGRect = messageField.caretRect(for: pos!)
+        if currentRect.origin.y > previousRect.origin.y || (messageField.text == "\n") {
+            returnPressed += 1
+            if returnPressed < 6 && returnPressed > 1 {
+                messageField.frame = CGRect(x: 5, y: 5, width: messageField.frame.size.width, height: messageField.frame.size.height + 6)
+                newLine = 6 * returnPressed
+                UIView.animate(withDuration: 0.1, animations: { () -> Void in
+                    self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+                })
+            }
+        }
+        
+        previousRect = currentRect
+        
+    }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         if (messageField.text == "") || (messageField.text == "Compose a message...") {
@@ -124,8 +124,8 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         }
         messageField.textColor = UIColor.black
         UIView.animate(withDuration: 0.209, animations: { () -> Void in
-            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
-            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-208 - self.newLine))
+            self.Dock.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
+            self.convoView.transform = CGAffineTransform(translationX: 0, y: CGFloat(-165 - self.newLine))
         }, completion: { (_ finished: Bool) -> Void in
         })
         
@@ -271,22 +271,6 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         }
         
         item.textMessage.text = messageText
-        //        item.textMessage.lineBreakMode = NSLineBreakMode.byWordWrapping
-        //        item.textMessage.numberOfLines = 0
-        //        let size = item.textMessage.sizeThatFits(CGSize(width: item.textMessage.frame.width, height: CGFloat.greatestFiniteMagnitude))
-        //        print("size: \(size)")
-        //        item.textMessage.frame = CGRect(
-        //            x:item.textMessage.frame.origin.x,
-        //            y:item.textMessage.frame.origin.y,
-        //            width:item.textMessage.frame.size.width,
-        //            height: size.height
-        //        )
-        //
-        //        let cellHeight: CGFloat = item.frame.height + (item.textMessage.frame.size.height - item.frame.size.height) + 60
-        //        print(cellHeight)
-        //        item.frame.size = CGSize(width: item.frame.width, height: cellHeight)
-        
-        
         
         item.authorLabel.text = author
         item.dateSentLabel.text = date
