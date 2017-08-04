@@ -64,12 +64,12 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.barTintColor = Helper.coral()
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        minTimeLabel.textColor = Helper.coral()
         
-        //Make Create Button circular
-        createButton.layer.cornerRadius = 0.15 * createButton.bounds.size.width
+        //format Create button
+        createButton.layer.cornerRadius = createButton.frame.height / 2
         createButton.clipsToBounds = true
-        createButton.backgroundColor = Helper.coral()
+        createButton.layer.borderWidth = 2
+        createButton.layer.borderColor = UIColor.white.cgColor
 
     }
     
@@ -82,19 +82,11 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         )
         let endLabelTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.didTapEndLabel(_sender:))
         )
-        startTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
-        startTextLabel.layer.borderWidth = 0.5
-        startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         startTextLabel.isUserInteractionEnabled = true
-        startTextLabel.layer.cornerRadius = startTextLabel.frame.height / 5
-        startTextLabel.clipsToBounds = true
+        startTextLabel.addGestureRecognizer(startLabelTapGestureRecognizer)
         
-        endTextLabel.layer.borderColor = Helper.veryLightGray().cgColor
-        endTextLabel.layer.borderWidth = 0.5
-        endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
         endTextLabel.isUserInteractionEnabled = true
-        endTextLabel.layer.cornerRadius = endTextLabel.frame.height / 5
-        endTextLabel.clipsToBounds = true
+        endTextLabel.addGestureRecognizer(endLabelTapGestureRecognizer)
     }
     
     func didTapStartLabel(_sender: UITapGestureRecognizer) {
@@ -118,10 +110,10 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         
         if locationSource == startTextLabel {
-            startTextLabel.textColor = UIColor.black
+            startTextLabel.textColor = UIColor.white
             startTextLabel.text = place.formattedAddress
         } else if locationSource == endTextLabel {
-            endTextLabel.textColor = UIColor.black
+            endTextLabel.textColor = UIColor.white
             endTextLabel.text = place.formattedAddress
         }
         
