@@ -11,6 +11,7 @@ PODS:
     - GooglePlaces (= 2.3.1)
   - GooglePlaces (2.3.1):
     - GoogleMaps/Base (= 2.3.1)
+  - GrowingTextView (0.2.8)
   - Parse (1.14.4):
     - Bolts/Tasks (~> 1.8)
   - ParseLiveQuery (2.0.0):
@@ -23,6 +24,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
+  - GrowingTextView
   - Parse
   - ParseLiveQuery
 
@@ -32,10 +34,11 @@ SPEC CHECKSUMS:
   GoogleMaps: c66a71058b9b1294bcdd5463a68e357fa50c079f
   GooglePlacePicker: fc3564ac7a2ce314e78e42bfc1e16822ad1e5488
   GooglePlaces: 4a7b22debfa1af65017b82943431822607e45201
+  GrowingTextView: 84d1c133d67fb88d5c027a6d6510036252a9b226
   Parse: b0aa91d2c435e53d4a9af26e741e014c9b35c42e
   ParseLiveQuery: 38fb42e4b8611ecfcb199d47e48aeaf6879f8560
   Starscream: 3fdd5c277e57cca6b5c406d274e3f34a7c88f2ce
 
-PODFILE CHECKSUM: 401238f392024933ea200eaa31bdf153664759d0
+PODFILE CHECKSUM: 580d4446df26805a8bb88aa2507474be148c1305
 
 COCOAPODS: 1.2.1
