@@ -1491,7 +1491,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oA5-xI-SRE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" id="UbD-WC-9FP"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nz2-nQ-XNp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nz2-nQ-XNp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2394,7 +2394,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SHj-R4-8eW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uYf-dL-lrY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uYf-dL-lrY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2413,7 +2413,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RnT-Ej-zNo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Create" image="icons8-Plus-25" id="rbm-76-iQ0"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gXn-Wr-KXh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gXn-Wr-KXh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2432,7 +2432,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jaG-1U-MKr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Messages" image="icons8-Speech Bubble-25" id="agw-6R-ORh"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NUL-wO-8aJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NUL-wO-8aJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2451,7 +2451,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LMv-AA-L7b" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Your Trips" image="car (2)" id="BLM-J0-f4M"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Xm0-vA-lWR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xm0-vA-lWR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2470,7 +2470,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hfh-ce-Ckx" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notifications" image="icons8-Notification-25" id="i2I-nE-8uJ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hJd-1A-8o8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hJd-1A-8o8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2511,7 +2511,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RNe-9F-S7w" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7TU-vw-hZE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7TU-vw-hZE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2529,7 +2529,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRx-Nl-LM4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jb1-bp-r5c">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jb1-bp-r5c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2547,7 +2547,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rAy-k9-e58" customClass="HalfModalNavViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6AK-mq-o1H">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6AK-mq-o1H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2795,14 +2795,10 @@
         <image name="profile" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="328-7y-CCe"/>
         <segue reference="nDs-Zk-OKT"/>
         <segue reference="udw-Nn-bqf"/>
         <segue reference="cqV-Eg-IDX"/>
-        <segue reference="vyv-0s-BnT"/>
-        <segue reference="Pww-X3-iAj"/>
-        <segue reference="328-7y-CCe"/>
-        <segue reference="cqV-Eg-IDX"/>
-        <segue reference="udw-Nn-bqf"/>
         <segue reference="lI8-F8-sf7"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.0" green="0.017594873171725547" blue="0.99649196863174438" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
