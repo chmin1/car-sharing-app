@@ -458,5 +458,10 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    @IBAction func closeKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
+    
 
 }

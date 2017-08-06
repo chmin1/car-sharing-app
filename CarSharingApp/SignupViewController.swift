@@ -44,8 +44,16 @@ class SignupViewController: UIViewController, PickCollegeViewControllerDelegate 
         // Set up the emailDoesNotMatchSchoolAlert
         emailDoesNotMatchSchoolAlert = UIAlertController(title: "Email/School mismatch", message: "Your email does not match your school's email", preferredStyle: .alert)
         emailDoesNotMatchSchoolAlert.addAction(cancelAction) // add the cancel action to the alertController
-
+        
+        //padding on textfields
+        firstnameTextField.setLeftPaddingPoints(10)
+        lastnameTextField.setLeftPaddingPoints(10)
+        emailTextField.setLeftPaddingPoints(10)
+        passwordTextField.setLeftPaddingPoints(10)
+        confirmPasswordTextField.setLeftPaddingPoints(10)
     }
+    
+    
     
     /*
      * Tells the PickCollegeViewController that it's coming, and sets the delegate!!!! 
