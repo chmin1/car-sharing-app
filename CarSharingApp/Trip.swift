@@ -27,7 +27,7 @@ class Trip: NSObject {
      
     */
     
-    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: String?, withLatest lateDepart: String?, withEditID editID: String?, withCoords coordinates: [String: [Double]], withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    class func postTrip(withName tripName: String?, withDeparture departureLoc: String?, withArrival arrivalLoc: String?, withEarliest earlyDepart: NSDate?, withLatest lateDepart: NSDate?, withEditID editID: String?, withCoords coordinates: [String: [Double]], withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Trip Object: PFObject
         let trip = PFObject(className: "Trip")

@@ -57,11 +57,16 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
             tripNameTextField.text = name?.capitalized
             startTextLabel.text = originalTrip["DepartureLoc"] as? String
             endTextLabel.text = originalTrip["ArrivalLoc"] as? String
-            earliestTextField.text = originalTrip["EarliestTime"] as? String
-            latestTextField.text = originalTrip["LatestTime"] as? String
+            
+            earlyDate = originalTrip["EarliestTime"] as! NSDate
+            lateDate = originalTrip["LatestTime"] as! NSDate
+            
+            earliestTextField.text = Helper.dateToString(date: earlyDate)
+            latestTextField.text = Helper.dateToString(date: lateDate)
         }
         
         minTimeLabel.textColor = Helper.coral()
+        
         
         
     }
@@ -163,8 +168,9 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         EarliestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         earliestTextField.inputView = EarliestDatePickerView
         EarliestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForEarliest(_:)), for: UIControlEvents.valueChanged)
+        
         today = Helper.currentTimeToNearest10()
-        earlyDate =  today
+        //earlyDate =  today
         
         //create the date picker FOR LATEST and make it appear / be functional
         let LatestDatePickerView  : UIDatePicker = UIDatePicker()
@@ -172,7 +178,8 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         LatestDatePickerView.datePickerMode = UIDatePickerMode.dateAndTime
         latestTextField.inputView = LatestDatePickerView
         LatestDatePickerView.addTarget(self, action: #selector(self.handleDatePickerForLatest(_:)), for: UIControlEvents.valueChanged)
-        lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
+        
+        //lateDate = LatestDatePickerView.date.addingTimeInterval(2000000000000.0*60.0) as NSDate
 
         
         //create the toolbar so there's a Done button in the datepicker
@@ -204,7 +211,7 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.dateFormat = "MMM d h:mm a"
         
         let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
         sender.maximumDate = maximumDate as Date
@@ -223,7 +230,7 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.dateFormat = "MMM d h:mm a"
         
         let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
         sender.minimumDate = minimumDate as Date
@@ -273,12 +280,10 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         let tripName = tripNameTextField.text
         let departureLoc = startTextLabel.text
         let arrivalLoc = endTextLabel.text
-        let earlyDepart = earliestTextField.text
-        let lateDepart = latestTextField.text
         
         if isValidDateWindow(earlyDate: earlyDate, lateDate: lateDate) && areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
             
-            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "-1", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDate, withLatest: lateDate, withEditID: "-1", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 }

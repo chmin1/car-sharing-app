@@ -88,10 +88,16 @@ class TripDetailViewController: UIViewController {
         if let trip = trip {
             let name = trip["Name"] as! String
             tripNameLabel.text = name.capitalized
-            earliestLabel.text = trip["EarliestTime"] as! String
-            latestLabel.text = trip["LatestTime"] as! String
-            //departureLocLabel.text = trip["DepartureLoc"] as! String
-            //arrivalLocLabel.text = trip["ArrivalLoc"] as! String
+            
+            let earlyDate = trip["EarliestTime"] as! NSDate
+            let lateDate = trip["LatestTime"] as! NSDate
+            
+            let earlyStr = Helper.dateToString(date: earlyDate)
+            let lateStr = Helper.dateToString(date: lateDate)
+            
+            earliestLabel.text = earlyStr
+            latestLabel.text = lateStr
+
             let members = trip["Members"] as! [PFUser]
             globalMembers = members
             let memberNames = Helper.returnMemberNames(tripMembers: members) as [String]

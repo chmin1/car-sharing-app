@@ -12,10 +12,10 @@ import Parse
 class HalfModalViewController: UIViewController, HalfModalPresentable {
 
     @IBOutlet weak var myDatePicker: UIDatePicker!
-    var newTime: String = ""
+    var newTime: NSDate!
     var currentTrip: PFObject?
-    var originalTripEarliestTime: String = ""
-    var originalTripLatestTime: String = ""
+    var originalTripEarliestTime: NSDate!
+    var originalTripLatestTime: NSDate!
     @IBOutlet weak var leaveTimeButton: UIButton!
     @IBOutlet weak var changeTimeButton: UIButton!
     
@@ -36,15 +36,12 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         leaveTimeButton.setTitleColor(Helper.peach(), for: .normal)
 
         myDatePicker.minuteInterval = 10
-        newTime = setUpDatePicker(date: myDatePicker.date)
-        originalTripLatestTime = currentTrip?["LatestTime"] as! String
-        originalTripEarliestTime = currentTrip?["EarliestTime"] as! String
+        newTime = myDatePicker.date as NSDate
+        originalTripLatestTime = currentTrip?["LatestTime"] as! NSDate
+        originalTripEarliestTime = currentTrip?["EarliestTime"] as! NSDate
         
-        let minDate = originalTripEarliestTime.stringToDate()
-        let maxDate = originalTripLatestTime.stringToDate()
-        
-        myDatePicker.minimumDate = minDate.addMinutes(minutesToAdd: 20) as Date
-        myDatePicker.maximumDate = maxDate as Date
+        myDatePicker.minimumDate = originalTripEarliestTime.addMinutes(minutesToAdd: 20) as Date
+        myDatePicker.maximumDate = originalTripLatestTime as Date
     }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
@@ -55,7 +52,9 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         dismiss(animated: true, completion: nil)
     }
     
-    func setUpDatePicker(date: Date) -> String {
+    /*
+    
+    func formatDate(date: Date) -> String {
         // Create date formatter
         let dateFormatter: DateFormatter = DateFormatter()
         
@@ -67,9 +66,11 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         
         return selectedDate
     }
+ */
+ 
     
     @IBAction func changeTimeDatePickerAction(_ sender: Any) {
-        newTime = setUpDatePicker(date: myDatePicker.date)
+        newTime = myDatePicker.date as NSDate
         print("new time = \(newTime)")
     }
     
@@ -110,7 +111,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     }
     
     //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" (aka "Merge") IS PRESSED =======
-    func addUserToTrip(withNewTime newTime: String) {
+    func addUserToTrip(withNewTime newTime: NSDate) {
         var membersArray = currentTrip?["Members"] as! [PFUser]
         if membersArray.count < 4 {
             let memberNames = Helper.returnMemberNames(tripMembers: membersArray)

@@ -200,8 +200,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earliestDepart = trip["EarliestTime"] as! String
-            let latestDepart = trip["LatestTime"] as! String
+            let earlyDate = trip["EarliestTime"] as! NSDate
+            let lateDate = trip["LatestTime"] as! NSDate
+            
+            let earlyStr = Helper.dateToString(date: earlyDate)
+            let lateStr = Helper.dateToString(date: lateDate)
             if let tripMembers = trip["Members"] as? [PFUser] {
                 print(tripName)
                 let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
@@ -224,8 +227,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             myCell.tripName.text = tripName.capitalized
             myCell.departLabel.text = departureLocation
             myCell.destinationLabel.text = arrivalLocation
-            myCell.earlyTimeLabel.text = earliestDepart
-            myCell.lateDepartLabel.text = latestDepart
+            myCell.earlyTimeLabel.text = earlyStr
+            myCell.lateDepartLabel.text = lateStr
             break
         case 1:
             let trip = pastTrips[indexPath.row]
@@ -233,8 +236,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earliestDepart = trip["EarliestTime"] as! String
-            let latestDepart = trip["LatestTime"] as! String
+            let earlyDate = trip["EarliestTime"] as! NSDate
+            let lateDate = trip["LatestTime"] as! NSDate
+            
+            let earlyStr = Helper.dateToString(date: earlyDate)
+            let lateStr = Helper.dateToString(date: lateDate)
             if let tripMembers = trip["Members"] as? [PFUser] {
                 print(tripName)
                 let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
@@ -257,8 +263,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             myCell.tripName.text = tripName.capitalized
             myCell.departLabel.text = departureLocation
             myCell.destinationLabel.text = arrivalLocation
-            myCell.earlyTimeLabel.text = earliestDepart
-            myCell.lateDepartLabel.text = latestDepart
+            myCell.earlyTimeLabel.text = earlyStr
+            myCell.lateDepartLabel.text = lateStr
             break
         default:
             break

@@ -166,8 +166,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earliestDepart = trip["EarliestTime"] as! String
-            let latestDepart = trip["LatestTime"] as! String
+            let earlyDate = trip["EarliestTime"] as! NSDate
+            let lateDate = trip["LatestTime"] as! NSDate
+            
+            let earlyStr = Helper.dateToString(date: earlyDate)
+            let lateStr = Helper.dateToString(date: lateDate)
             if let tripMembers = trip["Members"] as? [PFUser] {
                 print(tripName)
                 let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
@@ -213,8 +216,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             cell.tripName.text = tripName.capitalized
             cell.departLabel.text = departureLocation
             cell.destinationLabel.text = arrivalLocation
-            cell.earlyTimeLabel.text = earliestDepart
-            cell.lateDepartLabel.text = latestDepart
+            cell.earlyTimeLabel.text = earlyStr
+            cell.lateDepartLabel.text = lateStr
             return cell
         }
         
@@ -408,12 +411,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             print(trip)
             let tripDeparture = trip["DepartureLoc"] as! String
             let tripArrival = trip["ArrivalLoc"] as! String
-            let tripEarliest = trip["EarliestTime"] as! String
-            let tripLatest = trip["LatestTime"] as! String
-            let tripEarliestDate = tripEarliest.stringToDate()
-            let tripLatestDate = tripLatest.stringToDate()
+            let tripEarliest = trip["EarliestTime"] as! NSDate
+            let tripLatest = trip["LatestTime"] as! NSDate
             
-            return tripDeparture.lowercased() == departureText.lowercased() && tripArrival.lowercased() == arrivalText.lowercased() && compareDates(earliestDate: earliestDate, latestDate: latestDate, tripEarliestDate: tripEarliestDate, tripLatestDate: tripLatestDate)
+            
+            return tripDeparture.lowercased() == departureText.lowercased() && tripArrival.lowercased() == arrivalText.lowercased() && compareDates(earliestDate: earliestDate, latestDate: latestDate, tripEarliestDate: tripEarliest, tripLatestDate: tripLatest)
         }
         tripsTableView.reloadData()
     }

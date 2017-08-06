@@ -186,9 +186,8 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.dateFormat = "MMM d h:mm a"
         
-        earlyDate = sender.date as NSDate
         let maximumDate = lateDate.addMinutes(minutesToAdd: -20)
         sender.maximumDate = maximumDate as Date
         sender.minimumDate = today as NSDate as Date
@@ -206,9 +205,8 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
+        dateFormatter.dateFormat = "MMM d h:mm a"
         
-        lateDate = sender.date as NSDate
         let minimumDate = earlyDate.addMinutes(minutesToAdd: 20)
         sender.minimumDate = minimumDate as Date
         
@@ -256,12 +254,10 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         let tripName = tripNameTextField.text
         let departureLoc = startTextLabel.text
         let arrivalLoc = endTextLabel.text
-        let earlyDepart = earliestTextField.text
-        let lateDepart = latestTextField.text
         
         if areValidLocations(depart: departureLoc!, destination: arrivalLoc!) && isValidTripName(tripName: tripName!) {
             
-            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDepart, withLatest: lateDepart, withEditID: "", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
+            Trip.postTrip(withName: tripName, withDeparture: departureLoc, withArrival: arrivalLoc, withEarliest: earlyDate, withLatest: lateDate, withEditID: "", withCoords: coordinates) { (trip: PFObject?, error: Error?) in
                 if let error = error {
                     print("Error creating Trip: \(error.localizedDescription)")
                 } else if let trip = trip {

@@ -94,12 +94,12 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let departureLocation = trip["DepartureLoc"] as! String
         let arrivalLocation = trip["ArrivalLoc"] as! String
-        let earliestDepart = trip["EarliestTime"] as! String
-        let latestDepart = trip["LatestTime"] as! String
-        print("depart: \(departureLocation)")
-        print("arriv: \(arrivalLocation)")
-        print("earliestdep: \(earliestDepart)")
-        print("latestdep: \(latestDepart)")
+        let earlyDate = trip["EarliestTime"] as! NSDate
+        let lateDate = trip["LatestTime"] as! NSDate
+        
+        let earlyStr = Helper.dateToString(date: earlyDate)
+        let lateStr = Helper.dateToString(date: lateDate)
+        
         if let tripMembers = trip["Members"] as? [PFUser] {
             print(tripName)
             let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
@@ -122,8 +122,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         cell.tripName.text = tripName.capitalized
         cell.departLabel.text = departureLocation
         cell.destinationLabel.text = arrivalLocation
-        cell.earlyTimeLabel.text = earliestDepart
-        cell.lateDepartLabel.text = latestDepart
+        cell.earlyTimeLabel.text = earlyStr
+        cell.lateDepartLabel.text = lateStr
         return cell
     }
     

@@ -160,7 +160,7 @@ class Helper {
         let dateFormatter: DateFormatter = DateFormatter()
         
         // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"        
+        dateFormatter.dateFormat = "MMM d, h:mm a"        
         // Apply date format
         let selectedDate: String = dateFormatter.string(from: date as Date)
         return selectedDate

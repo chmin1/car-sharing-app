@@ -221,8 +221,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 let tripName = trip["Name"] as! String
                 let departureLocation = trip["DepartureLoc"] as! String
                 let arrivalLocation = trip["ArrivalLoc"] as! String
-                let earliestDepart = trip["EarliestTime"] as! String
-                let latestDepart = trip["LatestTime"] as! String
+                let earlyDate = trip["EarliestTime"] as! NSDate
+                let lateDate = trip["LatestTime"] as! NSDate
+                
+                let earlyStr = Helper.dateToString(date: earlyDate)
+                let lateStr = Helper.dateToString(date: lateDate)
                 //print(trip.objectId!)
                 if let origName = originalNameDict[trip.objectId!]?[1] {
                     print(origName)
@@ -232,8 +235,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 cell.newTripNameLabel.text = tripName.capitalized
                 cell.departLabel.text = departureLocation
                 cell.destinationLabel.text = arrivalLocation
-                cell.earlyTimeLabel.text = earliestDepart
-                cell.lateDepartLabel.text = latestDepart
+                cell.earlyTimeLabel.text = earlyStr
+                cell.lateDepartLabel.text = lateStr
             }
             return cell
         }
@@ -243,7 +246,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let request = everythingArray[indexPath.row]
             let trip = request["Trip"] as! PFObject
             let user = request["User"] as! PFUser
-            let newTime = request["NewTime"] as! String
+            let newTime = request["NewTime"] as! NSDate
+            let newTimeStr = Helper.dateToString(date: newTime)
             let tripName = trip["Name"] as! String
             let userName = user["fullname"] as! String
             
@@ -251,7 +255,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Avenir Next", size: 16.0)!]
             let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
             let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
-            let newTimeAttr = NSMutableAttributedString(string: newTime, attributes: coralAttribute)
+            let newTimeAttr = NSMutableAttributedString(string: newTimeStr, attributes: coralAttribute)
             let finalMessage = NSMutableAttributedString()
             finalMessage.append(userNameAttr)
             finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
@@ -392,7 +396,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let indexPath = tableView.indexPath(for: cell)
             let request = everythingArray[(indexPath?.row)!]
             let newUser = request["User"] as! PFUser
-            let newTime = request["NewTime"] as! String
+            let newTime = request["NewTime"] as! NSDate
             let trip = request["Trip"] as! PFObject
             let oldMembersArray = trip["Members"] as! [PFUser]
             var membersArray = trip["Members"] as! [PFUser]

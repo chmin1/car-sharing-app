@@ -13,7 +13,7 @@ import UIKit
 
 class Request: NSObject {
     
-    class func postRequest(withTrip trip: PFObject?, withUser user: PFUser?, withTime newTime: String?, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    class func postRequest(withTrip trip: PFObject?, withUser user: PFUser?, withTime newTime: NSDate, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Request Object: PFObject
         let request = PFObject(className: "Request")
