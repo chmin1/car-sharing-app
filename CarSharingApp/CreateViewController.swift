@@ -71,6 +71,10 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         createButton.layer.borderWidth = 2
         createButton.layer.borderColor = UIColor.white.cgColor
 
+        //padding on textfields
+        tripNameTextField.setLeftPaddingPoints(6)
+        earliestTextField.setLeftPaddingPoints(6)
+        latestTextField.setLeftPaddingPoints(6)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -282,6 +286,9 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         
     }//close didTapSubmit
     
+    @IBAction func closeKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
     
     
 }

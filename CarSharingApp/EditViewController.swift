@@ -48,7 +48,7 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         //Make Buttons ovular and color their background/text
         submitButton.layer.cornerRadius = submitButton.frame.height / 2
         submitButton.clipsToBounds = true
-        submitButton.backgroundColor = Helper.coral()
+        submitButton.backgroundColor = Helper.peach()
         submitButton.setTitleColor(UIColor.white, for: .normal)
         
         //Fill in the trip info
@@ -309,6 +309,11 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         }
         
     }
+    
+    @IBAction func closeKeyboard(_ sender: Any) {
+        self.view.endEditing(true)
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
