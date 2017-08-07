@@ -70,7 +70,7 @@ class TripDetailViewController: UIViewController {
         member4Prof.clipsToBounds = true
         
         //Set up the labels to have and colors
-        requestPendingLabel.textColor = Helper.peach()
+        requestPendingLabel.textColor = Helper.coral()
         
         
         //Pending Edit

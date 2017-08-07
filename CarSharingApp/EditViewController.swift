@@ -136,11 +136,11 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
         
         if locationSource == startTextLabel {
             startTextLabel.textColor = UIColor.white
-            startTextLabel.text = place.formattedAddress
+            startTextLabel.text = place.name
             coordinates["from"] = [place.coordinate.latitude, place.coordinate.longitude]
         } else if locationSource == endTextLabel {
             endTextLabel.textColor = UIColor.white
-            endTextLabel.text = place.formattedAddress
+            endTextLabel.text = place.name
             coordinates["to"] = [place.coordinate.latitude, place.coordinate.longitude]
         }
         

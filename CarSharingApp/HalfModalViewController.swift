@@ -19,6 +19,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     @IBOutlet weak var leaveTimeButton: UIButton!
     @IBOutlet weak var changeTimeButton: UIButton!
     
+    var dismissBlock: (() -> ())?
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -51,23 +52,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
         
         dismiss(animated: true, completion: nil)
     }
-    
-    /*
-    
-    func formatDate(date: Date) -> String {
-        // Create date formatter
-        let dateFormatter: DateFormatter = DateFormatter()
-        
-        // Set date format
-        dateFormatter.dateFormat = "MMM d, yyyy h:mm a"
 
-        // Apply date format
-        let selectedDate: String = dateFormatter.string(from: date as Date)
-        
-        return selectedDate
-    }
- */
- 
     
     @IBAction func changeTimeDatePickerAction(_ sender: Any) {
         newTime = myDatePicker.date as NSDate
@@ -84,12 +69,11 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
             }
         }
         
-        //addUserToTrip(withNewTime: newTime) //change the time to the new user specified time
-        
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
         }
         dismiss(animated: true, completion: nil)
+        dismissBlock!()
     }
 
     @IBAction func didTapLeaveTime(_ sender: Any) {
@@ -102,12 +86,12 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
             }
         }
         
-        //addUserToTrip(withNewTime: originalTripLatestTime) //keep the time as the original trip time
         
         if let delegate = navigationController?.transitioningDelegate as? HalfModalTransitioningDelegate {
             delegate.interactiveDismiss = false
         }
         dismiss(animated: true, completion: nil)
+        dismissBlock!()
     }
     
     //====== ADD USER TO TRIP WHEN "REQUEST TO JOIN" (aka "Merge") IS PRESSED =======

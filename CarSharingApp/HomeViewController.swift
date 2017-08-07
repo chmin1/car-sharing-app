@@ -21,6 +21,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     //for when the user searches
     var filteredTripsFeed: [PFObject] = []
     var currentTrip: PFObject?
+    var currentTripIndexPath: IndexPath?
     var requestedTrips: [String] = []
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -300,11 +301,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         if locationSource == HomeHeaderCell.startTextLabel {
             HomeHeaderCell.startTextLabel.textColor = UIColor.black
-            HomeHeaderCell.startTextLabel.text = place.formattedAddress
+            HomeHeaderCell.startTextLabel.text = place.name
             print(HomeHeaderCell.startTextLabel.text!)
         } else if locationSource == HomeHeaderCell.endTextLabel {
             HomeHeaderCell.endTextLabel.textColor = UIColor.black
-            HomeHeaderCell.endTextLabel.text = place.formattedAddress
+            HomeHeaderCell.endTextLabel.text = place.name
         }
         
         // Dismiss the place picker, as it cannot dismiss itself.
@@ -343,6 +344,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let cell = sender.superview??.superview as? TripCell {
             let indexPath = tripsTableView.indexPath(for: cell)
             currentTrip = filteredTripsFeed[(indexPath?.row)!]
+            currentTripIndexPath = indexPath
             performSegue(withIdentifier: "halfModalSegue", sender: nil)
             tripsTableView.reloadData()
         }
@@ -367,6 +369,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             let navigationController = segue.destination as! HalfModalNavViewController
             let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
             halfModelVC.currentTrip = currentTrip
+            halfModelVC.dismissBlock = { () -> () in
+                self.requestedTrips.append(self.currentTrip!.objectId!)
+                self.tripsTableView.reloadRows(at: [self.currentTripIndexPath!], with: UITableViewRowAnimation.automatic)
+                
+            }
         }
     }
     
