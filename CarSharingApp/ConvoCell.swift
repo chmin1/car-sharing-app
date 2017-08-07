@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Parse
 
 class ConvoCell: UITableViewCell {
     
     @IBOutlet weak var textImage: UIImageView!
     
     @IBOutlet weak var textMessage: UILabel!
+    
+    @IBOutlet weak var textBubble: UIView!
     
     @IBOutlet weak var authorLabel: UILabel!
     
@@ -21,6 +24,14 @@ class ConvoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        textImage.layer.borderColor = Helper.veryLightGray().cgColor
+        textImage.layer.borderWidth = 1
+        
+//        textBubble.backgroundColor = Helper.peach()
+        textBubble.layer.cornerRadius = 7
+        textBubble.layer.masksToBounds = true
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
