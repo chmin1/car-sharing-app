@@ -20,10 +20,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var areWaitingForTrips: Bool = false
-    var areWaitingForRequests: Bool = false
+    var areWaitingForTrips: Bool! = false
+    var areWaitingForRequests: Bool! = false
     var areWaitingForLimbos: Bool = false
-    var limboFetchDone: Bool = false
+    var limboFetchDone: Bool!
     var requestsFetchDone: Bool = false
     @IBOutlet weak var emojiView: UIImageView!
     override func viewDidLoad() {
@@ -61,10 +61,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
-        checkToDisplayNotifs()
         everythingArray.removeAll()
         fetchTripsInLimbo()
         fetchRequests()
+        checkToDisplayNotifs()
+        
     }
     
     func fetchTripsInLimbo() {
@@ -73,13 +74,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         //for each trip that has an edit, get the edit id
         //with that edit id, get the limbo trip
         // IN TABLE VIEW: check if user has alredy responded to the edit and don't display if they have
-        areWaitingForLimbos = true
+        //areWaitingForLimbos = true
         activityIndicator.startAnimating()
         let currentUser = PFUser.current()
         let query = PFQuery(className: "Trip")
         query.includeKey("Name")
         query.includeKey("Members")
         query.whereKey("Members", equalTo: currentUser)
+        areWaitingForTrips = true
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.listOfEditIds.removeAll()
@@ -97,7 +99,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     }
                     
                 }
-                self.areWaitingForLimbos = false
+                //self.areWaitingForLimbos = false
                 self.fillLimboTripList()
                 self.checkToDisplayNotifs()
 
@@ -116,10 +118,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             self.tableView.reloadData()
             self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
+            self.areWaitingForTrips = false
         }
-        areWaitingForTrips = true
         self.limboTrips.removeAll()
-        for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id
+        for (i, editID) in self.listOfEditIds.enumerated() { //go thru list of edit ids to get each limbo trip with that id
             let query = PFQuery(className: "Trip")
             query.whereKey("objectId", equalTo: editID)
             query.addDescendingOrder("createdAt")
@@ -132,7 +134,12 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                         self.everythingArray.append(limbotrip)
                         self.sortEverythingArray()
                     }
-                    self.areWaitingForTrips = false
+                    if (i == self.listOfEditIds.count - 1) {
+                        self.areWaitingForTrips = false
+                    }
+                    // check if it's the last time based on for loop index
+                    // integer. +count at beginning. -1 every time
+                    // store a list of requests you're waiting on.
                     self.checkToDisplayNotifs()
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
@@ -143,8 +150,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
         }
-        
-        
         
     }//close fillLimboTripList()
     
@@ -309,7 +314,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let indexPath = tableView.indexPath(for: cell)
             let limboTrip = everythingArray[(indexPath?.row)!]
             let limboTripID = limboTrip.objectId!
-            
+            everythingArray.remove(at: (indexPath?.row)!)
             
             getOrigionalTrip(limboTripId: limboTripID, withCompletion: { (origionalTrip: PFObject?, error: Error?) in
                 if let origionalTrip = origionalTrip {
@@ -321,9 +326,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 
             })
             //delete the limbo trip
+            
+            tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             Helper.deleteTrip(trip: limboTrip)
-            self.fetchTripsInLimbo()
-            self.fetchRequests()
+            tableView.reloadData()
             
         }
     }
@@ -337,19 +343,18 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         if let cell = sender.superview??.superview as? EditedTripCell {
             let indexPath = tableView.indexPath(for: cell)
             let limboTrip = everythingArray[(indexPath?.row)!]
+            everythingArray.remove(at: (indexPath?.row)!)
             var approvalList = limboTrip["Approvals"] as! [PFUser]
-            print("before \(approvalList)")
             approvalList.append(PFUser.current()!)
-            print("after \(approvalList)")
             limboTrip["Approvals"] = approvalList
+            tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             
             limboTrip.saveInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
                     print("You sucessfully accepted the trip!")
-                    self.fetchTripsInLimbo()
-                    self.fetchRequests()
+                    self.tableView.reloadData()
                 }
             })
             
@@ -373,15 +378,14 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
             let request = everythingArray[(indexPath?.row)!]
+            everythingArray.remove(at: (indexPath?.row)!)
             request.deleteInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
-                    self.everythingArray.remove(at: (indexPath?.row)!)
+                    self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.none)
                     self.tableView.reloadData()
-                    self.fetchTripsInLimbo()
-                    self.fetchRequests()
                     
                 }
             })
@@ -396,6 +400,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         if let cell = sender.superview??.superview as? RequestCell {
             let indexPath = tableView.indexPath(for: cell)
             let request = everythingArray[(indexPath?.row)!]
+            everythingArray.remove(at: (indexPath?.row)!)
             let newUser = request["User"] as! PFUser
             let newTime = request["newDate"] as! NSDate
             let trip = request["Trip"] as! PFObject
@@ -414,13 +419,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 }
             })
             //delete the request
+            self.tableView.deleteRows(at: [indexPath!], with: UITableViewRowAnimation.automatic)
             request.deleteInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
-                    self.fetchTripsInLimbo()
-                    self.fetchRequests()
+                    self.tableView.reloadData()
                 }
             })
             
@@ -550,7 +555,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     }
     
     func checkToDisplayNotifs() {
-        if !areWaitingForLimbos && !areWaitingForTrips && !areWaitingForRequests && everythingArray.isEmpty {
+        if !areWaitingForTrips && !areWaitingForRequests && everythingArray.isEmpty {
             Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
             self.emojiView.isHidden = false
             self.tableView.backgroundView?.isHidden = false
