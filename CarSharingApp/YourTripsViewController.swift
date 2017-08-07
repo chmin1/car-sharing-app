@@ -75,6 +75,9 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
                 if self.yourTrips.count == 0 {
                     Helper.displayEmptyTableView(withTableView: self.yourTripsTableView, withText: "You are not currently in any trips!")
                     self.emojiView.isHidden = false
+                } else {
+                    self.emojiView.isHidden = true
+                    self.yourTripsTableView.backgroundView?.isHidden = true
                 }
                 
                 

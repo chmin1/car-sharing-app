@@ -38,9 +38,15 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
     
     // A subscription for the live query client
     var subscriptionX:Subscription<PFObject>? = nil;
+    
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        convoView.backgroundColor = UIColor.clear
+        
         automaticallyAdjustsScrollViewInsets = false
         
         convoView.rowHeight = UITableViewAutomaticDimension
@@ -59,16 +65,16 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         messageField.maxLength = 0
         messageField.maxHeight = 100
         messageField.placeHolder = "Compose a message..."
-        messageField.placeHolderColor = Helper.peach()
+        messageField.placeHolderColor = UIColor.white
         messageField.textColor = UIColor.white
         
         Dock.backgroundColor = Helper.coral()
         topBorder.backgroundColor = Helper.peach()
         sendButton.backgroundColor = UIColor.white
         sendButton.layer.borderWidth = 2.5
-        sendButton.layer.borderColor = Helper.peach().cgColor
+        sendButton.layer.borderColor = UIColor.white.cgColor
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
-        sendButton.setTitleColor(Helper.peach(), for: .normal)
+        sendButton.setTitleColor(UIColor.white, for: .normal)
         sendButton.backgroundColor = nil
 
         if let title = Trip["Name"] as? String {
@@ -326,8 +332,18 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         }
         
         item.textMessage.text = messageText
+        let size = CGSize(width: 250, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12)], context: nil)
+        item.textMessage.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width, height: estimatedFrame.height)
+        item.textBubble.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width + 15, height: estimatedFrame.height + 15)
         
-        item.authorLabel.text = author
+        if author == PFUser.current()?["fullname"] as! String {
+            item.textBubble.backgroundColor = Helper.peach()
+        } else {
+            item.textBubble.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        }
+        
         item.dateSentLabel.text = date
         
         return item

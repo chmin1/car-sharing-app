@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 class ConvoCell: UITableViewCell {
     
@@ -14,13 +15,18 @@ class ConvoCell: UITableViewCell {
     
     @IBOutlet weak var textMessage: UILabel!
     
-    @IBOutlet weak var authorLabel: UILabel!
+    @IBOutlet weak var textBubble: UIView!
     
     @IBOutlet weak var dateSentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        
+        textBubble.layer.cornerRadius = textBubble.frame.height / 2
+        textBubble.layer.masksToBounds = true
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
