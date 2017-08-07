@@ -17,12 +17,12 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     var listOfEditIds: [String] = []
     var everythingArray: [PFObject] = []
     var refreshControl: UIRefreshControl!
-    var noNotifs: Bool = false
     @IBOutlet weak var tableView: UITableView!
     var originalNameDict: [String: [String]] = [:] //[editedTripID: tripName]
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    var noLimbos: Bool = false
-    var noRequests: Bool = false
+    var areWaitingForTrips: Bool = false
+    var areWaitingForRequests: Bool = false
+    var areWaitingForLimbos: Bool = false
     var limboFetchDone: Bool = false
     var requestsFetchDone: Bool = false
     @IBOutlet weak var emojiView: UIImageView!
@@ -53,9 +53,6 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        emojiView.isHidden = true
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -64,11 +61,10 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
     
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        checkToDisplayNotifs()
         everythingArray.removeAll()
-        emojiView.isHidden = true
         fetchTripsInLimbo()
         fetchRequests()
-        //fetchGeneralNotifs()
     }
     
     func fetchTripsInLimbo() {
@@ -77,7 +73,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
         //for each trip that has an edit, get the edit id
         //with that edit id, get the limbo trip
         // IN TABLE VIEW: check if user has alredy responded to the edit and don't display if they have
-        
+        areWaitingForLimbos = true
         activityIndicator.startAnimating()
         let currentUser = PFUser.current()
         let query = PFQuery(className: "Trip")
@@ -95,15 +91,16 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                             oldTripInfo[0] = trip.objectId!
                             oldTripInfo[1] = (trip["Name"] as? String)!
                             self.originalNameDict[tripEditId] = oldTripInfo
-                            
                             self.listOfEditIds.append(tripEditId) //if the trip has an edit, add that edit id to the list of edit ids
                             
                         }
                     }
                     
                 }
+                self.areWaitingForLimbos = false
                 self.fillLimboTripList()
-                
+                self.checkToDisplayNotifs()
+
             } else {
                 print(error?.localizedDescription ?? "Unknown Error")
             }
@@ -120,6 +117,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
         }
+        areWaitingForTrips = true
         self.limboTrips.removeAll()
         for editID in self.listOfEditIds { //go thru list of edit ids to get each limbo trip with that id
             let query = PFQuery(className: "Trip")
@@ -134,14 +132,18 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                         self.everythingArray.append(limbotrip)
                         self.sortEverythingArray()
                     }
+                    self.areWaitingForTrips = false
+                    self.checkToDisplayNotifs()
                     self.tableView.reloadData()
                     self.refreshControl.endRefreshing()
                     self.activityIndicator.stopAnimating()
+                    
                 } else {
                     print("HELLO ERROR: \(error?.localizedDescription ?? "Unknown Error")")
                 }
             })
         }
+        
         
         
     }//close fillLimboTripList()
@@ -150,6 +152,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
      * Get the requests for the table view
      */
     func fetchRequests() {
+        areWaitingForRequests = true
         let query = PFQuery(className: "Request")
         query.whereKey("TripPlannerID", equalTo: PFUser.current()!.objectId!)
         query.includeKey("User")
@@ -178,13 +181,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                         //TODO: send notif to user to say trip got full
                     }
                 }
-                if self.requests.isEmpty {
-                    self.noRequests = true
-                    if self.limboTrips.isEmpty {
-                        Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
-                        self.emojiView.isHidden = false
-                    }
-                }
+                self.areWaitingForRequests = false
+                self.checkToDisplayNotifs()
                 self.tableView.reloadData()
                 self.refreshControl.endRefreshing()
             } else {
@@ -246,8 +244,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let request = everythingArray[indexPath.row]
             let trip = request["Trip"] as! PFObject
             let user = request["User"] as! PFUser
-            let newTime = request["NewTime"] as! NSDate
-            let newTimeStr = Helper.dateToString(date: newTime)
+            let newDate = request["newDate"] as! NSDate
+            let newDateStr = Helper.dateToString(date: newDate)
             let tripName = trip["Name"] as! String
             let userName = user["fullname"] as! String
             
@@ -255,13 +253,13 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let coralAttribute = [NSForegroundColorAttributeName: Helper.coral(), NSFontAttributeName:UIFont(name: "Avenir Next", size: 16.0)!]
             let userNameAttr = NSMutableAttributedString(string: userName.capitalized, attributes: coralAttribute)
             let tripNameAttr = NSMutableAttributedString(string: tripName.capitalized, attributes: coralAttribute)
-            let newTimeAttr = NSMutableAttributedString(string: newTimeStr, attributes: coralAttribute)
+            let newDateAttr = NSMutableAttributedString(string: newDateStr, attributes: coralAttribute)
             let finalMessage = NSMutableAttributedString()
             finalMessage.append(userNameAttr)
             finalMessage.append(NSMutableAttributedString(string: " has requested to join your trip, "))
             finalMessage.append(tripNameAttr)
             finalMessage.append(NSMutableAttributedString(string: ", with a latest departure time of "))
-            finalMessage.append(newTimeAttr)
+            finalMessage.append(newDateAttr)
             cell.newUserName.attributedText = finalMessage
             
             
@@ -380,8 +378,11 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                     print(error.localizedDescription)
                 } else {
                     print("Sucessfully deleted the request 🐞")
+                    self.everythingArray.remove(at: (indexPath?.row)!)
+                    self.tableView.reloadData()
                     self.fetchTripsInLimbo()
                     self.fetchRequests()
+                    
                 }
             })
         }
@@ -396,7 +397,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             let indexPath = tableView.indexPath(for: cell)
             let request = everythingArray[(indexPath?.row)!]
             let newUser = request["User"] as! PFUser
-            let newTime = request["NewTime"] as! NSDate
+            let newTime = request["newDate"] as! NSDate
             let trip = request["Trip"] as! PFObject
             let oldMembersArray = trip["Members"] as! [PFUser]
             var membersArray = trip["Members"] as! [PFUser]
@@ -546,5 +547,16 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             }
         }
         return true;
+    }
+    
+    func checkToDisplayNotifs() {
+        if !areWaitingForLimbos && !areWaitingForTrips && !areWaitingForRequests && everythingArray.isEmpty {
+            Helper.displayEmptyTableView(withTableView: self.tableView, withText: "No notifications to display!")
+            self.emojiView.isHidden = false
+            self.tableView.backgroundView?.isHidden = false
+        } else  if !areWaitingForLimbos && !areWaitingForTrips && !areWaitingForRequests && !everythingArray.isEmpty {
+            self.emojiView.isHidden = true
+            self.tableView.backgroundView?.isHidden = true
+        }
     }
 }

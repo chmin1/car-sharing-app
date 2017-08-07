@@ -135,11 +135,13 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
     func placePicker(_ viewController: GMSPlacePickerViewController, didPick place: GMSPlace) {
         
         if locationSource == startTextLabel {
-            startTextLabel.textColor = UIColor.black
+            startTextLabel.textColor = UIColor.white
             startTextLabel.text = place.formattedAddress
+            coordinates["from"] = [place.coordinate.latitude, place.coordinate.longitude]
         } else if locationSource == endTextLabel {
-            endTextLabel.textColor = UIColor.black
+            endTextLabel.textColor = UIColor.white
             endTextLabel.text = place.formattedAddress
+            coordinates["to"] = [place.coordinate.latitude, place.coordinate.longitude]
         }
         
         // Dismiss the place picker, as it cannot dismiss itself.

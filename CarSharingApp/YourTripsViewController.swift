@@ -57,6 +57,7 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         query.includeKey("Name")
         query.includeKey("Members")
         query.whereKey("Members", equalTo: currentUser)
+        query.order(byDescending: "_created_at")
         query.findObjectsInBackground { (trips: [PFObject]?, error: Error?) in
             if let trips = trips {
                 self.yourTrips.removeAll()
