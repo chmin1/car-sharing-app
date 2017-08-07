@@ -37,8 +37,8 @@ class Trip: NSObject {
         trip["Planner"] = PFUser.current()
         trip["DepartureLoc"] = departureLoc // Location where you will leave from
         trip["ArrivalLoc"] = arrivalLoc // Location you will arrive to
-        trip["EarliestTime"] = earlyDepart // Earliest time you can leave
-        trip["LatestTime"] = lateDepart // Latest timne you can leave
+        trip["EarliestDate"] = earlyDepart // Earliest time you can leave
+        trip["LatestDate"] = lateDepart // Latest timne you can leave
         trip["Coordinates"] = coordinates //lat and long of locations
         
         var tripMembers = [PFUser]()

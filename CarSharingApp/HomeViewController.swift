@@ -140,6 +140,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     //====== PULL TO REFRESH =======
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         getUserRequests()
+        clearSearchField()
     }
     
     /*
@@ -166,8 +167,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             let departureLocation = trip["DepartureLoc"] as! String
             let arrivalLocation = trip["ArrivalLoc"] as! String
-            let earlyDate = trip["EarliestTime"] as! NSDate
-            let lateDate = trip["LatestTime"] as! NSDate
+            let earlyDate = trip["EarliestDate"] as! NSDate
+            let lateDate = trip["LatestDate"] as! NSDate
             
             let earlyStr = Helper.dateToString(date: earlyDate)
             let lateStr = Helper.dateToString(date: lateDate)
@@ -366,6 +367,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         let earliest = HomeHeaderCell.earliestTextField.text!
         let latest = HomeHeaderCell.latestTextField.text!
         
+
+        
         //display error message if one of the field is empty
         if departure == " Select Starting Location" || arrival == " Select Ending Location" || earliest == "" || latest == "" {
             present(emptyFieldAlert, animated: true) { }
@@ -389,20 +392,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     
     @IBAction func didTapClear(_ sender: Any) {
-        HomeHeaderCell.startTextLabel.textColor = UIColor.lightGray
-        HomeHeaderCell.endTextLabel.textColor = UIColor.lightGray
-        HomeHeaderCell.startTextLabel.text = " Select Starting Location"
-        HomeHeaderCell.endTextLabel.text = " Select Ending Location"
-    
-        HomeHeaderCell.earliestTextField.text = ""
-        HomeHeaderCell.earliestTextField.placeholder = "Select Earliest Departure Time"
-        HomeHeaderCell.latestTextField.text = ""
-        HomeHeaderCell.latestTextField.placeholder = "Select Latest Departure Time"
+        clearSearchField()
         
         refresh()
         
     }
     
+    func clearSearchField() {
+        HomeHeaderCell.startTextLabel.textColor = UIColor.lightGray
+        HomeHeaderCell.endTextLabel.textColor = UIColor.lightGray
+        HomeHeaderCell.startTextLabel.text = " Select Starting Location"
+        HomeHeaderCell.endTextLabel.text = " Select Ending Location"
+        
+        HomeHeaderCell.earliestTextField.text = ""
+        HomeHeaderCell.earliestTextField.placeholder = "Select Earliest Departure Time"
+        HomeHeaderCell.latestTextField.text = ""
+        HomeHeaderCell.latestTextField.placeholder = "Select Latest Departure Time"
+    }
     
     
     func filterContent(withDepartureText departureText: String, withArrivalText arrivalText: String, withEarliestDate earliestDate: NSDate, withLatestDate latestDate: NSDate) {
@@ -411,8 +417,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
             print(trip)
             let tripDeparture = trip["DepartureLoc"] as! String
             let tripArrival = trip["ArrivalLoc"] as! String
-            let tripEarliest = trip["EarliestTime"] as! NSDate
-            let tripLatest = trip["LatestTime"] as! NSDate
+            let tripEarliest = trip["EarliestDate"] as! NSDate
+            let tripLatest = trip["LatestDate"] as! NSDate
             
             
             return tripDeparture.lowercased() == departureText.lowercased() && tripArrival.lowercased() == arrivalText.lowercased() && compareDates(earliestDate: earliestDate, latestDate: latestDate, tripEarliestDate: tripEarliest, tripLatestDate: tripLatest)

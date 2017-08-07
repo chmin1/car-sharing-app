@@ -94,8 +94,8 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
         
         let departureLocation = trip["DepartureLoc"] as! String
         let arrivalLocation = trip["ArrivalLoc"] as! String
-        let earlyDate = trip["EarliestTime"] as! NSDate
-        let lateDate = trip["LatestTime"] as! NSDate
+        let earlyDate = trip["EarliestDate"] as! NSDate
+        let lateDate = trip["LatestDate"] as! NSDate
         
         let earlyStr = Helper.dateToString(date: earlyDate)
         let lateStr = Helper.dateToString(date: lateDate)

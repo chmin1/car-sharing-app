@@ -221,8 +221,8 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
                 let tripName = trip["Name"] as! String
                 let departureLocation = trip["DepartureLoc"] as! String
                 let arrivalLocation = trip["ArrivalLoc"] as! String
-                let earlyDate = trip["EarliestTime"] as! NSDate
-                let lateDate = trip["LatestTime"] as! NSDate
+                let earlyDate = trip["EarliestDate"] as! NSDate
+                let lateDate = trip["LatestDate"] as! NSDate
                 
                 let earlyStr = Helper.dateToString(date: earlyDate)
                 let lateStr = Helper.dateToString(date: lateDate)
@@ -402,7 +402,7 @@ class NotificationsViewController: UIViewController, UITableViewDelegate, UITabl
             var membersArray = trip["Members"] as! [PFUser]
             membersArray.append(newUser)
             trip["Members"] = membersArray //update trip's members to have the request user
-            trip["LatestTime"] = newTime //change the latest time of the trip
+            trip["LatestDate"] = newTime //change the latest time of the trip
             //save the trip
             trip.saveInBackground(block: { (success: Bool, error: Error?) in
                 if let error = error {

@@ -58,8 +58,8 @@ class EditViewController: UIViewController, GMSPlacePickerViewControllerDelegate
             startTextLabel.text = originalTrip["DepartureLoc"] as? String
             endTextLabel.text = originalTrip["ArrivalLoc"] as? String
             
-            earlyDate = originalTrip["EarliestTime"] as! NSDate
-            lateDate = originalTrip["LatestTime"] as! NSDate
+            earlyDate = originalTrip["EarliestDate"] as! NSDate
+            lateDate = originalTrip["LatestDate"] as! NSDate
             
             earliestTextField.text = Helper.dateToString(date: earlyDate)
             latestTextField.text = Helper.dateToString(date: lateDate)

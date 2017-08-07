@@ -37,8 +37,8 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
 
         myDatePicker.minuteInterval = 10
         newTime = myDatePicker.date as NSDate
-        originalTripLatestTime = currentTrip?["LatestTime"] as! NSDate
-        originalTripEarliestTime = currentTrip?["EarliestTime"] as! NSDate
+        originalTripLatestTime = currentTrip?["LatestDate"] as! NSDate
+        originalTripEarliestTime = currentTrip?["EarliestDate"] as! NSDate
         
         myDatePicker.minimumDate = originalTripEarliestTime.addMinutes(minutesToAdd: 20) as Date
         myDatePicker.maximumDate = originalTripLatestTime as Date
@@ -121,7 +121,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
                     currentTrip?["Members"] = membersArray
                     
                     //change the latest time of the trip
-                    currentTrip?["LatestTime"] = newTime
+                    currentTrip?["LatestDate"] = newTime
                     
                     //SAVE this updated trip info to the trip
                     currentTrip?.saveInBackground(block: { (success: Bool, error: Error?) in
