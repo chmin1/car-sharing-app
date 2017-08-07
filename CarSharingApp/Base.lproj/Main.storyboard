@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="HmW-CZ-Cdp">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,17 +11,17 @@
             <objects>
                 <tableViewController id="V0u-MS-Nb2" customClass="MenuController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="dIf-8X-Prp">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <sections>
                             <tableViewSection id="xP8-eF-h34">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="129" id="Q64-HX-uIi">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="129"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="129"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q64-HX-uIi" id="ytT-cI-UaQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="128.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="128.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="wLc-c6-Kpx">
@@ -51,10 +47,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="qJs-ob-cdq">
-                                        <rect key="frame" x="0.0" y="129" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="129" width="600" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qJs-ob-cdq" id="yzc-CM-iXX">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="6Ux-qf-Q5E">
@@ -75,10 +71,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="f2h-jB-KsJ">
-                                        <rect key="frame" x="0.0" y="188" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="188" width="600" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f2h-jB-KsJ" id="Sui-la-2h8">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="i5T-cb-wpa">
@@ -99,10 +95,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="fwg-UB-Gu2">
-                                        <rect key="frame" x="0.0" y="247" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="247" width="600" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fwg-UB-Gu2" id="3Jq-2u-Snq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="USv-Mt-upu">
@@ -123,10 +119,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="59" id="sX2-Rm-jBb">
-                                        <rect key="frame" x="0.0" y="306" width="375" height="59"/>
+                                        <rect key="frame" x="0.0" y="306" width="600" height="59"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sX2-Rm-jBb" id="Uh4-1x-lUg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="58.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="58.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="T2x-wE-MUd">
@@ -148,10 +144,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="362" id="xiX-lC-I7V">
-                                        <rect key="frame" x="0.0" y="365" width="375" height="362"/>
+                                        <rect key="frame" x="0.0" y="365" width="600" height="362"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xiX-lC-I7V" id="Gbo-xS-JLb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="361.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="361.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="ciY-k9-xmO">
@@ -189,7 +185,7 @@
                         <viewControllerLayoutGuide type="bottom" id="f4s-W2-jvg"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rDa-fu-lLw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="3pX-9V-2ro">
@@ -235,7 +231,7 @@
                         <viewControllerLayoutGuide type="bottom" id="lfJ-MK-6lT"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rIV-F7-vRW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="er2-CU-INP">
@@ -254,16 +250,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="117" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-Us-lMh">
-                                <rect key="frame" x="0.0" y="244" width="375" height="423"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="157" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Vkq-Us-lMh">
+                                <rect key="frame" x="0.0" y="244" width="600" height="356"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TripCell" rowHeight="117" id="Bdc-k5-c1R" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="117"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TripCell" rowHeight="136" id="Bdc-k5-c1R" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Bdc-k5-c1R" id="BOr-C7-WmZ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="116.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="135.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trip Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Fn-9v-mTK">
@@ -466,19 +462,19 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="2dY-iM-c0B">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HomeHeaderCell" rowHeight="227" id="LdN-cL-QtH" customClass="HomeHeaderCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="227"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="227"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LdN-cL-QtH" id="osY-Qo-oAr">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="226.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="226.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Earliest Departure Time" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="F7s-pL-TgB">
@@ -555,10 +551,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="170" id="aSA-kF-nIy" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="255" width="375" height="170"/>
+                                        <rect key="frame" x="0.0" y="255" width="600" height="170"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aSA-kF-nIy" id="xfg-Xm-dMJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="169.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="169.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gAS-NU-1tZ">
@@ -779,7 +775,7 @@
                         <viewControllerLayoutGuide type="bottom" id="q9d-Ag-VdQ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XUP-kL-qWg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cFi-v0-f7w">
@@ -1008,7 +1004,7 @@
                         <viewControllerLayoutGuide type="bottom" id="xSS-JV-TB7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="b16-jn-6N2">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="The latest time I can leave is..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibQ-3Y-hQq">
@@ -1019,7 +1015,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="ZAw-Nu-GJY">
-                                <rect key="frame" x="0.0" y="112" width="375" height="107"/>
+                                <rect key="frame" x="0.0" y="112" width="600" height="107"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="522959079.34528798">
                                     <!--2017-07-28 18:24:39 +0000-->
@@ -1082,7 +1078,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Fie-c2-IrG"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="slT-6e-IcF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Trip Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KYZ-A3-IIF">
@@ -1233,19 +1229,19 @@
                         <viewControllerLayoutGuide type="bottom" id="Phk-6l-tuY"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0rp-Ll-CyH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="179" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Zdy-sE-PU5">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RequestCell" rowHeight="147" id="nlm-GW-Wb1" customClass="RequestCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="147"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="147"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nlm-GW-Wb1" id="qH8-S8-bBf">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="146.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="146.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0sc-Ai-ZuC">
@@ -1288,10 +1284,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="EditedTripCell" rowHeight="179" id="Kvj-YV-Lux" customClass="EditedTripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="175" width="375" height="179"/>
+                                        <rect key="frame" x="0.0" y="175" width="600" height="179"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Kvj-YV-Lux" id="Y4r-kk-UQb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="178.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="178.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUt-rP-cj6">
@@ -1410,10 +1406,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GeneralNotificationsCell" rowHeight="89" id="x4k-FN-7TL" customClass="GeneralNotificationsCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="354" width="375" height="89"/>
+                                        <rect key="frame" x="0.0" y="354" width="600" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x4k-FN-7TL" id="iCI-oS-uQP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="88.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="88.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VRC-iC-RVa">
@@ -1460,7 +1456,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="oA5-xI-SRE" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" id="UbD-WC-9FP"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="nz2-nQ-XNp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nz2-nQ-XNp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1482,7 +1478,7 @@
                         <viewControllerLayoutGuide type="bottom" id="O1F-Fy-Rd6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="rb0-P2-skJ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="hxN-b7-L9d">
@@ -1641,11 +1637,11 @@
                         <viewControllerLayoutGuide type="bottom" id="fHf-U9-7LB"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yrE-pA-Ra7">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kof-TL-IsU">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="i4u-C9-YT5">
                                     <size key="itemSize" width="375" height="100"/>
@@ -1655,7 +1651,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="messageCell" id="kNk-QU-1QQ" customClass="messagesCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                        <rect key="frame" x="112.5" y="0.0" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
@@ -1827,22 +1823,22 @@
                         <viewControllerLayoutGuide type="bottom" id="4Ev-Wn-WM3"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="sbX-yS-SPD">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-mi-URE">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="566.5"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="beZ-mi-URE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="566.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ConvoCell" rowHeight="100" id="Fgr-W6-yBe" customClass="ConvoCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
+                                        <rect key="frame" x="0.0" y="28" width="600" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fgr-W6-yBe" id="0ZQ-CG-yWM">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Td-Z5-0Ex">
-                                                    <rect key="frame" x="127.5" y="16" width="120" height="14"/>
+                                                    <rect key="frame" x="240" y="16" width="120" height="14"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="120" id="Ib1-9U-lFW"/>
                                                     </constraints>
@@ -1908,11 +1904,11 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OWT-AY-5Yw">
-                                <rect key="frame" x="0.0" y="566.5" width="375" height="51.5"/>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OWT-AY-5Yw">
+                                <rect key="frame" x="0.0" y="566.5" width="600" height="51.5"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5rK-8O-CqP" customClass="GrowingTextView" customModule="GrowingTextView">
-                                        <rect key="frame" x="8" y="8" width="281" height="35.5"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="5rK-8O-CqP" customClass="GrowingTextView" customModule="GrowingTextView">
+                                        <rect key="frame" x="8" y="8" width="506" height="35.5"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.23999999999999999" colorSpace="calibratedRGB"/>
                                         <accessibility key="accessibilityConfiguration">
                                             <accessibilityTraits key="traits" adjustable="YES"/>
@@ -1926,8 +1922,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDK-zk-yf8">
-                                        <rect key="frame" x="297" y="7.5" width="70" height="37"/>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BDK-zk-yf8">
+                                        <rect key="frame" x="522" y="7.5" width="70" height="37"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="70" id="IoS-pu-u0R"/>
                                         </constraints>
@@ -1937,8 +1933,8 @@
                                             <action selector="onSendMessage:" destination="Kyd-KR-sHy" eventType="touchUpInside" id="2Pv-tg-bYD"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDn-wy-8AE" userLabel="topBorder">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="2"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kDn-wy-8AE" userLabel="topBorder">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="2"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="2" id="31r-MB-fu2"/>
@@ -2000,19 +1996,19 @@
                         <viewControllerLayoutGuide type="bottom" id="Sz2-kj-fdo"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="07d-4d-swu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="109" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iu4-Fh-Tlx">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="136" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iu4-Fh-Tlx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="109" id="TCk-dS-9b2" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="109"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TripCell" rowHeight="136" id="TCk-dS-9b2" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TCk-dS-9b2" id="yvZ-cN-wuA">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="108.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="135.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hay-bp-0mW">
@@ -2227,7 +2223,7 @@
                         <viewControllerLayoutGuide type="bottom" id="AZt-rT-Gk6"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Swh-P9-bEt">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="Vg6-bu-GCM">
@@ -2352,15 +2348,15 @@
             <objects>
                 <tableViewController id="lth-pa-qeL" customClass="PickCollegeViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="28" sectionFooterHeight="28" id="HeL-0J-4Ev">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="56" id="ZE5-Q5-JV3">
-                                <rect key="frame" x="0.0" y="28" width="375" height="56"/>
+                                <rect key="frame" x="0.0" y="28" width="600" height="56"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZE5-Q5-JV3" id="2Zh-TB-dMh">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="55.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="55.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nBZ-C6-n0E">
@@ -2395,7 +2391,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfE-Kk-RA4"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Sg0-c6-aXd">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="Sweet Morning" translatesAutoresizingMaskIntoConstraints="NO" id="M9A-bD-P0m">
@@ -2471,7 +2467,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SHj-R4-8eW" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="uYf-dL-lrY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uYf-dL-lrY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2490,7 +2486,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RnT-Ej-zNo" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Create" image="icons8-Plus-25" id="rbm-76-iQ0"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="gXn-Wr-KXh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gXn-Wr-KXh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2509,7 +2505,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="jaG-1U-MKr" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Messages" image="icons8-Speech Bubble-25" id="agw-6R-ORh"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="NUL-wO-8aJ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NUL-wO-8aJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2528,7 +2524,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="LMv-AA-L7b" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Your Trips" image="car (2)" id="BLM-J0-f4M"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Xm0-vA-lWR">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Xm0-vA-lWR">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2547,7 +2543,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hfh-ce-Ckx" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Notifications" image="icons8-Notification-25" id="i2I-nE-8uJ"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="hJd-1A-8o8">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hJd-1A-8o8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2569,7 +2565,7 @@
                         <viewControllerLayoutGuide type="bottom" id="aEO-XI-72H"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1z4-js-6sq">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -2588,7 +2584,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="RNe-9F-S7w" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="7TU-vw-hZE">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="7TU-vw-hZE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2606,7 +2602,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="bRx-Nl-LM4" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Jb1-bp-r5c">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Jb1-bp-r5c">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2624,7 +2620,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rAy-k9-e58" customClass="HalfModalNavViewController" customModule="CarSharingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="6AK-mq-o1H">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="6AK-mq-o1H">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2646,7 +2642,7 @@
                         <viewControllerLayoutGuide type="bottom" id="oYC-zf-CuF"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wvE-FA-9kJ">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="owM-kW-9gX">
@@ -2662,16 +2658,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="107" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dAb-6i-Ef8">
-                                <rect key="frame" x="0.0" y="258" width="375" height="409"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="153" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dAb-6i-Ef8">
+                                <rect key="frame" x="0.0" y="286" width="600" height="314"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TripCell" rowHeight="107" id="qM3-Yr-AUZ" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="107"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TripCell" rowHeight="136" id="qM3-Yr-AUZ" customClass="TripCell" customModule="CarSharingApp" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qM3-Yr-AUZ" id="aRA-Q8-ehm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="106.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="135.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Trip Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OLJ-iK-wBo">
