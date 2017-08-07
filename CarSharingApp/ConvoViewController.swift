@@ -122,7 +122,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
             }, completion: { (completion) in
                 
                 let indexPath = IndexPath(item: self.convoMessages.count - 1, section: 0)
-                self.convoView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                if self.convoMessages.count >= 4 {
+                    self.convoView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+
+                }
                 
             })
         }
