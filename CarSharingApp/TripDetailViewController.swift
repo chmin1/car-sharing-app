@@ -25,6 +25,8 @@ class TripDetailViewController: UIViewController {
     @IBOutlet weak var departureLocLabel: UILabel!
     @IBOutlet weak var arrivalLocLabel: UILabel!
     @IBOutlet weak var requestPendingLabel: UILabel!
+    @IBOutlet weak var earliestDateLabel: UILabel!
+    @IBOutlet weak var latestDateLabel: UILabel!
     
     @IBOutlet weak var member1Prof: UIImageView!
     @IBOutlet weak var member2Prof: UIImageView!
@@ -68,11 +70,7 @@ class TripDetailViewController: UIViewController {
         member4Prof.clipsToBounds = true
         
         //Set up the labels to have and colors
-        earliestLabel.textColor = Helper.coral()
-        latestLabel.textColor = Helper.coral()
-        //departureLocLabel.textColor = Helper.coral()
-        //arrivalLocLabel.textColor = Helper.coral()
-        requestPendingLabel.textColor = Helper.coral()
+        requestPendingLabel.textColor = Helper.peach()
         
         
         //Pending Edit
@@ -92,11 +90,15 @@ class TripDetailViewController: UIViewController {
             let earlyDate = trip["EarliestDate"] as! NSDate
             let lateDate = trip["LatestDate"] as! NSDate
             
-            let earlyStr = Helper.dateToString(date: earlyDate)
-            let lateStr = Helper.dateToString(date: lateDate)
+            let earlyTimeStr = Helper.dateToStringJustTime(date: earlyDate)
+            let lateTimeStr = Helper.dateToStringJustTime(date: lateDate)
+            let earlyDateStr = Helper.dateToStringJustDate(date: earlyDate)
+            let lateDateStr = Helper.dateToStringJustDate(date: lateDate)
             
-            earliestLabel.text = earlyStr
-            latestLabel.text = lateStr
+            earliestLabel.text = earlyTimeStr
+            latestLabel.text = lateTimeStr
+            earliestDateLabel.text = earlyDateStr
+            latestDateLabel.text = lateDateStr
 
             let members = trip["Members"] as! [PFUser]
             globalMembers = members
@@ -129,6 +131,7 @@ class TripDetailViewController: UIViewController {
                 fromMarker.position = CLLocationCoordinate2D(latitude: fromLat!, longitude: fromLong!)
                 fromMarker.title = trip["DepartureLoc"] as! String
                 fromMarker.map = myMapView
+                fromMarker.icon = UIImage(named: "startPoint")
                 let toMarker = GMSMarker()
                 toMarker.position = CLLocationCoordinate2D(latitude: toLat!, longitude: toLong!)
                 toMarker.title = trip["ArrivalLoc"] as! String
@@ -171,6 +174,7 @@ class TripDetailViewController: UIViewController {
         //fill in first person's info if count > 0
         if let member1 = memberNames[0] {
             name1Label.text = member1.capitalized //fill in their name
+            name1Label.textColor = Helper.coral()
             //fill in their prof pic
             if let profPic = members[0]["profPic"] as? PFFile {
                 profPic.getDataInBackground { (imageData: Data!, error: Error?) in
@@ -182,6 +186,7 @@ class TripDetailViewController: UIViewController {
         //fill in second person's info if count > 1
         if count > 1 {
             name2Label.isHidden = false
+            name2Label.textColor = Helper.coral()
             member2Prof.isHidden = false
             if let member2 = memberNames[1] {
                 name2Label.text = member2.capitalized //fill in their name
@@ -197,6 +202,7 @@ class TripDetailViewController: UIViewController {
         //fill in third person's info if count > 2
         if count > 2 {
             name3Label.isHidden = false
+            name3Label.textColor = Helper.coral()
             member3Prof.isHidden = false
             if let member3 = memberNames[2] {
                 name3Label.text = member3.capitalized //fill in their name
@@ -212,6 +218,7 @@ class TripDetailViewController: UIViewController {
         //fill in fourth person's info if count > 3
         if count > 3 {
             name4Label.isHidden = false
+            name4Label.textColor = Helper.coral()
             member4Prof.isHidden = false
             if let member4 = memberNames[3] {
                 name4Label.text = member4.capitalized //fill in their name

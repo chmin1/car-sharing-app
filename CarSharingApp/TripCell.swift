@@ -33,11 +33,7 @@ class TripCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        
-        
-        
-        
+
         //make prof pic circular
         onePersonImageView.layer.cornerRadius = onePersonImageView.frame.size.width / 2
         onePersonImageView.clipsToBounds = true

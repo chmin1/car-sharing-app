@@ -24,6 +24,8 @@ class MenuController: UITableViewController {
         //make prof pic circular
         profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
         profilePicImageView.clipsToBounds = true
+        profilePicImageView.layer.borderColor = Helper.veryLightGray().cgColor
+        profilePicImageView.layer.borderWidth = 3
         
         //set name label
         let nameText = PFUser.current()?["fullname"] as! String

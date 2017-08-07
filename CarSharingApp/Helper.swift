@@ -166,6 +166,28 @@ class Helper {
         return selectedDate
     }
     
+    static func dateToStringJustTime(date: NSDate) -> String {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "h:mm a"
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: date as Date)
+        return selectedDate
+    }
+    
+    static func dateToStringJustDate(date: NSDate) -> String {
+        // Create date formatter
+        let dateFormatter: DateFormatter = DateFormatter()
+        
+        // Set date format
+        dateFormatter.dateFormat = "E, MMM d"
+        // Apply date format
+        let selectedDate: String = dateFormatter.string(from: date as Date)
+        return selectedDate
+    }
+    
     static func returnMemberNames(tripMembers: [PFUser]) -> [String] {
         var memberNames: [String] = []
         for member in tripMembers {
