@@ -105,15 +105,6 @@ class YourTripsViewController: UIViewController, UITableViewDelegate, UITableVie
             print(tripName)
             let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
             print(memberNames)
-            var memberString = ""
-            
-            for memberName in memberNames {
-                memberString += memberName.capitalized
-                if memberName != memberNames.last {
-                    memberString += ", "
-                }
-            }
-            cell.tripMembersLabel.text = memberString
             
             let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
             Helper.displayProfilePics(withCell: cell, withMemberPics: memberProfPics)

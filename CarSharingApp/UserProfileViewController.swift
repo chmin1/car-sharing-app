@@ -33,8 +33,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         //make prof pic circular
         profilePicImageView.layer.cornerRadius = profilePicImageView.frame.size.width / 2
         profilePicImageView.clipsToBounds = true
-        profilePicImageView.layer.borderColor = Helper.veryLightGray().cgColor
-        profilePicImageView.layer.borderWidth = 3
+        
         
         //set name label
         let nameText = user["fullname"] as! String
@@ -125,6 +124,7 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
         return returnVal
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let myCell = tripsTableView.dequeueReusableCell(withIdentifier: "TripCell", for: indexPath) as! TripCell
         
@@ -146,15 +146,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print(tripName)
                 let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
                 print(memberNames)
-                var memberString = ""
-                
-                for memberName in memberNames {
-                    memberString += memberName.capitalized
-                    if memberName != memberNames.last {
-                        memberString += ", "
-                    }
-                }
-                myCell.tripMembersLabel.text = memberString
                 
                 let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
                 Helper.displayProfilePics(withCell: myCell, withMemberPics: memberProfPics)
@@ -183,15 +174,6 @@ class UserProfileViewController: UIViewController, UIImagePickerControllerDelega
                 print(tripName)
                 let memberNames = Helper.returnMemberNames(tripMembers: tripMembers)
                 print(memberNames)
-                var memberString = ""
-                
-                for memberName in memberNames {
-                    memberString += memberName.capitalized
-                    if memberName != memberNames.last {
-                        memberString += ", "
-                    }
-                }
-                myCell.tripMembersLabel.text = memberString
                 
                 let memberProfPics = Helper.returnMemberProfPics(tripMembers: tripMembers)
                 Helper.displayProfilePics(withCell: myCell, withMemberPics: memberProfPics)
