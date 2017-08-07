@@ -222,8 +222,15 @@ class Helper {
         cell.fourPeopleImageView3.isHidden = true
         cell.fourPeopleImageView4.isHidden = true
         
+        cell.onePersonOverlay.isHidden = true
+        cell.twoPeopleOverlay.isHidden = true
+        cell.threePeopleOverlay.isHidden = true
+        cell.fourPeopleOverlay.isHidden = true
+        
+        
         if(count == 1){
             cell.onePersonImageView.isHidden = false
+            cell.onePersonOverlay.isHidden = false
             let profPic = pics[0]
             profPic.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.onePersonImageView.image = UIImage(data: data!)
@@ -239,6 +246,7 @@ class Helper {
             })
             cell.twoPeopleImageView1.isHidden = false
             cell.twoPeopleImageView2.isHidden = false
+            cell.twoPeopleOverlay.isHidden = false
         } else if (count == 3) {
             let profPic1 = pics[0]
             let profPic2 = pics[1]
@@ -246,6 +254,7 @@ class Helper {
             cell.threePeopleImageView1.isHidden = false
             cell.threePeopleImageView2.isHidden = false
             cell.threePeopleImageView3.isHidden = false
+            cell.threePeopleOverlay.isHidden = false
             profPic1.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.threePeopleImageView1.image = UIImage(data: data!)
             })
@@ -264,6 +273,7 @@ class Helper {
             cell.fourPeopleImageView2.isHidden = false
             cell.fourPeopleImageView3.isHidden = false
             cell.fourPeopleImageView4.isHidden = false
+            cell.fourPeopleOverlay.isHidden = false
             profPic1.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.fourPeopleImageView1.image = UIImage(data: data!)
             })
@@ -279,6 +289,8 @@ class Helper {
         }
         
     }
+    
+    
     /*
      * Check if a trip is in the past by comparing it's latest date to the current date
      */
@@ -295,7 +307,6 @@ class Helper {
     }
     
     // Same thing, but for a collectionView
-    
     static func displayProfilePics(withCell cell: messagesCell, withMemberPics pics: [PFFile]){
         let count = pics.count
         cell.onePersonImageView.isHidden = true
@@ -309,8 +320,14 @@ class Helper {
         cell.fourPeopleImageView3.isHidden = true
         cell.fourPeopleImageView4.isHidden = true
         
+        cell.onePersonOverlay.isHidden = true
+        cell.twoPeopleOverlay.isHidden = true
+        cell.threePeopleOverlay.isHidden = true
+        cell.fourPeopleOverlay.isHidden = true
+        
         if(count == 1){
             cell.onePersonImageView.isHidden = false
+            cell.onePersonOverlay.isHidden = false
             let profPic = pics[0]
             profPic.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.onePersonImageView.image = UIImage(data: data!)
@@ -326,6 +343,7 @@ class Helper {
             })
             cell.twoPeopleImageView1.isHidden = false
             cell.twoPeopleImageView2.isHidden = false
+            cell.twoPeopleOverlay.isHidden = false
         } else if (count == 3) {
             let profPic1 = pics[0]
             let profPic2 = pics[1]
@@ -333,6 +351,7 @@ class Helper {
             cell.threePeopleImageView1.isHidden = false
             cell.threePeopleImageView2.isHidden = false
             cell.threePeopleImageView3.isHidden = false
+            cell.threePeopleOverlay.isHidden = false
             profPic1.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.threePeopleImageView1.image = UIImage(data: data!)
             })
@@ -351,6 +370,7 @@ class Helper {
             cell.fourPeopleImageView2.isHidden = false
             cell.fourPeopleImageView3.isHidden = false
             cell.fourPeopleImageView4.isHidden = false
+            cell.fourPeopleOverlay.isHidden = false
             profPic1.getDataInBackground(block: { (data: Data?, error: Error?) in
                 cell.fourPeopleImageView1.image = UIImage(data: data!)
             })
