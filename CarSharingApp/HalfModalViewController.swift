@@ -76,7 +76,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
     
     @IBAction func didTapChangeTime(_ sender: Any) {
         
-        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withTime: newTime) { (request: PFObject?, error: Error?) in
+        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withDate: newTime) { (request: PFObject?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
             } else if let request = request {
@@ -94,7 +94,7 @@ class HalfModalViewController: UIViewController, HalfModalPresentable {
 
     @IBAction func didTapLeaveTime(_ sender: Any) {
         
-        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withTime: originalTripLatestTime) { (request: PFObject?, error: Error?) in
+        Request.postRequest(withTrip: currentTrip, withUser: PFUser.current(), withDate: originalTripLatestTime) { (request: PFObject?, error: Error?) in
             if let error = error {
                 print(error.localizedDescription)
             } else if let request = request {

@@ -13,7 +13,7 @@ import UIKit
 
 class Request: NSObject {
     
-    class func postRequest(withTrip trip: PFObject?, withUser user: PFUser?, withTime newTime: NSDate, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
+    class func postRequest(withTrip trip: PFObject?, withUser user: PFUser?, withDate newDate: NSDate, withCompletion completion: @escaping (PFObject?, Error?) -> ()) {
         
         // Create Request Object: PFObject
         let request = PFObject(className: "Request")
@@ -21,7 +21,7 @@ class Request: NSObject {
         //Add relevant fields to the object
         request["Trip"] = trip
         request["User"] = user
-        request["NewTime"] = newTime
+        request["newDate"] = newDate
         let planner = trip?["Planner"] as! PFUser
         request["TripPlannerID"] = planner.objectId
         request["UserID"] = user?.objectId
