@@ -22,7 +22,7 @@ class User: NSObject {
         newUser["lastname"] = lastname
         newUser["fullname"] = firstname! + " " + lastname!
         newUser["school"] = school
-        newUser["profPic"] = User.getPFFileFromImage(image: #imageLiteral(resourceName: "profile"))
+        newUser["profPic"] = User.getPFFileFromImage(image: #imageLiteral(resourceName: "userImage"))
         
         newUser.signUpInBackground { (success: Bool, error: Error?) in
             if success {

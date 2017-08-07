@@ -184,7 +184,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
                         memberString += ", "
                     }
                 }
-                //cell.tripMembersLabel.text = memberString
 
                 
                 if (requestedTrips.contains(trip.objectId!)) {
@@ -233,7 +232,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         if (indexPath.section == 0) {
             return 227
         } else if (indexPath.section == 1) {
-            return 170
+            // Check array of data to see if you have information on the row at index path
+            let trip = filteredTripsFeed[indexPath.row]
+            let tripMembers = trip["Members"] as? [PFUser]
+            let memberNames = Helper.returnMemberNames(tripMembers: tripMembers!)
+            let currentMemberName = PFUser.current()?["firstname"] as! String
+            if memberNames.contains(currentMemberName) || memberNames.count == 4 {
+                return 130
+            } else {
+                return 170
+            }
+            
         }
         return 0
     }
