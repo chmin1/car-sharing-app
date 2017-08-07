@@ -72,9 +72,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         topBorder.backgroundColor = Helper.peach()
         sendButton.backgroundColor = UIColor.white
         sendButton.layer.borderWidth = 2.5
-        sendButton.layer.borderColor = Helper.peach().cgColor
+        sendButton.layer.borderColor = UIColor.white.cgColor
         sendButton.layer.cornerRadius = sendButton.frame.height / 2
-        sendButton.setTitleColor(Helper.peach(), for: .normal)
+        sendButton.setTitleColor(UIColor.white, for: .normal)
         sendButton.backgroundColor = nil
 
         if let title = Trip["Name"] as? String {
@@ -336,13 +336,12 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12)], context: nil)
         item.textMessage.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width, height: estimatedFrame.height)
-        
-        item.authorLabel.text = author
+        item.textBubble.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width + 15, height: estimatedFrame.height + 15)
         
         if author == PFUser.current()?["fullname"] as! String {
             item.textBubble.backgroundColor = Helper.peach()
         } else {
-            item.textBubble.backgroundColor = Helper.veryLightGray()
+            item.textBubble.backgroundColor = UIColor(white: 0.95, alpha: 1)
         }
         
         item.dateSentLabel.text = date

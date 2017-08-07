@@ -17,19 +17,14 @@ class ConvoCell: UITableViewCell {
     
     @IBOutlet weak var textBubble: UIView!
     
-    @IBOutlet weak var authorLabel: UILabel!
-    
     @IBOutlet weak var dateSentLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        textImage.layer.borderColor = Helper.veryLightGray().cgColor
-        textImage.layer.borderWidth = 1
         
-//        textBubble.backgroundColor = Helper.peach()
-        textBubble.layer.cornerRadius = 7
+        textBubble.layer.cornerRadius = textBubble.frame.height / 2
         textBubble.layer.masksToBounds = true
         
     }
