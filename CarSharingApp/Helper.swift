@@ -95,26 +95,44 @@ class Helper {
                 
             }//close if let trip=trips
             
-            //Deletes the user from the database
-            PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else if success == true{
-                    print("user deleted !")
+            let query = PFQuery(className: "Request")
+            query.includeKey("User")
+            query.whereKey("UserID", equalTo: currentUser?.objectId)
+            query.findObjectsInBackground(block: { (returnedRequests: [PFObject]?, error: Error?) in
+                if let returnedRequests = returnedRequests {
+                    for request in returnedRequests {
+                        request.deleteInBackground(block: { (success: Bool, error: Error?) in
+                            if let error = error {
+                                print(error.localizedDescription)
+                            } else if success == true{
+                                print("request deleted !")
+                            }
+                        })
+                    }
                 }
-            })
-            
-            //Logs user out
-            NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
-            PFUser.logOutInBackground(block: { (error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                } else {
-                    print("Successful loggout")
-                }
-            })
-            
-        }//close query
+                
+                //Deletes the user from the database
+                PFUser.current()?.deleteInBackground(block: { (success: Bool, error: Error?) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else if success == true{
+                        print("user deleted !")
+                    }
+                }) //close delete user from databoase
+                
+                //Logs user out
+                NotificationCenter.default.post(name: NSNotification.Name("logoutNotification"), object: nil)
+                PFUser.logOutInBackground(block: { (error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                    } else {
+                        print("Successful loggout")
+                    }
+                })//close log out
+                
+            })//close Requests query
+  
+        }//close Trips query
         
     }
     
