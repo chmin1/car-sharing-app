@@ -1870,7 +1870,7 @@
                                                 </view>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="RjG-Rq-HKk">
                                                     <rect key="frame" x="16" y="41" width="40" height="40"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" red="0.74052784974093266" green="0.74052784974093266" blue="0.74052784974093266" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="40" id="6QL-Lg-16I"/>
                                                         <constraint firstAttribute="width" constant="40" id="JL9-ez-BH2"/>
