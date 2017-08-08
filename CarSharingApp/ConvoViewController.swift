@@ -340,8 +340,10 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         
         if author == PFUser.current()?["fullname"] as! String {
             item.textBubble.backgroundColor = Helper.peach()
+            item.textMessage.textColor = UIColor.white
         } else {
             item.textBubble.backgroundColor = UIColor(white: 0.95, alpha: 1)
+            item.textMessage.textColor = UIColor.black
         }
         
         item.dateSentLabel.text = date
