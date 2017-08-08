@@ -381,6 +381,8 @@ class TripDetailViewController: UIViewController {
             let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
             halfModelVC.currentTrip = trip
             halfModelVC.dismissBlock = { () -> () in
+                self.requestButton.isHidden = true
+                self.requestPendingLabel.isHidden = false
             }
         }
         if segue.identifier == "userProfile" {
