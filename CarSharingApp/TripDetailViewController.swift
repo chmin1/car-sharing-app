@@ -380,6 +380,8 @@ class TripDetailViewController: UIViewController {
             let navigationController = segue.destination as! HalfModalNavViewController
             let halfModelVC = navigationController.childViewControllers[0] as! HalfModalViewController //tell it its destination
             halfModelVC.currentTrip = trip
+            halfModelVC.dismissBlock = { () -> () in
+            }
         }
         if segue.identifier == "userProfile" {
             let userProfileViewController = segue.destination as! UserProfileViewController //tell it its destination
