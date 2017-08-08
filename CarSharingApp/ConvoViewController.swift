@@ -334,9 +334,9 @@ class ConvoViewController: UIViewController, UITextViewDelegate, UITableViewDele
         item.textMessage.text = messageText
         let size = CGSize(width: 250, height: 1000)
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
-        let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 12)], context: nil)
+        let estimatedFrame = NSString(string: messageText).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17)], context: nil)
         item.textMessage.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width, height: estimatedFrame.height)
-        item.textBubble.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width + 15, height: estimatedFrame.height + 15)
+        item.textBubble.frame = CGRect(x: 0, y: 0, width: estimatedFrame.width + 20, height: estimatedFrame.height + 20)
         
         if author == PFUser.current()?["fullname"] as! String {
             item.textBubble.backgroundColor = Helper.peach()
