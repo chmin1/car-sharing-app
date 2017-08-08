@@ -191,6 +191,10 @@ class MessagesViewController: UIViewController, UICollectionViewDelegate, UIColl
                 if self.tripData.count == 0 {
                     Helper.displayEmptyCollectionView(withCollectionView: self.messagesView, withText: "No messages to display!")
                     self.emojiView.isHidden = false
+                } else {
+                    self.emojiView.isHidden = true
+                    self.messagesView.backgroundView?.isHidden = true
+                    
                 }
                 
                 self.messagesView.reloadData()
