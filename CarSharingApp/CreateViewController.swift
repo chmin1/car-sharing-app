@@ -283,6 +283,11 @@ class CreateViewController: UIViewController, GMSPlacePickerViewControllerDelega
         endTextLabel.textColor = UIColor.lightGray
         startTextLabel.text = " Add Start Location"
         endTextLabel.text = " Add End Location"
+        setUpDatePicker()
+        earliestTextField.text = ""
+        latestTextField.text = ""
+        earliestTextField.placeholder = " Add date and time"
+        latestTextField.placeholder = " Add date and time"
         
     }//close didTapSubmit
     
